@@ -21,13 +21,13 @@ class SignIn : AppCompatActivity() {
         })
 
         SignUpButton.setOnClickListener(View.OnClickListener {
-            //val intent = Intent(applicationContext, SignUp_activity::class.java)
-            //startActivity(intent)
+            val intent = Intent(applicationContext, SignUp::class.java)
+            startActivity(intent)
         })
 
         ForgotPasswordBotton.setOnClickListener(View.OnClickListener {
-            //val intent = Intent(applicationContext, Forgotten_activity::class.java)
-            //startActivity(intent)
+            val intent = Intent(applicationContext, ForgottenPassword::class.java)
+            startActivity(intent)
         })
     }
 }
