@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".ui.sign_in.SignUp3_activity">
+
+
+    <EditText
+        android:id="@+id/diets2"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/prompt_email"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTitle6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitle6"
+        android:layout_width="320dp"
+        android:layout_height="31dp"
+        android:paddingStart="5dp"
+        android:text="Choose Password"
+        android:textColor="#F80F0000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/diets2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/email5"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/prompt_password"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle3" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="320dp"
+        android:layout_height="31dp"
+        android:paddingStart="5dp"
+        android:text="@string/prompt_email"
+        android:textColor="#F80F0000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitle3"
+        android:layout_width="320dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="10dp"
+        android:paddingStart="5dp"
+        android:text="Repeat password"
+        android:textColor="#F80F0000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diets2" />
+
+    <Button
+        android:id="@+id/Save_button"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_standart_color"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="#0C0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/email5"
+        app:layout_constraintTop_toBottomOf="@+id/email5" />
+
+    <Button
+        android:id="@+id/Back"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_standart_color"
+        android:text="Back"
+        android:textAllCaps="false"
+        android:textColor="#090000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/email5"
+        app:layout_constraintTop_toBottomOf="@+id/email5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

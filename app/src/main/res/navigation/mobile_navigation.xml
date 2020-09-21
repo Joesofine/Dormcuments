@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/calender">
+
+    <fragment
+        android:id="@+id/calender"
+        android:name="com.example.dormcuments.ui.calender.CalenderFragment"
+        android:label="@string/title_calender"
+        tools:layout="@layout/fragment_calender" />
+
+    <fragment
+        android:id="@+id/shopping"
+        android:name="com.example.dormcuments.ui.shopping.ShoppingFragment"
+        android:label="@string/title_shopping"
+        tools:layout="@layout/fragment_shopping" />
+
+    <fragment
+        android:id="@+id/foodclub"
+        android:name="com.example.dormcuments.ui.foodclub.FoodclubFragment"
+        android:label="@string/title_foodclub"
+        tools:layout="@layout/fragment_foodclub" />
+
+    <fragment
+        android:id="@+id/more"
+        android:name="com.example.dormcuments.ui.more.MoreFragment"
+        android:label="@string/title_more"
+        tools:layout="@layout/fragment_foodclub" />
+
+</navigation>

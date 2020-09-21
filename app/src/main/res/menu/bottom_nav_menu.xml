@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/calender"
+        android:icon="@drawable/icon_calender"
+        android:title="@string/title_calender" />
+
+    <item
+        android:id="@+id/shopping"
+        android:icon="@drawable/ic_shopping"
+        android:title="@string/title_shopping" />
+
+    <item
+        android:id="@+id/foodclub"
+        android:icon="@drawable/ic_foodclub"
+        android:title="@string/title_foodclub" />
+    <item
+        android:id="@+id/more"
+        android:icon="@drawable/ic_action_name"
+        android:title="@string/title_more" />
+
+</menu>

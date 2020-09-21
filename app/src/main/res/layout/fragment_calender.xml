@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ButtonDarkDark"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/week"
+            android:layout_width="137dp"
+            android:layout_height="50dp"
+            android:background="@color/ButtonLight"
+            android:text="Week"
+            android:textColor="#F8000000" />
+
+        <Button
+            android:id="@+id/month"
+            android:layout_width="137dp"
+            android:layout_height="50dp"
+            android:background="@color/ButtonLight"
+            android:text="Month"
+            android:textColor="#F8090909" />
+
+        <Button
+            android:id="@+id/year"
+            android:layout_width="137dp"
+            android:layout_height="50dp"
+            android:background="@color/ButtonLight"
+            android:text="Year"
+            android:textColor="#F8090909" />
+
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
+
+        <LinearLayout
+            android:id="@+id/sliderLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/ButtonLight"
+            android:orientation="horizontal">
+            <!--
+                       <Button
+                           android:id="@+id/jan"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="januar"
+                           android:textColor="#F8000000" />
+
+                       <Button
+                           android:id="@+id/feb"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="february"
+                           android:textColor="#F8090909" />
+
+                       <Button
+                           android:id="@+id/mar"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="March"
+                           android:textColor="#F8090909" />
+
+                       <Button
+                           android:id="@+id/apr"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="april"
+                           android:textColor="#F8000000" />
+
+                       <Button
+                           android:id="@+id/may"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="may"
+                           android:textColor="#F8090909" />
+
+                       <Button
+                           android:id="@+id/jun"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="june"
+                           android:textColor="#F8090909" />
+
+                       <Button
+                           android:id="@+id/jul"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="july"
+                           android:textColor="#F8000000" />
+
+                       <Button
+                           android:id="@+id/aug"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="august"
+                           android:textColor="#F8090909" />
+
+                       <Button
+                           android:id="@+id/sep"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="september"
+                           android:textColor="#F8090909" />
+
+                       <Button
+                           android:id="@+id/oct"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="october"
+                           android:textColor="#F8000000" />
+
+                       <Button
+                           android:id="@+id/nov"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="november"
+                           android:textColor="#F8090909" />
+
+                       <Button
+                           android:id="@+id/dec"
+                           android:layout_width="100dp"
+                           android:layout_height="50dp"
+                           android:background="@color/ButtonLight"
+                           android:text="december"
+                           android:textColor="#F8090909" />
+                       -->
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
