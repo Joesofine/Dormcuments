@@ -6,16 +6,17 @@ import android.os.Bundle
 import android.view.View
 import com.example.dormcuments.MainActivity
 import com.example.dormcuments.R
+import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class SignUp : AppCompatActivity() {
+class SignUp_Image : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        setContentView(R.layout.activity_sign_up2)
 
 
         save.setOnClickListener(View.OnClickListener {
-            val intent = Intent(applicationContext, MainActivity::class.java)
+            val intent = Intent(applicationContext, SignIn::class.java)
             startActivity(intent)
         })
 
@@ -23,6 +24,5 @@ class SignUp : AppCompatActivity() {
             val intent = Intent(applicationContext, SignUp::class.java)
             startActivity(intent)
         })
-
     }
 }

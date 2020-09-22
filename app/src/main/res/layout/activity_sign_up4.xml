@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/diets2"
+        android:id="@+id/cho_password"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
@@ -50,13 +50,13 @@
         android:text="Choose Password"
         android:textColor="#F80F0000"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/diets2"
+        app:layout_constraintBottom_toTopOf="@+id/cho_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/email5"
+        android:id="@+id/country_signup"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
@@ -96,10 +96,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diets2" />
+        app:layout_constraintTop_toBottomOf="@+id/cho_password" />
 
     <Button
-        android:id="@+id/Save_button"
+        android:id="@+id/save"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:background="@drawable/button_standart_color"
@@ -107,11 +107,11 @@
         android:textAllCaps="false"
         android:textColor="#0C0000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/email5"
-        app:layout_constraintTop_toBottomOf="@+id/email5" />
+        app:layout_constraintEnd_toEndOf="@+id/country_signup"
+        app:layout_constraintTop_toBottomOf="@+id/country_signup" />
 
     <Button
-        android:id="@+id/Back"
+        android:id="@+id/back"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:background="@drawable/button_standart_color"
@@ -119,7 +119,7 @@
         android:textAllCaps="false"
         android:textColor="#090000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/email5"
-        app:layout_constraintTop_toBottomOf="@+id/email5" />
+        app:layout_constraintStart_toStartOf="@+id/country_signup"
+        app:layout_constraintTop_toBottomOf="@+id/country_signup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
