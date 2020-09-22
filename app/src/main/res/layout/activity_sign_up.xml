@@ -152,8 +152,6 @@
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="false"
                 android:layout_centerVertical="true"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
                 app:backgroundTint="@color/hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
