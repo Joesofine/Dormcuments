@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/week"
+            android:id="@+id/weekID"
             android:layout_width="137dp"
             android:layout_height="50dp"
             android:background="@color/ButtonLight"
@@ -53,7 +53,6 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginTop="0dp"
-            android:background="@color/ButtonLight"
             android:orientation="horizontal">
             <!--
                        <Button

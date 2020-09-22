@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.signIn.SignUp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="409dp"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        tools:layout_editor_absoluteX="1dp">
+
+        <TextView
+            android:id="@+id/textViewTitle10"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="50dp"
+            android:paddingStart="5dp"
+            android:paddingLeft="5dp"
+            android:text="Firstname"
+            android:textColor="#F80F0000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/email6"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Firstname"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle10" />
+
+        <TextView
+            android:id="@+id/textViewTitle9"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="10dp"
+            android:paddingStart="5dp"
+            android:text="Lastname"
+            android:textColor="#F80F0000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email6"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/email3"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="City"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle7" />
+
+        <TextView
+            android:id="@+id/textViewTitle7"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:paddingStart="5dp"
+            android:text="Which city are you from"
+            android:textColor="#F80F0000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/email5"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Country"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle3" />
+
+        <EditText
+            android:id="@+id/email4"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Lastname"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle9" />
+
+        <TextView
+            android:id="@+id/textViewTitle3"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:paddingStart="5dp"
+            android:text="Which country are you from"
+            android:textColor="#F80F0000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email3"
+            android:paddingLeft="5dp" />
+
+        <TextView
+            android:id="@+id/textViewTitle4"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="10dp"
+            android:paddingStart="5dp"
+            android:text="Roomnumber"
+            android:textColor="#F8090000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email4"
+            android:paddingLeft="5dp" />
+
+        <Spinner
+            android:id="@+id/room_spinner"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="320dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="false"
+            android:layout_centerVertical="true"
+            android:paddingStart="5dp"
+            android:paddingLeft="5dp"
+            app:backgroundTint="@color/hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle4" />
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Pick Date"
+            android:inputType="none"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dsf" />
+
+        <TextView
+            android:id="@+id/dsf"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:paddingStart="5dp"
+            android:text="Birthday"
+            android:textColor="#FC110000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/room_spinner"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/fun"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Something funny"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle5" />
+
+        <EditText
+            android:id="@+id/diet"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Diets"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle1" />
+
+        <TextView
+            android:id="@+id/textViewTitle5"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:paddingStart="5dp"
+            android:text="Funfact"
+            android:textColor="#F80F0000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/diet"
+            android:paddingLeft="5dp" />
+
+        <TextView
+            android:id="@+id/textViewTitle1"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:paddingStart="5dp"
+            android:text="Allergies, vegetarian or so?"
+            android:textColor="#F80F0000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email5"
+            android:paddingLeft="5dp" />
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:paddingStart="5dp"
+            android:text="@string/prompt_email"
+            android:textColor="#F80F0000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fun"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/prompt_email"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+        <TextView
+            android:id="@+id/textViewTitle6"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:paddingStart="5dp"
+            android:text="Choose Password"
+            android:textColor="#F80F0000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/diets2"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/prompt_password"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle6" />
+
+        <TextView
+            android:id="@+id/tekst31"
+            android:layout_width="320dp"
+            android:layout_height="31dp"
+            android:paddingStart="5dp"
+            android:text="Repeat password"
+            android:textColor="#F80F0000"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/diets2"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/email51"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/prompt_password"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tekst31" />
+
+        <Button
+            android:id="@+id/Save_button"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_standart_color"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="#0C0000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/email51"
+            app:layout_constraintTop_toBottomOf="@+id/email51" />
+
+        <Button
+            android:id="@+id/Back"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_standart_color"
+            android:text="Back"
+            android:textAllCaps="false"
+            android:textColor="#090000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/email51"
+            app:layout_constraintTop_toBottomOf="@+id/email51" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+ </ScrollView>
