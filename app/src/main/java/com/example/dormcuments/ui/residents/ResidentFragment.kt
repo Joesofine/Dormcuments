@@ -1,5 +1,6 @@
 package com.example.dormcuments.ui.residents
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
@@ -23,7 +24,6 @@ class ResidentFragment : Fragment() {
     private lateinit var residentLayout: LinearLayout
     val Float.px: Float
         get() = (this * Resources.getSystem().displayMetrics.density).toFloat()
-
     val Int.dp: Int
         get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
@@ -35,24 +35,9 @@ class ResidentFragment : Fragment() {
 
         residentLayout = root.findViewById(R.id.residentLayout);
 
-
         makeResidentArr()
         getTagetSize()
-
-        //residentLayout.removeAllViews()
-        for (element in residentsArr) {
-            val button = Button(context)
-            button.layoutParams = LinearLayout.LayoutParams(targetWidth, targetHeight)
-            button.background = resources.getDrawable(R.drawable.resident_button)
-            button.text = element
-            var mar = (width - targetWidth) / 2
-            button.margin(left = mar.dp.toFloat())
-            button.margin(top = 5F)
-
-            residentLayout.addView(button)
-        }
-
-
+        createResidentButtons()
 
         return root
     }
@@ -81,6 +66,21 @@ class ResidentFragment : Fragment() {
             top?.run { topMargin = dpToPx(this) }
             right?.run { rightMargin = dpToPx(this) }
             bottom?.run { bottomMargin = dpToPx(this) }
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun createResidentButtons(){
+        for (element in residentsArr) {
+            val button = Button(context)
+            button.layoutParams = LinearLayout.LayoutParams(targetWidth, targetHeight)
+            button.background = resources.getDrawable(R.drawable.resident_button)
+            button.text = element
+            val mar = (width - targetWidth) / 2
+            button.margin(left = mar.dp.toFloat())
+            button.margin(top = 5F)
+
+            residentLayout.addView(button)
         }
     }
 
