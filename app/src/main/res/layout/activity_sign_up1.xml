@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".ui.sign_in.SignUp_activity">
+    tools:context=".ui.signIn.SignUp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp">
 
         <TextView
             android:id="@+id/textViewTitle10"
@@ -24,10 +25,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingLeft="5dp" />
 
         <EditText
-            android:id="@+id/email6"
+            android:id="@+id/name_signup"
             android:layout_width="320dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
@@ -54,10 +56,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email6" />
+            app:layout_constraintTop_toBottomOf="@+id/name_signup" />
 
         <EditText
-            android:id="@+id/email3"
+            android:id="@+id/city_signup"
             android:layout_width="320dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
@@ -87,7 +89,7 @@
             app:layout_constraintTop_toBottomOf="@+id/PhotoPick" />
 
         <EditText
-            android:id="@+id/email5"
+            android:id="@+id/country_signup"
             android:layout_width="320dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
@@ -103,7 +105,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle3" />
 
         <EditText
-            android:id="@+id/email4"
+            android:id="@+id/lastname_signup"
             android:layout_width="320dp"
             android:layout_height="40dp"
             android:layout_marginStart="24dp"
@@ -129,7 +131,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email3" />
+            app:layout_constraintTop_toBottomOf="@+id/city_signup" />
 
         <TextView
             android:id="@+id/textViewTitle4"
@@ -143,10 +145,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email4" />
+            app:layout_constraintTop_toBottomOf="@+id/lastname_signup" />
 
         <Button
-            android:id="@+id/Save_button"
+            android:id="@+id/save"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:background="@drawable/button_standart_color"
@@ -154,8 +156,8 @@
             android:textAllCaps="false"
             android:textColor="#0C0000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/email5"
-            app:layout_constraintTop_toBottomOf="@+id/email5" />
+            app:layout_constraintEnd_toEndOf="@+id/country_signup"
+            app:layout_constraintTop_toBottomOf="@+id/country_signup" />
 
         <Spinner
             android:id="@+id/room_spinner"
@@ -173,7 +175,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle4" />
 
         <Button
-            android:id="@+id/Back"
+            android:id="@+id/back"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:background="@drawable/button_standart_color"
@@ -181,8 +183,8 @@
             android:textAllCaps="false"
             android:textColor="#090000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/email5"
-            app:layout_constraintTop_toBottomOf="@+id/email5" />
+            app:layout_constraintStart_toStartOf="@+id/country_signup"
+            app:layout_constraintTop_toBottomOf="@+id/country_signup" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/PhotoPick"

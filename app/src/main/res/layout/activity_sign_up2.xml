@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/downloaded_picture" />
 
     <Button
-        android:id="@+id/Back"
+        android:id="@+id/back"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:background="@drawable/button_standart_color"
@@ -48,11 +48,11 @@
         app:layout_constraintTop_toBottomOf="@+id/choosePic" />
 
     <Button
-        android:id="@+id/Save_button"
+        android:id="@+id/save"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:background="@drawable/button_standart_color"
-        android:text="Next"
+        android:text="Save"
         android:textAllCaps="false"
         android:textColor="#0C0000"
         app:layout_constraintBottom_toBottomOf="parent"
