@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.dormcuments.R
 import java.util.*
 
-class adapter_rules (context: Context, arr: Array<String>) : ArrayAdapter<String?>(context, R.layout.rules_list_layout) {
+class adapter_rules (context: Context, arr: Array<String>) : ArrayAdapter<String?>(context, R.layout.list_element_rules) {
     private var context1 = context
     private val ruleArr: Array<String> = arr
     override fun getCount(): Int {
@@ -21,7 +21,7 @@ class adapter_rules (context: Context, arr: Array<String>) : ArrayAdapter<String
         var viewHolder = ViewHolder()
         if (convertView == null) {
             val mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = mInflater.inflate(R.layout.rules_list_layout, parent, false)
+            convertView = mInflater.inflate(R.layout.list_element_rules, parent, false)
             viewHolder.rule = convertView!!.findViewById<TextView>(R.id.rules_list_text)
             viewHolder.number = convertView.findViewById<TextView>(R.id.rules_list_number)
             convertView.setTag(viewHolder)

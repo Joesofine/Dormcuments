@@ -15,7 +15,7 @@
         android:id="@+id/shopping"
         android:name="com.example.dormcuments.ui.shopping.ShoppingFragment"
         android:label="@string/title_shopping"
-        tools:layout="@layout/fragment_shopping" />
+        tools:layout="@layout/fragment_shop_meet" />
 
     <fragment
         android:id="@+id/foodclub"

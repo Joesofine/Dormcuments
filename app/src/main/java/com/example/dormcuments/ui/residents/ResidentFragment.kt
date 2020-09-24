@@ -56,8 +56,8 @@ class ResidentFragment : Fragment() {
         width = displayMetrics.widthPixels
         height = displayMetrics.heightPixels
 
-        targetWidth = ((width * 4 /5 ))
-        targetHeight = (height /16)
+        targetWidth = ((width * 9 / 10 ))
+        targetHeight = (height / 18)
     }
 
     fun View.margin(left: Float? = null, top: Float? = null, right: Float? = null, bottom: Float? = null) {
@@ -79,7 +79,9 @@ class ResidentFragment : Fragment() {
             val mar = (width - targetWidth) / 2
             button.margin(left = mar.dp.toFloat())
             button.margin(top = 5F)
-
+            if ( element == residentsArr[residentsArr.size - 1]) {
+                button.margin(bottom = 5F)
+            }
             residentLayout.addView(button)
         }
     }
