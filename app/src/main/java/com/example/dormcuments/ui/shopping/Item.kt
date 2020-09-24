@@ -1,9 +1,9 @@
 package com.example.dormcuments.ui.shopping
 
 class Item {
-    var Name = ""
+    var name = ""
 
-    constructor(Name: String){
-        this.Name = Name
+    constructor(name: String){
+        this.name = name
     }
 }

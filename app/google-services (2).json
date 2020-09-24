@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "473127585653",
+    "firebase_url": "https://dormcuments.firebaseio.com",
+    "project_id": "dormcuments",
+    "storage_bucket": "dormcuments.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473127585653:android:a8300ec151b110614b753c",
+        "android_client_info": {
+          "package_name": "com.example.dormcuments"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "473127585653-3qolddsu3gfou6s7i3fp3qgrdhokfnsj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dormcuments",
+            "certificate_hash": "729e2538ca0148302acea0458badaa5c32a3a08e"
+          }
+        },
+        {
+          "client_id": "473127585653-5rbodeghcc4ihlv2sg3j6uelrknn4944.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwm_wLc3CVSoX8_zUc1ctGSZ0QfgZcc2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "473127585653-5rbodeghcc4ihlv2sg3j6uelrknn4944.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

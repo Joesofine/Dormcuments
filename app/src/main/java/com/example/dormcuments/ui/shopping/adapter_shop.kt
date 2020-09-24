@@ -22,12 +22,12 @@ class adapter_shop (context: Context, arr: ArrayList<Item>) : ArrayAdapter<Strin
         if (convertView == null) {
             val mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = mInflater.inflate(R.layout.list_element_shop_meet, parent, false)
-            viewHolder.Name = convertView!!.findViewById<TextView>(R.id.inputItem)
+            viewHolder.Name = convertView!!.findViewById(R.id.shoppingItem)
             convertView.setTag(viewHolder)
         } else {
             viewHolder = convertView.tag as ViewHolder
         }
-        viewHolder.Name?.text = shop_arr[position].Name
+        viewHolder.Name?.text = shop_arr[position].name
 
         return convertView
     }
