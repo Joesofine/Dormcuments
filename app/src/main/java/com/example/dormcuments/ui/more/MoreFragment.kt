@@ -1,6 +1,5 @@
 package com.example.dormcuments.ui.more
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.dormapp.ui.rules.RulesFragment
 import com.example.dormcuments.R
-import com.example.dormcuments.ui.agenda.MeetingFragment
+import com.example.dormcuments.ui.meeting.MeetingFragment
 import com.example.dormcuments.ui.cleaning.CleaningFragment
 import com.example.dormcuments.ui.residents.ResidentFragment
 

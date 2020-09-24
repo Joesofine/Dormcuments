@@ -1,4 +1,4 @@
-package com.example.dormcuments.ui.shopping
+package com.example.dormcuments.ui.meeting
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import android.widget.TextView
 import com.example.dormcuments.R
 import java.util.ArrayList
 
-class adapter_shop (context: Context, arr: ArrayList<Item>) : ArrayAdapter<String?>(context, R.layout.list_element_shopping){
+class adapter_meet (context: Context, arr: ArrayList<Topic>) : ArrayAdapter<String?>(context, R.layout.list_element_meeting){
     private var context1 = context
-    private val shop_arr: ArrayList<Item> = arr
+    private val meetArr: ArrayList<Topic> = arr
     override fun getCount(): Int {
-        return shop_arr.size
+        return meetArr.size
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -21,13 +21,13 @@ class adapter_shop (context: Context, arr: ArrayList<Item>) : ArrayAdapter<Strin
         var viewHolder = ViewHolder()
         if (convertView == null) {
             val mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            convertView = mInflater.inflate(R.layout.list_element_shopping, parent, false)
-            viewHolder.Name = convertView!!.findViewById(R.id.shoppingItem)
+            convertView = mInflater.inflate(R.layout.list_element_meeting, parent, false)
+            viewHolder.Name = convertView!!.findViewById(R.id.meetingItem)
             convertView.setTag(viewHolder)
         } else {
             viewHolder = convertView.tag as ViewHolder
         }
-        viewHolder.Name?.text = shop_arr[position].name
+        viewHolder.Name?.text = meetArr[position].name
 
         return convertView
     }
@@ -40,5 +40,4 @@ class adapter_shop (context: Context, arr: ArrayList<Item>) : ArrayAdapter<Strin
     init {
         context1 = context
     }
-
 }
