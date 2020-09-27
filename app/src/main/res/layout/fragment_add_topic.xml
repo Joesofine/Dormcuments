@@ -29,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.961">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
 
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginRight="30dp"
                     android:ems="10"
@@ -62,12 +62,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/inputItem" />
 
                 <EditText
-                    android:id="@+id/inputItem2"
+                    android:id="@+id/inputItem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginRight="30dp"
                     android:ems="10"
@@ -80,7 +80,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/addItem2"
+                    android:id="@+id/addItem"
                     android:layout_width="37dp"
                     android:layout_height="45dp"
                     android:layout_marginTop="30dp"

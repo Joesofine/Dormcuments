@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
 import com.example.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
@@ -17,20 +18,23 @@ class AddTopic : Fragment() {
 
     var database = FirebaseDatabase.getInstance().getReference("Agenda")
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_add_topic, container, false)
+         root.findViewById<ImageButton>(R.id.addItem).setOnClickListener {
 
-        root.findViewById<ImageButton>(R.id.addItem).setOnClickListener {
             val topic = inputItem.text.toString()
             val des = sum.text.toString()
 
             if (topic.isEmpty()) {
                 inputItem.error = "Please input a product"
+
             } else if (des.isEmpty()){
                 sum.error = "Please add a description"
+
             } else {
 
                 val topicId = database.push().key

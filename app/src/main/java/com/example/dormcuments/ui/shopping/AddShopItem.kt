@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.dormcuments.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_add_shop_item.*
 
@@ -19,6 +20,8 @@ class AddShopItem : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_add_shop_item, container, false)
+
+        myContainer = root.findViewById(R.id.LinScroll)
 
         root.findViewById<ImageButton>(R.id.addItem).setOnClickListener {
             val item = inputItem.text.toString()
@@ -37,15 +40,16 @@ class AddShopItem : Fragment() {
                         .addOnSuccessListener {
                             Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT).show()
                             createCon(myContainer)
-                            //requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, ShoppingFragment()).addToBackStack(null).commit()
-
-
                         }
                         .addOnFailureListener {
                             // Write failed
                             Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
                         }
                 }
+            }
+
+            root.findViewById<FloatingActionButton>(R.id.bk).setOnClickListener{
+                requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, ShoppingFragment()).addToBackStack(null).commit()
             }
         }
         return root
