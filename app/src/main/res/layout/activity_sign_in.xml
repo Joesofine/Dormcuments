@@ -40,7 +40,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
-        android:drawableRight="@drawable/password_icon"
+        android:drawableLeft="@drawable/password_icon"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="@string/prompt_password"
         android:inputType="textPersonName|textCapSentences|textImeMultiLine"
@@ -60,8 +61,8 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="5dp"
-        android:drawableRight="@drawable/email_icon"
-
+        android:drawableLeft="@drawable/email_icon"
+        android:drawablePadding="10dp"
         android:ems="10"
         android:hint="@string/prompt_email"
         android:inputType="textPersonName|textCapSentences|textImeMultiLine"
@@ -73,6 +74,8 @@
 
     <Button
         android:id="@+id/SignUpButton"
+        android:drawablePadding="10dp"
+
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="30dp"
