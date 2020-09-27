@@ -68,8 +68,6 @@ class ShoppingFragment : Fragment() {
 
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_shopping, null, false)
-
-
         var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
         var shoppingItem: TextView = ExpandableCardview.findViewById(R.id.shoppingItem)
 
