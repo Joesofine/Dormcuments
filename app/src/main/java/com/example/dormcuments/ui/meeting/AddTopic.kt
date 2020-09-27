@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import com.example.dormcuments.R
-import com.example.dormcuments.ui.shopping.Item
-import com.example.dormcuments.ui.shopping.ShoppingFragment
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.fragment_add_shop_item.*
 import kotlinx.android.synthetic.main.fragment_add_shop_item.inputItem
 import kotlinx.android.synthetic.main.fragment_add_topic.*
 
