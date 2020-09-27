@@ -11,8 +11,13 @@
     <color name="ResidentButton">#E4F7FF</color>
     <color name="ProfileButton">#DEDCDC</color>
     <color name="Slider">#51AAD0</color>
+    <color name="SliderLight">#8ac6df</color>
+    <color name="skynlue">#87ceeb</color>
     <color name="hint">#817E7E</color>
     <color name="ButtonDarkDark">#0d445b</color>
+    <color name="sky">#95daf8</color>
+    <color name="facebook">#4267B2</color>
+    <color name="lightSky">#ecf8fe</color>
     <color name="NewBackground_light">#B5E9FF</color>
 </resources>
 
