@@ -4,7 +4,7 @@
     <gradient
         android:type="linear"
         android:endColor="@color/White"
-        android:startColor="@color/ResidentButton"
+        android:startColor="@color/White"
         android:centerY="0.8"
         android:angle="90" />
 
