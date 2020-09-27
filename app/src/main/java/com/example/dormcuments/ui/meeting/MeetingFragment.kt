@@ -5,7 +5,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
@@ -15,23 +15,31 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_meeting.*
+import com.google.gson.JsonParser
 import java.util.*
 
-class MeetingFragment : Fragment() {
+class MeetingFragment : Fragment() , AdapterView.OnItemClickListener {
+    var existingViews = ArrayList<String>()
     var meetArr: ArrayList<Topic> = ArrayList()
     var database = FirebaseDatabase.getInstance().getReference("Agenda")
     val meet = topic_
-    lateinit var titleLayout: ConstraintLayout
-    lateinit var sumLayout: ConstraintLayout
     lateinit var expand: ImageView
     lateinit var getdata : ValueEventListener;
+    //lateinit var list: ListView
+    lateinit var sum: TextView
+    lateinit var meetingItem: TextView
+    lateinit var myContainer: LinearLayout
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
         var root = inflater.inflate(R.layout.fragment_meeting, container, false)
+
+        myContainer = root.findViewById(R.id.LinScroll)
+
+        //list.onItemClickListener = this
+
 
         meetArr.clear()
 
@@ -46,10 +54,12 @@ class MeetingFragment : Fragment() {
                     meetArr.add(Topic(name1,sum1))
                     meet.setMeetArr(meetArr, context)
                     meetArr = meet.getShopArr(context)!!
-                    if (meetArr.size != 0) {
-                        val adaptor = context?.let { adapter_meet(it, meetArr) }
-                        list.adapter = adaptor
-                    }
+                    //if (meetArr.size != 0) {
+                    //    val adaptor = context?.let { adapter_meet(it, meetArr) }
+                    //    list.adapter = adaptor
+                    //}
+                    createTopic(name1, sum1, myContainer)
+
                 }
             }
 
@@ -61,18 +71,9 @@ class MeetingFragment : Fragment() {
         database.addValueEventListener(getdata)
         database.addListenerForSingleValueEvent(getdata)
 
-        Handler().postDelayed(Runnable {
-
-        }, 0)
-
-
+        //Handler().postDelayed(Runnable { }, 0)
 
         root.doOnAttach { database.removeEventListener(getdata) }
-
-
-
-
-        makeList()
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
             requireFragmentManager().beginTransaction().add(
@@ -89,25 +90,33 @@ class MeetingFragment : Fragment() {
 
     }
 
-    private fun makeList(){
+    private fun createTopic(name: String, des: String, myContainer: LinearLayout){
 
-        //Inflater to XML filer ind, et Cardview og en Spacer som bruges til at skabe afstand fordi det ikke er muligt med Padding eller Layout Margin.
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_meeting, null, false)
 
-        sumLayout = ExpandableCardview.findViewById(R.id.sumLayout)
-        titleLayout = ExpandableCardview.findViewById(R.id.titleLayout)
-        expand = ExpandableCardview.findViewById(R.id.expand)
+        var sumLayout : ConstraintLayout  = ExpandableCardview.findViewById(R.id.sumLayout)
+        var titleLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
+        var expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
+        meetingItem = ExpandableCardview.findViewById(R.id.meetingItem)
+        sum = ExpandableCardview.findViewById(R.id.sum)
+
+        //Convert to JSON-object
+        //val parser = JsonParser()
+        //val element = parser.parse(entry.value.toString())
+        //val topic = element.asJsonObject
+
+
+        meetingItem.setText(name)
+        sum.setText(des)
 
         //Set OnClickListener that handles expansion and collapse of view
         titleLayout.setOnClickListener {
-            expandList(sumLayout, expand)
-        }
+            expandList(sumLayout, expand) }
+        expand.setOnClickListener { expandList(sumLayout, expand) }
 
-        expand.setOnClickListener {
-            expandList(sumLayout, expand)
-        }
-
+        //Add cardview to myContainer
+        myContainer.addView(ExpandableCardview)
     }
 
     private fun expandList(
@@ -121,6 +130,12 @@ class MeetingFragment : Fragment() {
             sumLayout.visibility = View.GONE
             expand.rotation = 0f
         }
+    }
+
+    override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        //expandList(sumLayout, expand)
+        //Toast.makeText(context, "haluuuuueeee", Toast.LENGTH_SHORT).show()
+        //sumLayout.visibility = View.VISIBLE
     }
 
 }
