@@ -1,7 +1,6 @@
 package com.example.dormcuments.ui.meeting
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,19 +14,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.gson.JsonParser
 import java.util.*
 
-class MeetingFragment : Fragment() , AdapterView.OnItemClickListener {
-    var existingViews = ArrayList<String>()
-    var meetArr: ArrayList<Topic> = ArrayList()
+class MeetingFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Agenda")
-    val meet = topic_
-    lateinit var expand: ImageView
     lateinit var getdata : ValueEventListener;
-    //lateinit var list: ListView
-    lateinit var sum: TextView
-    lateinit var meetingItem: TextView
     lateinit var myContainer: LinearLayout
 
     override fun onCreateView(
@@ -38,28 +29,13 @@ class MeetingFragment : Fragment() , AdapterView.OnItemClickListener {
 
         myContainer = root.findViewById(R.id.LinScroll)
 
-        //list.onItemClickListener = this
-
-
-        meetArr.clear()
-
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                meetArr.clear()
-
                 for (i in p0.children) {
                     var name1: String = i.child("name").getValue() as String
                     var sum1: String = i.child("summary").getValue() as String
 
-                    meetArr.add(Topic(name1,sum1))
-                    meet.setMeetArr(meetArr, context)
-                    meetArr = meet.getShopArr(context)!!
-                    //if (meetArr.size != 0) {
-                    //    val adaptor = context?.let { adapter_meet(it, meetArr) }
-                    //    list.adapter = adaptor
-                    //}
                     createTopic(name1, sum1, myContainer)
-
                 }
             }
 
@@ -70,8 +46,6 @@ class MeetingFragment : Fragment() , AdapterView.OnItemClickListener {
 
         database.addValueEventListener(getdata)
         database.addListenerForSingleValueEvent(getdata)
-
-        //Handler().postDelayed(Runnable { }, 0)
 
         root.doOnAttach { database.removeEventListener(getdata) }
 
@@ -98,44 +72,37 @@ class MeetingFragment : Fragment() , AdapterView.OnItemClickListener {
         var sumLayout : ConstraintLayout  = ExpandableCardview.findViewById(R.id.sumLayout)
         var titleLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
         var expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
-        meetingItem = ExpandableCardview.findViewById(R.id.meetingItem)
-        sum = ExpandableCardview.findViewById(R.id.sum)
-
-        //Convert to JSON-object
-        //val parser = JsonParser()
-        //val element = parser.parse(entry.value.toString())
-        //val topic = element.asJsonObject
-
+        var divider: View = ExpandableCardview.findViewById(R.id.div)
+        var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
+        var meetingItem: TextView = ExpandableCardview.findViewById(R.id.meetingItem)
+        var sum: TextView = ExpandableCardview.findViewById(R.id.sum)
 
         meetingItem.setText(name)
         sum.setText(des)
 
         //Set OnClickListener that handles expansion and collapse of view
         titleLayout.setOnClickListener {
-            expandList(sumLayout, expand) }
-        expand.setOnClickListener { expandList(sumLayout, expand) }
+            expandList(sumLayout, expand, divider) }
 
-        //Add cardview to myContainer
+        delete.setOnClickListener {
+            Toast.makeText(context, "Delete!", Toast.LENGTH_SHORT).show()
+        }
+
         myContainer.addView(ExpandableCardview)
     }
 
     private fun expandList(
         sumLayout: ConstraintLayout,
-        expand: ImageView
+        expand: ImageView, divider: View
     ) {
         if (sumLayout.visibility == View.GONE) {
             sumLayout.visibility = View.VISIBLE
+            divider.visibility = View.GONE
             expand.rotation = 90f
         } else if (sumLayout.visibility == View.VISIBLE) {
             sumLayout.visibility = View.GONE
+            divider.visibility = View.VISIBLE
             expand.rotation = 0f
         }
     }
-
-    override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        //expandList(sumLayout, expand)
-        //Toast.makeText(context, "haluuuuueeee", Toast.LENGTH_SHORT).show()
-        //sumLayout.visibility = View.VISIBLE
-    }
-
 }

@@ -5,6 +5,11 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
@@ -15,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_shopping.*
 import kotlinx.android.synthetic.main.fragment_shopping.*
+import kotlinx.android.synthetic.main.list_element_shopping.*
 import java.util.*
 
 
@@ -22,8 +28,8 @@ class ShoppingFragment : Fragment() {
 
     var shop_arr: ArrayList<Item> = ArrayList()
     var database = FirebaseDatabase.getInstance().getReference("Shoppinglist")
-    val product = item_
-    lateinit var getdata : ValueEventListener;
+    lateinit var getdata : ValueEventListener
+    lateinit var myContainer: LinearLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,48 +37,27 @@ class ShoppingFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_shopping, container, false)
 
-        shop_arr.clear()
+        myContainer = root.findViewById(R.id.LinScroll)
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
-                shop_arr.clear()
 
                 for (i in p0.children) {
                     var name1: String = i.child("name").getValue() as String
 
-                    shop_arr.add(Item(name1))
-                    product.setShopArr(shop_arr, context)
-                    shop_arr = product.getShopArr(context)!!
-                    if (shop_arr.size != 0) {
-                        val adaptor = context?.let { adapter_shop(it, shop_arr) }
-                        list.adapter = adaptor
-                    }
-
+                    createTopic(name1, myContainer)
                 }
             }
-
-
 
             override fun onCancelled(p0: DatabaseError) {
                 println("err")
             }
-
-
-
         }
 
         database.addValueEventListener(getdata)
         database.addListenerForSingleValueEvent(getdata)
 
-        Handler().postDelayed(Runnable {
-
-        }, 0)
-
-
-
         root.doOnAttach { database.removeEventListener(getdata) }
-
-
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
             requireFragmentManager().beginTransaction().add(
@@ -89,7 +74,25 @@ class ShoppingFragment : Fragment() {
         super.onDetach()
         database.removeEventListener(getdata)
 
-    };
+    }
+
+    private fun createTopic(name: String, myContainer: LinearLayout){
+
+        val ExpandableCardview: View =
+            layoutInflater.inflate(R.layout.list_element_shopping, null, false)
+
+
+        var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
+        var shoppingItem: TextView = ExpandableCardview.findViewById(R.id.shoppingItem)
+
+        shoppingItem.setText(name)
+
+        delete.setOnClickListener {
+            Toast.makeText(context, "Delete!", Toast.LENGTH_SHORT).show()
+        }
+
+        myContainer.addView(ExpandableCardview)
+    }
 
 
 
