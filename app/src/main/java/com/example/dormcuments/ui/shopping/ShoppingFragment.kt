@@ -1,7 +1,6 @@
 package com.example.dormcuments.ui.shopping
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,24 +8,15 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_shopping.*
-import kotlinx.android.synthetic.main.fragment_shopping.*
-import kotlinx.android.synthetic.main.list_element_shopping.*
+import com.google.firebase.database.*
+
 import java.util.*
 
-
 class ShoppingFragment : Fragment() {
-
-    var shop_arr: ArrayList<Item> = ArrayList()
     var database = FirebaseDatabase.getInstance().getReference("Shoppinglist")
     lateinit var getdata : ValueEventListener
     lateinit var myContainer: LinearLayout
@@ -44,14 +34,12 @@ class ShoppingFragment : Fragment() {
 
                 for (i in p0.children) {
                     var name1: String = i.child("name").getValue() as String
+                    var itemId = i.key.toString()
 
-                    createTopic(name1, myContainer)
+                    createTopic(name1, itemId, myContainer)
                 }
             }
-
-            override fun onCancelled(p0: DatabaseError) {
-                println("err")
-            }
+            override fun onCancelled(p0: DatabaseError) { println("err") }
         }
 
         database.addValueEventListener(getdata)
@@ -76,22 +64,28 @@ class ShoppingFragment : Fragment() {
 
     }
 
-    private fun createTopic(name: String, myContainer: LinearLayout){
+    private fun createTopic(name: String, itemid: String ,myContainer: LinearLayout){
 
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_shopping, null, false)
-
-
         var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
         var shoppingItem: TextView = ExpandableCardview.findViewById(R.id.shoppingItem)
 
         shoppingItem.setText(name)
 
         delete.setOnClickListener {
-            Toast.makeText(context, "Delete!", Toast.LENGTH_SHORT).show()
+            myContainer.removeView(ExpandableCardview)
+            deleteItem(itemid)
         }
 
         myContainer.addView(ExpandableCardview)
+    }
+
+
+    private fun deleteItem(itemId: String){
+        var dName = database.child(itemId)
+        dName.removeValue()
+        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
     }
 
 

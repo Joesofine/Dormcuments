@@ -34,8 +34,9 @@ class MeetingFragment : Fragment() {
                 for (i in p0.children) {
                     var name1: String = i.child("name").getValue() as String
                     var sum1: String = i.child("summary").getValue() as String
+                    var topicId = i.key.toString()
 
-                    createTopic(name1, sum1, myContainer)
+                    createTopic(name1, sum1, topicId, myContainer)
                 }
             }
 
@@ -46,7 +47,6 @@ class MeetingFragment : Fragment() {
 
         database.addValueEventListener(getdata)
         database.addListenerForSingleValueEvent(getdata)
-
         root.doOnAttach { database.removeEventListener(getdata) }
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
@@ -64,7 +64,7 @@ class MeetingFragment : Fragment() {
 
     }
 
-    private fun createTopic(name: String, des: String, myContainer: LinearLayout){
+    private fun createTopic(name: String, des: String, topicId: String, myContainer: LinearLayout){
 
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_meeting, null, false)
@@ -85,10 +85,18 @@ class MeetingFragment : Fragment() {
             expandList(sumLayout, expand, divider) }
 
         delete.setOnClickListener {
-            Toast.makeText(context, "Delete!", Toast.LENGTH_SHORT).show()
+            myContainer.removeView(ExpandableCardview)
+            deleteTopic(topicId)
         }
 
         myContainer.addView(ExpandableCardview)
+    }
+
+    private fun deleteTopic(topicId: String){
+        var dName = database.child(topicId)
+
+        dName.removeValue()
+        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
     }
 
     private fun expandList(

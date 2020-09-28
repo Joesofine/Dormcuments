@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/ButtonDark</item>
-        <item name="colorPrimaryDark">@color/ButtonDark</item>
-        <item name="colorAccent">@color/ButtonLight</item>
+        <item name="colorPrimary">@color/SliderLight</item>
+        <item name="colorPrimaryDark">@color/Slider</item>
+        <item name="colorAccent">@color/skynlue</item>
     </style>
 
 </resources>
