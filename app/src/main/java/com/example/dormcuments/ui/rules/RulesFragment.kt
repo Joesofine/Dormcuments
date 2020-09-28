@@ -27,39 +27,26 @@ class RulesFragment : Fragment() {
 
         ruleArr.clear()
 
-        ruleArr.add("Ingen is")
-
         GlobalScope.launch(Dispatchers.IO) {
             val id = "1TM-GdlklF1xUKt0mgrkuQ47eCrFGgQSGkpM2q2u-ZCg"
             val url = "https://docs.google.com/spreadsheets/d/$id/export?format=csv&id=$id"
 
-            val csv = URL(url).readText().split("\n")
-            val kode = csv[1].split(",")[1]
+            val csv = URL(url).readText().split('\n')
 
             withContext(Dispatchers.Main){
-                ruleArr.add("$kode er sej")
+
+                for (i: Int in 0..csv.size-1) {
+                    val rule = csv[i].replace("\"", "")//.split(",")[0]
+                    ruleArr.add(rule)
+                }
+
                 if (ruleArr.size != 0) {
                     val adaptor = context?.let { adapter_rules(it, ruleArr) }
                     root.findViewById<ListView>(R.id.list).adapter = adaptor
                 }
             }
-
-
-
         }
-
-
-
-
-
-        //val context: Context = requireContext()
-        //val list = root.findViewById<ListView>(R.id.fodd)
-
-        //val itemsAdapter = ArrayAdapter(context, R.layout.rules_list_layout, R.id.rules_list_text, ruleArr)
-        //list.adapter = itemsAdapter
-
         return root
-
     }
 
 }
