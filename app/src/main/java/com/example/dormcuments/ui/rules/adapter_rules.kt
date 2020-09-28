@@ -8,10 +8,11 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.dormcuments.R
 import java.util.*
+import kotlin.collections.ArrayList
 
-class adapter_rules (context: Context, arr: Array<String>) : ArrayAdapter<String?>(context, R.layout.list_element_rules) {
+class adapter_rules (context: Context, arr: ArrayList<String>) : ArrayAdapter<String>(context, R.layout.list_element_rules) {
     private var context1 = context
-    private val ruleArr: Array<String> = arr
+    private val ruleArr: ArrayList<String> = arr
     override fun getCount(): Int {
         return ruleArr.size
     }
@@ -29,7 +30,14 @@ class adapter_rules (context: Context, arr: Array<String>) : ArrayAdapter<String
             viewHolder = convertView.tag as ViewHolder
         }
         viewHolder.rule?.setText(ruleArr[position])
-        viewHolder.number!!.text = (position + 1).toString()
+        var num = (position + 1)
+        if (num < 10) {
+            viewHolder.number!!.text = "0$num."
+        } else {
+            viewHolder.number!!.text = "$num."
+
+        }
+
         return convertView
     }
 
