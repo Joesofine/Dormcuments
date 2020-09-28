@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/con"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".ui.foodclub.CreateFoodclubFragment">
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sign_in_button"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/diet2"
+        app:layout_constraintTop_toBottomOf="@+id/diet2" />
+
+    <EditText
+        android:id="@+id/diet3"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/pot_icon"
+        android:drawablePadding="10dp"
+        android:hint="What is for dinner?"
+        android:inputType="textLongMessage|textMultiLine|textCapSentences"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date2" />
+
+    <EditText
+        android:id="@+id/diet2"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/note_icon"
+        android:drawablePadding="10dp"
+        android:hint="Note"
+        android:inputType="textLongMessage|textMultiLine|textCapSentences"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diet3" />
+
+    <EditText
+        android:id="@+id/date2"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@drawable/date_icon"
+        android:drawablePadding="10dp"
+        android:hint="Pick date"
+        android:inputType="date"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/hint"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/room_spinner3" />
+
+    <Spinner
+        android:id="@+id/room_spinner3"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="320dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="false"
+        android:layout_centerVertical="true"
+        android:gravity="left"
+        android:padding="0dp"
+        app:backgroundTint="@color/hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/room_spinner2" />
+
+    <Spinner
+        android:id="@+id/room_spinner2"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:layout_width="320dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="false"
+        android:layout_centerVertical="true"
+        android:gravity="left"
+        android:padding="0dp"
+        app:backgroundTint="@color/hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:text="Cooks:"
+        app:layout_constraintStart_toStartOf="@+id/room_spinner2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sign_in_button"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/diet2"
+        app:layout_constraintTop_toBottomOf="@+id/diet2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

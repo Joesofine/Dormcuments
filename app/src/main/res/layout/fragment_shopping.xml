@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/LinScroll"
@@ -68,6 +68,7 @@
             android:id="@+id/divider"
             android:layout_width="363dp"
             android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/BackgroundDark"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/scrollView2"
