@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -16,25 +17,13 @@
             android:paddingBottom="30dp">
 
 
-            <TextView
-                android:id="@+id/textViewTitle10"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="30dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Firstname"
-                android:textColor="#F80F0000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <EditText
                 android:id="@+id/name_signup"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:drawableLeft="@drawable/name_icon"
+                android:drawablePadding="10dp"
                 android:hint="Firstname"
                 android:inputType="textPersonName|textCapSentences"
                 android:textColor="@color/hint"
@@ -42,46 +31,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle10" />
-
-            <TextView
-                android:id="@+id/textViewTitle9"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Lastname"
-                android:textColor="#F80F0000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_signup" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/city_signup"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/city_icon"
+                android:drawablePadding="10dp"
                 android:hint="City"
                 android:inputType="textCapSentences"
                 android:textColor="@color/hint"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle7" />
-
-            <TextView
-                android:id="@+id/textViewTitle7"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Which city are you from"
-                android:textColor="#F80F0000"
-                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +53,9 @@
                 android:id="@+id/country_signup"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/county_icon"
+                android:drawablePadding="10dp"
                 android:hint="Country"
                 android:inputType="textCapSentences"
                 android:selectAllOnFocus="true"
@@ -99,12 +64,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.511"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle3" />
+                app:layout_constraintTop_toBottomOf="@+id/city_signup" />
 
             <EditText
                 android:id="@+id/lastname_signup"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/name_icon"
+                android:drawablePadding="10dp"
                 android:hint="Lastname"
                 android:inputType="textPersonName|textCapSentences"
                 android:selectAllOnFocus="false"
@@ -113,37 +81,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle9" />
-
-            <TextView
-                android:id="@+id/textViewTitle3"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Which country are you from"
-                android:textColor="#F80F0000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.505"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/city_signup" />
-
-            <TextView
-                android:id="@+id/textViewTitle4"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Roomnumber"
-                android:textColor="#F8090000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lastname_signup" />
+                app:layout_constraintTop_toBottomOf="@+id/name_signup" />
 
             <Spinner
                 android:id="@+id/room_spinner"
@@ -152,118 +90,71 @@
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="false"
                 android:layout_centerVertical="true"
+                android:layout_marginTop="15dp"
                 android:gravity="left"
                 android:padding="0dp"
                 app:backgroundTint="@color/hint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle4" />
+                app:layout_constraintTop_toBottomOf="@+id/lastname_signup" />
 
             <EditText
                 android:id="@+id/date"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
-                android:hint="Pick Date"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/birthday_icon"
+                android:drawablePadding="10dp"
+                android:hint="Birthday"
                 android:inputType="date"
                 android:selectAllOnFocus="true"
                 android:textColor="@color/hint"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dsf" />
-
-            <TextView
-                android:id="@+id/dsf"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Birthday"
-                android:textColor="#FC110000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/room_spinner" />
 
             <EditText
-                android:id="@+id/fun"
+                android:id="@+id/funfact"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
-                android:hint="Something funny"
-                android:inputType="textLongMessage|textCapSentences"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/hint"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle5" />
-
-            <EditText
-                android:id="@+id/diet"
-                android:layout_width="320dp"
-                android:layout_height="40dp"
-                android:hint="Diets"
-                android:inputType="textLongMessage|textCapSentences"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/hint"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle1" />
-
-            <TextView
-                android:id="@+id/textViewTitle5"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
                 android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Funfact"
-                android:textColor="#F80F0000"
-                android:textSize="16sp"
+                android:drawableLeft="@drawable/fun_icon"
+                android:drawablePadding="10dp"
+                android:hint="Funfact"
+                android:inputType="textLongMessage|textCapSentences"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/hint"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/diet" />
 
-            <TextView
-                android:id="@+id/textViewTitle1"
+            <EditText
+                android:id="@+id/diet"
                 android:layout_width="320dp"
-                android:layout_height="31dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Allergies, vegetarian or so?"
-                android:textColor="#F80F0000"
-                android:textSize="16sp"
+                android:drawableLeft="@drawable/diet_icon"
+                android:drawablePadding="10dp"
+                android:hint="Diets and Allergies"
+                android:inputType="textLongMessage|textCapSentences"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/hint"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/country_signup" />
 
-            <TextView
-                android:id="@+id/textViewTitle"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="@string/prompt_email"
-                android:textColor="#F80F0000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fun" />
-
             <EditText
                 android:id="@+id/email"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/email_icon"
+                android:drawablePadding="10dp"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:selectAllOnFocus="true"
@@ -272,28 +163,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
-
-            <TextView
-                android:id="@+id/textViewTitle6"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Choose Password"
-                android:textColor="#F80F0000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email" />
+                app:layout_constraintTop_toBottomOf="@+id/funfact" />
 
             <EditText
                 android:id="@+id/cho_password"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
-                android:hint="@string/prompt_password"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/password_icon"
+                android:drawablePadding="10dp"
+                android:hint="Choose Password"
                 android:inputType="textPassword"
                 android:selectAllOnFocus="true"
                 android:textColor="@color/hint"
@@ -301,28 +180,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitle6" />
-
-            <TextView
-                android:id="@+id/tekst31"
-                android:layout_width="320dp"
-                android:layout_height="31dp"
-                android:layout_marginTop="15dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:text="Repeat password"
-                android:textColor="#F80F0000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.505"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cho_password" />
+                app:layout_constraintTop_toBottomOf="@+id/email" />
 
             <EditText
                 android:id="@+id/reap_password"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
-                android:hint="@string/prompt_password"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/password_icon"
+                android:drawablePadding="10dp"
+                android:hint="Repeat Password"
                 android:inputType="textPassword"
                 android:selectAllOnFocus="true"
                 android:textColor="@color/hint"
@@ -330,7 +197,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.511"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tekst31" />
+                app:layout_constraintTop_toBottomOf="@+id/cho_password" />
 
             <Button
                 android:id="@+id/save"

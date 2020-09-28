@@ -18,6 +18,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string-array name="spinner">
+        <item>Roomnumber</item>
         <item>901</item>
         <item>902</item>
         <item>903</item>
