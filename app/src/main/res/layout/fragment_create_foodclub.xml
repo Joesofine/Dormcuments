@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date2" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <EditText
         android:id="@+id/diet2"
@@ -51,22 +51,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/diet3" />
-
-    <EditText
-        android:id="@+id/date2"
-        android:layout_width="320dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
-        android:drawableLeft="@drawable/date_icon"
-        android:drawablePadding="10dp"
-        android:hint="Pick date"
-        android:inputType="date"
-        android:selectAllOnFocus="true"
-        android:textColor="@color/hint"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/room_spinner3" />
 
     <Spinner
         android:id="@+id/room_spinner3"
@@ -90,7 +74,6 @@
         android:layout_centerHorizontal="false"
         android:layout_centerVertical="true"
         android:gravity="left"
-        android:padding="0dp"
         app:backgroundTint="@color/hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +84,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
-        android:text="Cooks:"
+        android:drawableLeft="@drawable/chef_icon"
+        android:drawablePadding="10dp"
+        android:text="Chefs:"
         app:layout_constraintStart_toStartOf="@+id/room_spinner2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,5 +99,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/diet2"
         app:layout_constraintTop_toBottomOf="@+id/diet2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/room_spinner3"
+        app:layout_constraintStart_toStartOf="@+id/room_spinner3"
+        app:layout_constraintTop_toBottomOf="@+id/room_spinner3">
+
+        <EditText
+            android:id="@+id/date2"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:drawableLeft="@drawable/date_icon"
+            android:drawablePadding="10dp"
+            android:hint="Pick date"
+            android:inputType="date"
+            android:selectAllOnFocus="true"
+            android:textColor="@color/hint"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
