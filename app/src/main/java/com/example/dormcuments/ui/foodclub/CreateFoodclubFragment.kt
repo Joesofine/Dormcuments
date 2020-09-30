@@ -1,30 +1,50 @@
 package com.example.dormcuments.ui.foodclub
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
+import kotlinx.android.synthetic.main.activity_sign_in.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.fragment_create_foodclub.*
 import java.util.*
 
 class CreateFoodclubFragment : Fragment() , View.OnClickListener{
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_create_foodclub, container, false)
 
+        val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
+
+        val today = Calendar.getInstance()
+        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH))
+
+        { view, year, month, day ->
+            val month = month + 1
+            val msg = "$day/$month/$year"
+            root.findViewById<EditText>(R.id.date2).setText(msg)
+            datePicker.visibility = View.GONE
+        }
 
 
 
-
-
-        root.findViewById<EditText>()
+        root.findViewById<EditText>(R.id.date2).setOnTouchListener { v, event ->
+            if (MotionEvent.ACTION_UP == event.action) {
+                datePicker.visibility = View.VISIBLE
+            }
+            true
+        }
 
         val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_cooks))
         myAdapter.setDropDownViewResource(R.layout.spinner_layout)
@@ -47,35 +67,8 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
 
         return root
     }
-    private fun showDateDialog() {
-        val datePickerDialog = DatePickerDialog(
-            requireContext(), DatePickerDialog.OnDateSetListener(),
-            Calendar.getInstance()[Calendar.YEAR],
-            Calendar.getInstance()[Calendar.MONTH],
-            Calendar.getInstance()[Calendar.DAY_OF_MONTH]
-        )
-        datePickerDialog.show()
-    }
-    fun onDateSet(view: DatePicker?, year: Int, month: Int, day: Int) {
-        val date = Date()
-        //Minus because of Java API
-        date.year = year - 1900
-        date.date = day
-        date.month = month
-        date.minutes = 0
-        date.hours = 0
-        date.seconds = 0
-        if (date.time <= System.currentTimeMillis()) {
-            //date.setText(childInfo.getMonthText(month + 1).toString() + " " + day + " " + year)
-            //currentDate = date.time
-            date2.setText(null)
-        } else {
-            Toast.makeText(context, "Not a valid date", Toast.LENGTH_LONG).show()
-        }
-    }
 
     override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
     }
 
 }
