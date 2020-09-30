@@ -6,17 +6,32 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dormcuments.MainActivity
 import com.example.dormcuments.R
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import java.util.*
 
 class SignUp : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        val datePicker = findViewById<DatePicker>(R.id.datePicker)
+
+        val today = Calendar.getInstance()
+        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH))
+
+        { view, year, month, day ->
+            val month = month + 1
+            val msg = "$day/$month/$year"
+            date.setText(msg)
+        }
 
         name_signup.setOnTouchListener { v, event ->
             if (MotionEvent.ACTION_UP == event.action) {
@@ -36,6 +51,8 @@ class SignUp : AppCompatActivity() {
             if (MotionEvent.ACTION_UP == event.action) {
                 makeIconsGrey()
                 date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon_tint, 0, 0, 0)
+                datePicker.visibility = View.VISIBLE
+                close.visibility = View.VISIBLE
             }
             false
         }
@@ -96,6 +113,10 @@ class SignUp : AppCompatActivity() {
         myAdapter.setDropDownViewResource(R.layout.spinner_layout)
         room_spinner.adapter = myAdapter
 
+        close.setOnClickListener(){
+            datePicker.visibility = View.GONE
+            close.visibility = View.GONE
+        }
 
         save.setOnClickListener(View.OnClickListener {
             val intent = Intent(applicationContext, SignUp_Image::class.java)
