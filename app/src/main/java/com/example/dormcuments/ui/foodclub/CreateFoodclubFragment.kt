@@ -35,7 +35,7 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
 
         { view, year, month, day ->
             val month = month + 1
-            val msg = "$day/$month/$year"
+            val msg = "$day/$month"
             root.findViewById<EditText>(R.id.date2).setText(msg)
             choosenDate = msg
             datePicker.visibility = View.GONE
