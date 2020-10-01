@@ -30,11 +30,11 @@
         android:background="@drawable/sign_in_button"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/diet2"
-        app:layout_constraintTop_toBottomOf="@+id/diet2" />
+        app:layout_constraintStart_toStartOf="@+id/note"
+        app:layout_constraintTop_toBottomOf="@+id/note" />
 
     <EditText
-        android:id="@+id/diet3"
+        android:id="@+id/dinner"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <EditText
-        android:id="@+id/diet2"
+        android:id="@+id/note"
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
@@ -65,10 +65,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diet3" />
+        app:layout_constraintTop_toBottomOf="@+id/dinner" />
 
     <Spinner
-        android:id="@+id/room_spinner3"
+        android:id="@+id/spinner_c2"
         style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_width="320dp"
         android:layout_height="45dp"
@@ -79,16 +79,18 @@
         app:backgroundTint="@color/hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/room_spinner2" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_c1" />
 
     <Spinner
-        android:id="@+id/room_spinner2"
+        android:id="@+id/spinner_c1"
         style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_width="320dp"
         android:layout_height="45dp"
         android:layout_centerHorizontal="false"
         android:layout_centerVertical="true"
         android:gravity="left"
+        android:padding="0dp"
+
         app:backgroundTint="@color/hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +104,7 @@
         android:drawableLeft="@drawable/chef_icon"
         android:drawablePadding="10dp"
         android:text="Chefs:"
-        app:layout_constraintStart_toStartOf="@+id/room_spinner2"
+        app:layout_constraintStart_toStartOf="@+id/spinner_c1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -112,17 +114,17 @@
         android:background="@drawable/sign_in_button"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/diet2"
-        app:layout_constraintTop_toBottomOf="@+id/diet2" />
+        app:layout_constraintEnd_toEndOf="@+id/note"
+        app:layout_constraintTop_toBottomOf="@+id/note" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="@+id/room_spinner3"
-        app:layout_constraintStart_toStartOf="@+id/room_spinner3"
-        app:layout_constraintTop_toBottomOf="@+id/room_spinner3">
+        app:layout_constraintEnd_toEndOf="@+id/spinner_c2"
+        app:layout_constraintStart_toStartOf="@+id/spinner_c2"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_c2">
 
         <EditText
             android:id="@+id/date2"
