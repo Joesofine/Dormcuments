@@ -2,21 +2,24 @@ package com.example.dormcuments.ui.signIn
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dormcuments.MainActivity
 import com.example.dormcuments.R
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.util.*
 
+
 class SignUp : AppCompatActivity() {
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -33,80 +36,26 @@ class SignUp : AppCompatActivity() {
             date.setText(msg)
         }
 
-        name_signup.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                name_signup.setCompoundDrawablesWithIntrinsicBounds(R.drawable.name_icon_tint, 0, 0, 0)
-            }
-            false
-        }
-        lastname_signup.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                lastname_signup.setCompoundDrawablesWithIntrinsicBounds(R.drawable.name_icon_tint, 0, 0, 0)
-            }
-            false
-        }
-        date.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon_tint, 0, 0, 0)
+        date.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus){
                 datePicker.visibility = View.VISIBLE
                 close.visibility = View.VISIBLE
+                date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon_tint, 0, 0, 0)
+            } else {
+                datePicker.visibility = View.GONE
+                date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon, 0, 0, 0)
             }
-            false
-        }
-        city_signup.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                city_signup.setCompoundDrawablesWithIntrinsicBounds(R.drawable.city_icon_tint, 0, 0, 0)
-            }
-            false
-        }
-        country_signup.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                country_signup.setCompoundDrawablesWithIntrinsicBounds(R.drawable.county_icon_tint, 0, 0, 0)
-            }
-            false
-        }
-        diet.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                diet.setCompoundDrawablesWithIntrinsicBounds(R.drawable.diet_icon_tint, 0, 0, 0)
-            }
-            false
-        }
-        funfact.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                funfact.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fun_icon_tint, 0, 0, 0)
-            }
-            false
-        }
-        email.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                email.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email_icon_tint, 0, 0, 0)
-            }
-            false
-        }
-        cho_password.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                cho_password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon_tint, 0, 0, 0)
-            }
-            false
-        }
-        reap_password.setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                makeIconsGrey()
-                reap_password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon_tint, 0, 0, 0)
-            }
-            false
         }
 
-
+        setIconsTint(name_signup, R.drawable.name_icon, R.drawable.name_icon_tint)
+        setIconsTint(lastname_signup, R.drawable.name_icon, R.drawable.name_icon_tint)
+        setIconsTint(city_signup, R.drawable.city_icon, R.drawable.city_icon_tint)
+        setIconsTint(country_signup, R.drawable.county_icon, R.drawable.county_icon_tint)
+        setIconsTint(diet, R.drawable.diet_icon, R.drawable.diet_icon_tint)
+        setIconsTint(funfact, R.drawable.fun_icon, R.drawable.fun_icon_tint)
+        setIconsTint(email, R.drawable.email_icon, R.drawable.email_icon_tint)
+        setIconsTint(cho_password, R.drawable.password_icon, R.drawable.password_icon_tint)
+        setIconsTint(reap_password, R.drawable.password_icon, R.drawable.password_icon_tint)
 
 
         val myAdapter = ArrayAdapter(applicationContext, R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
@@ -142,5 +91,23 @@ class SignUp : AppCompatActivity() {
         cho_password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon, 0, 0, 0)
         reap_password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon, 0, 0, 0)
     }
+
+    private fun setIconsTint(edit: EditText, noTint: Int, tint: Int){
+        edit.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) edit.setCompoundDrawablesWithIntrinsicBounds(tint, 0, 0, 0)
+            else edit.setCompoundDrawablesWithIntrinsicBounds(noTint, 0, 0, 0) }
+    }
+
+
+    fun disableSoftInputFromAppearing(editText: EditText) {
+        if (Build.VERSION.SDK_INT >= 11) {
+            editText.setRawInputType(InputType.TYPE_CLASS_TEXT)
+            editText.setTextIsSelectable(true)
+        } else {
+            editText.setRawInputType(InputType.TYPE_NULL)
+            editText.isFocusable = true
+        }
+    }
+
 
 }

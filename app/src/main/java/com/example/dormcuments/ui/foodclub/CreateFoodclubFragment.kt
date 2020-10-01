@@ -37,8 +37,6 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
             datePicker.visibility = View.GONE
         }
 
-
-
         root.findViewById<EditText>(R.id.date2).setOnTouchListener { v, event ->
             if (MotionEvent.ACTION_UP == event.action) {
                 datePicker.visibility = View.VISIBLE
