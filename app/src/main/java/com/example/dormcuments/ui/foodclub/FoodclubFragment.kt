@@ -81,17 +81,11 @@ class FoodclubFragment : Fragment() {
 
         show.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("id", clubid) // Put anything what you want
-
+            bundle.putString("id", clubid)
             val fragment2 =
                 FoodDetailsFragment()
-            fragment2.setArguments(bundle)
-            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, fragment2)?.commit()
-
-        }
-
+            fragment2.arguments = bundle
+            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, fragment2)?.commit()        }
         myContainer.addView(ExpandableCardview)
     }
-
-
 }
