@@ -1,5 +1,6 @@
 package com.example.dormcuments.ui.foodclub
 
+import FoodDetailsFragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -100,15 +101,16 @@ class EditFoodFragment : Fragment() {
                 date2.error = "Please choose a date"
             } else {
 
-                val clubid = database.push().key
+                var clubid = bundle?.getString("id")
                 val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not)
+
 
                 if (clubid != null) {
 
                     database.child(clubid).setValue(club)
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Created been created", Toast.LENGTH_SHORT).show()
-                            requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, FoodDetailsFragment()).addToBackStack(null).commit()
+                            Toast.makeText(context, "Foodclub has been updated", Toast.LENGTH_SHORT).show()
+                            getFragmentManager()?.popBackStack()
                         }
                         .addOnFailureListener {
                             // Write failed
@@ -119,10 +121,7 @@ class EditFoodFragment : Fragment() {
         }
 
         root.findViewById<Button>(R.id.cancel).setOnClickListener {
-            requireFragmentManager().beginTransaction().add(
-                R.id.nav_host_fragment,
-                FoodDetailsFragment()
-            ).addToBackStack(null).commit()
+            getFragmentManager()?.popBackStack()
         }
         return root
     }

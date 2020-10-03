@@ -1,5 +1,6 @@
 package com.example.dormcuments.ui.foodclub
 
+import FoodDetailsFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_food_details.*
 
 
 class FoodclubFragment : Fragment() {
@@ -82,10 +84,9 @@ class FoodclubFragment : Fragment() {
         show.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("id", clubid)
-            val fragment2 =
-                FoodDetailsFragment()
+            val fragment2 = FoodDetailsFragment()
             fragment2.arguments = bundle
-            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, fragment2)?.commit()        }
+            fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()        }
         myContainer.addView(ExpandableCardview)
     }
 }

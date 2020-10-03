@@ -1,5 +1,4 @@
-package com.example.dormcuments.ui.foodclub
-
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
+import com.example.dormcuments.ui.foodclub.EditFoodFragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -41,7 +41,7 @@ class FoodDetailsFragment : Fragment() {
                                 if (w1.equals("on")) { w1 = "NA" }
                                 else if (w2.equals("on")){ w2 = "NA" }
 
-                                root.findViewById<TextView>(R.id.chefs).text = "$w1, $w2"
+                                root.findViewById<TextView>(R.id.chefs).text = "$w1 , $w2"
                                 root.findViewById<TextView>(R.id.date).text = i.child("date").getValue().toString()
                                 root.findViewById<TextView>(R.id.dinner).text = i.child("dinner").getValue().toString()
                                 root.findViewById<TextView>(R.id.note).text = i.child("note").getValue().toString()
@@ -72,6 +72,10 @@ class FoodDetailsFragment : Fragment() {
     private fun setId(clubid: String){
         editBundle = Bundle()
         editBundle.putString("id", clubid)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
     }
 
 }
