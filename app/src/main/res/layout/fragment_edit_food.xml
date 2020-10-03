@@ -41,17 +41,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/cancel"
-                android:layout_width="159dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/sign_in_button"
-                android:text="Cancel"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/note"
-                app:layout_constraintTop_toBottomOf="@+id/note" />
-
             <EditText
                 android:id="@+id/dinner"
                 android:layout_width="320dp"
@@ -126,13 +115,14 @@
 
             <Button
                 android:id="@+id/save"
-                android:layout_width="159dp"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:background="@drawable/sign_in_button"
                 android:text="Save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/note"
+                app:layout_constraintStart_toStartOf="@+id/note"
                 app:layout_constraintTop_toBottomOf="@+id/note" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

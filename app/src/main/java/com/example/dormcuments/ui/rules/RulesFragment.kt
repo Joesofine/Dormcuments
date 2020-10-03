@@ -1,17 +1,13 @@
 package com.example.dormapp.ui.rules
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import com.example.dormcuments.Logic
 import com.example.dormcuments.R
 import kotlinx.coroutines.*
-import java.io.IOException
 import java.net.URL
 import java.util.ArrayList
 

@@ -120,9 +120,6 @@ class EditFoodFragment : Fragment() {
             }
         }
 
-        root.findViewById<Button>(R.id.cancel).setOnClickListener {
-            getFragmentManager()?.popBackStack()
-        }
         return root
     }
 }
