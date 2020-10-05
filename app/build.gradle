@@ -51,7 +51,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:19.4.0'
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
-    implementation 'com.facebook.android:facebook-android-sdk:4.x'
+//    implementation 'com.facebook.android:facebook-android-sdk:4.x'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

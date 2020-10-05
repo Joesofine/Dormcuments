@@ -71,15 +71,22 @@ class FoodclubFragment : Fragment() {
         var w1: TextView = ExpandableCardview.findViewById(R.id.who1)
         var w2: TextView = ExpandableCardview.findViewById(R.id.who2)
 
-        if (c1.equals("None")) {
-            w1.setText("NA")
-        } else if (c2.equals("None")){
-            w2.setText("NA")
+        if (c1.equals("None") || c2.equals("None")) {
+            if (c1.equals("None") && c2.equals("None")) {
+                w1.setText("NA")
+                w2.setText("NA")
+            } else if (c1.equals("None")) {
+                w1.setText("NA")
+                w2.setText(c2.substring(1, 3))
+            } else if (c2.equals("None")){
+                w1.setText(c1.substring(1, 3))
+                w2.setText("NA")
+            }
         } else {
-            datefield.setText(date)
             w1.setText(c1.substring(1, 3))
             w2.setText(c2.substring(1, 3))
         }
+        datefield.setText(date)
 
         show.setOnClickListener {
             val bundle = Bundle()

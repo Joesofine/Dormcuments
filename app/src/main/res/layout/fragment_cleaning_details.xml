@@ -8,12 +8,12 @@
     android:background="@drawable/background_gradient">
 
     <TextView
-    android:id="@+id/textView20"
-    android:layout_width="200dp"
-    android:layout_height="wrap_content"
-    android:text=""
-    app:layout_constraintStart_toStartOf="@+id/note"
-    app:layout_constraintTop_toTopOf="@+id/textView15" />
+        android:id="@+id/textView20"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toStartOf="@+id/note"
+        app:layout_constraintTop_toTopOf="@+id/textView15" />
 
     <TextView
         android:id="@+id/textView15"
@@ -133,9 +133,9 @@
         android:background="@color/BackgroundDark"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dinner" />
+        app:layout_constraintTop_toBottomOf="@+id/task" />
 
     <TextView
         android:id="@+id/textView13"
@@ -178,7 +178,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView11" />
 
     <TextView
-        android:id="@+id/dinner"
+        android:id="@+id/task"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Soup with bread"
@@ -190,7 +190,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="There has been used onions from dumpster diving"
-        app:layout_constraintStart_toStartOf="@+id/dinner"
+        app:layout_constraintStart_toStartOf="@+id/task"
         app:layout_constraintTop_toTopOf="@+id/textView13" />
 
     <ImageView

@@ -1,20 +1,28 @@
-package com.example.dormcuments.ui.foodclub
+package com.example.dormcuments.ui.cleaning
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
+import com.example.dormcuments.ui.foodclub.Foodclub
+import com.example.dormcuments.ui.foodclub.FoodclubFragment
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_create_cleaning.*
 import kotlinx.android.synthetic.main.fragment_create_foodclub.*
+import kotlinx.android.synthetic.main.fragment_create_foodclub.date2
+import kotlinx.android.synthetic.main.fragment_create_foodclub.dinner
+import kotlinx.android.synthetic.main.fragment_create_foodclub.note
+import kotlinx.android.synthetic.main.fragment_create_foodclub.spinner_c1
+import kotlinx.android.synthetic.main.fragment_create_foodclub.spinner_c2
 import java.util.*
 
-class CreateFoodclubFragment : Fragment() , View.OnClickListener{
-    var database = FirebaseDatabase.getInstance().getReference("Foodclub")
+class CreateCleaningFragment : Fragment() {
+    var database = FirebaseDatabase.getInstance().getReference("Cleaning")
     var choosenDate = ""
 
     @SuppressLint("ClickableViewAccessibility")
@@ -22,7 +30,8 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_create_foodclub, container, false)
+    val root = inflater.inflate(R.layout.fragment_create_cleaning, container, false)
+
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
 
@@ -49,22 +58,22 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
-            val din = dinner.text.toString()
+            val tas = task.text.toString()
             val not = note.text.toString()
 
             if (choosenDate == "") {
                 date2.error = "Please choose a date"
             } else {
 
-                val clubid = database.push().key
-                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not)
+                val cleaningid = database.push().key
+                val cleaning = Cleaning(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, tas, not)
 
-                if (clubid != null) {
+                if (cleaningid != null) {
 
-                    database.child(clubid).setValue(club)
+                    database.child(cleaningid).setValue(cleaning)
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Foodclub been created", Toast.LENGTH_SHORT).show()
-                            requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, FoodclubFragment()).addToBackStack(null).commit()
+                            Toast.makeText(context, "Cleaning been created", Toast.LENGTH_SHORT).show()
+                            requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CleaningFragment()).addToBackStack(null).commit()
                         }
                         .addOnFailureListener {
                             // Write failed
@@ -77,14 +86,11 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         root.findViewById<Button>(R.id.cancel).setOnClickListener {
             requireFragmentManager().beginTransaction().add(
                 R.id.nav_host_fragment,
-                FoodclubFragment()
+                CleaningFragment()
             ).addToBackStack(null).commit()
         }
 
+
         return root
     }
-
-    override fun onClick(p0: View?) {
-    }
-
 }
