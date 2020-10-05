@@ -1,24 +1,28 @@
 package com.example.dormcuments.ui.signIn
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
-import android.view.MotionEvent
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dormcuments.R
+import com.example.dormcuments.ui.shopping.Item
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.util.*
 
 
 class SignUp : AppCompatActivity() {
+    var database = FirebaseDatabase.getInstance().getReference("Users")
+
     @SuppressLint("ClickableViewAccessibility", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,28 +72,70 @@ class SignUp : AppCompatActivity() {
         }
 
         save.setOnClickListener(View.OnClickListener {
-            val intent = Intent(applicationContext, SignUp_Image::class.java)
-            startActivity(intent)
+            val fname = name_signup.text.toString()
+            val lname = lastname_signup.text.toString()
+            val number = room_spinner.selectedItem.toString()
+            val bdate = date.text.toString()
+            val city = city_signup.text.toString()
+            val country = country_signup.text.toString()
+            val from = "$city, $country"
+            val diet = diet.text.toString()
+            val fact = funfact.text.toString()
+            val Uemail = email.text.toString()
+            val chopass = cho_password.text.toString()
+            val reapass = reap_password.text.toString()
+
+            if (fname.isEmpty()) {
+                name_signup.error = "Please write a name"
+            } else if (lname.isEmpty()) {
+                lastname_signup.error = "Please add lastname"
+            } else if (number == "Roomnumber") {
+                Toast.makeText(applicationContext, "Please choose roomnumber", Toast.LENGTH_SHORT).show()
+            } else if (bdate.isEmpty()) {
+                date.error = "Please choose birthday"
+            } else if (city.isEmpty()) {
+                city_signup.error = "Please let us know where you are from"
+            } else if (country.isEmpty()) {
+                country_signup.error = "Please let us know where you are from"
+            } else if (fact.isEmpty()) {
+                funfact.error = "Please tell us something funny"
+            } else if (Uemail.isEmpty()) {
+                email.error = "Please write an email adresse"
+            } else if (!Uemail.contains("@") || !Uemail.contains(".")) {
+                email.error = "Email not valid"
+            } else if (chopass.isEmpty()) {
+                cho_password.error = "Please create a password"
+            } else if (reapass.isEmpty()) {
+                reap_password.error = "Please repeat password"
+            } else if (reapass != chopass) {
+                cho_password.error = "The passwords are not the same"
+                reap_password.error = "The passwords are not the same"
+
+            } else {
+
+                val userId = database.push().key
+                val user = User(fname, lname, number, bdate, from, diet, fact, Uemail, reapass)
+
+                if (userId != null) {
+
+                    database.child(userId).setValue(user)
+                        .addOnSuccessListener {
+                            Toast.makeText(applicationContext, "User has been created", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(applicationContext, SignUp_Image::class.java)
+                            startActivity(intent)
+                        }
+                        .addOnFailureListener {
+                            // Write failed
+                            Toast.makeText(applicationContext, "Try again", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
         })
 
-        back.setOnClickListener(View.OnClickListener {
+        back.setOnClickListener {
             val intent = Intent(applicationContext, SignIn::class.java)
             startActivity(intent)
-        })
-
-    }
-
-    private fun makeIconsGrey(){
-        name_signup.setCompoundDrawablesWithIntrinsicBounds(R.drawable.name_icon, 0, 0, 0)
-        lastname_signup.setCompoundDrawablesWithIntrinsicBounds(R.drawable.name_icon, 0, 0, 0)
-        date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon, 0, 0, 0)
-        city_signup.setCompoundDrawablesWithIntrinsicBounds(R.drawable.city_icon, 0, 0, 0)
-        country_signup.setCompoundDrawablesWithIntrinsicBounds(R.drawable.county_icon, 0, 0, 0)
-        diet.setCompoundDrawablesWithIntrinsicBounds(R.drawable.diet_icon, 0, 0, 0)
-        funfact.setCompoundDrawablesWithIntrinsicBounds(R.drawable.fun_icon, 0, 0, 0)
-        email.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email_icon, 0, 0, 0)
-        cho_password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon, 0, 0, 0)
-        reap_password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon, 0, 0, 0)
+        }
     }
 
     private fun setIconsTint(edit: EditText, noTint: Int, tint: Int){
@@ -97,17 +143,4 @@ class SignUp : AppCompatActivity() {
             if (hasFocus) edit.setCompoundDrawablesWithIntrinsicBounds(tint, 0, 0, 0)
             else edit.setCompoundDrawablesWithIntrinsicBounds(noTint, 0, 0, 0) }
     }
-
-
-    fun disableSoftInputFromAppearing(editText: EditText) {
-        if (Build.VERSION.SDK_INT >= 11) {
-            editText.setRawInputType(InputType.TYPE_CLASS_TEXT)
-            editText.setTextIsSelectable(true)
-        } else {
-            editText.setRawInputType(InputType.TYPE_NULL)
-            editText.isFocusable = true
-        }
-    }
-
-
 }
