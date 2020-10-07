@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.signIn.AuthenticatedActivity"></activity>
         <activity android:name=".ui.signIn.SignUp_Image"></activity>
         <activity android:name=".ui.signIn.SignUp" />
         <activity android:name=".ui.signIn.ForgottenPassword" />

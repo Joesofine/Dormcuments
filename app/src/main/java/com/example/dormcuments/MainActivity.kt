@@ -14,8 +14,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FacebookSdk.sdkInitialize(applicationContext)
-        AppEventsLogger.activateApp(this)
+//        FacebookSdk.sdkInitialize(applicationContext)
+//        AppEventsLogger.activateApp(this)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
