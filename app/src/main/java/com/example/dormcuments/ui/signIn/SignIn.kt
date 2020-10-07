@@ -3,6 +3,7 @@ package com.example.dormcuments.ui.signIn
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -53,15 +54,20 @@ class SignIn : AppCompatActivity() {
         mail.setOnTouchListener { v, event ->
             if (MotionEvent.ACTION_UP == event.action) {
                 mail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email_icon_tint, 0, 0, 0)
-                password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon, 0, 0, 0)
+                mail.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
+                password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon_white, 0, 0, 0)
+                password.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+
             }
             false
         }
 
         password.setOnTouchListener { v, event ->
             if (MotionEvent.ACTION_UP == event.action) {
-                mail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email_icon, 0, 0, 0)
+                mail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email_icon_white, 0, 0, 0)
+                mail.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
                 password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon_tint, 0, 0, 0)
+                password.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
             }
             false
         }

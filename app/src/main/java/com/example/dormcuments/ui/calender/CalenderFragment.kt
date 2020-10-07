@@ -11,6 +11,10 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
+import com.facebook.AccessToken
+import com.facebook.GraphRequest
+import com.facebook.HttpMethod
+import com.facebook.login.LoginManager
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -32,6 +36,19 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_calender, container, false)
+
+        var btnLogout = root.findViewById<Button>(R.id.btnLogout)
+
+        btnLogout.setOnClickListener(View.OnClickListener {
+            // Logout
+            if (AccessToken.getCurrentAccessToken() != null) {
+                GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, GraphRequest.Callback {
+                    AccessToken.setCurrentAccessToken(null)
+                    LoginManager.getInstance().logOut()
+                    requireActivity().finish()
+                }).executeAsync()
+            }
+        })
 
         sliderLayout = root.findViewById(R.id.sliderLayout);
         week = root.findViewById(R.id.weekID) as Button;

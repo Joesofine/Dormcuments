@@ -16,6 +16,13 @@
     <color name="facebook">#4267B2</color>
     <color name="lightSky">#ecf8fe</color>
     <color name="NewBackground_light">#B5E9FF</color>
+
+
+    //New design
+    <color name="DarkBlueBackground">#28576f</color>
+    <color name="EvenDarkerBlueBackground">#003652</color>
+    <color name="VeryDarkBlueTopBar">#002b42</color>
+    <color name="CrazyDarkShadowColor">#002235</color>
 </resources>
 
 
