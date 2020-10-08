@@ -9,15 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.dormcuments.R
-import com.example.dormcuments.ui.signIn.ForgottenPassword
 import com.example.dormcuments.ui.signIn.SignIn
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.close
-import kotlinx.android.synthetic.main.fragment_profile.date
 import java.util.*
 
 class profileFragment : Fragment() {
@@ -31,43 +26,47 @@ class profileFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         auth = Firebase.auth
 
-        val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
+        val date: EditText = root.findViewById(R.id.date)
+        val name_signup: EditText = root.findViewById(R.id.name_signup)
+        val room_spinner: Spinner = root.findViewById(R.id.room_spinner)
+        val from: EditText = root.findViewById(R.id.city_signup)
+        val diet: EditText = root.findViewById(R.id.diet)
+        val funfact: EditText = root.findViewById(R.id.funfact)
+        val datePicker: DatePicker = root.findViewById<DatePicker>(R.id.datePicker)
+        val close: Button = root.findViewById(R.id.close)
 
         val today = Calendar.getInstance()
-        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
-            today.get(Calendar.DAY_OF_MONTH))
 
-        { view, year, month, day ->
+        datePicker.init(2000, today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
+                view, year, month, day ->
             val month = month + 1
             val msg = "$day/$month/$year"
             date.setText(msg)
             date.setTextColor(resources.getColor(R.color.White))
         }
 
-
         date.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus){
                 datePicker.visibility = View.VISIBLE
                 close.visibility = View.VISIBLE
-                date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon_tint, 0, 0, 0)
+                date.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_tint, 0)
                 date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
             } else {
                 datePicker.visibility = View.GONE
                 close.visibility = View.GONE
-                date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon_white, 0, 0, 0)
+                date.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
                 date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
             }
         }
 
         val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
         myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
-        root.findViewById<Spinner>(R.id.room_spinner).adapter = myAdapter
+        room_spinner.adapter = myAdapter
 
-        setIconsTint(root.findViewById(R.id.name_signup), R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
-        setIconsTint(root.findViewById(R.id.date), R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
-        setIconsTint(root.findViewById(R.id.city_signup), R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
-        setIconsTint(root.findViewById(R.id.diet), R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
-        setIconsTint(root.findViewById(R.id.funfact), R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
+        setIconsTint(name_signup, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
+        setIconsTint(from, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
+        setIconsTint(diet, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
+        setIconsTint(funfact, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
 
 
         close.setOnClickListener(){
@@ -97,11 +96,11 @@ class profileFragment : Fragment() {
     private fun setIconsTint(edit: EditText, noTint: Int, tint: Int){
         edit.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                edit.setCompoundDrawablesWithIntrinsicBounds(tint, 0, 0, 0)
+                edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, tint, 0)
                 edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
             }
             else {
-                edit.setCompoundDrawablesWithIntrinsicBounds(noTint, 0, 0, 0)
+                edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, noTint, 0)
                 edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
             }
         }

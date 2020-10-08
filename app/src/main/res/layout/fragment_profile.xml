@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:animateLayoutChanges="false"
-                    android:background="#FFFFFF"
+                    android:background="@color/White"
                     android:calendarViewShown="false"
                     android:datePickerMode="spinner"
                     android:visibility="gone"
@@ -125,7 +125,8 @@
                 app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/room_spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/room_spinner"
+                />
 
             <EditText
                 android:id="@+id/funfact"
@@ -169,13 +170,9 @@
 
             <Button
                 android:id="@+id/save"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="45dp"
-                android:layout_marginLeft="45dp"
+                android:layout_width="320dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="50dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginRight="45dp"
                 android:background="@drawable/sign_in_button"
                 android:text="Save Changes"
                 android:textAllCaps="false"
@@ -186,14 +183,10 @@
 
             <Button
                 android:id="@+id/resetPassword"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="45dp"
-                android:layout_marginLeft="45dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginRight="45dp"
-                android:background="@drawable/sign_in_button"
+                android:background="@color/LighterDarkBlue"
                 android:text="Reset password"
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="@+id/funfact"
@@ -202,14 +195,10 @@
 
             <Button
                 android:id="@+id/signout"
-                android:layout_width="match_parent"
+                android:layout_width="320dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="45dp"
-                android:layout_marginLeft="45dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginRight="45dp"
-                android:background="@drawable/sign_in_button"
+                android:background="@color/LighterDarkBlue"
                 android:text="Sign Out"
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="@+id/funfact"

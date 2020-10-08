@@ -17,6 +17,30 @@
             android:paddingBottom="30dp">
 
 
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Create login:"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@+id/email"
+                app:layout_constraintStart_toStartOf="@+id/name_signup" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginBottom="5dp"
+                android:text="Optional:"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@+id/diet"
+                app:layout_constraintStart_toStartOf="@+id/name_signup" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,76 +86,52 @@
                 android:id="@+id/name_signup"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="5dp"
                 android:drawableLeft="@drawable/name_icon_white"
                 android:drawablePadding="10dp"
-                android:hint="Firstname"
+                android:hint="Fullname"
                 android:inputType="textPersonName|textCapSentences"
-                android:textColorHint="@color/White"
                 android:textColor="@color/White"
-                app:backgroundTint="@color/White"
+                android:textColorHint="@color/White"
                 android:textSize="14sp"
+                app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <EditText
                 android:id="@+id/city_signup"
-                android:layout_width="320dp"
+                android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
                 android:drawableLeft="@drawable/city_icon_white"
                 android:drawablePadding="10dp"
-                android:hint="City"
+                android:hint="City of origin"
                 android:inputType="textCapSentences"
-                android:textColorHint="@color/White"
-                app:backgroundTint="@color/White"
                 android:textColor="@color/White"
+                android:textColorHint="@color/White"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:backgroundTint="@color/White"
+                app:layout_constraintStart_toStartOf="@+id/date"
                 app:layout_constraintTop_toBottomOf="@+id/date" />
 
             <EditText
                 android:id="@+id/country_signup"
-                android:layout_width="320dp"
+                android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="16dp"
                 android:drawableLeft="@drawable/county_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="Country"
                 android:inputType="textCapSentences"
                 android:selectAllOnFocus="true"
-                android:textColorHint="@color/White"
                 android:textColor="@color/White"
-                app:backgroundTint="@color/White"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.511"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/city_signup" />
-
-            <EditText
-                android:id="@+id/lastname_signup"
-                android:layout_width="320dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="15dp"
-                android:drawableLeft="@drawable/name_icon_white"
-                android:drawablePadding="10dp"
-                android:hint="Lastname"
-                android:imeOptions="actionDone"
-                android:inputType="textPersonName|textCapSentences"
-                android:selectAllOnFocus="false"
                 android:textColorHint="@color/White"
-                android:textColor="@color/White"
-                app:backgroundTint="@color/White"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_signup" />
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="@+id/date"
+                app:layout_constraintTop_toBottomOf="@+id/date" />
 
             <Spinner
                 android:id="@+id/room_spinner"
@@ -146,7 +146,7 @@
                 app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lastname_signup" />
+                app:layout_constraintTop_toBottomOf="@+id/city_signup" />
 
             <EditText
                 android:id="@+id/date"
@@ -155,16 +155,16 @@
                 android:layout_marginTop="15dp"
                 android:drawableLeft="@drawable/birthday_icon_white"
                 android:drawablePadding="10dp"
+                android:editable="false"
                 android:hint="Birthday"
                 android:inputType="none"
-                android:editable="false"
                 android:selectAllOnFocus="true"
                 android:textColorHint="@color/White"
-                app:backgroundTint="@color/White"
                 android:textSize="14sp"
+                app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/room_spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/name_signup" />
 
             <EditText
                 android:id="@+id/funfact"
@@ -190,36 +190,36 @@
                 android:id="@+id/diet"
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="60dp"
                 android:drawableLeft="@drawable/diet_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="Diets and Allergies"
                 android:imeOptions="actionNext"
                 android:inputType="textLongMessage|textMultiLine|textCapSentences"
                 android:selectAllOnFocus="true"
-                android:textColorHint="@color/White"
                 android:textColor="@color/White"
-                app:backgroundTint="@color/White"
+                android:textColorHint="@color/White"
                 android:textSize="14sp"
+                app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/country_signup" />
+                app:layout_constraintTop_toBottomOf="@+id/room_spinner" />
 
             <EditText
                 android:id="@+id/email"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="60dp"
                 android:drawableLeft="@drawable/email_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:selectAllOnFocus="true"
-                android:textColorHint="@color/White"
-                app:backgroundTint="@color/White"
-                android:textSize="14sp"
                 android:textColor="@color/White"
+                android:textColorHint="@color/White"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -254,10 +254,11 @@
                 android:hint="Repeat Password"
                 android:inputType="textPassword"
                 android:selectAllOnFocus="true"
-                android:textColorHint="@color/White"
-                app:backgroundTint="@color/White"
-                android:textSize="14sp"
                 android:textColor="@color/White"
+                android:textColorHint="@color/White"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.511"
                 app:layout_constraintStart_toStartOf="parent"
@@ -267,25 +268,37 @@
                 android:id="@+id/save"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/sign_in_button"
                 android:text="Next"
                 android:textAllCaps="false"
                 android:textColor="#0C0000"
-                app:layout_constraintEnd_toEndOf="@+id/reap_password"
+                app:layout_constraintEnd_toEndOf="@+id/cho_password"
                 app:layout_constraintTop_toBottomOf="@+id/reap_password" />
 
             <Button
                 android:id="@+id/back"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/sign_in_button"
                 android:text="Cancel"
                 android:textAllCaps="false"
                 android:textColor="#090000"
-                app:layout_constraintStart_toStartOf="@+id/reap_password"
+                app:layout_constraintStart_toStartOf="@+id/cho_password"
                 app:layout_constraintTop_toBottomOf="@+id/reap_password" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Who are you?:"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="@+id/name_signup"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,7 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -93,6 +94,9 @@ class SignIn : AppCompatActivity() {
         login.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
+                    val credenials = FacebookAuthProvider.getCredential(loginResult.accessToken.token);
+
+                    auth.signInWithCredential(credenials)
                     println("Facebook token: " + loginResult.accessToken.token)
                     startActivity(Intent(applicationContext, MainActivity::class.java))
                 }

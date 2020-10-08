@@ -41,7 +41,7 @@ class SignUp : AppCompatActivity() {
         val datePicker = findViewById<DatePicker>(R.id.datePicker)
 
         val today = Calendar.getInstance()
-        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
+        datePicker.init(2000, today.get(Calendar.MONTH),
             today.get(Calendar.DAY_OF_MONTH))
 
         { view, year, month, day ->
@@ -67,7 +67,6 @@ class SignUp : AppCompatActivity() {
         }
 
         setIconsTint(name_signup, R.drawable.name_icon_white, R.drawable.name_icon_tint)
-        setIconsTint(lastname_signup, R.drawable.name_icon_white, R.drawable.name_icon_tint)
         setIconsTint(city_signup, R.drawable.city_icon_white, R.drawable.city_icon_tint)
         setIconsTint(country_signup, R.drawable.county_icon_white, R.drawable.county_icon_tint)
         setIconsTint(diet, R.drawable.diet_icon_white, R.drawable.diet_icon_tint)
@@ -88,7 +87,6 @@ class SignUp : AppCompatActivity() {
 
         save.setOnClickListener(View.OnClickListener {
             val fname = name_signup.text.toString()
-            val lname = lastname_signup.text.toString()
             val number = room_spinner.selectedItem.toString()
             val bdate = date.text.toString()
             val city = city_signup.text.toString()
@@ -102,8 +100,6 @@ class SignUp : AppCompatActivity() {
 
             if (fname.isEmpty()) {
                 name_signup.error = "Please write a name"
-            } else if (lname.isEmpty()) {
-                lastname_signup.error = "Please add lastname"
             } else if (number == "Roomnumber") {
                 Toast.makeText(applicationContext, "Please choose roomnumber", Toast.LENGTH_SHORT).show()
             } else if (bdate.isEmpty()) {
@@ -112,9 +108,7 @@ class SignUp : AppCompatActivity() {
                 city_signup.error = "Please let us know where you are from"
             } else if (country.isEmpty()) {
                 country_signup.error = "Please let us know where you are from"
-            } else if (fact.isEmpty()) {
-                funfact.error = "Please tell us something funny"
-            } else if (Uemail.isEmpty()) {
+            }  else if (Uemail.isEmpty()) {
                 email.error = "Please write an email adresse"
             } else if (!Uemail.contains("@") || !Uemail.contains(".")) {
                 email.error = "Email not valid"
@@ -127,31 +121,9 @@ class SignUp : AppCompatActivity() {
                 reap_password.error = "The passwords are not the same"
 
             } else {
-
-                val userId = database.push().key
-                val user = User(fname, lname, number, bdate, from, diet, fact, Uemail, reapass)
-
-                if (userId != null) {
-
-                    database.child(userId).setValue(user)
-                        .addOnSuccessListener {
-                            createAccount(Uemail, reapass)
-                            Toast.makeText(applicationContext, "User has been created", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(applicationContext, SignUp_Image::class.java)
-                            startActivity(intent)
-                        }
-                        .addOnFailureListener {
-                            // Write failed
-                            Toast.makeText(applicationContext, "Try again", Toast.LENGTH_SHORT).show()
-                        }
-                }
+                createAccount(Uemail, reapass, fname, number, bdate, from, diet, fact)
             }
         })
-
-        back.setOnClickListener {
-            val intent = Intent(applicationContext, SignIn::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun setIconsTint(edit: EditText, noTint: Int, tint: Int){
@@ -167,12 +139,11 @@ class SignUp : AppCompatActivity() {
         }
     }
 
-    private fun createAccount(email: String, password: String) {
+    private fun createAccount(email: String, password: String, fname: String, number: String, bdate: String, from: String, diet: String, fact: String) {
         Log.d(TAG, "createAccount:$email")
         if (!validateForm()) {
             return
         }
-
 
         // [START create_user_with_email]
         auth.createUserWithEmailAndPassword(email, password)
@@ -180,8 +151,23 @@ class SignUp : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                } else {
+                    Toast.makeText(applicationContext, "User has been created", Toast.LENGTH_SHORT).show()
+                    val userId = auth.currentUser?.uid
+
+                    //val userId = database.push().key
+                    val user = User(fname, number, bdate, from, diet, fact)
+
+                    if (userId != null) {
+                        database.child(userId).setValue(user)
+                            .addOnSuccessListener {
+                                val intent = Intent(applicationContext, SignUp_Image::class.java)
+                                startActivity(intent)
+                            }
+                            .addOnFailureListener {
+                                // Write failed
+                                Toast.makeText(applicationContext, "Try again", Toast.LENGTH_SHORT).show()
+                            }
+                    }                } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
