@@ -54,6 +54,7 @@
                     android:layout_marginBottom="5dp"
                     android:ems="10"
                     android:hint="Item"
+                    android:textColor="@color/White"
                     android:textColorHint="@color/White"
                     app:backgroundTint="@color/White"
                     android:inputType="textPersonName|textCapSentences"

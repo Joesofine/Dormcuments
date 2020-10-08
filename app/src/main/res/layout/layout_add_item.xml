@@ -29,6 +29,7 @@
             android:ems="10"
             android:hint="Item"
             android:textColorHint="@color/White"
+            android:textColor="@color/White"
             app:backgroundTint="@color/White"
             android:inputType="textPersonName|textCapSentences"
             app:layout_constraintBottom_toBottomOf="parent"

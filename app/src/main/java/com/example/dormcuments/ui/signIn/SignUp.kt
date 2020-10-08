@@ -3,6 +3,7 @@ package com.example.dormcuments.ui.signIn
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
@@ -12,11 +13,13 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.dormcuments.R
 import com.example.dormcuments.ui.shopping.Item
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.spinner_layout.view.*
 import java.util.*
 
 
@@ -38,32 +41,37 @@ class SignUp : AppCompatActivity() {
             val month = month + 1
             val msg = "$day/$month/$year"
             date.setText(msg)
+            date.setTextColor(resources.getColor(R.color.White))
         }
+
 
         date.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus){
                 datePicker.visibility = View.VISIBLE
                 close.visibility = View.VISIBLE
                 date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon_tint, 0, 0, 0)
+                date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
             } else {
                 datePicker.visibility = View.GONE
-                date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon, 0, 0, 0)
+                close.visibility = View.GONE
+                date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon_white, 0, 0, 0)
+                date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
             }
         }
 
-        setIconsTint(name_signup, R.drawable.name_icon, R.drawable.name_icon_tint)
-        setIconsTint(lastname_signup, R.drawable.name_icon, R.drawable.name_icon_tint)
-        setIconsTint(city_signup, R.drawable.city_icon, R.drawable.city_icon_tint)
-        setIconsTint(country_signup, R.drawable.county_icon, R.drawable.county_icon_tint)
-        setIconsTint(diet, R.drawable.diet_icon, R.drawable.diet_icon_tint)
-        setIconsTint(funfact, R.drawable.fun_icon, R.drawable.fun_icon_tint)
-        setIconsTint(email, R.drawable.email_icon, R.drawable.email_icon_tint)
-        setIconsTint(cho_password, R.drawable.password_icon, R.drawable.password_icon_tint)
-        setIconsTint(reap_password, R.drawable.password_icon, R.drawable.password_icon_tint)
+        setIconsTint(name_signup, R.drawable.name_icon_white, R.drawable.name_icon_tint)
+        setIconsTint(lastname_signup, R.drawable.name_icon_white, R.drawable.name_icon_tint)
+        setIconsTint(city_signup, R.drawable.city_icon_white, R.drawable.city_icon_tint)
+        setIconsTint(country_signup, R.drawable.county_icon_white, R.drawable.county_icon_tint)
+        setIconsTint(diet, R.drawable.diet_icon_white, R.drawable.diet_icon_tint)
+        setIconsTint(funfact, R.drawable.fun_icon_white, R.drawable.fun_icon_tint)
+        setIconsTint(email, R.drawable.email_icon_white, R.drawable.email_icon_tint)
+        setIconsTint(cho_password, R.drawable.password_icon_white, R.drawable.password_icon_tint)
+        setIconsTint(reap_password, R.drawable.password_icon_white, R.drawable.password_icon_tint)
 
 
         val myAdapter = ArrayAdapter(applicationContext, R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
-        myAdapter.setDropDownViewResource(R.layout.spinner_layout)
+        myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         room_spinner.adapter = myAdapter
 
         close.setOnClickListener(){
@@ -140,7 +148,14 @@ class SignUp : AppCompatActivity() {
 
     private fun setIconsTint(edit: EditText, noTint: Int, tint: Int){
         edit.setOnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) edit.setCompoundDrawablesWithIntrinsicBounds(tint, 0, 0, 0)
-            else edit.setCompoundDrawablesWithIntrinsicBounds(noTint, 0, 0, 0) }
+            if (hasFocus) {
+                edit.setCompoundDrawablesWithIntrinsicBounds(tint, 0, 0, 0)
+                edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
+            }
+            else {
+                edit.setCompoundDrawablesWithIntrinsicBounds(noTint, 0, 0, 0)
+                edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+            }
+        }
     }
 }
