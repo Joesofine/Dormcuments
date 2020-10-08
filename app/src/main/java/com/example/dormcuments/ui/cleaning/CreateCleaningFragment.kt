@@ -53,7 +53,7 @@ class CreateCleaningFragment : Fragment() {
         }
 
         val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_cooks))
-        myAdapter.setDropDownViewResource(R.layout.spinner_layout)
+        myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         root.findViewById<Spinner>(R.id.spinner_c1).adapter = myAdapter
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
 

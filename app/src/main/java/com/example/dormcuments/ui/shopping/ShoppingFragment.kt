@@ -52,8 +52,6 @@ class ShoppingFragment : Fragment() {
                 R.id.nav_host_fragment,
                 AddShopItem()
             ).addToBackStack(null).commit()
-
-
         }
         return root
     }

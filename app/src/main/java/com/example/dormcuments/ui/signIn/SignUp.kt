@@ -7,6 +7,8 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
+import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
@@ -16,7 +18,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.dormcuments.R
 import com.example.dormcuments.ui.shopping.Item
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.spinner_layout.view.*
@@ -25,11 +30,13 @@ import java.util.*
 
 class SignUp : AppCompatActivity() {
     var database = FirebaseDatabase.getInstance().getReference("Users")
+    private lateinit var auth: FirebaseAuth
 
     @SuppressLint("ClickableViewAccessibility", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+        auth = Firebase.auth
 
         val datePicker = findViewById<DatePicker>(R.id.datePicker)
 
@@ -89,7 +96,7 @@ class SignUp : AppCompatActivity() {
             val from = "$city, $country"
             val diet = diet.text.toString()
             val fact = funfact.text.toString()
-            val Uemail = email.text.toString()
+            val Uemail = email.text.toString().toLowerCase().replace(" ", "")
             val chopass = cho_password.text.toString()
             val reapass = reap_password.text.toString()
 
@@ -128,6 +135,7 @@ class SignUp : AppCompatActivity() {
 
                     database.child(userId).setValue(user)
                         .addOnSuccessListener {
+                            createAccount(Uemail, reapass)
                             Toast.makeText(applicationContext, "User has been created", Toast.LENGTH_SHORT).show()
                             val intent = Intent(applicationContext, SignUp_Image::class.java)
                             startActivity(intent)
@@ -158,4 +166,59 @@ class SignUp : AppCompatActivity() {
             }
         }
     }
+
+    private fun createAccount(email: String, password: String) {
+        Log.d(TAG, "createAccount:$email")
+        if (!validateForm()) {
+            return
+        }
+
+
+        // [START create_user_with_email]
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        // [END create_user_with_email]
+    }
+
+    private fun validateForm(): Boolean {
+        var valid = true
+
+        val Uemail = email.text.toString()
+        if (TextUtils.isEmpty(Uemail)) {
+           email.error = "Required."
+            valid = false
+        } else {
+            email.error = null
+        }
+
+        val password = cho_password.text.toString()
+        if (TextUtils.isEmpty(password)) {
+            cho_password.error = "Required."
+            valid = false
+        } else {
+           cho_password.error = null
+        }
+
+        return valid
+    }
+
+
+
+    companion object {
+            private const val TAG = "EmailPassword"
+            private const val RC_MULTI_FACTOR = 9005
+        }
 }

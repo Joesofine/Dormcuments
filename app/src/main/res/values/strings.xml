@@ -64,4 +64,10 @@
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">3361771690588285</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb3361771690588285</string>
+
+
+    <!--  Auth -->
+    <string name="auth_failed">Authentication failed</string>
+
+
 </resources>

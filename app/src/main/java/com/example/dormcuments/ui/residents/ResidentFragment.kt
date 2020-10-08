@@ -11,10 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.example.dormcuments.R
+import com.example.dormcuments.ui.shopping.AddShopItem
 import kotlinx.android.synthetic.main.fragment_residents.*
+import kotlinx.android.synthetic.main.fragment_residents.view.*
 
 class ResidentFragment : Fragment() {
     private val residentsArr = ArrayList<String>()
@@ -33,6 +36,13 @@ class ResidentFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_residents, container, false)
+
+        root.findViewById<ImageView>(R.id.profileButton).setOnClickListener(){
+            requireFragmentManager().beginTransaction().add(
+                R.id.nav_host_fragment,
+                profileFragment()
+            ).addToBackStack(null).commit()
+        }
 
         residentLayout = root.findViewById(R.id.residentLayout);
 

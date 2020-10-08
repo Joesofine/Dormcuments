@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="30dp">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date">
+
+                <Button
+                    android:id="@+id/close"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/sign_in_button"
+                    android:text="Close"
+                    android:textAllCaps="false"
+                    android:textColor="#0C0000"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+                <DatePicker
+                    android:id="@+id/datePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="false"
+                    android:background="#FFFFFF"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/close"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/name_signup"
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
+                android:drawableRight="@drawable/edit_pen_icon_white"
+                android:drawablePadding="10dp"
+                android:hint="Firstname Lastname"
+                android:inputType="textPersonName|textCapSentences"
+                android:textColor="@color/White"
+                android:textColorHint="@color/White"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <EditText
+                android:id="@+id/city_signup"
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:drawableRight="@drawable/edit_pen_icon_white"
+                android:drawablePadding="10dp"
+                android:hint="City, Country"
+                android:inputType="textCapSentences"
+                android:textColor="@color/White"
+                android:textColorHint="@color/White"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date" />
+
+            <Spinner
+                android:id="@+id/room_spinner"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="320dp"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="false"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="15dp"
+                android:gravity="left"
+                android:padding="0dp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name_signup" />
+
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:drawableRight="@drawable/edit_pen_icon_white"
+                android:drawablePadding="10dp"
+                android:editable="false"
+                android:hint="Birthday"
+                android:inputType="none"
+                android:selectAllOnFocus="true"
+                android:textColorHint="@color/White"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/room_spinner" />
+
+            <EditText
+                android:id="@+id/funfact"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableRight="@drawable/edit_pen_icon_white"
+                android:drawablePadding="10dp"
+                android:hint="Funfact"
+                android:imeOptions="actionNext"
+                android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/White"
+                android:textColorHint="@color/White"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/diet" />
+
+            <EditText
+                android:id="@+id/diet"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableRight="@drawable/edit_pen_icon_white"
+                android:drawablePadding="10dp"
+                android:hint="Diets and Allergies"
+                android:imeOptions="actionNext"
+                android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/White"
+                android:textColorHint="@color/White"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city_signup" />
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginRight="45dp"
+                android:background="@drawable/sign_in_button"
+                android:text="Save Changes"
+                android:textAllCaps="false"
+                android:textColor="#0C0000"
+                app:layout_constraintEnd_toEndOf="@+id/signout"
+                app:layout_constraintStart_toStartOf="@+id/signout"
+                app:layout_constraintTop_toBottomOf="@+id/signout" />
+
+            <Button
+                android:id="@+id/resetPassword"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginRight="45dp"
+                android:background="@drawable/sign_in_button"
+                android:text="Reset password"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="@+id/funfact"
+                app:layout_constraintStart_toStartOf="@+id/funfact"
+                app:layout_constraintTop_toBottomOf="@+id/funfact" />
+
+            <Button
+                android:id="@+id/signout"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginRight="45dp"
+                android:background="@drawable/sign_in_button"
+                android:text="Sign Out"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="@+id/funfact"
+                app:layout_constraintStart_toStartOf="@+id/funfact"
+                app:layout_constraintTop_toBottomOf="@+id/resetPassword" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="170dp"
+                android:layout_marginLeft="170dp"
+                android:layout_marginTop="170dp"
+                android:background="@drawable/more_button"
+                android:cropToPadding="false"
+                android:padding="5dp"
+                android:src="@drawable/edit_image_white"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</LinearLayout>
