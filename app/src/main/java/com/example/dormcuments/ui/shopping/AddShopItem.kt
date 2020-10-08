@@ -48,9 +48,6 @@ class AddShopItem : Fragment() {
                 }
             }
 
-            root.findViewById<FloatingActionButton>(R.id.bk).setOnClickListener{
-                requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, ShoppingFragment()).addToBackStack(null).commit()
-            }
         }
         return root
     }

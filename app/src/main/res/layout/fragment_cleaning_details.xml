@@ -23,6 +23,7 @@
         android:drawableLeft="@drawable/participants_icon"
         android:drawablePadding="10dp"
         android:text="Participants"
+        android:textColor="@color/White"
         app:layout_constraintStart_toStartOf="@+id/divider9"
         app:layout_constraintTop_toBottomOf="@+id/divider9" />
 
@@ -93,9 +94,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:drawableLeft="@drawable/chef_icon"
+        android:drawableLeft="@drawable/chef_icon_white"
         android:drawablePadding="10dp"
         android:text="Chefs"
+        android:textColor="@color/White"
         app:layout_constraintStart_toStartOf="@+id/divider5"
         app:layout_constraintTop_toBottomOf="@+id/divider5" />
 
@@ -104,7 +106,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/diet_icon"
+        android:drawableLeft="@drawable/diet_icon_white"
+        android:textColor="@color/White"
         android:drawablePadding="10dp"
         android:text="Diets"
         app:layout_constraintStart_toStartOf="@+id/divider6"
@@ -115,9 +118,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/pot_icon"
+        android:drawableLeft="@drawable/pot_icon_white"
         android:drawablePadding="10dp"
         android:text="Dish"
+        android:textColor="@color/White"
         app:layout_constraintStart_toStartOf="@+id/divider8"
         app:layout_constraintTop_toBottomOf="@+id/divider8" />
 
@@ -142,9 +146,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/note_icon"
+        android:drawableLeft="@drawable/note_icon_white"
         android:drawablePadding="10dp"
         android:text="Note"
+        android:textColor="@color/White"
         app:layout_constraintStart_toStartOf="@+id/divider7"
         app:layout_constraintTop_toTopOf="@+id/divider7" />
 
@@ -155,6 +160,7 @@
         android:drawablePadding="10dp"
         android:text="01/02"
         android:textSize="30sp"
+        android:textColor="@color/White"
         app:layout_constraintBottom_toTopOf="@+id/divider5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -166,6 +172,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="01,02"
+        android:textColor="@color/White"
         app:layout_constraintStart_toStartOf="@+id/date"
         app:layout_constraintTop_toTopOf="@+id/textView10" />
 
@@ -174,6 +181,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text=""
+        android:textColor="@color/White"
         app:layout_constraintStart_toStartOf="@+id/chefs"
         app:layout_constraintTop_toTopOf="@+id/textView11" />
 
@@ -182,6 +190,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Soup with bread"
+        android:textColor="@color/White"
         app:layout_constraintStart_toStartOf="@+id/diets"
         app:layout_constraintTop_toTopOf="@+id/textView12" />
 
@@ -189,6 +198,7 @@
         android:id="@+id/note"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/White"
         android:text="There has been used onions from dumpster diving"
         app:layout_constraintStart_toStartOf="@+id/task"
         app:layout_constraintTop_toTopOf="@+id/textView13" />
@@ -203,5 +213,5 @@
         android:src="@drawable/edit_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="#505050" />
+        app:tint="@color/White" />
 </androidx.constraintlayout.widget.ConstraintLayout>

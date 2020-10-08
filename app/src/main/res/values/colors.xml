@@ -19,10 +19,13 @@
 
 
     //New design
+    <color name="LighterDarkBlue">#326d8b</color>
     <color name="DarkBlueBackground">#28576f</color>
     <color name="EvenDarkerBlueBackground">#003652</color>
     <color name="VeryDarkBlueTopBar">#002b42</color>
     <color name="CrazyDarkShadowColor">#002235</color>
+    <color name="SaturedCrazyDarkBlue">#00243c</color>
+    <color name="Black">#080808</color>
 </resources>
 
 

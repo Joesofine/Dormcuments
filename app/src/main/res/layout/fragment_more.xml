@@ -7,8 +7,8 @@
 
     <Button
         android:id="@+id/residents_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginBottom="75dp"
         android:background="@drawable/more_button"
         android:drawableBottom="@drawable/residents_icon"
@@ -17,6 +17,7 @@
         android:paddingBottom="5dp"
         android:text="Residents"
         android:textAllCaps="false"
+        android:textColor="@color/White"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/meeting_button"
@@ -26,8 +27,8 @@
 
     <Button
         android:id="@+id/meeting_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginTop="75dp"
         android:background="@drawable/more_button"
         android:drawableBottom="@drawable/day_view"
@@ -36,6 +37,7 @@
         android:paddingBottom="5dp"
         android:text="@string/title_meeting"
         android:textAllCaps="false"
+        android:textColor="@color/White"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/residents_button"
         app:layout_constraintEnd_toStartOf="@+id/cleaning_button"
@@ -45,8 +47,8 @@
 
     <Button
         android:id="@+id/cleaning_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginTop="75dp"
         android:background="@drawable/more_button"
         android:drawableBottom="@drawable/cleaning_icon"
@@ -55,6 +57,7 @@
         android:paddingBottom="5dp"
         android:text="@string/title_cleaning"
         android:textAllCaps="false"
+        android:textColor="@color/White"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/rules_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,8 +67,8 @@
 
     <Button
         android:id="@+id/rules_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_marginBottom="75dp"
         android:background="@drawable/more_button"
         android:drawableBottom="@drawable/rules_icon"
@@ -74,6 +77,7 @@
         android:paddingBottom="5dp"
         android:text="@string/title_rules"
         android:textAllCaps="false"
+        android:textColor="@color/White"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cleaning_button"

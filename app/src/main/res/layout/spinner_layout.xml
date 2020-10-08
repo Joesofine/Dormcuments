@@ -9,6 +9,6 @@
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingStart="5dp"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:textColor="@color/hint"
+    android:textColor="@color/White"
     android:textSize="14sp"
     android:paddingLeft="3dp" />

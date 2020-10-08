@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.facebook.AccessToken
@@ -65,21 +66,33 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
         if (p0 === week || p0 === month || p0 === year) {
             if (p0 === week) {
-                week.background = resources.getDrawable(R.color.Slider)
-                month.background = resources.getDrawable(R.color.ButtonLight)
-                year.background = resources.getDrawable(R.color.ButtonLight)
+                week.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
+                month.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+                year.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+                context?.let {ContextCompat.getColor(it, R.color.White) }?.let { week.setTextColor(it) }
+                context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { month.setTextColor(it) }
+                context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { year.setTextColor(it) }
+
                 buttonLoop(weeks,targetWidth - 120)
 
             } else if (p0 === month) {
-                week.background = resources.getDrawable(R.color.ButtonLight)
-                month.background = resources.getDrawable(R.color.Slider)
-                year.background = resources.getDrawable(R.color.ButtonLight)
+                week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+                month.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
+                year.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+                context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { week.setTextColor(it) }
+                context?.let {ContextCompat.getColor(it, R.color.White) }?.let { month.setTextColor(it) }
+                context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { year.setTextColor(it) }
+
+
                 buttonLoop(months,targetWidth - 40)
 
             } else if (p0 === year) {
-                week.background = resources.getDrawable(R.color.ButtonLight)
-                month.background = resources.getDrawable(R.color.ButtonLight)
-                year.background = resources.getDrawable(R.color.Slider)
+                week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+                month.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+                year.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
+                context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { week.setTextColor(it) }
+                context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { month.setTextColor(it) }
+                context?.let {ContextCompat.getColor(it, R.color.White) }?.let { year.setTextColor(it) }
                 buttonLoop(years,targetWidth * 3 / years.size)
             }
         }
@@ -115,9 +128,10 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
     @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     private fun topButton() {
-        week.background = resources.getDrawable(R.color.ButtonLight)
-        month.background = resources.getDrawable(R.color.Slider)
-        year.background = resources.getDrawable(R.color.ButtonLight)
+        week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+        month.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
+        year.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+        context?.let {ContextCompat.getColor(it, R.color.White) }?.let { month.setTextColor(it) }
         buttonLoop(months,targetWidth - 40)
     }
 
@@ -126,8 +140,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         for (element in arr) {
             val button = Button(context)
             button.layoutParams = LinearLayout.LayoutParams(buttonWidth.toInt(), targetHeight.toInt())
-            button.background = resources.getDrawable(R.color.ButtonLight)
+            button.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
             button.text = element
+            context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { button.setTextColor(it) }
             sliderLayout.addView(button)
         }
 

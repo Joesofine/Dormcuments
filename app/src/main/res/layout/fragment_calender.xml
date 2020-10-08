@@ -19,7 +19,7 @@
             android:layout_height="50dp"
             android:background="@color/ButtonLight"
             android:text="Week"
-            android:textColor="#F8000000" />
+            android:textColor="@color/LighterDarkBlue" />
 
         <Button
             android:id="@+id/month"
@@ -27,7 +27,7 @@
             android:layout_height="50dp"
             android:background="@color/ButtonLight"
             android:text="Month"
-            android:textColor="#F8090909" />
+            android:textColor="@color/LighterDarkBlue" />
 
         <Button
             android:id="@+id/year"
@@ -35,7 +35,7 @@
             android:layout_height="50dp"
             android:background="@color/ButtonLight"
             android:text="Year"
-            android:textColor="#F8090909" />
+            android:textColor="@color/LighterDarkBlue" />
 
     </LinearLayout>
 

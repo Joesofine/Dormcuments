@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.example.dormcuments.R
 import kotlinx.android.synthetic.main.fragment_residents.*
 
@@ -74,8 +75,9 @@ class ResidentFragment : Fragment() {
         for (element in residentsArr) {
             val button = Button(context)
             button.layoutParams = LinearLayout.LayoutParams(targetWidth, targetHeight)
-            button.background = resources.getDrawable(R.drawable.resident_button)
+            button.background = resources.getDrawable(R.drawable.more_button)
             button.text = element
+            context?.let { ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
             val mar = (width - targetWidth) / 2
             button.margin(left = mar.dp.toFloat())
             button.margin(top = 5F)
