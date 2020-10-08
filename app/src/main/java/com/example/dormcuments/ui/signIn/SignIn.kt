@@ -6,10 +6,8 @@ import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dormcuments.MainActivity
@@ -19,12 +17,14 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.facebook.login.widget.LoginButton
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class SignIn : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private var callbackManager: CallbackManager? = null
@@ -54,9 +54,20 @@ class SignIn : AppCompatActivity() {
         mail.setOnTouchListener { v, event ->
             if (MotionEvent.ACTION_UP == event.action) {
                 mail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email_icon_tint, 0, 0, 0)
-                mail.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
-                password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon_white, 0, 0, 0)
-                password.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                mail.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.holo_blue_dark),
+                    PorterDuff.Mode.SRC_ATOP
+                )
+                password.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.password_icon_white,
+                    0,
+                    0,
+                    0
+                )
+                password.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.white),
+                    PorterDuff.Mode.SRC_ATOP
+                )
 
             }
             false
@@ -65,9 +76,20 @@ class SignIn : AppCompatActivity() {
         password.setOnTouchListener { v, event ->
             if (MotionEvent.ACTION_UP == event.action) {
                 mail.setCompoundDrawablesWithIntrinsicBounds(R.drawable.email_icon_white, 0, 0, 0)
-                mail.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
-                password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.password_icon_tint, 0, 0, 0)
-                password.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
+                mail.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.white),
+                    PorterDuff.Mode.SRC_ATOP
+                )
+                password.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.password_icon_tint,
+                    0,
+                    0,
+                    0
+                )
+                password.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.holo_blue_dark),
+                    PorterDuff.Mode.SRC_ATOP
+                )
             }
             false
         }
@@ -88,7 +110,36 @@ class SignIn : AppCompatActivity() {
             startActivity(intent)
         })
 
-        loginButton.setOnClickListener(View.OnClickListener {
+
+        var login: LoginButton = findViewById(R.id.loginButton)
+            callbackManager = CallbackManager.Factory.create()
+        login.setReadPermissions("public_profile",
+            "email")
+            /* LoginManager.getInstance().logInWithReadPermissions(
+                this, Arrays.asList(
+                    "public_profile",
+                    "email"
+                )
+            )*/
+
+        LoginManager.getInstance().logOut()
+        login.registerCallback(callbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(loginResult: LoginResult) {
+                        println("Facebook token: " + loginResult.accessToken.token)
+                        startActivity(Intent(applicationContext, MainActivity::class.java))
+                    }
+
+                    override fun onCancel() {
+                        println("Facebook onCancel"); }
+
+                    override fun onError(error: FacebookException) {
+                        println("Facebook onError")
+                    }
+                })
+
+
+            /* loginButton.setOnClickListener(View.OnClickListener {
             // Login
             callbackManager = CallbackManager.Factory.create()
             LoginManager.getInstance().logInWithReadPermissions(
@@ -108,7 +159,12 @@ class SignIn : AppCompatActivity() {
                     override fun onError(error: FacebookException) { println("Facebook onError") }
                 })
         })
+
+         */
+
     }
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
