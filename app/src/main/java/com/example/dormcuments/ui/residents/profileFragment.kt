@@ -10,14 +10,25 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.dormcuments.R
 import com.example.dormcuments.ui.signIn.SignIn
+import com.example.dormcuments.ui.signIn.SignUp_Image
+import com.example.dormcuments.ui.signIn.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_up.city_signup
+import kotlinx.android.synthetic.main.fragment_edit_food.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import java.util.*
 
 class profileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
-
+    lateinit var getdata : ValueEventListener
+    var database = FirebaseDatabase.getInstance().getReference("Users")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +45,40 @@ class profileFragment : Fragment() {
         val funfact: EditText = root.findViewById(R.id.funfact)
         val datePicker: DatePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val close: Button = root.findViewById(R.id.close)
-
+        val city_edit:EditText = root.findViewById(R.id.city_edit)
+        val country_edit:EditText = root.findViewById(R.id.country_edit)
         val today = Calendar.getInstance()
+
+        val userid = auth.currentUser?.uid
+
+        getdata = object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+
+                if (userid != null) {
+                    var name = p0.child(userid).child("fname").getValue().toString()
+                    var rnumber = p0.child(userid).child("number").getValue().toString()
+                    var birthday = p0.child(userid).child("bdate").getValue().toString()
+                    var orgin = p0.child(userid).child("from").getValue().toString()
+                    var food = p0.child(userid).child("diet").getValue().toString()
+                    var fact = p0.child(userid).child("funfact").getValue().toString()
+
+                    val cc: List<String> = orgin.split(", ")
+
+                    name_signup.setHint(name)
+                    from.setHint(orgin)
+                    city_edit.setHint(cc[0])
+                    country_edit.setHint(cc[1])
+                    diet.setHint(food)
+                    funfact.setHint(fact)
+                    date.setHint(birthday)
+                    room_spinner.setSelection((room_spinner.adapter as ArrayAdapter<String>).getPosition(rnumber))
+                    }
+            }
+            override fun onCancelled(p0: DatabaseError) { println("err") }
+        }
+
+        database.addValueEventListener(getdata)
+        database.addListenerForSingleValueEvent(getdata)
 
         datePicker.init(2000, today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
                 view, year, month, day ->
@@ -58,15 +101,29 @@ class profileFragment : Fragment() {
                 date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
             }
         }
+        from.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus) {
+                city_signup.visibility = View.GONE
+                city_edit.visibility = View.VISIBLE
+                country_edit.visibility = View.VISIBLE
+            } else {
+                city_signup.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
+                city_signup.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+            }
+        }
+
 
         val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
         myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         room_spinner.adapter = myAdapter
 
         setIconsTint(name_signup, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
-        setIconsTint(from, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
+        //setIconsTint(from, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
         setIconsTint(diet, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
         setIconsTint(funfact, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
+        setIconsTint(city_edit, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
+        setIconsTint(country_edit, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
+
 
 
         close.setOnClickListener(){
@@ -82,8 +139,44 @@ class profileFragment : Fragment() {
         }
 
         root.findViewById<Button>(R.id.save).setOnClickListener(){
-            Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
-            getFragmentManager()?.popBackStack()
+
+            val fname = name_signup.text.toString()
+            val number = room_spinner.selectedItem.toString()
+            val bdate = date.text.toString()
+            val city = city_edit.text.toString()
+            val country = country_edit.text.toString()
+            val from = "$city, $country"
+            val diet = diet.text.toString()
+            val fact = funfact.text.toString()
+
+
+            if (fname.isEmpty()) {
+                name_signup.error = "Please write a name"
+            } else if (number == "Roomnumber") {
+                Toast.makeText(requireContext(), "Please choose roomnumber", Toast.LENGTH_SHORT).show()
+            } else if (bdate.isEmpty()) {
+                date.error = "Please choose birthday"
+            } else if (city.isEmpty()) {
+                city_signup.error = "Please let us know where you are from"
+            } else if (country.isEmpty()) {
+                country_signup.error = "Please let us know where you are from"
+            } else {
+
+                val user = User(fname, number, bdate, from, diet, fact)
+
+                if (userid != null) {
+                    database.child(userid).setValue(user)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
+                            getFragmentManager()?.popBackStack()
+                        }
+                        .addOnFailureListener {
+                            // Write failed
+                            Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
+                        }
+                }
+
+            }
         }
 
         return root
@@ -105,5 +198,4 @@ class profileFragment : Fragment() {
             }
         }
     }
-
  }
