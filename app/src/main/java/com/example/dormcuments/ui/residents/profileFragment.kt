@@ -64,13 +64,13 @@ class profileFragment : Fragment() {
 
                     val cc: List<String> = orgin.split(", ")
 
-                    name_signup.setHint(name)
-                    from.setHint(orgin)
-                    city_edit.setHint(cc[0])
-                    country_edit.setHint(cc[1])
-                    diet.setHint(food)
-                    funfact.setHint(fact)
-                    date.setHint(birthday)
+                    name_signup.setText(name)
+                    from.setText(orgin)
+                    city_edit.setText(cc[0])
+                    country_edit.setText(cc[1])
+                    diet.setText(food)
+                    funfact.setText(fact)
+                    date.setText(birthday)
                     room_spinner.setSelection((room_spinner.adapter as ArrayAdapter<String>).getPosition(rnumber))
                     }
             }
