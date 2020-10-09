@@ -1,153 +1,533 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/con"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".ui.foodclub.CreateFoodclubFragment">
+    android:orientation="vertical">
 
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="false"
-        android:background="#FFFFFF"
-        android:calendarViewShown="false"
-        android:datePickerMode="calendar"
-        android:elevation="5dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="159dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/sign_in_button"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/note"
-        app:layout_constraintTop_toBottomOf="@+id/note" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="30dp">
 
-    <EditText
-        android:id="@+id/task"
-        android:layout_width="320dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/todo_white"
-        android:drawablePadding="10dp"
-        android:hint="Ekstra tasks"
-        android:inputType="textLongMessage|textMultiLine|textCapSentences"
-        android:selectAllOnFocus="true"
-        android:textColor="@color/White"
-        android:textColorHint="@color/White"
-        android:textSize="14sp"
-        app:backgroundTint="@color/White"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtA"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
-    <EditText
-        android:id="@+id/note"
-        android:layout_width="320dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/note_icon_white"
-        android:drawablePadding="10dp"
-        android:hint="Note"
-        android:inputType="textLongMessage|textMultiLine|textCapSentences"
-        android:selectAllOnFocus="true"
-        android:textColor="@color/White"
-        android:textColorHint="@color/White"
-        app:backgroundTint="@color/White"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task" />
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtK"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
-    <Spinner
-        android:id="@+id/spinner_c2"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        android:layout_width="320dp"
-        android:layout_height="45dp"
-        android:layout_centerHorizontal="false"
-        android:layout_centerVertical="true"
-        android:gravity="left"
-        android:padding="0dp"
-        app:backgroundTint="@color/White"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_c1" />
+            <Switch
+                android:id="@+id/switchK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/switchJ"
+                app:layout_constraintTop_toTopOf="@+id/textView35" />
 
-    <Spinner
-        android:id="@+id/spinner_c1"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        android:layout_width="320dp"
-        android:layout_height="45dp"
-        android:layout_centerHorizontal="false"
-        android:layout_centerVertical="true"
-        android:gravity="left"
-        android:padding="0dp"
-        app:backgroundTint="@color/White"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            <TextView
+                android:id="@+id/textView36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="K"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView38"
+                app:layout_constraintTop_toTopOf="@+id/textView35" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:drawableLeft="@drawable/cleaner_white"
-        android:drawablePadding="10dp"
-        android:text="Cleaners:"
-        android:textColor="@color/White"
-        app:layout_constraintStart_toStartOf="@+id/spinner_c1"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtJ"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="159dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/sign_in_button"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/note"
-        app:layout_constraintTop_toBottomOf="@+id/note" />
+            <Switch
+                android:id="@+id/switchJ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/switchI"
+                app:layout_constraintTop_toTopOf="@+id/textView37" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="@+id/spinner_c2"
-        app:layout_constraintStart_toStartOf="@+id/spinner_c2"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_c2">
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="J"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView40"
+                app:layout_constraintTop_toTopOf="@+id/textView37" />
 
-        <EditText
-            android:id="@+id/date2"
-            android:layout_width="320dp"
-            android:layout_height="40dp"
-            android:drawableLeft="@drawable/date_icon_white"
-            android:drawablePadding="10dp"
-            android:hint="Pick date"
-            android:inputType="date"
-            android:selectAllOnFocus="true"
-            android:textColor="@color/White"
-            android:textColorHint="@color/White"
-            app:backgroundTint="@color/White"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView34"
+                app:layout_constraintTop_toTopOf="@+id/textView39" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Switch
+                android:id="@+id/switchI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/switchH"
+                app:layout_constraintTop_toTopOf="@+id/textView39" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtH"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+            <Switch
+                android:id="@+id/switchH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/switchG"
+                app:layout_constraintTop_toTopOf="@+id/textView33" />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="H"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView32"
+                app:layout_constraintTop_toTopOf="@+id/textView33" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtG"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+            <Switch
+                android:id="@+id/switchG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/switchF"
+                app:layout_constraintTop_toTopOf="@+id/textView31" />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="G"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView30"
+                app:layout_constraintTop_toTopOf="@+id/textView31" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtF"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+            <Switch
+                android:id="@+id/switchF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/switchE"
+                app:layout_constraintTop_toTopOf="@+id/textView29" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="F"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView28"
+                app:layout_constraintTop_toTopOf="@+id/textView29" />
+
+            <Switch
+                android:id="@+id/switchA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/task"
+                app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtE"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+            <Switch
+                android:id="@+id/switchE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/switchD"
+                app:layout_constraintTop_toTopOf="@+id/textView27" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/textView26"
+                app:layout_constraintTop_toTopOf="@+id/textView27" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtD"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+            <Switch
+                android:id="@+id/switchD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/switchC"
+                app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/task"
+                app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtC"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <Switch
+                android:id="@+id/switchC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/task"
+                app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="C"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/task"
+                app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtB"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/task"
+                app:layout_constraintTop_toTopOf="@+id/textView22" />
+
+            <Switch
+                android:id="@+id/switchB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/task"
+                app:layout_constraintTop_toTopOf="@+id/textView22" />
+
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="false"
+                android:background="#FFFFFF"
+                android:calendarViewShown="false"
+                android:datePickerMode="calendar"
+                android:elevation="5dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/task"
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/todo_white"
+                android:drawablePadding="10dp"
+                android:hint="Ekstra tasks"
+                android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/White"
+                android:textColorHint="@color/lightHint"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <EditText
+                android:id="@+id/note"
+                android:layout_width="320dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/note_icon_white"
+                android:drawablePadding="10dp"
+                android:hint="Note"
+                android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/White"
+                android:textColorHint="@color/lightHint"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="@+id/task"
+                app:layout_constraintHorizontal_bias="0.56"
+                app:layout_constraintStart_toStartOf="@+id/task"
+                app:layout_constraintTop_toBottomOf="@+id/task" />
+
+            <Spinner
+                android:id="@+id/spinner_c2"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="320dp"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="false"
+                android:layout_centerVertical="true"
+                android:gravity="left"
+                android:padding="0dp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_c1" />
+
+            <Spinner
+                android:id="@+id/spinner_c1"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="320dp"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="false"
+                android:layout_centerVertical="true"
+                android:gravity="left"
+                android:padding="0dp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:drawableLeft="@drawable/cleaner_white"
+                android:drawablePadding="10dp"
+                android:text="Cleaners:"
+                android:textColor="@color/White"
+                app:layout_constraintStart_toStartOf="@+id/spinner_c1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/sign_in_button"
+                android:text="Save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/switchK"
+                app:layout_constraintStart_toStartOf="@+id/textView36"
+                app:layout_constraintTop_toBottomOf="@+id/textView35" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="@+id/spinner_c2"
+                app:layout_constraintStart_toStartOf="@+id/spinner_c2"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_c2">
+
+                <EditText
+                    android:id="@+id/date2"
+                    android:layout_width="320dp"
+                    android:layout_height="40dp"
+                    android:drawableLeft="@drawable/date_icon_white"
+                    android:drawablePadding="10dp"
+                    android:hint="Pick date"
+                    android:inputType="date"
+                    android:selectAllOnFocus="true"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/lightHint"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/White"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/promtA"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/switchA"
+                app:layout_constraintStart_toEndOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/note" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/task"
+                app:layout_constraintTop_toTopOf="@+id/textView18" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

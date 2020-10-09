@@ -17,7 +17,7 @@
             android:id="@+id/weekID"
             android:layout_width="137dp"
             android:layout_height="50dp"
-            android:background="@color/ButtonLight"
+            android:background="@color/VeryDarkBlueTopBar"
             android:text="Week"
             android:textColor="@color/LighterDarkBlue" />
 
@@ -25,7 +25,7 @@
             android:id="@+id/month"
             android:layout_width="137dp"
             android:layout_height="50dp"
-            android:background="@color/ButtonLight"
+            android:background="@color/VeryDarkBlueTopBar"
             android:text="Month"
             android:textColor="@color/LighterDarkBlue" />
 
@@ -33,7 +33,7 @@
             android:id="@+id/year"
             android:layout_width="137dp"
             android:layout_height="50dp"
-            android:background="@color/ButtonLight"
+            android:background="@color/VeryDarkBlueTopBar"
             android:text="Year"
             android:textColor="@color/LighterDarkBlue" />
 

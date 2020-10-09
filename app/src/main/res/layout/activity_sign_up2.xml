@@ -36,27 +36,16 @@
         app:layout_constraintTop_toBottomOf="@+id/downloaded_picture" />
 
     <Button
-        android:id="@+id/back"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:background="@drawable/sign_in_button"
-        android:text="Back"
-        android:textAllCaps="false"
-        android:textColor="#090000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/downloaded_picture"
-        app:layout_constraintTop_toBottomOf="@+id/choosePic" />
-
-    <Button
         android:id="@+id/save"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
+        android:layout_width="320dp"
+        android:layout_height="41dp"
         android:background="@drawable/sign_in_button"
         android:text="Save"
         android:textAllCaps="false"
         android:textColor="#0C0000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/downloaded_picture"
+        app:layout_constraintEnd_toEndOf="@+id/choosePic"
+        app:layout_constraintStart_toStartOf="@+id/choosePic"
         app:layout_constraintTop_toBottomOf="@+id/choosePic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,6 +57,21 @@
         <item>916</item>
         <item>917</item>
     </string-array>
+
+    <!-- cleaning task -->
+    <string name="promtA">Wash the floor – also underneath boxes and waste bins</string>
+    <string name="promtB">Empty the vacuum cleaner and put in a new “dust bag”</string>
+    <string name="promtC">Clean the ovens and the stove. Also clean the racks and the drawer underneath the oven.</string>
+    <string name="promtD">All food without a name on it has to be thrown away, or the owner has to be found.</string>
+    <string name="promtE">Clean the drains</string>
+    <string name="promtF">Empty and clean all the kitchen shelves, drawers and cabinets</string>
+    <string name="promtG">Tidy up the storage room (it’s the small room with the drying racks and the electrical fuse box)</string>
+    <string name="promtH">Clean the cooker hoot and the filters</string>
+    <string name="promtI">Dust the kitchen (windowsill, wooden strips, loudspeakers, lamps and above the kitchen cabinets)</string>
+    <string name="promtJ">Clean the room with the all the refrigerators</string>
+    <string name="promtK">Clean the shared refrigerator and the room</string>
+
+
     <string name="title_activity_sign_up_picture">Sign in</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="and"><![CDATA[&]]></string>

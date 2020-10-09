@@ -19,6 +19,7 @@
 
 
     //New design
+    <color name="lightHint">#80FFFFFF</color>
     <color name="LighterDarkBlue">#326d8b</color>
     <color name="DarkBlueBackground">#28576f</color>
     <color name="EvenDarkerBlueBackground">#003652</color>

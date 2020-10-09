@@ -60,8 +60,7 @@ class CleaningFragment : Fragment() {
 
     private fun createCleaning(c1: String, c2: String, date: String, cleaningid: String ,myContainer: LinearLayout){
 
-        val ExpandableCardview: View =
-            layoutInflater.inflate(R.layout.list_element_cleaning_food, null, false)
+        val ExpandableCardview: View = layoutInflater.inflate(R.layout.list_element_cleaning_food, null, false)
 
         var show: ImageView = ExpandableCardview.findViewById(R.id.show)
         var datefield: TextView = ExpandableCardview.findViewById(R.id.date)

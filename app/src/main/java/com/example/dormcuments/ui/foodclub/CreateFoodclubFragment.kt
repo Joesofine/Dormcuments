@@ -74,13 +74,6 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
             }
         }
 
-        root.findViewById<Button>(R.id.cancel).setOnClickListener {
-            requireFragmentManager().beginTransaction().add(
-                R.id.nav_host_fragment,
-                FoodclubFragment()
-            ).addToBackStack(null).commit()
-        }
-
         return root
     }
 

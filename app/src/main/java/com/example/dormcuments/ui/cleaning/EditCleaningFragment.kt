@@ -14,7 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.fragment_edit_cleaning.*
+import kotlinx.android.synthetic.main.fragment_create_cleaning.*
 import kotlinx.android.synthetic.main.fragment_edit_food.*
 import kotlinx.android.synthetic.main.fragment_edit_food.date2
 import kotlinx.android.synthetic.main.fragment_edit_food.dinner
@@ -27,13 +27,14 @@ class EditCleaningFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Cleaning")
     lateinit var getdata : ValueEventListener
     var choosenDate = ""
+    var str = ""
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_edit_cleaning, container, false)
+        val root = inflater.inflate(R.layout.fragment_create_cleaning, container, false)
         val bundle = this.arguments
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
@@ -55,8 +56,10 @@ class EditCleaningFragment : Fragment() {
                         root.findViewById<Spinner>(R.id.spinner_c2).setSelection((spinner_c2.adapter as ArrayAdapter<String>).getPosition(w2))
                         choosenDate = date
                         root.findViewById<EditText>(R.id.date2).setText(choosenDate)
-                        root.findViewById<EditText>(R.id.tasks).setText(task)
+                        root.findViewById<EditText>(R.id.task).setText(task)
                         root.findViewById<EditText>(R.id.note).setText(note)
+
+                        switchIni(root)
                     }
                 }
             }
@@ -88,7 +91,7 @@ class EditCleaningFragment : Fragment() {
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
-            val tas = tasks.text.toString()
+            val tas = task.text.toString()
             val not = note.text.toString()
 
             if (choosenDate == "") {
@@ -114,5 +117,71 @@ class EditCleaningFragment : Fragment() {
         }
 
         return root
+    }
+
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private fun switchIni(root: View){
+        val switchA = root.findViewById<Switch>(R.id.switchA)
+        val switchB = root.findViewById<Switch>(R.id.switchB)
+        val switchC = root.findViewById<Switch>(R.id.switchC)
+        val switchD = root.findViewById<Switch>(R.id.switchD)
+        val switchE = root.findViewById<Switch>(R.id.switchE)
+        val switchF = root.findViewById<Switch>(R.id.switchF)
+        val switchG = root.findViewById<Switch>(R.id.switchG)
+        val switchH = root.findViewById<Switch>(R.id.switchH)
+        val switchI = root.findViewById<Switch>(R.id.switchI)
+        val switchJ = root.findViewById<Switch>(R.id.switchJ)
+        val switchK = root.findViewById<Switch>(R.id.switchK)
+
+        setSwitchStatus(switchA, "A")
+        setSwitchStatus(switchB, "B")
+        setSwitchStatus(switchC, "C")
+        setSwitchStatus(switchD, "D")
+        setSwitchStatus(switchE, "E")
+        setSwitchStatus(switchF, "F")
+        setSwitchStatus(switchG, "G")
+        setSwitchStatus(switchH, "H")
+        setSwitchStatus(switchI, "I")
+        setSwitchStatus(switchJ, "J")
+        setSwitchStatus(switchK, "K")
+
+        listenerOnChange(switchA, "A")
+        listenerOnChange(switchB, "B")
+        listenerOnChange(switchC, "C")
+        listenerOnChange(switchD, "D")
+        listenerOnChange(switchE, "E")
+        listenerOnChange(switchF, "F")
+        listenerOnChange(switchG, "G")
+        listenerOnChange(switchH, "H")
+        listenerOnChange(switchI, "I")
+        listenerOnChange(switchJ, "J")
+        listenerOnChange(switchK, "K")
+
+    }
+
+    private fun listenerOnChange(switch: Switch, st: String){
+        switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
+            if (str.isEmpty()){
+                str = st
+            } else {
+                str = task.text.toString() + " + " + st
+            }
+            if (isChecked){
+                task.setText(str)
+            } else {
+                val s = str.split(" + ")
+                if (st == s[0]){
+                    str = task.text.toString().replace("$st + ", "")
+                } else {
+                    str = task.text.toString().replace(" + $st", "")
+                }
+                task.setText(str)
+            }
+        }
+    }
+
+    private fun setSwitchStatus(switch: Switch, st: String){
+        str = task.text.toString()
+        if ( str.contains(st)){ switch.isChecked = true}
     }
 }

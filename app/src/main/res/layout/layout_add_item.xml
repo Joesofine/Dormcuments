@@ -28,7 +28,7 @@
             android:layout_marginBottom="5dp"
             android:ems="10"
             android:hint="Item"
-            android:textColorHint="@color/White"
+            android:textColorHint="@color/lightHint"
             android:textColor="@color/White"
             app:backgroundTint="@color/White"
             android:inputType="textPersonName|textCapSentences"

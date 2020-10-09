@@ -55,7 +55,7 @@
                     android:ems="10"
                     android:hint="Item"
                     android:textColor="@color/White"
-                    android:textColorHint="@color/White"
+                    android:textColorHint="@color/lightHint"
                     app:backgroundTint="@color/White"
                     android:inputType="textPersonName|textCapSentences"
                     app:layout_constraintBottom_toBottomOf="parent"
