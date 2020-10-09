@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/participants_icon"
+        android:drawableLeft="@drawable/participants_icon_white"
         android:drawablePadding="10dp"
         android:text="Participants"
         android:textColor="@color/White"
@@ -214,5 +214,5 @@
         android:src="@drawable/edit_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="#505050" />
+        app:tint="@color/White" />
 </androidx.constraintlayout.widget.ConstraintLayout>
