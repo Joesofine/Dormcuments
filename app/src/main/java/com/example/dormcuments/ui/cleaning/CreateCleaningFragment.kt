@@ -82,7 +82,8 @@ class CreateCleaningFragment() : Fragment() {
                     spinner_c2.selectedItem.toString(),
                     choosenDate,
                     tas,
-                    not
+                    not,
+                    ""
                 )
 
                 if (cleaningid != null) {

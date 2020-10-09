@@ -28,6 +28,7 @@ class EditCleaningFragment : Fragment() {
     lateinit var getdata : ValueEventListener
     var choosenDate = ""
     var str = ""
+    var status: Boolean = false
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -51,6 +52,7 @@ class EditCleaningFragment : Fragment() {
                         var date: String = p0.child(cleaningid).child("date").getValue().toString()
                         var task = p0.child(cleaningid).child("task").getValue().toString()
                         var note = p0.child(cleaningid).child("note").getValue().toString()
+                        var stat = p0.child(cleaningid).child("checkedBy").getValue().toString()
 
                         root.findViewById<Spinner>(R.id.spinner_c1).setSelection((spinner_c1.adapter as ArrayAdapter<String>).getPosition(w1))
                         root.findViewById<Spinner>(R.id.spinner_c2).setSelection((spinner_c2.adapter as ArrayAdapter<String>).getPosition(w2))
@@ -58,6 +60,7 @@ class EditCleaningFragment : Fragment() {
                         root.findViewById<EditText>(R.id.date2).setText(choosenDate)
                         root.findViewById<EditText>(R.id.task).setText(task)
                         root.findViewById<EditText>(R.id.note).setText(note)
+                        root.findViewById<TextView>(R.id.stats).text = stat
 
                         switchIni(root)
                     }
@@ -93,13 +96,15 @@ class EditCleaningFragment : Fragment() {
         root.findViewById<Button>(R.id.save).setOnClickListener {
             val tas = task.text.toString()
             val not = note.text.toString()
+            val stat = stats.text.toString()
+
 
             if (choosenDate == "") {
                 date2.error = "Please choose a date"
             } else {
 
                 var cleanningid = bundle?.getString("id")
-                val cleaning = Cleaning(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, tas, not)
+                val cleaning = Cleaning(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, tas, not, stat)
 
 
                 if (cleanningid != null) {

@@ -522,8 +522,14 @@
                 app:layout_constraintStart_toStartOf="@+id/task"
                 app:layout_constraintTop_toTopOf="@+id/textView18" />
 
-
-
+            <TextView
+                android:id="@+id/stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="invisible"
+                tools:layout_editor_absoluteX="292dp"
+                tools:layout_editor_absoluteY="29dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

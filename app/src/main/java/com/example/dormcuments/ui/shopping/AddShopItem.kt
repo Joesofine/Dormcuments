@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_add_shop_item.*
 class AddShopItem : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Shoppinglist")
     lateinit var myContainer: LinearLayout
+    var count: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,30 +25,37 @@ class AddShopItem : Fragment() {
         myContainer = root.findViewById(R.id.LinScroll)
 
         root.findViewById<ImageButton>(R.id.addItem).setOnClickListener {
-            val item = inputItem.text.toString()
-
-            if (item.isEmpty()) {
-                inputItem.error = "Please input a product"
-
+            if (count > 0) {
+                root.findViewById<ImageButton>(R.id.addItem).isEnabled = false
             } else {
+                root.findViewById<ImageButton>(R.id.addItem).isEnabled = true
+                val item = inputItem.text.toString()
 
-                val itemId = database.push().key
-                val product = Item(item)
+                if (item.isEmpty()) {
+                    inputItem.error = "Please input a product"
 
-                if (itemId != null) {
+                } else {
 
-                    database.child(itemId).setValue(product)
-                        .addOnSuccessListener {
-                            Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT).show()
-                            createCon(myContainer)
-                        }
-                        .addOnFailureListener {
-                            // Write failed
-                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-                        }
+                    val itemId = database.push().key
+                    val product = Item(item)
+
+                    if (itemId != null) {
+
+                        database.child(itemId).setValue(product)
+                            .addOnSuccessListener {
+                                count = 1
+                                Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT)
+                                    .show()
+                                createCon(myContainer)
+                            }
+                            .addOnFailureListener {
+                                // Write failed
+                                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                            }
+
+                    }
                 }
             }
-
         }
         return root
     }
@@ -57,33 +65,42 @@ class AddShopItem : Fragment() {
 
         var add: ImageView = ExpandableCardview.findViewById(R.id.addItem2)
         var inputItem: EditText = ExpandableCardview.findViewById(R.id.inputItem2)
+        var c = 0
+
+        inputItem.requestFocus()
 
 
         add.setOnClickListener {
-            val item = inputItem.text.toString()
-
-            if (item.isEmpty()) {
-                inputItem.error = "Please input a product"
-
+            if (c > 0) {
+                add.isEnabled = false
             } else {
+                val item = inputItem.text.toString()
 
-                val itemId = database.push().key
-                val product = Item(item)
+                if (item.isEmpty()) {
+                    inputItem.error = "Please input a product"
 
-                if (itemId != null) {
+                } else {
 
-                    database.child(itemId).setValue(product)
-                        .addOnSuccessListener {
-                            Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT).show()
-                            createCon(myContainer)
-                            //requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, ShoppingFragment()).addToBackStack(null).commit()
+                    val itemId = database.push().key
+                    val product = Item(item)
+
+                    if (itemId != null) {
+
+                        database.child(itemId).setValue(product)
+                            .addOnSuccessListener {
+                                c = 1
+                                Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT)
+                                    .show()
+                                createCon(myContainer)
+                                //requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, ShoppingFragment()).addToBackStack(null).commit()
 
 
-                        }
-                        .addOnFailureListener {
-                            // Write failed
-                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-                        }
+                            }
+                            .addOnFailureListener {
+                                // Write failed
+                                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                            }
+                    }
                 }
             }
         }

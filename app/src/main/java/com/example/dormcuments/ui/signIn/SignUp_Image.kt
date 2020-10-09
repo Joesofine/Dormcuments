@@ -20,9 +20,5 @@ class SignUp_Image : AppCompatActivity() {
             startActivity(intent)
         })
 
-        back.setOnClickListener(View.OnClickListener {
-            val intent = Intent(applicationContext, SignUp::class.java)
-            startActivity(intent)
-        })
     }
 }
