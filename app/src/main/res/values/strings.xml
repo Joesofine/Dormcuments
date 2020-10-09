@@ -71,6 +71,26 @@
     <string name="promtJ">Clean the room with the all the refrigerators</string>
     <string name="promtK">Clean the shared refrigerator and the room</string>
 
+    <string name="prompt1">Clean the tables and clear/throw away everything except todays newspaper</string>
+    <string name="prompt2">Descale the water boiler and coffee maker</string>
+    <string name="prompt3">Throw paper and bottles in the container at the main entrance. Get rid of the pant and use the money for bullet 13. And 14. Put the money leftover in the metalbowl. </string>
+    <string name="prompt4">Clean the kitchen cabinets under the sinks and the cabinet doors around the waste bin (remember 		to clean the big white bins under the shelf)</string>
+    <string name="prompt5">Do the dishes or find the owner</string>
+    <string name="prompt6">Clean the toaster, sandwich toaster and microwave</string>
+    <string name="prompt7">Clean the onion box</string>
+    <string name="prompt8">Wash the dishcloths, floor cloths, towels, tea towels and pot holders (wash on 90⁰ without fabric 		softener)</string>
+    <string name="prompt9">Tidy up the kitchen</string>
+    <string name="prompt10">Pick up waste bags, light bulbs and fuses at the caretaker (if any of these are missing)</string>
+    <string name="prompt11">Wash the white kitchen tiles and the pan rack</string>
+    <string name="prompt12">Sweep/vacuum the floor</string>
+    <string name="prompt13">Buy spices if needed (salt, pepper, garlic, etc)</string>
+    <string name="prompt14">Buy more soap etc if needed in the kithen</string>
+    <string name="prompt15">903 (Jesper) must be informed when finished or you will be cleaning again the following week.</string>
+
+
+
+
+
 
     <string name="title_activity_sign_up_picture">Sign in</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

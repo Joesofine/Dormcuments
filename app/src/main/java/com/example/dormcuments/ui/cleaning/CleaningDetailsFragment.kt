@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.dormcuments.R
 import com.example.dormcuments.ui.foodclub.EditFoodFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -16,8 +17,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_cleaning_details.*
 import kotlinx.android.synthetic.main.fragment_create_cleaning.*
 import kotlinx.android.synthetic.main.fragment_food_details.*
+import kotlinx.android.synthetic.main.fragment_food_details.checkText
 
 class CleaningDetailsFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Cleaning")
@@ -36,6 +39,10 @@ class CleaningDetailsFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_cleaning_details, container, false)
         val checked = root.findViewById<Switch>(R.id.checked)
+        val weekTask = root.findViewById<ConstraintLayout>(R.id.weeklyTask)
+        val extraTask = root.findViewById<ConstraintLayout>(R.id.extraTask)
+        val expandWeekly = root.findViewById<ImageView>(R.id.expandWeekly)
+        val expandExtra = root.findViewById<ImageView>(R.id.expandExtra)
 
         auth = Firebase.auth
         val bundle = this.arguments
@@ -94,6 +101,14 @@ class CleaningDetailsFragment : Fragment() {
             requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, tempFrag).addToBackStack(null).commit()
         }
 
+        expandWeekly.setOnClickListener(){
+            expandList(weekTask, expandWeekly)
+        }
+
+        expandExtra.setOnClickListener(){
+            expandList(extraTask,expandExtra)
+        }
+
         return root
     }
 
@@ -134,5 +149,14 @@ class CleaningDetailsFragment : Fragment() {
 
     private fun setSwitchStatus(switch: Switch){
         if ( checkText.text.toString().contains("9")){ switch.isChecked = true}
+    }
+    private fun expandList(taskLayout: ConstraintLayout, expand: ImageView) {
+        if (taskLayout.visibility == View.GONE) {
+            taskLayout.visibility = View.VISIBLE
+            expand.rotation = 90f
+        } else if (taskLayout.visibility == View.VISIBLE) {
+            taskLayout.visibility = View.GONE
+            expand.rotation = 0f
+        }
     }
 }
