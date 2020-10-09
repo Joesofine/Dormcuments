@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.facebook.AccessToken
@@ -135,17 +136,45 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         buttonLoop(months,targetWidth - 40)
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun buttonLoop(arr: ArrayList<String>, buttonWidth: Int){
         sliderLayout.removeAllViews()
         for (element in arr) {
             val button = Button(context)
+            //for (i in 0..arr.size-1) { button.id = i }
+
             button.layoutParams = LinearLayout.LayoutParams(buttonWidth.toInt(), targetHeight.toInt())
             button.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
             button.text = element
             context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { button.setTextColor(it) }
             sliderLayout.addView(button)
-        }
 
+
+
+
+
+
+            button.setOnClickListener(){
+                //for (i in 0..arr.size-1) {
+
+                val childCount = sliderLayout.getChildCount();
+                for (i in 0..childCount-1) {
+                val v: View = sliderLayout.getChildAt(i);
+                    if (v is Button) {
+                        val but: Button = v
+                        but.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+                        but.setTextColor(R.color.LighterDarkBlue)
+                    }
+                }
+
+                //for (childView in sliderLayout.children) {
+                    //childView.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+                    //context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let {  childView.setTextcolor(it) }
+                //}
+                button.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
+                context?.let {ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
+            }
+        }
     }
 
     private fun getTagetSize(){
