@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/more_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/titleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/sumLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/resName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Firstname"
+                android:textColor="@color/White"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/resRn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/resRn" />
+
+            <ImageView
+                android:id="@+id/expand"
+                android:layout_width="20dp"
+                android:layout_height="21dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:tint="@color/White"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/resName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/resName"
+                app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+                tools:ignore="VectorDrawableCompat" />
+
+            <TextView
+                android:id="@+id/resRn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="01"
+                android:textColor="@color/White"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sumLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleLayout">
+
+            <TextView
+                android:id="@+id/resLast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lastname"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                app:layout_constraintStart_toStartOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/birthday10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="25dp"
+                android:text="Funfact:"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/birthday9"
+                app:layout_constraintTop_toBottomOf="@+id/birthday9" />
+
+            <TextView
+                android:id="@+id/birthday9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Diet:"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/birthday8"
+                app:layout_constraintTop_toBottomOf="@+id/birthday8" />
+
+            <TextView
+                android:id="@+id/birthday8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="From:"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/birthday6"
+                app:layout_constraintTop_toBottomOf="@+id/birthday" />
+
+            <TextView
+                android:id="@+id/birthday7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Age:"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+            <TextView
+                android:id="@+id/diet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keto"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/from"
+                app:layout_constraintTop_toTopOf="@+id/birthday9" />
+
+            <TextView
+                android:id="@+id/fact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Something funny"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/diet"
+                app:layout_constraintTop_toTopOf="@+id/birthday10" />
+
+            <TextView
+                android:id="@+id/from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="city, country"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/birthday"
+                app:layout_constraintTop_toTopOf="@+id/birthday8" />
+
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:text="24år"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/birthday7"
+                app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="@+id/birthday7" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@color/ButtonDark"
+                app:layout_constraintBottom_toTopOf="@+id/age"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="04/12/95"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/birthday6"
+                app:layout_constraintStart_toStartOf="@+id/age"
+                app:layout_constraintTop_toTopOf="@+id/birthday6" />
+
+            <TextView
+                android:id="@+id/birthday6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Birthday:"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/birthday7"
+                app:layout_constraintTop_toBottomOf="@+id/birthday7" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

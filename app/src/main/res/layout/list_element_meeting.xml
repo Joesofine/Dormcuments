@@ -28,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/meetingItem"
+            android:id="@+id/resName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -46,9 +46,9 @@
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/meetingItem"
+            app:layout_constraintBottom_toBottomOf="@+id/resName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/meetingItem"
+            app:layout_constraintTop_toTopOf="@+id/resName"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
             tools:ignore="VectorDrawableCompat" />
     </androidx.constraintlayout.widget.ConstraintLayout>

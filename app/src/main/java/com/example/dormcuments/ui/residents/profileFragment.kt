@@ -2,15 +2,16 @@ package com.example.dormcuments.ui.residents
 
 import android.content.Intent
 import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.example.dormcuments.ui.signIn.SignIn
-import com.example.dormcuments.ui.signIn.SignUp_Image
 import com.example.dormcuments.ui.signIn.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -20,15 +21,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.activity_sign_up.city_signup
-import kotlinx.android.synthetic.main.fragment_edit_food.*
-import kotlinx.android.synthetic.main.fragment_profile.*
+import java.time.LocalDate
 import java.util.*
 
 class profileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     lateinit var getdata : ValueEventListener
     var database = FirebaseDatabase.getInstance().getReference("Users")
+    var cbdate = Calendar.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,15 +52,22 @@ class profileFragment : Fragment() {
         val userid = auth.currentUser?.uid
 
         getdata = object : ValueEventListener {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(p0: DataSnapshot) {
 
                 if (userid != null) {
                     var name = p0.child(userid).child("fname").getValue().toString()
                     var rnumber = p0.child(userid).child("number").getValue().toString()
-                    var birthday = p0.child(userid).child("bdate").getValue().toString()
+                    var birthday = p0.child(userid).child("bdate").getValue().toString().split("/")
                     var orgin = p0.child(userid).child("from").getValue().toString()
                     var food = p0.child(userid).child("diet").getValue().toString()
                     var fact = p0.child(userid).child("funfact").getValue().toString()
+
+
+                    val byear = birthday[2].toInt()
+                    val bmonth = birthday[1].toInt()
+                    val bday = birthday[0].toInt()
+
 
                     val cc: List<String> = orgin.split(", ")
 
@@ -70,9 +77,20 @@ class profileFragment : Fragment() {
                     country_edit.setText(cc[1])
                     diet.setText(food)
                     funfact.setText(fact)
-                    date.setText(birthday)
-                    room_spinner.setSelection((room_spinner.adapter as ArrayAdapter<String>).getPosition(rnumber))
+                    date.setText(getAge(byear,bmonth,bday))
+                    room_spinner.setSelection(
+                        (room_spinner.adapter as ArrayAdapter<String>).getPosition(
+                            rnumber
+                        )
+                    )
+
+                    datePicker.init(birthday[2].toInt(), birthday[1].toInt() - 1, birthday[0].toInt()) { view, year, month, day ->
+                        val month = month + 1
+                        val msg = "$day/$month/$year"
+                        date.setText(msg)
+                        date.setTextColor(resources.getColor(R.color.White))
                     }
+                }
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
         }
@@ -80,25 +98,28 @@ class profileFragment : Fragment() {
         database.addValueEventListener(getdata)
         database.addListenerForSingleValueEvent(getdata)
 
-        datePicker.init(2000, today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
-                view, year, month, day ->
-            val month = month + 1
-            val msg = "$day/$month/$year"
-            date.setText(msg)
-            date.setTextColor(resources.getColor(R.color.White))
-        }
-
         date.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus){
                 datePicker.visibility = View.VISIBLE
                 close.visibility = View.VISIBLE
                 date.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_tint, 0)
-                date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
+                date.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.holo_blue_dark),
+                    PorterDuff.Mode.SRC_ATOP
+                )
             } else {
                 datePicker.visibility = View.GONE
                 close.visibility = View.GONE
-                date.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
-                date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                date.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.edit_pen_icon_white,
+                    0
+                )
+                date.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.white),
+                    PorterDuff.Mode.SRC_ATOP
+                )
             }
         }
         from.setOnFocusChangeListener { view, hasFocus ->
@@ -107,13 +128,25 @@ class profileFragment : Fragment() {
                 city_edit.visibility = View.VISIBLE
                 country_edit.visibility = View.VISIBLE
             } else {
-                city_signup.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
-                city_signup.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                city_signup.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.edit_pen_icon_white,
+                    0
+                )
+                city_signup.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.white),
+                    PorterDuff.Mode.SRC_ATOP
+                )
             }
         }
 
 
-        val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
+        val myAdapter = ArrayAdapter(
+            requireContext(), R.layout.spinner_layout, resources.getStringArray(
+                R.array.spinner
+            )
+        )
         myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         room_spinner.adapter = myAdapter
 
@@ -190,12 +223,29 @@ class profileFragment : Fragment() {
         edit.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, tint, 0)
-                edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
+                edit.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.holo_blue_dark),
+                    PorterDuff.Mode.SRC_ATOP
+                )
             }
             else {
                 edit.setCompoundDrawablesWithIntrinsicBounds(0, 0, noTint, 0)
-                edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                edit.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.white),
+                    PorterDuff.Mode.SRC_ATOP
+                )
             }
         }
+    }
+    private fun getAge(year: Int, month: Int, day: Int): String? {
+        val dob = Calendar.getInstance()
+        val today = Calendar.getInstance()
+        dob[year, month] = day
+        var age = today[Calendar.YEAR] - dob[Calendar.YEAR]
+        if (today[Calendar.DAY_OF_YEAR] < dob[Calendar.DAY_OF_YEAR]) {
+            age--
+        }
+        val ageInt = age
+        return ageInt.toString()
     }
  }

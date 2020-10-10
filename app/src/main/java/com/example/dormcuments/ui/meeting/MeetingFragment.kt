@@ -14,7 +14,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.util.*
 
 class MeetingFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Agenda")
@@ -74,7 +73,7 @@ class MeetingFragment : Fragment() {
         var expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
         var divider: View = ExpandableCardview.findViewById(R.id.div)
         var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
-        var meetingItem: TextView = ExpandableCardview.findViewById(R.id.meetingItem)
+        var meetingItem: TextView = ExpandableCardview.findViewById(R.id.resName)
         var sum: TextView = ExpandableCardview.findViewById(R.id.sum)
 
         meetingItem.setText(name)
