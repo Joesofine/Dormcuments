@@ -31,31 +31,23 @@ class EditFoodFragment : Fragment() {
         val bundle = this.arguments
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
+        var clubid = bundle?.getString("id")
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
+                if (clubid != null) {
+                    var w1 = p0.child(clubid).child("c1").getValue().toString()
+                    var w2 = p0.child(clubid).child("c2").getValue().toString()
+                    var date: String = p0.child(clubid).child("date").getValue().toString()
+                    var dinner = p0.child(clubid).child("dinner").getValue().toString()
+                    var note = p0.child(clubid).child("note").getValue().toString()
 
-                if (bundle != null) {
-                    var clubid = bundle.getString("id")
-                    if (clubid != null) {
-                        for (i in p0.children) {
-                            if (i.key.equals(clubid)){
-
-                                var w1 = i.child("c1").getValue().toString()
-                                var w2 = i.child("c2").getValue().toString()
-                                var date: String = i.child("date").getValue().toString()
-                                var dinner = i.child("dinner").getValue().toString()
-                                var note = i.child("note").getValue().toString()
-
-                                root.findViewById<Spinner>(R.id.spinner_c1).setSelection((spinner_c1.adapter as ArrayAdapter<String>).getPosition(w1))
-                                root.findViewById<Spinner>(R.id.spinner_c2).setSelection((spinner_c2.adapter as ArrayAdapter<String>).getPosition(w2))
-                                choosenDate = date
-                                root.findViewById<EditText>(R.id.date2).setText(choosenDate)
-                                root.findViewById<EditText>(R.id.dinner).setText(dinner)
-                                root.findViewById<EditText>(R.id.note).setText(note)
-                            }
-                        }
-                    }
+                    choosenDate = date
+                    root.findViewById<Spinner>(R.id.spinner_c1).setSelection((spinner_c1.adapter as ArrayAdapter<String>).getPosition(w1))
+                    root.findViewById<Spinner>(R.id.spinner_c2).setSelection((spinner_c2.adapter as ArrayAdapter<String>).getPosition(w2))
+                    root.findViewById<EditText>(R.id.date2).setText(choosenDate)
+                    root.findViewById<EditText>(R.id.dinner).setText(dinner)
+                    root.findViewById<EditText>(R.id.note).setText(note)
                 }
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
@@ -84,6 +76,12 @@ class EditFoodFragment : Fragment() {
         myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         root.findViewById<Spinner>(R.id.spinner_c1).adapter = myAdapter
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
+
+        root.findViewById<ImageView>(R.id.delete2).setOnClickListener() {
+            if (clubid != null) {
+                deleteClub(clubid)
+            }
+        }
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
             val din = dinner.text.toString()
@@ -114,4 +112,12 @@ class EditFoodFragment : Fragment() {
 
         return root
     }
+        private fun deleteClub(clubid: String){
+            var dName = database.child(clubid)
+
+            dName.removeValue()
+            Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
+            getFragmentManager()?.popBackStack()
+            getFragmentManager()?.popBackStack()
+        }
 }
