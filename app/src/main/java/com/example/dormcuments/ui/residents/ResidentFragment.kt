@@ -58,7 +58,6 @@ class ResidentFragment : Fragment() {
                     var from: String = i.child("from").getValue() as String
                     var fact: String = i.child("funfact").getValue() as String
                     var roomnumber: String = i.child("number").getValue() as String
-                    //var rn = roomnumber.substring(1,3)
 
                     createResident(name, roomnumber, date, from, diet, fact, residentLayout)
                 }
@@ -129,6 +128,7 @@ class ResidentFragment : Fragment() {
         var from: TextView = ExpandableCardview.findViewById(R.id.from)
         var diet: TextView = ExpandableCardview.findViewById(R.id.diet)
         var funny: TextView = ExpandableCardview.findViewById(R.id.fact)
+
         if (fullname.contains(" ")){
             val name = fullname.split(" ")
             resName.text = name[0]
@@ -153,7 +153,6 @@ class ResidentFragment : Fragment() {
         } else {
             for (i in 0..myContainer.childCount - 1) {
                 val room = myContainer.getChildAt(i).findViewById<TextView>(R.id.resRn).text.toString().toInt()
-
                 if (room >= rn.toInt()) {
                     myContainer.addView(ExpandableCardview, i)
                     break
@@ -173,9 +172,11 @@ class ResidentFragment : Fragment() {
                             if (rn.toInt() < roomK){
                                 myContainer.addView(ExpandableCardview, k)
                                 break
+
                             }
                         }
                     }
+                    break
                 }
             }
         }
