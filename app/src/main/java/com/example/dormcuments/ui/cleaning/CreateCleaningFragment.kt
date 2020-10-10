@@ -59,6 +59,13 @@ class CreateCleaningFragment() : Fragment() {
             true
         }
 
+        root.findViewById<EditText>(R.id.task).setOnTouchListener { v, event ->
+            if (MotionEvent.ACTION_UP == event.action) {
+                switchH.requestFocus()
+            }
+            true
+        }
+
         val myAdapter = ArrayAdapter(
             requireContext(), R.layout.spinner_layout, resources.getStringArray(
                 R.array.spinner_cooks
@@ -83,7 +90,7 @@ class CreateCleaningFragment() : Fragment() {
                     choosenDate,
                     tas,
                     not,
-                    ""
+                    "Unchecked"
                 )
 
                 if (cleaningid != null) {

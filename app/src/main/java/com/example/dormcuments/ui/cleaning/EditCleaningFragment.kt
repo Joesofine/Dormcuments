@@ -39,12 +39,15 @@ class EditCleaningFragment : Fragment() {
         val bundle = this.arguments
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
+        var cleaningid = bundle?.getString("id")
+
+        root.findViewById<ImageView>(R.id.delete).visibility = View.VISIBLE
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
 
                 if (bundle != null) {
-                    var cleaningid = bundle.getString("id")
+                    //var cleaningid = bundle.getString("id")
                     if (cleaningid != null) {
 
                         var w1 = p0.child(cleaningid).child("c1").getValue().toString()
@@ -88,10 +91,23 @@ class EditCleaningFragment : Fragment() {
             true
         }
 
+        root.findViewById<EditText>(R.id.task).setOnTouchListener { v, event ->
+            if (MotionEvent.ACTION_UP == event.action) {
+                switchH.requestFocus()
+            }
+            true
+        }
+
         val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_cooks))
         myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         root.findViewById<Spinner>(R.id.spinner_c1).adapter = myAdapter
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
+
+        root.findViewById<ImageView>(R.id.delete).setOnClickListener(){
+            if (cleaningid != null) {
+                deleteCleaning(cleaningid)
+            }
+        }
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
             val tas = task.text.toString()
@@ -103,12 +119,12 @@ class EditCleaningFragment : Fragment() {
                 date2.error = "Please choose a date"
             } else {
 
-                var cleanningid = bundle?.getString("id")
+                //var cleanningid = bundle?.getString("id")
                 val cleaning = Cleaning(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, tas, not, stat)
 
 
-                if (cleanningid != null) {
-                    database.child(cleanningid).setValue(cleaning)
+                if (cleaningid != null) {
+                    database.child(cleaningid).setValue(cleaning)
                         .addOnSuccessListener {
                             Toast.makeText(context, "Cleaning has been updated", Toast.LENGTH_SHORT).show()
                             getFragmentManager()?.popBackStack()
@@ -188,5 +204,14 @@ class EditCleaningFragment : Fragment() {
     private fun setSwitchStatus(switch: Switch, st: String){
         str = task.text.toString()
         if ( str.contains(st)){ switch.isChecked = true}
+    }
+
+    private fun deleteCleaning(cleaningid: String){
+        var dName = database.child(cleaningid)
+
+        dName.removeValue()
+        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
+        getFragmentManager()?.popBackStack()
+        getFragmentManager()?.popBackStack()
     }
 }

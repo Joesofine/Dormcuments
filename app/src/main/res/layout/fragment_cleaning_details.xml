@@ -170,37 +170,45 @@
 
             <TextView
                 android:id="@+id/chefs"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="01,02"
                 android:textColor="@color/White"
+                app:layout_constraintEnd_toEndOf="@+id/date"
                 app:layout_constraintStart_toStartOf="@+id/date"
                 app:layout_constraintTop_toTopOf="@+id/textView10" />
 
             <TextView
                 android:id="@+id/diets"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:text="1 - 15"
                 android:textColor="@color/White"
+                app:layout_constraintEnd_toStartOf="@+id/expandWeekly"
                 app:layout_constraintStart_toStartOf="@+id/chefs"
                 app:layout_constraintTop_toTopOf="@+id/textView11" />
 
             <TextView
                 android:id="@+id/task"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:text="A+B+K"
                 android:textColor="@color/White"
+                app:layout_constraintEnd_toStartOf="@+id/expandExtra"
                 app:layout_constraintStart_toStartOf="@+id/diets"
                 app:layout_constraintTop_toTopOf="@+id/textView12" />
 
             <TextView
                 android:id="@+id/note"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Focus on the oven"
                 android:textColor="@color/White"
+                app:layout_constraintEnd_toEndOf="@+id/divider7"
                 app:layout_constraintStart_toStartOf="@+id/task"
                 app:layout_constraintTop_toTopOf="@+id/textView13" />
 
@@ -221,7 +229,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@+id/note"
-                app:layout_constraintStart_toStartOf="@+id/note"
                 app:layout_constraintTop_toTopOf="@+id/checkText" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -447,10 +454,11 @@
                     android:id="@+id/textView54"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="14."
                     android:textColor="@color/White"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="571dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView53" />
 
                 <TextView
                     android:id="@+id/textView50"
@@ -559,261 +567,278 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/task"
+                app:layout_constraintEnd_toEndOf="@+id/expandExtra"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/textView12">
 
                 <TextView
-                    android:id="@+id/textView127"
+                    android:id="@+id/detailsK"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/promtF"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:text="@string/promtK"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView121"
-                    app:layout_constraintTop_toTopOf="@+id/textView119" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textK" />
 
                 <TextView
-                    android:id="@+id/textView126"
+                    android:id="@+id/detailsJ"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:text="@string/promtJ"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView121"
-                    app:layout_constraintTop_toTopOf="@+id/textView118" />
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textJ" />
 
                 <TextView
-                    android:id="@+id/textView125"
+                    android:id="@+id/detailsI"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:text="@string/promtI"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView121"
-                    app:layout_constraintTop_toTopOf="@+id/textView117" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textI" />
 
                 <TextView
-                    android:id="@+id/textView124"
+                    android:id="@+id/detailsH"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:text="@string/promtH"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView122"
-                    app:layout_constraintTop_toTopOf="@+id/textView116" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textH" />
 
                 <TextView
-                    android:id="@+id/textView122"
+                    android:id="@+id/detailsG"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:text="@string/promtG"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView114"
-                    app:layout_constraintTop_toTopOf="@+id/textView115" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textG" />
 
                 <TextView
-                    android:id="@+id/textView123"
+                    android:id="@+id/detailsF"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:text="@string/promtF"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView121"
-                    app:layout_constraintTop_toTopOf="@+id/textView114" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textF" />
 
                 <TextView
-                    android:id="@+id/textView121"
+                    android:id="@+id/detailsE"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:gravity="left"
                     android:text="@string/promtE"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView120"
-                    app:layout_constraintTop_toTopOf="@+id/textView113" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textE" />
 
                 <TextView
-                    android:id="@+id/textView118"
+                    android:id="@+id/textJ"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="J."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView125" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsI" />
 
                 <TextView
-                    android:id="@+id/textView119"
+                    android:id="@+id/textK"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="K."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView126" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsJ" />
 
                 <TextView
-                    android:id="@+id/textView116"
+                    android:id="@+id/textH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="H."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView122" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsG" />
 
                 <TextView
-                    android:id="@+id/textView117"
+                    android:id="@+id/textI"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="I."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView124" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsH" />
 
                 <TextView
-                    android:id="@+id/textView111"
+                    android:id="@+id/detailsC"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:text="@string/promtC"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView110"
-                    app:layout_constraintTop_toTopOf="@+id/textView110" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textC" />
 
                 <TextView
-                    android:id="@+id/textView110"
+                    android:id="@+id/textC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="C"
+                    android:text="C."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView109" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsB" />
 
                 <TextView
-                    android:id="@+id/textView112"
+                    android:id="@+id/textD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="D."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView111" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsC" />
 
                 <TextView
-                    android:id="@+id/textView120"
+                    android:id="@+id/detailsD"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:text="@string/promtD"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView111"
-                    app:layout_constraintTop_toTopOf="@+id/textView112" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textD" />
 
                 <TextView
-                    android:id="@+id/textView113"
+                    android:id="@+id/textE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="E."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView120" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsD" />
 
                 <TextView
-                    android:id="@+id/textView114"
+                    android:id="@+id/textF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="F."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView121" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsE" />
 
                 <TextView
-                    android:id="@+id/textView115"
+                    android:id="@+id/textG"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="G."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView123" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsF" />
 
                 <TextView
-                    android:id="@+id/textView109"
+                    android:id="@+id/detailsB"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:text="@string/promtB"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView108"
-                    app:layout_constraintTop_toTopOf="@+id/textView108" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textB" />
 
                 <TextView
-                    android:id="@+id/textView108"
+                    android:id="@+id/textB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="B"
+                    android:text="B."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/textView102" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailsA" />
 
                 <TextView
-                    android:id="@+id/textView101"
+                    android:id="@+id/textA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="A"
+                    android:text="A."
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView102"
+                    android:id="@+id/detailsA"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:text="@string/promtA"
                     android:textColor="@color/White"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView101"
-                    app:layout_constraintTop_toTopOf="@+id/textView101" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textA" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
@@ -831,7 +856,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@+id/diets"
-                app:layout_constraintEnd_toEndOf="@+id/divider8"
+                app:layout_constraintEnd_toEndOf="@+id/divider6"
                 app:layout_constraintTop_toTopOf="@+id/diets"
                 app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
                 app:tint="@color/White" />

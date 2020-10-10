@@ -1,5 +1,6 @@
 package com.example.dormcuments.ui.cleaning
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -48,6 +49,7 @@ class CleaningDetailsFragment : Fragment() {
         val bundle = this.arguments
 
         getdata = object : ValueEventListener {
+            @SuppressLint("SetTextI18n")
             override fun onDataChange(p0: DataSnapshot) {
 
                 if (bundle != null) {
@@ -57,6 +59,7 @@ class CleaningDetailsFragment : Fragment() {
                         var w1 = p0.child(cleaningid).child("c1").getValue().toString().substring(1,3)
                         var w2 = p0.child(cleaningid).child("c2").getValue().toString().substring(1,3)
                         var status = p0.child(cleaningid).child("checkedBy").getValue().toString()
+                        var extras = p0.child(cleaningid).child("task").getValue().toString()
 
                         if (w1.equals("on")){ w1 = "NA" }
                         if (w2.equals("on")){ w2 = "NA" }
@@ -65,9 +68,15 @@ class CleaningDetailsFragment : Fragment() {
                         root.findViewById<TextView>(R.id.date).text = p0.child(cleaningid).child("date").getValue().toString()
                         root.findViewById<TextView>(R.id.task).text = p0.child(cleaningid).child("task").getValue().toString()
                         root.findViewById<TextView>(R.id.note).text = p0.child(cleaningid).child("note").getValue().toString()
-                        root.findViewById<TextView>(R.id.checkText).text = "Checked by: $status"
+
+                        if (status.contains("9")){
+                            root.findViewById<TextView>(R.id.checkText).text = "Checked by: $status"
+                        } else {
+                            root.findViewById<TextView>(R.id.checkText).text = status
+                        }
 
                         setId(cleaningid)
+                        setVisiblityOnExtra(extras)
                     }
                 }
             }
@@ -135,8 +144,8 @@ class CleaningDetailsFragment : Fragment() {
                         Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
                     }
             } else {
-                checkText.text = "Cleaning check"
-                database.child(cleaningid).child("checkedBy").setValue("").addOnSuccessListener {
+                checkText.text = "Unchecked"
+                database.child(cleaningid).child("checkedBy").setValue("Unchecked").addOnSuccessListener {
                     Toast.makeText(context, "Cleaning is unchecked", Toast.LENGTH_SHORT).show()
                 }
                     .addOnFailureListener {
@@ -149,7 +158,10 @@ class CleaningDetailsFragment : Fragment() {
 
     private fun setSwitchStatus(switch: Switch){
         if ( checkText.text.toString().contains("9")){ switch.isChecked = true}
+        else {checkText.text = "Unchecked"}
     }
+
+
     private fun expandList(taskLayout: ConstraintLayout, expand: ImageView) {
         if (taskLayout.visibility == View.GONE) {
             taskLayout.visibility = View.VISIBLE
@@ -159,4 +171,27 @@ class CleaningDetailsFragment : Fragment() {
             expand.rotation = 0f
         }
     }
+
+    private fun visibleTask(extras: String, string: String, char: TextView, details: TextView){
+        if (!extras.contains(string)) {
+            char.visibility = View.GONE
+            details.visibility = View.GONE
+        }
+    }
+
+    private fun setVisiblityOnExtra(extras: String){
+
+        visibleTask(extras, "A", textA, detailsA)
+        visibleTask(extras, "B", textB, detailsB)
+        visibleTask(extras, "C", textC, detailsC)
+        visibleTask(extras, "D", textD, detailsD)
+        visibleTask(extras, "E", textE, detailsE)
+        visibleTask(extras, "F", textF, detailsF)
+        visibleTask(extras, "G", textG, detailsG)
+        visibleTask(extras, "H", textH, detailsH)
+        visibleTask(extras, "I", textI, detailsI)
+        visibleTask(extras, "J", textJ, detailsJ)
+        visibleTask(extras, "K", textK, detailsK)
+    }
+
 }

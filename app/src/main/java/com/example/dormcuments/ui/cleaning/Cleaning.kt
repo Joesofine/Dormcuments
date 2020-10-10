@@ -6,7 +6,7 @@ class Cleaning {
     var date = ""
     var task = ""
     var note = ""
-    var status = false
+    var checkedBy = "Unchecked"
 
     constructor(c1: String, c2: String, date: String, task: String, note: String, checkedBy: String){
         this.c1 = c1
