@@ -33,11 +33,14 @@ class FoodDetailsFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_food_details, container, false)
         val bundle = this.arguments
         val checked = root.findViewById<Switch>(R.id.switchJoin)
+        var ch1 = ""
+        var ch2 = ""
         auth = Firebase.auth
 
 
 
         getdata = object : ValueEventListener {
+            @SuppressLint("SetTextI18n")
             override fun onDataChange(p0: DataSnapshot) {
 
                 if (bundle != null) {
@@ -50,14 +53,15 @@ class FoodDetailsFragment : Fragment() {
 
 
                         if (w1.equals("on")){ w1 = "NA" }
+                        else {ch1 = p0.child(clubid).child("c1").getValue().toString()}
                         if (w2.equals("on")){ w2 = "NA" }
+                        else {ch2 = p0.child(clubid).child("c2").getValue().toString()}
 
                         root.findViewById<TextView>(R.id.chefs).text = "$w1 , $w2"
                         root.findViewById<TextView>(R.id.date).text = p0.child(clubid).child("date").getValue().toString()
                         root.findViewById<TextView>(R.id.dinner).text = p0.child(clubid).child("dinner").getValue().toString()
                         root.findViewById<TextView>(R.id.note).text = p0.child(clubid).child("note").getValue().toString()
-                        root.findViewById<TextView>(R.id.parti).text = par
-
+                        root.findViewById<TextView>(R.id.parti).text = "$ch1, $ch2, $par"
                         setId(clubid)
                     }
                 }
