@@ -57,7 +57,7 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
             } else {
 
                 val clubid = database.push().key
-                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not)
+                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, "", "")
 
                 if (clubid != null) {
 

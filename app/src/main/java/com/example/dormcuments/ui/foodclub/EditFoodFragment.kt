@@ -41,6 +41,8 @@ class EditFoodFragment : Fragment() {
                     var date: String = p0.child(clubid).child("date").getValue().toString()
                     var dinner = p0.child(clubid).child("dinner").getValue().toString()
                     var note = p0.child(clubid).child("note").getValue().toString()
+                    var par = p0.child(clubid).child("participants").getValue().toString()
+                    var diet = p0.child(clubid).child("diets").getValue().toString()
 
                     choosenDate = date
                     root.findViewById<Spinner>(R.id.spinner_c1).setSelection((spinner_c1.adapter as ArrayAdapter<String>).getPosition(w1))
@@ -48,6 +50,9 @@ class EditFoodFragment : Fragment() {
                     root.findViewById<EditText>(R.id.date2).setText(choosenDate)
                     root.findViewById<EditText>(R.id.dinner).setText(dinner)
                     root.findViewById<EditText>(R.id.note).setText(note)
+                    root.findViewById<TextView>(R.id.parti).setText(par)
+                    root.findViewById<TextView>(R.id.die).setText(diet)
+
                 }
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
@@ -86,13 +91,15 @@ class EditFoodFragment : Fragment() {
         root.findViewById<Button>(R.id.save).setOnClickListener {
             val din = dinner.text.toString()
             val not = note.text.toString()
+            val part = parti.text.toString()
+            val diet = die.text.toString()
 
             if (choosenDate == "") {
                 date2.error = "Please choose a date"
             } else {
 
                 var clubid = bundle?.getString("id")
-                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not)
+                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, part, diet)
 
 
                 if (clubid != null) {

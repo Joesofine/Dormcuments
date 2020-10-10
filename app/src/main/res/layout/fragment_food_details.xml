@@ -8,13 +8,14 @@
     android:background="@drawable/background_gradient">
 
     <TextView
-    android:id="@+id/textView20"
-    android:layout_width="200dp"
-    android:layout_height="wrap_content"
-    android:text=""
+        android:id="@+id/parti"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=""
         android:textColor="@color/White"
-    app:layout_constraintStart_toStartOf="@+id/note"
-    app:layout_constraintTop_toTopOf="@+id/checkText" />
+        app:layout_constraintEnd_toEndOf="@+id/divider9"
+        app:layout_constraintStart_toStartOf="@+id/note"
+        app:layout_constraintTop_toTopOf="@+id/checkText" />
 
     <TextView
         android:id="@+id/checkText"
@@ -43,6 +44,22 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/note" />
+
+    <View
+        android:id="@+id/divider12"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/BackgroundDark"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parti" />
 
     <View
         android:id="@+id/divider8"
@@ -94,7 +111,7 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/chef_icon_white"
         android:drawablePadding="10dp"
         android:text="Chefs"
@@ -160,8 +177,8 @@
         android:layout_height="wrap_content"
         android:drawablePadding="10dp"
         android:text="01/02"
-        android:textSize="30sp"
         android:textColor="@color/White"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/divider5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -170,37 +187,41 @@
 
     <TextView
         android:id="@+id/chefs"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="01,02"
         android:textColor="@color/White"
+        app:layout_constraintEnd_toEndOf="@+id/date"
         app:layout_constraintStart_toStartOf="@+id/date"
         app:layout_constraintTop_toTopOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/diets"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="@color/White"
+        app:layout_constraintEnd_toEndOf="@+id/divider6"
         app:layout_constraintStart_toStartOf="@+id/chefs"
         app:layout_constraintTop_toTopOf="@+id/textView11" />
 
     <TextView
         android:id="@+id/dinner"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Soup with bread"
         android:textColor="@color/White"
+        app:layout_constraintEnd_toEndOf="@+id/divider8"
         app:layout_constraintStart_toStartOf="@+id/diets"
         app:layout_constraintTop_toTopOf="@+id/textView12" />
 
     <TextView
         android:id="@+id/note"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="There has been used onions from dumpster diving"
         android:textColor="@color/White"
+        app:layout_constraintEnd_toEndOf="@+id/divider7"
         app:layout_constraintStart_toStartOf="@+id/dinner"
         app:layout_constraintTop_toTopOf="@+id/textView13" />
 
@@ -215,4 +236,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/White" />
+
+    <TextView
+        android:id="@+id/textView71"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Join?"
+        android:textColor="@color/White"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/divider9"
+        app:layout_constraintTop_toBottomOf="@+id/divider12" />
+
+    <Switch
+        android:id="@+id/switchJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textView71"
+        app:layout_constraintEnd_toEndOf="@+id/divider9"
+        app:layout_constraintTop_toTopOf="@+id/textView71" />
 </androidx.constraintlayout.widget.ConstraintLayout>
