@@ -2,13 +2,11 @@ package com.example.dormcuments.ui.signIn
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -16,21 +14,18 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dormcuments.MainActivity
 import com.example.dormcuments.R
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-import java.util.*
+import org.json.JSONException
+import org.json.JSONObject
 
 
 @Suppress("DEPRECATION")
@@ -38,7 +33,7 @@ class SignIn : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private var callbackManager: CallbackManager? = null
     private lateinit var auth: FirebaseAuth
-
+    var database = FirebaseDatabase.getInstance().getReference("Users")
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
@@ -87,18 +82,74 @@ class SignIn : AppCompatActivity() {
 
         var login: LoginButton = findViewById(R.id.loginButton)
             callbackManager = CallbackManager.Factory.create()
-        login.setReadPermissions("public_profile",
-            "email")
-
+        login.setReadPermissions(
+            "public_profile",
+            "email",
+            "user_birthday"
+        )
         LoginManager.getInstance().logOut()
         login.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
-                    val credenials = FacebookAuthProvider.getCredential(loginResult.accessToken.token);
+                    val credenials =
+                        FacebookAuthProvider.getCredential(loginResult.accessToken.token);
 
-                    auth.signInWithCredential(credenials)
-                    println("Facebook token: " + loginResult.accessToken.token)
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+
+                    auth.signInWithCredential(credenials).addOnCompleteListener() { task ->
+                        if (task.result?.additionalUserInfo?.isNewUser!!) {
+
+                            val request =
+                                GraphRequest.newMeRequest(loginResult.accessToken) { `object`, response ->
+                                    try {
+                                        println(`object`.toString())
+
+                                        val user = User(
+                                            `object`.getString("name"), "Roomnumber",
+                                            `object`.getString("birthday"), "", "", "")
+
+                                        val userId = auth.currentUser?.uid
+                                        if (userId != null) {
+                                            database.child(userId).setValue(user)
+                                                .addOnSuccessListener {
+                                                    Toast.makeText(
+                                                        applicationContext,
+                                                        "User Created",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                    startActivity(Intent(applicationContext, SignUpWithFacebookFragment::class.java))
+                                                }
+                                                .addOnFailureListener {
+                                                    // Write failed
+                                                    Toast.makeText(
+                                                        applicationContext,
+                                                        "Try again",
+                                                        Toast.LENGTH_SHORT
+                                                    )
+                                                        .show()
+                                                }
+                                        }
+
+
+                                        if (`object`.has("id")) {
+                                            //handleSignInResultFacebook(`object`)
+                                        } else {
+                                            println(`object`.toString())
+                                        }
+
+                                    } catch (e: Exception) {
+                                        e.printStackTrace()
+                                        //dismissDialogLogin()
+                                    }
+                                }
+                            val parameters = Bundle()
+                            parameters.putString("fields", "name,email,birthday,id,picture.type(large)")
+                            request.parameters = parameters
+                            request.executeAsync()
+                        } else {
+                            println("Facebook token: " + loginResult.accessToken.token)
+                            startActivity(Intent(applicationContext, MainActivity::class.java))
+                        }
+                    }
                 }
 
                 override fun onCancel() {
@@ -106,11 +157,9 @@ class SignIn : AppCompatActivity() {
 
                 override fun onError(error: FacebookException) {
                     println("Facebook onError")
-                    }
-                })
+                }
+            })
     }
-
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -121,11 +170,17 @@ class SignIn : AppCompatActivity() {
         edit.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 edit.setCompoundDrawablesWithIntrinsicBounds(tint, 0, 0, 0)
-                edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
+                edit.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.holo_blue_dark),
+                    PorterDuff.Mode.SRC_ATOP
+                )
             }
             else {
                 edit.setCompoundDrawablesWithIntrinsicBounds(noTint, 0, 0, 0)
-                edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                edit.getBackground().mutate().setColorFilter(
+                    getResources().getColor(android.R.color.white),
+                    PorterDuff.Mode.SRC_ATOP
+                )
             }
         }
     }
@@ -148,8 +203,10 @@ class SignIn : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 // [START_EXCLUDE]
@@ -181,6 +238,39 @@ class SignIn : AppCompatActivity() {
         }
 
         return valid
+    }
+
+    private fun getFbInfo() {
+        val request: GraphRequest = GraphRequest.newMeRequest(
+            AccessToken.getCurrentAccessToken(),
+            object : GraphRequest.GraphJSONObjectCallback {
+                override fun onCompleted(
+                    `object`: JSONObject,
+                    response: GraphResponse
+                ) {
+                    try {
+                        val id: String = `object`.getString("id")
+                        val first_name: String = `object`.getString("first_name")
+                        val last_name: String = `object`.getString("last_name")
+                        val gender: String = `object`.getString("gender")
+                        val birthday: String = `object`.getString("birthday")
+                        val image_url = "http://graph.facebook.com/$id/picture?type=large"
+                        val email: String
+                        if (`object`.has("email")) {
+                            email = `object`.getString("email")
+                        }
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                }
+            })
+        val parameters = Bundle()
+        parameters.putString(
+            "fields",
+            "id,first_name,last_name,email,gender,birthday"
+        ) // id,first_name,last_name,email,gender,birthday,cover,picture.type(large)
+        request.setParameters(parameters)
+        request.executeAsync()
     }
 
 

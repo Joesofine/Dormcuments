@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="30dp">
+
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginBottom="5dp"
+                android:text="Optional:"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toTopOf="@+id/diet"
+                app:layout_constraintStart_toStartOf="@+id/diet" />
+
+            <EditText
+                android:id="@+id/city_signup"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:drawableLeft="@drawable/city_icon_white"
+                android:drawablePadding="10dp"
+                android:hint="City of origin"
+                android:inputType="textCapSentences"
+                android:textColor="@color/White"
+                android:textColorHint="@color/lightHint"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintStart_toStartOf="@+id/room_spinner"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+            <EditText
+                android:id="@+id/country_signup"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:drawableLeft="@drawable/county_icon_white"
+                android:drawablePadding="10dp"
+                android:hint="Country"
+                android:inputType="textCapSentences"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/White"
+                android:textColorHint="@color/lightHint"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="@+id/room_spinner"
+                app:layout_constraintTop_toTopOf="@+id/city_signup" />
+
+            <Spinner
+                android:id="@+id/room_spinner"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="320dp"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="false"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="15dp"
+                android:gravity="left"
+                android:padding="0dp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city_signup" />
+
+            <EditText
+                android:id="@+id/funfact"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:drawableLeft="@drawable/fun_icon_white"
+                android:drawablePadding="10dp"
+                android:hint="Funfact"
+                android:imeOptions="actionNext"
+                android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/White"
+                android:textColorHint="@color/lightHint"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/diet" />
+
+            <EditText
+                android:id="@+id/diet"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:drawableLeft="@drawable/diet_icon_white"
+                android:drawablePadding="10dp"
+                android:hint="Diets and Allergies"
+                android:imeOptions="actionNext"
+                android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                android:selectAllOnFocus="true"
+                android:textColor="@color/White"
+                android:textColorHint="@color/lightHint"
+                android:textSize="14sp"
+                app:backgroundTint="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/room_spinner" />
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="70dp"
+                android:background="@drawable/sign_in_button"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="#0C0000"
+                app:layout_constraintEnd_toEndOf="@+id/funfact"
+                app:layout_constraintStart_toStartOf="@+id/funfact"
+                app:layout_constraintTop_toBottomOf="@+id/funfact" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:gravity="center"
+                android:text="Before you continue"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/country_signup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/city_signup"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="We would love to know more about you."
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>
