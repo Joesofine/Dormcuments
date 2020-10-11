@@ -1,23 +1,23 @@
 package com.example.dormcuments.ui.cleaning
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
-import com.example.dormcuments.ui.foodclub.Foodclub
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_create_cleaning.*
-import kotlinx.android.synthetic.main.fragment_edit_food.*
 import kotlinx.android.synthetic.main.fragment_edit_food.date2
-import kotlinx.android.synthetic.main.fragment_edit_food.dinner
 import kotlinx.android.synthetic.main.fragment_edit_food.note
 import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c1
 import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c2
@@ -40,8 +40,10 @@ class EditCleaningFragment : Fragment() {
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
         var cleaningid = bundle?.getString("id")
-
         root.findViewById<ImageView>(R.id.delete).visibility = View.VISIBLE
+
+
+
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
@@ -104,9 +106,24 @@ class EditCleaningFragment : Fragment() {
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
 
         root.findViewById<ImageView>(R.id.delete).setOnClickListener(){
-            if (cleaningid != null) {
-                deleteCleaning(cleaningid)
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(R.string.dialogTitle)
+            builder.setMessage(R.string.dialogMessage)
+            builder.setIcon(R.drawable.ic_baseline_warning_24)
+
+            builder.setPositiveButton("Continue"){dialogInterface, which ->
+                if (cleaningid != null) {
+                    deleteCleaning(cleaningid)
+                    Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
+                }
             }
+            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+            }
+
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+
         }
 
         root.findViewById<Button>(R.id.save).setOnClickListener {

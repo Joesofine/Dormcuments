@@ -1,18 +1,23 @@
 package com.example.dormcuments.ui.residents
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.example.dormcuments.ui.signIn.SignIn
 import com.example.dormcuments.ui.signIn.User
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -21,15 +26,17 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import java.time.LocalDate
 import java.util.*
+
 
 class profileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     lateinit var getdata : ValueEventListener
     var database = FirebaseDatabase.getInstance().getReference("Users")
-    var cbdate = Calendar.getInstance()
+    var targetHeight = 0
+    var targetWidth = 0
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -164,11 +171,116 @@ class profileFragment : Fragment() {
             close.visibility = View.GONE
         }
 
+
+        root.findViewById<Button>(R.id.resetPassword).setOnClickListener(){
+            val user = auth.currentUser
+            var newPassword = ""
+            var oldPassword = ""
+
+            val alert = AlertDialog.Builder(context)
+
+
+            getTagetSize()
+
+            val layout = LinearLayout(context)
+            layout.orientation = LinearLayout.VERTICAL
+
+            val title = TextView(context)
+            title.text = "Reset Password"
+            title.textSize = 18F
+            val width = (targetWidth - title.width - 550) / 2
+            title.setPadding(width,0,0,0)
+            title.setTextColor(R.color.Black)
+            layout.addView(title)
+
+            val edittextOld = EditText(context)
+            edittextOld.hint = "Old Password"
+            layout.addView(edittextOld)
+
+            val edittextNew = EditText(context)
+            edittextNew.hint = "New Password"
+            layout.addView(edittextNew)
+
+            alert.setView(layout)
+
+
+            alert.setPositiveButton("Save Password") { dialog, whichButton ->
+                newPassword = edittextNew.text.toString()
+                oldPassword = edittextOld.text.toString()
+
+                val credential = EmailAuthProvider
+                    .getCredential(user?.email.toString(), oldPassword)
+
+                user?.reauthenticate(credential)
+                    ?.addOnCompleteListener {task ->
+                        if (task.isSuccessful) {
+
+                            if (newPassword != "") {
+                                user!!.updatePassword(newPassword)
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) { Toast.makeText(context, "Password is changed", Toast.LENGTH_SHORT).show()
+                                        } else {
+                                            Toast.makeText(context, "Password couldn't be changed", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+                             }else {
+                                Toast.makeText(context, "New password is null", Toast.LENGTH_SHORT).show()
+                            }
+                        } else
+                            Toast.makeText(context,"Old password is wrong", Toast.LENGTH_SHORT).show()
+                    }
+            }
+
+            alert.setNeutralButton("Cancel") { dialog, whichButton -> }
+            alert.show()
+        }
+
+
         root.findViewById<Button>(R.id.signout).setOnClickListener(){
-            signOut()
-            Toast.makeText(context, "You are now signed out", Toast.LENGTH_SHORT).show()
-            val intent = Intent(context, SignIn::class.java)
-            startActivity(intent)
+
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(R.string.dialogTitleSignOut)
+            builder.setMessage(R.string.dialogMessageSignOut)
+            builder.setIcon(R.drawable.ic_baseline_warning_24)
+
+            builder.setPositiveButton("Continue"){dialogInterface, which ->
+                signOut()
+                Toast.makeText(context, "You are now signed out", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, SignIn::class.java)
+                startActivity(intent)
+                }
+            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+            }
+
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+        }
+
+        root.findViewById<Button>(R.id.delete).setOnClickListener(){
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(R.string.dialogTitleDelete)
+            builder.setMessage(R.string.dialogMessageDelete)
+            builder.setIcon(R.drawable.ic_baseline_warning_24)
+
+            builder.setPositiveButton("Continue"){dialogInterface, which ->
+
+                auth.currentUser?.delete()?.addOnSuccessListener {
+                    Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, SignIn::class.java)
+                    startActivity(intent)
+
+                }?.addOnFailureListener{
+                    Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+            }
+
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
 
         root.findViewById<Button>(R.id.save).setOnClickListener(){
@@ -247,5 +359,16 @@ class profileFragment : Fragment() {
         }
         val ageInt = age
         return ageInt.toString()
+    }
+
+    private fun getTagetSize(){
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        var width = displayMetrics.widthPixels
+        var height = displayMetrics.heightPixels
+
+        targetWidth = width
+        targetHeight = height
     }
  }

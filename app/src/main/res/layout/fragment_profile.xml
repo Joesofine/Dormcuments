@@ -17,6 +17,18 @@
             android:paddingBottom="30dp">
 
 
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/LighterDarkBlue"
+                android:text="Delete Account"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="@+id/funfact"
+                app:layout_constraintStart_toStartOf="@+id/funfact"
+                app:layout_constraintTop_toBottomOf="@+id/signout" />
+
             <EditText
                 android:id="@+id/city_edit"
                 android:layout_width="160dp"
@@ -208,14 +220,14 @@
                 android:id="@+id/save"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/sign_in_button"
                 android:text="Save Changes"
                 android:textAllCaps="false"
                 android:textColor="#0C0000"
                 app:layout_constraintEnd_toEndOf="@+id/signout"
                 app:layout_constraintStart_toStartOf="@+id/signout"
-                app:layout_constraintTop_toBottomOf="@+id/signout" />
+                app:layout_constraintTop_toBottomOf="@+id/delete" />
 
             <Button
                 android:id="@+id/resetPassword"
@@ -250,7 +262,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                tools:src="@tools:sample/backgrounds/scenic" />
 
             <ImageView
                 android:id="@+id/imageView2"

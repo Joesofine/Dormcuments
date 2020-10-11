@@ -1,6 +1,7 @@
 package com.example.dormcuments.ui.foodclub
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -83,9 +84,23 @@ class EditFoodFragment : Fragment() {
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
 
         root.findViewById<ImageView>(R.id.delete2).setOnClickListener() {
-            if (clubid != null) {
-                deleteClub(clubid)
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(R.string.dialogTitle)
+            builder.setMessage(R.string.dialogMessage)
+            builder.setIcon(R.drawable.ic_baseline_warning_24)
+
+            builder.setPositiveButton("Continue"){dialogInterface, which ->
+                if (clubid != null) {
+                    deleteClub(clubid)
+                    Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
+                }
             }
+            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+            }
+
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
