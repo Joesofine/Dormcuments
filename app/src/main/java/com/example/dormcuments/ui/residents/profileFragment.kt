@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.core.view.marginLeft
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.example.dormcuments.ui.signIn.SignIn
@@ -26,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_up.city_signup
+import kotlinx.android.synthetic.main.fragment_profile.*
 import java.util.*
 
 
@@ -54,9 +55,16 @@ class profileFragment : Fragment() {
         val close: Button = root.findViewById(R.id.close)
         val city_edit:EditText = root.findViewById(R.id.city_edit)
         val country_edit:EditText = root.findViewById(R.id.country_edit)
-        val today = Calendar.getInstance()
-
         val userid = auth.currentUser?.uid
+
+        if (auth.currentUser != null) {
+            for (userInfo in auth.currentUser!!.getProviderData()) {
+                if (userInfo.getProviderId().equals("facebook.com")) {
+                    root.findViewById<Button>(R.id.resetPassword).visibility = View.GONE
+                }
+            }
+        }
+
 
         getdata = object : ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
@@ -70,12 +78,9 @@ class profileFragment : Fragment() {
                     var food = p0.child(userid).child("diet").getValue().toString()
                     var fact = p0.child(userid).child("funfact").getValue().toString()
 
-
                     val byear = birthday[2].toInt()
                     val bmonth = birthday[1].toInt()
                     val bday = birthday[0].toInt()
-
-
                     val cc: List<String> = orgin.split(", ")
 
                     name_signup.setText(name)
@@ -84,12 +89,8 @@ class profileFragment : Fragment() {
                     country_edit.setText(cc[1])
                     diet.setText(food)
                     funfact.setText(fact)
-                    date.setText(getAge(byear,bmonth,bday))
-                    room_spinner.setSelection(
-                        (room_spinner.adapter as ArrayAdapter<String>).getPosition(
-                            rnumber
-                        )
-                    )
+                    date.setText(getAge(byear, bmonth, bday))
+                    room_spinner.setSelection((room_spinner.adapter as ArrayAdapter<String>).getPosition(rnumber))
 
                     datePicker.init(birthday[2].toInt(), birthday[1].toInt() - 1, birthday[0].toInt()) { view, year, month, day ->
                         val month = month + 1
@@ -189,7 +190,7 @@ class profileFragment : Fragment() {
             title.text = "Reset Password"
             title.textSize = 18F
             val width = (targetWidth - title.width - 550) / 2
-            title.setPadding(width,0,0,0)
+            title.setPadding(width, 0, 0, 0)
             title.setTextColor(R.color.Black)
             layout.addView(title)
 
@@ -212,7 +213,7 @@ class profileFragment : Fragment() {
                     .getCredential(user?.email.toString(), oldPassword)
 
                 user?.reauthenticate(credential)
-                    ?.addOnCompleteListener {task ->
+                    ?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
 
                             if (newPassword != "") {
@@ -227,7 +228,7 @@ class profileFragment : Fragment() {
                                 Toast.makeText(context, "New password is null", Toast.LENGTH_SHORT).show()
                             }
                         } else
-                            Toast.makeText(context,"Old password is wrong", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Old password is wrong", Toast.LENGTH_SHORT).show()
                     }
             }
 
@@ -243,13 +244,13 @@ class profileFragment : Fragment() {
             builder.setMessage(R.string.dialogMessageSignOut)
             builder.setIcon(R.drawable.ic_baseline_warning_24)
 
-            builder.setPositiveButton("Continue"){dialogInterface, which ->
+            builder.setPositiveButton("Continue"){ dialogInterface, which ->
                 signOut()
                 Toast.makeText(context, "You are now signed out", Toast.LENGTH_SHORT).show()
                 val intent = Intent(context, SignIn::class.java)
                 startActivity(intent)
                 }
-            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+            builder.setNeutralButton("Cancel"){ dialogInterface, which ->
             }
 
             val alertDialog: AlertDialog = builder.create()
@@ -263,7 +264,7 @@ class profileFragment : Fragment() {
             builder.setMessage(R.string.dialogMessageDelete)
             builder.setIcon(R.drawable.ic_baseline_warning_24)
 
-            builder.setPositiveButton("Continue"){dialogInterface, which ->
+            builder.setPositiveButton("Continue"){ dialogInterface, which ->
 
                 auth.currentUser?.delete()?.addOnSuccessListener {
                     Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
@@ -275,7 +276,7 @@ class profileFragment : Fragment() {
 
                 }
             }
-            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+            builder.setNeutralButton("Cancel"){ dialogInterface, which ->
             }
 
             val alertDialog: AlertDialog = builder.create()

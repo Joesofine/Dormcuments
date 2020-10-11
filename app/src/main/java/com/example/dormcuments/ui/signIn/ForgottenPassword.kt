@@ -23,7 +23,18 @@ class ForgottenPassword : AppCompatActivity() {
 
 
         send.setOnClickListener(View.OnClickListener {
-            sendEmailVerification()
+            //sendEmailVerification()
+
+            val emailAddress = auth.currentUser?.email
+
+            if (emailAddress != null) {
+                Firebase.auth.sendPasswordResetEmail(emailAddress)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.d(TAG, "Email sent.")
+                        }
+                    }
+            }
             //val intent = Intent(applicationContext, SignIn::class.java)
             //startActivity(intent)
         })
