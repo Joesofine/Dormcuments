@@ -118,16 +118,8 @@ class profileFragment : Fragment() {
             } else {
                 datePicker.visibility = View.GONE
                 close.visibility = View.GONE
-                date.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.edit_pen_icon_white,
-                    0
-                )
-                date.getBackground().mutate().setColorFilter(
-                    getResources().getColor(android.R.color.white),
-                    PorterDuff.Mode.SRC_ATOP
-                )
+                date.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
+                date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
             }
         }
         from.setOnFocusChangeListener { view, hasFocus ->
@@ -136,25 +128,13 @@ class profileFragment : Fragment() {
                 city_edit.visibility = View.VISIBLE
                 country_edit.visibility = View.VISIBLE
             } else {
-                city_signup.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.edit_pen_icon_white,
-                    0
-                )
-                city_signup.getBackground().mutate().setColorFilter(
-                    getResources().getColor(android.R.color.white),
-                    PorterDuff.Mode.SRC_ATOP
-                )
+                city_signup.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
+                city_signup.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
             }
         }
 
 
-        val myAdapter = ArrayAdapter(
-            requireContext(), R.layout.spinner_layout, resources.getStringArray(
-                R.array.spinner
-            )
-        )
+        val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
         myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         room_spinner.adapter = myAdapter
 
@@ -165,22 +145,16 @@ class profileFragment : Fragment() {
         setIconsTint(city_edit, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
         setIconsTint(country_edit, R.drawable.edit_pen_icon_white, R.drawable.edit_pen_icon_tint)
 
-
-
         close.setOnClickListener(){
             datePicker.visibility = View.GONE
             close.visibility = View.GONE
         }
 
-
         root.findViewById<Button>(R.id.resetPassword).setOnClickListener(){
             val user = auth.currentUser
             var newPassword = ""
             var oldPassword = ""
-
             val alert = AlertDialog.Builder(context)
-
-
             getTagetSize()
 
             val layout = LinearLayout(context)
@@ -203,7 +177,6 @@ class profileFragment : Fragment() {
             layout.addView(edittextNew)
 
             alert.setView(layout)
-
 
             alert.setPositiveButton("Save Password") { dialog, whichButton ->
                 newPassword = edittextNew.text.toString()
@@ -236,9 +209,7 @@ class profileFragment : Fragment() {
             alert.show()
         }
 
-
         root.findViewById<Button>(R.id.signout).setOnClickListener(){
-
             val builder = AlertDialog.Builder(context)
             builder.setTitle(R.string.dialogTitleSignOut)
             builder.setMessage(R.string.dialogMessageSignOut)
@@ -267,13 +238,14 @@ class profileFragment : Fragment() {
             builder.setPositiveButton("Continue"){ dialogInterface, which ->
 
                 auth.currentUser?.delete()?.addOnSuccessListener {
-                    Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context, SignIn::class.java)
-                    startActivity(intent)
-
+                    if (userid != null) {
+                        deleteUser(userid)
+                        Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(context, SignIn::class.java)
+                        startActivity(intent)
+                    }
                 }?.addOnFailureListener{
                     Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-
                 }
             }
             builder.setNeutralButton("Cancel"){ dialogInterface, which ->
@@ -321,10 +293,8 @@ class profileFragment : Fragment() {
                             Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
                         }
                 }
-
             }
         }
-
         return root
     }
 
@@ -371,5 +341,11 @@ class profileFragment : Fragment() {
 
         targetWidth = width
         targetHeight = height
+    }
+    private fun deleteUser(userid: String){
+        var dName = database.child(userid)
+
+        dName.removeValue()
+        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
     }
  }
