@@ -87,7 +87,7 @@
     <string name="prompt14">Buy more soap etc if needed in the kithen</string>
     <string name="prompt15">903 (Jesper) must be informed when finished or you will be cleaning again the following week.</string>
 
-<!-- Dialog -->
+    <!-- Dialog -->
     <string name="dialogTitle">Delete File</string>
     <string name="dialogMessage">Are you sure you yo delete file? </string>
     <string name="dialogTitleSignOut">Signing out</string>
