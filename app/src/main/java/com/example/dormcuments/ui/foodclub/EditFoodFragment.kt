@@ -14,7 +14,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_create_foodclub.*
 import kotlinx.android.synthetic.main.fragment_edit_food.*
+import kotlinx.android.synthetic.main.fragment_edit_food.date2
+import kotlinx.android.synthetic.main.fragment_edit_food.dinner
+import kotlinx.android.synthetic.main.fragment_edit_food.note
+import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c1
+import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c2
 import java.util.*
 
 
@@ -109,7 +115,10 @@ class EditFoodFragment : Fragment() {
             val part = parti.text.toString()
             val diet = die.text.toString()
 
-            if (choosenDate == "") {
+            if (spinner_c1.selectedItem.toString() != "none" || spinner_c2.selectedItem.toString() != "none"){
+                if (spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) {
+                    Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show() }
+            } else if (choosenDate == "") {
                 date2.error = "Please choose a date"
             } else {
 

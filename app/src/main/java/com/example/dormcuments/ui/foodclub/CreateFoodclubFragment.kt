@@ -52,7 +52,10 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
             val din = dinner.text.toString()
             val not = note.text.toString()
 
-            if (choosenDate == "") {
+            if (spinner_c1.selectedItem.toString() != "none" || spinner_c2.selectedItem.toString() != "none"){
+                if (spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) {
+                    Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show() }
+            } else if (choosenDate == "") {
                 date2.error = "Please choose a date"
             } else {
 
