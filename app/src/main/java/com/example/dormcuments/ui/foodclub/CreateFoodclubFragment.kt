@@ -52,27 +52,29 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
             val din = dinner.text.toString()
             val not = note.text.toString()
 
-            if (spinner_c1.selectedItem.toString() != "none" || spinner_c2.selectedItem.toString() != "none"){
+            if (spinner_c1.selectedItem.toString() != "none" || spinner_c2.selectedItem.toString() != "none") {
                 if (spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) {
-                    Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show() }
-            } else if (choosenDate == "") {
-                date2.error = "Please choose a date"
-            } else {
+                    Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show()
+                } else if (choosenDate == "") {
+                    date2.error = "Please choose a date"
+                } else {
 
-                val clubid = database.push().key
-                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, "", "")
+                    val clubid = database.push().key
+                    val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, "", "")
 
-                if (clubid != null) {
+                    if (clubid != null) {
 
-                    database.child(clubid).setValue(club)
-                        .addOnSuccessListener {
-                            Toast.makeText(context, "Foodclub been created", Toast.LENGTH_SHORT).show()
-                            requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, FoodclubFragment()).addToBackStack(null).commit()
-                        }
-                        .addOnFailureListener {
-                            // Write failed
-                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-                        }
+                        database.child(clubid).setValue(club)
+                            .addOnSuccessListener {
+                                Toast.makeText(context, "Foodclub been created", Toast.LENGTH_SHORT).show()
+                                requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, FoodclubFragment()).addToBackStack(null)
+                                    .commit()
+                            }
+                            .addOnFailureListener {
+                                // Write failed
+                                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                            }
+                    }
                 }
             }
         }

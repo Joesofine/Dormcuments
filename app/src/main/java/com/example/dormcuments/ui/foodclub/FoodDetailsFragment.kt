@@ -36,7 +36,7 @@ class FoodDetailsFragment : Fragment() {
         var ch1 = ""
         var ch2 = ""
         auth = Firebase.auth
-
+        var chefs = "".split("")
 
 
         getdata = object : ValueEventListener {
@@ -92,6 +92,8 @@ class FoodDetailsFragment : Fragment() {
                         root.findViewById<TextView>(R.id.date).text = p0.child(clubid).child("date").getValue().toString()
                         root.findViewById<TextView>(R.id.dinner).text = p0.child(clubid).child("dinner").getValue().toString()
                         root.findViewById<TextView>(R.id.note).text = p0.child(clubid).child("note").getValue().toString()
+                        chefs = root.findViewById<TextView>(R.id.chefs).text.toString().split(", ")
+
                         setId(clubid)
                     }
                 }
@@ -105,15 +107,30 @@ class FoodDetailsFragment : Fragment() {
 
         getdataU = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
+                var chf1Diet = ""
+                var chf2Diet = ""
                 var clubid = bundle?.getString("id")
                 val userid = auth.currentUser?.uid
                 if (userid != null) {
                     var roomnumber = p0.child(userid).child("number").getValue().toString()
                     var diet = p0.child(userid).child("diet").getValue().toString()
 
+                    for (i in p0.children){
+                        var nb = i.child("number").getValue().toString().substring(1,3)
+                        if (nb.equals(chefs[0])) {
+                            chf1Diet = i.child("diet").getValue().toString()
+                            break
+                        } else if (nb.equals(chefs[1])) {
+                            chf2Diet = i.child("diet").getValue().toString()
+                            break
+                        }
+                    }
+
+
+                    setChefDiets(chf1Diet,chf2Diet)
                     setSwitchStatus(checked,roomnumber)
                     if (clubid != null) {
-                        listenerOnChange(checked,roomnumber, diet, clubid)
+                        listenerOnChange(checked,roomnumber, diet, chf1Diet, chf2Diet, clubid)
                     }
 
 
@@ -147,7 +164,7 @@ class FoodDetailsFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun listenerOnChange(switch: Switch, rn: String, diet: String, clubid: String){
+    private fun listenerOnChange(switch: Switch, rn: String, diet: String, ch1Diet: String, ch2Diet: String, clubid: String){
         switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
             val chefs = chefs.text.toString().split(", ")
             var st = ""
@@ -168,7 +185,6 @@ class FoodDetailsFragment : Fragment() {
                         fst = diets.text.toString() + ", " + diet
                         diets.text = fst
                     }
-
                     if (!chefs[0].contains("NA")) {
                         val ch1 = chefs[0]
                         if (parti.text.toString().contains("9$ch1,")) {
@@ -185,12 +201,26 @@ class FoodDetailsFragment : Fragment() {
                             st = st.replace("9$ch2", "")
                         }
                     }
+                    if (diets.text.toString().contains(ch1Diet)) {
+                        if (diets.text.toString().contains("$ch1Diet, ")) {
+                            fst = diets.text.toString().replace("$ch1Diet, ", "")
+                        } else {
+                            fst = diets.text.toString().replace("$ch1Diet", "")
+                        }
+                        if (diets.text.toString().contains(ch2Diet)) {
+                            if (diets.text.toString().contains("$ch2Diet, ")) {
+                                fst = diets.text.toString().replace("$ch2Diet, ", "")
+                            } else {
+                                fst = diets.text.toString().replace("$ch2Diet", "")
+                            }
+                        }
+                    }
                     database.child(clubid).child("participants").setValue(st).addOnSuccessListener {
                         Toast.makeText(context, "succesfully joined foodclub", Toast.LENGTH_SHORT).show()
                     }
                         .addOnFailureListener {}
 
-                    database.child(clubid).child("diets").setValue(st).addOnSuccessListener {}
+                    database.child(clubid).child("diets").setValue(fst).addOnSuccessListener {}
                         .addOnFailureListener {}
                 }
 
@@ -228,6 +258,20 @@ class FoodDetailsFragment : Fragment() {
                             st = st.replace("9$ch2", "")
                         }
                     }
+                    if (diets.text.toString().contains(ch1Diet)) {
+                        if (diets.text.toString().contains("$ch1Diet, ")) {
+                            fst = diets.text.toString().replace("$ch1Diet, ", "")
+                        } else {
+                            fst = diets.text.toString().replace("$ch1Diet", "")
+                        }
+                        if (diets.text.toString().contains(ch2Diet)) {
+                            if (diets.text.toString().contains("$ch2Diet, ")) {
+                                fst = diets.text.toString().replace("$ch2Diet, ", "")
+                            } else {
+                                fst = diets.text.toString().replace("$ch2Diet", "")
+                            }
+                        }
+                    }
 
                     database.child(clubid).child("participants").setValue(st).addOnSuccessListener {
                         Toast.makeText(context, "Sign up deleted", Toast.LENGTH_SHORT).show()
@@ -243,4 +287,15 @@ class FoodDetailsFragment : Fragment() {
         if ( parti.text.toString().contains(rn)){ switch.isChecked = true}
     }
 
+    private fun setChefDiets(ch1Diet: String, ch2Diet: String){
+        if(ch1Diet != "" || ch2Diet != ""){
+            if(ch1Diet != "" && ch2Diet != ""){
+                diets.text = "$ch1Diet, $ch2Diet"
+            } else if (ch1Diet != ""){
+                diets.text = ch1Diet
+            } else  if (ch2Diet != ""){
+                diets.text = ch2Diet
+            }
+        }
+    }
 }
