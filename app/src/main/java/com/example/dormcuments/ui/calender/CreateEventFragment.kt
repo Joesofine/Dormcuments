@@ -14,7 +14,15 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
+import com.example.dormcuments.ui.meeting.MeetingFragment
+import com.example.dormcuments.ui.meeting.Topic
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_add_shop_item.*
+import kotlinx.android.synthetic.main.fragment_add_shop_item.inputItem
+import kotlinx.android.synthetic.main.fragment_add_topic.*
 import kotlinx.android.synthetic.main.fragment_create_event.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -22,6 +30,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class CreateEventFragment : Fragment() {
+    private lateinit var auth: FirebaseAuth
     var all = "false"
     var database = FirebaseDatabase.getInstance().getReference("Events")
     var choosenDateStart = ""
@@ -44,9 +53,7 @@ class CreateEventFragment : Fragment() {
         val datePickerStart = root.findViewById<DatePicker>(R.id.datePickerStart)
         val datePickerEnd = root.findViewById<DatePicker>(R.id.datePickerEnd)
         val today = Calendar.getInstance()
-        val eventTitle = head.text.toString()
-        val loca = locat.text.toString()
-        val desciprtion = descrip.text.toString()
+        auth = Firebase.auth
 
         listenerOnChange(allday)
 
@@ -77,6 +84,28 @@ class CreateEventFragment : Fragment() {
         }
         root.findViewById<TextView>(R.id.save).setOnClickListener {
 
+            val title = eventTitle.text.toString()
+            val locat = location.text.toString()
+            val desc = des.text.toString()
+            val datStart = dateStart.text.toString()
+            val datEnd = dateEnd.text.toString()
+            val timStart = timeStart.text.toString()
+            val timEnd = timeEnd.text.toString()
+            val reapet = spinner_repeat.selectedItem.toString()
+            val col = spinner_color.selectedItem.toString()
+            val not = spinner_notis.selectedItem.toString()
+            val created = auth.currentUser?.uid
+
+
+            if (title.isEmpty()) {
+                eventTitle.error = "Please name your event"
+            } else {
+                if (created != null) {
+                    createEvent(title, datStart, datEnd, timStart, timEnd, desc, locat, col, all, not, reapet, created)
+                }
+
+            }
+
         }
 
         val myAdapterRea = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_reapets))
@@ -105,8 +134,6 @@ class CreateEventFragment : Fragment() {
                 }
             }
         }
-
-
 
 
         datePickerStart.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH))
@@ -141,15 +168,6 @@ class CreateEventFragment : Fragment() {
             datePickerEnd.visibility = View.GONE
         }
 
-
-
-
-
-
-
-
-
-
         return root
     }
     private fun listenerOnChange(switch: Switch){
@@ -161,4 +179,27 @@ class CreateEventFragment : Fragment() {
             }
         }
     }
+
+    private fun createEvent(title: String, datStart: String, datEnd: String, timStart: String, timEnd: String,
+                            desc: String, locat: String, col: String, day: String, not: String, reapet: String, created: String){
+        val eventid = database.push().key
+        val event = Event(title, datStart, datEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created)
+
+        if (eventid != null) {
+
+            database.child(eventid).setValue(event)
+                .addOnSuccessListener {
+                    Toast.makeText(context, "Event has been created", Toast.LENGTH_SHORT).show()
+                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CalenderFragment()).addToBackStack(null).commit()
+
+
+                }
+                .addOnFailureListener {
+                    // Write failed
+                    Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+
 }

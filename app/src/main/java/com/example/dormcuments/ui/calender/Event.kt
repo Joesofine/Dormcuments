@@ -4,7 +4,8 @@ import android.icu.text.CaseMap
 
 class Event {
     var title = ""
-    var date = ""
+    var dateStart = ""
+    var dateEnd = ""
     var timeStart = ""
     var timeEnd = ""
     var des = ""
@@ -13,14 +14,16 @@ class Event {
     var allDay = ""
     var notification = ""
     var doesRepeat = ""
+    var createdBy = ""
 
 
-    constructor(title: String, date: String, timeStart: String, timeEnd: String, des: String, location: String,
-                color: String, allDay: String, notification: String, doesRepeat: String){
+    constructor(title: String, dateStart: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
+                color: String, allDay: String, notification: String, doesRepeat: String, createdBy: String){
 
         this.title = title
         this.timeStart = timeStart
-        this.date = date
+        this.dateStart = dateStart
+        this.dateEnd = dateEnd
         this.timeEnd = timeEnd
         this.des = des
         this.location = location
@@ -28,5 +31,6 @@ class Event {
         this.allDay = allDay
         this.notification = notification
         this.doesRepeat = doesRepeat
+        this.createdBy = createdBy
     }
 }
