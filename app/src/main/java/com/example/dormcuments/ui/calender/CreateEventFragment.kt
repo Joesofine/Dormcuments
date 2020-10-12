@@ -83,7 +83,6 @@ class CreateEventFragment : Fragment() {
             TimePickerDialog(context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         }
         root.findViewById<TextView>(R.id.save).setOnClickListener {
-
             val title = eventTitle.text.toString()
             val locat = location.text.toString()
             val desc = des.text.toString()
@@ -99,6 +98,7 @@ class CreateEventFragment : Fragment() {
 
             if (title.isEmpty()) {
                 eventTitle.error = "Please name your event"
+                eventTitle.requestFocus()
             } else {
                 if (created != null) {
                     createEvent(title, datStart, datEnd, timStart, timEnd, desc, locat, col, all, not, reapet, created)
