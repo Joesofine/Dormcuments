@@ -1,10 +1,14 @@
 package com.example.dormcuments.ui.calender
 
+import android.annotation.SuppressLint
 import android.app.TimePickerDialog
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -24,16 +28,19 @@ class CreateEventFragment : Fragment() {
     var choosenDateEnd = ""
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_create_event, container, false)
+        val spinner_color = root.findViewById<Spinner>(R.id.spinner_color)
         val head = root.findViewById<EditText>(R.id.eventTitle)
         val locat = root.findViewById<EditText>(R.id.location)
         val descrip = root.findViewById<EditText>(R.id.des)
         val allday = root.findViewById<Switch>(R.id.allday)
+        val colorIcon = root.findViewById<Button>(R.id.colorIcon)
         val datePickerStart = root.findViewById<DatePicker>(R.id.datePickerStart)
         val datePickerEnd = root.findViewById<DatePicker>(R.id.datePickerEnd)
         val today = Calendar.getInstance()
@@ -82,7 +89,25 @@ class CreateEventFragment : Fragment() {
 
         val myAdapterCol = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_colors))
         myAdapterCol.setDropDownViewResource(R.layout.spinner_layout_dropdown)
-        root.findViewById<Spinner>(R.id.spinner_color).adapter = myAdapterCol
+        spinner_color.adapter = myAdapterCol
+
+        spinner_color.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (spinner_color.selectedItem.toString() == "Default Color"){
+                    colorIcon.background = resources.getDrawable(R.drawable.color_button)
+                }
+                if (spinner_color.selectedItem.toString() == "Red") {
+                    colorIcon.background = resources.getDrawable(R.drawable.color_button_red)
+                }
+                if (spinner_color.selectedItem.toString() == "Blue"){
+                    colorIcon.background = resources.getDrawable(R.drawable.color_button_blue)
+                }
+            }
+        }
+
+
+
 
         datePickerStart.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH))
         { view, year, month, day ->

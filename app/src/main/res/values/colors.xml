@@ -27,6 +27,11 @@
     <color name="CrazyDarkShadowColor">#002235</color>
     <color name="SaturedCrazyDarkBlue">#00243c</color>
     <color name="Black">#080808</color>
+
+
+    // Color button
+    <color name="blue">#0005d1</color>
+    <color name="red">#e10500</color>
 </resources>
 
 
