@@ -38,25 +38,25 @@
         <item>917</item>
     </string-array>
     <string-array name="spinner_cooks">
-        <item>None</item>
-        <item>901</item>
-        <item>902</item>
-        <item>903</item>
-        <item>904</item>
-        <item>905</item>
-        <item>906</item>
-        <item>907</item>
-        <item>908</item>
-        <item>909</item>
-        <item>910</item>
-        <item>911</item>
-        <item>912</item>
-        <item>913</item>
-        <item>914</item>
-        <item>915</item>
-        <item>916</item>
-        <item>917</item>
-    </string-array>
+    <item>None</item>
+    <item>901</item>
+    <item>902</item>
+    <item>903</item>
+    <item>904</item>
+    <item>905</item>
+    <item>906</item>
+    <item>907</item>
+    <item>908</item>
+    <item>909</item>
+    <item>910</item>
+    <item>911</item>
+    <item>912</item>
+    <item>913</item>
+    <item>914</item>
+    <item>915</item>
+    <item>916</item>
+    <item>917</item>
+</string-array>
 
     <!-- cleaning task -->
     <string name="promtA">Wash the floor – also underneath boxes and waste bins</string>
@@ -106,6 +106,29 @@
 
     <!--  Auth -->
     <string name="auth_failed">Authentication failed</string>
+
+    <string-array name="spinner_colors">
+        <item>Default Color</item>
+        <item>Red</item>
+        <item>Blue</item>
+    </string-array>
+
+    <string-array name="spinner_notification">
+        <item>No notification</item>
+        <item>15 min</item>
+        <item>30 min</item>
+        <item>1 time</item>
+        <item>2 timer</item>
+        <item>24 timer</item>
+    </string-array>
+
+    <string-array name="spinner_reapets">
+        <item>Does not reapet</item>
+        <item>Every day</item>
+        <item>Every week</item>
+        <item>Every month</item>
+        <item>Every year</item>
+    </string-array>
 
 
 </resources>

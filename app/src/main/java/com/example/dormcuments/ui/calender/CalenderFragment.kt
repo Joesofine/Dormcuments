@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -67,6 +68,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         makeYearArr(current_year)
 
         buttonPressed(week,weeks,targetWidth - 120, current_week - 1)
+
+        root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
+            requireFragmentManager().beginTransaction().add(
+                R.id.nav_host_fragment,
+                CreateEventFragment()
+            ).addToBackStack(null).commit()
+        }
 
         return root
     }
