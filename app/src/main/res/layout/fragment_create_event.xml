@@ -37,9 +37,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginRight="35dp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/timeEnd"
-                app:layout_constraintHorizontal_bias="0.403"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/dateEnd"
                 app:layout_constraintTop_toBottomOf="@+id/dateEnd" />
 
@@ -84,6 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
                 android:drawablePadding="10dp"
                 android:hint="Add Desription"
                 android:inputType="textLongMessage|textMultiLine|textCapSentences"
@@ -92,7 +94,7 @@
                 android:textColorHint="@color/lightHint"
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_color"
+                app:layout_constraintEnd_toEndOf="@+id/location"
                 app:layout_constraintStart_toStartOf="@+id/spinner_color"
                 app:layout_constraintTop_toBottomOf="@+id/divider17" />
 
@@ -125,6 +127,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
                 android:drawablePadding="10dp"
                 android:hint="Location"
                 android:inputType="textLongMessage|textMultiLine|textCapSentences"
@@ -133,7 +136,8 @@
                 android:textColorHint="@color/lightHint"
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_repeat"
+                app:layout_constraintEnd_toEndOf="@+id/timeEnd"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/spinner_repeat"
                 app:layout_constraintTop_toBottomOf="@+id/divider14" />
 
@@ -205,6 +209,7 @@
                 android:id="@+id/eventTitle"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
+                android:background="@android:color/transparent"
                 android:drawablePadding="10dp"
                 android:hint="Title"
                 android:inputType="textLongMessage|textMultiLine|textCapSentences"
@@ -329,7 +334,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/location"
+                app:layout_constraintEnd_toEndOf="@+id/spinner_repeat"
                 app:layout_constraintHorizontal_bias="0.403"
                 app:layout_constraintStart_toStartOf="@+id/location"
                 app:layout_constraintTop_toBottomOf="@+id/divider15" />
