@@ -165,6 +165,17 @@
                 app:layout_constraintTop_toTopOf="@+id/dateEnd" />
 
             <TextView
+                android:id="@+id/timeStart3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:text="12.00"
+                android:textColor="@color/White"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dateStart" />
+
+            <TextView
                 android:id="@+id/timeStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/more_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/titleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/sumLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/eventTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="EventTitle"
+                android:textColor="@color/White"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/expand"
+                android:layout_width="20dp"
+                android:layout_height="21dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:tint="@color/White"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/eventTitle"
+                app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+                tools:ignore="VectorDrawableCompat" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="Mon. 13. jul 2020"
+                android:textColor="@color/White"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/eventTitle"
+                app:layout_constraintStart_toStartOf="@+id/eventTitle"
+                app:layout_constraintTop_toBottomOf="@+id/eventTitle"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sumLayout"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleLayout">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="30dp">
+
+                    <TextView
+                        android:id="@+id/date3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Mon. 13. jul 2020"
+                        android:textColor="@color/White"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/eventTitle"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/dateEnd2"
+                        app:layout_constraintTop_toBottomOf="@+id/divider16" />
+
+                    <TextView
+                        android:id="@+id/timeEnd2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="13.00"
+                        android:textColor="@color/White"
+                        app:layout_constraintEnd_toEndOf="@+id/timeStart2"
+                        app:layout_constraintTop_toTopOf="@+id/dateEnd2" />
+
+                    <TextView
+                        android:id="@+id/dateStart2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Mon. 13. Jul. 2020"
+                        android:textColor="@color/White"
+                        app:layout_constraintStart_toStartOf="@+id/textView72"
+                        app:layout_constraintTop_toBottomOf="@+id/textView72" />
+
+                    <TextView
+                        android:id="@+id/timeStart2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginRight="50dp"
+                        android:text="12.00"
+                        android:textColor="@color/White"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/dateStart2" />
+
+                    <ImageView
+                        android:id="@+id/imageView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/time_icon"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView72"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView72" />
+
+                    <TextView
+                        android:id="@+id/dateEnd2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Mon. 13. Jul. 2020"
+                        android:textColor="@color/White"
+                        app:layout_constraintStart_toStartOf="@+id/dateStart2"
+                        app:layout_constraintTop_toBottomOf="@+id/dateStart2" />
+
+                    <TextView
+                        android:id="@+id/textView72"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="20dp"
+                        android:text="All day"
+                        android:textColor="@color/White"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider19" />
+
+                    <View
+                        android:id="@+id/divider19"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/BackgroundDark"
+
+                        android:visibility="visible" />
+
+                    <View
+                        android:id="@+id/divider16"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/BackgroundDark"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/date4" />
+
+                    <View
+                        android:id="@+id/divider15"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/BackgroundDark"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/date5" />
+
+                    <TextView
+                        android:id="@+id/date4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Mon. 13. jul 2020"
+                        android:textColor="@color/White"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/eventTitle"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/dateEnd2"
+                        app:layout_constraintTop_toBottomOf="@+id/divider15" />
+
+                    <View
+                        android:id="@+id/divider13"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/BackgroundDark"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+                    <TextView
+                        android:id="@+id/date5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="29dp"
+                        android:text="Mon. 13. jul 2020"
+                        android:textColor="@color/White"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="@+id/eventTitle"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/dateEnd2"
+                        app:layout_constraintTop_toBottomOf="@+id/divider13" />
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/repeat_icon"
+                        app:layout_constraintStart_toStartOf="@+id/imageView10"
+                        app:layout_constraintTop_toBottomOf="@+id/dateEnd2" />
+
+                    <ImageView
+                        android:id="@+id/imageView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/location_icon"
+                        app:layout_constraintBottom_toBottomOf="@+id/date5"
+                        app:layout_constraintStart_toStartOf="@+id/imageView6"
+                        app:layout_constraintTop_toTopOf="@+id/date5" />
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/notis_icon"
+                        app:layout_constraintBottom_toBottomOf="@+id/date4"
+                        app:layout_constraintStart_toStartOf="@+id/imageView7"
+                        app:layout_constraintTop_toBottomOf="@+id/divider15" />
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:src="@drawable/edit_image_white"
+                        app:layout_constraintBottom_toBottomOf="@+id/date3"
+                        app:layout_constraintTop_toTopOf="@+id/date3"
+                        tools:layout_editor_absoluteX="15dp" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

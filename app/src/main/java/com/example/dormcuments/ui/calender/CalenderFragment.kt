@@ -7,17 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.FOCUS_LEFT
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.ArrayList
 
 class CalenderFragment : Fragment(),View.OnClickListener {
+    var database = FirebaseDatabase.getInstance().getReference("Events")
+    private lateinit var auth: FirebaseAuth
     private val months = ArrayList<String>()
     private val weeks = ArrayList<String>()
     private val years = ArrayList<String>()
@@ -41,6 +46,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_calender, container, false)
+        auth = Firebase.auth
 
         sliderLayout = root.findViewById(R.id.sliderLayout);
         scroll = root.findViewById(R.id.scroll)
@@ -186,5 +192,54 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v.setTextColor(it) }
             v.requestFocus()
         }
+    }
+    private fun createEventView(name: String, des: String, topicId: String, myContainer: LinearLayout){
+
+        val ExpandableCardview: View =
+            layoutInflater.inflate(R.layout.list_element_meeting, null, false)
+
+        var sumLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.sumLayout)
+        var titleLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
+        var expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
+        var divider: View = ExpandableCardview.findViewById(R.id.div)
+        var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
+        var meetingItem: TextView = ExpandableCardview.findViewById(R.id.resName)
+        var sum: TextView = ExpandableCardview.findViewById(R.id.sum)
+
+        meetingItem.setText(name)
+        sum.setText(des)
+
+        //Set OnClickListener that handles expansion and collapse of view
+        titleLayout.setOnClickListener {
+            expandList(sumLayout, expand, divider) }
+
+        delete.setOnClickListener {
+            myContainer.removeView(ExpandableCardview)
+            //deleteTopic(topicId)
+        }
+
+        myContainer.addView(ExpandableCardview)
+    }
+
+    private fun expandList(
+        sumLayout: ConstraintLayout,
+        expand: ImageView, divider: View
+    ) {
+        if (sumLayout.visibility == View.GONE) {
+            sumLayout.visibility = View.VISIBLE
+            divider.visibility = View.GONE
+            expand.rotation = 90f
+        } else if (sumLayout.visibility == View.VISIBLE) {
+            sumLayout.visibility = View.GONE
+            divider.visibility = View.VISIBLE
+            expand.rotation = 0f
+        }
+    }
+
+    private fun deleteEvent(eventid: String){
+        var dName = database.child(eventid)
+
+        dName.removeValue()
+        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
     }
 }
