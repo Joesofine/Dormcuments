@@ -101,6 +101,7 @@ class SignUp : AppCompatActivity() {
 
             if (fname.isEmpty()) {
                 name_signup.error = "Please write a name"
+                name_signup.requestFocus()
             } else if (number == "Roomnumber") {
                 Toast.makeText(applicationContext, "Please choose roomnumber", Toast.LENGTH_SHORT).show()
             } else if (bdate.isEmpty()) {
