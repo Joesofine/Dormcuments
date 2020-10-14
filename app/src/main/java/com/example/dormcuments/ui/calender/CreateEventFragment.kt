@@ -18,7 +18,10 @@ import com.example.dormcuments.ui.meeting.MeetingFragment
 import com.example.dormcuments.ui.meeting.Topic
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_add_shop_item.*
 import kotlinx.android.synthetic.main.fragment_add_shop_item.inputItem
@@ -33,9 +36,10 @@ class CreateEventFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     var all = "false"
     var database = FirebaseDatabase.getInstance().getReference("Events")
+    var databaseU = FirebaseDatabase.getInstance().getReference("Users")
     var choosenDateStart = ""
     var choosenDateEnd = ""
-
+    lateinit var getdata : ValueEventListener;
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -45,9 +49,6 @@ class CreateEventFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_create_event, container, false)
         val spinner_color = root.findViewById<Spinner>(R.id.spinner_color)
-        val head = root.findViewById<EditText>(R.id.eventTitle)
-        val locat = root.findViewById<EditText>(R.id.location)
-        val descrip = root.findViewById<EditText>(R.id.des)
         val allday = root.findViewById<Switch>(R.id.allday)
         val colorIcon = root.findViewById<Button>(R.id.colorIcon)
         val datePickerStart = root.findViewById<DatePicker>(R.id.datePickerStart)
@@ -93,19 +94,32 @@ class CreateEventFragment : Fragment() {
             val reapet = spinner_repeat.selectedItem.toString()
             val col = spinner_color.selectedItem.toString()
             val not = spinner_notis.selectedItem.toString()
-            val created = auth.currentUser?.uid
 
 
             if (title.isEmpty()) {
                 eventTitle.error = "Please name your event"
                 eventTitle.requestFocus()
             } else {
-                if (created != null) {
-                    createEvent(title, datStart, datEnd, timStart, timEnd, desc, locat, col, all, not, reapet, created)
+
+                getdata = object : ValueEventListener {
+                        val userid = auth.currentUser?.uid.toString()
+
+                        override fun onDataChange(p0: DataSnapshot) {
+                            var name: String = p0.child(userid).child("fname").getValue() as String
+                            var room: String = p0.child(userid).child("number").getValue() as String
+                            var created = "$name, $room"
+
+                            createEvent(title, datStart, datEnd, timStart, timEnd, desc, locat, col, all, not, reapet, created)
+                        }
+
+                        override fun onCancelled(p0: DatabaseError) {
+                            println("err")
+                        }
+                    }
+
+
+                    databaseU.addListenerForSingleValueEvent(getdata)
                 }
-
-            }
-
         }
 
         val myAdapterRea = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_reapets))

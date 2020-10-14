@@ -158,7 +158,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/name_signup" />
 
             <EditText
-                android:id="@+id/eventTitle"
+                android:id="@+id/date"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"

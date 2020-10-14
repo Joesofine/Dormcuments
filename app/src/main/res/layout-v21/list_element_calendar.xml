@@ -76,8 +76,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sumLayout"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:visibility="visible"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="0dp">
+                tools:layout_editor_absoluteY="-16dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -96,17 +96,25 @@
                     android:paddingBottom="30dp">
 
                     <TextView
-                        android:id="@+id/date3"
+                        android:id="@+id/reap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Does not reapet"
+                        android:textColor="@color/White"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/dateEnd2"
+                        app:layout_constraintTop_toTopOf="@+id/reaIcon" />
+
+                    <TextView
+                        android:id="@+id/des"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Mon. 13. jul 2020"
+                        android:text="description"
                         android:textColor="@color/White"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@+id/eventTitle"
-                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="@+id/dateEnd2"
-                        app:layout_constraintTop_toBottomOf="@+id/divider16" />
+                        app:layout_constraintTop_toBottomOf="@+id/divdes" />
 
                     <TextView
                         android:id="@+id/timeEnd2"
@@ -121,11 +129,13 @@
                         android:id="@+id/dateStart2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginLeft="50dp"
                         android:layout_marginTop="20dp"
                         android:text="Mon. 13. Jul. 2020"
                         android:textColor="@color/White"
-                        app:layout_constraintStart_toStartOf="@+id/textView72"
-                        app:layout_constraintTop_toBottomOf="@+id/textView72" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/all" />
 
                     <TextView
                         android:id="@+id/timeStart2"
@@ -139,15 +149,15 @@
                         app:layout_constraintTop_toTopOf="@+id/dateStart2" />
 
                     <ImageView
-                        android:id="@+id/imageView10"
+                        android:id="@+id/allIcon"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_height="18dp"
                         android:layout_marginStart="15dp"
                         android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
                         android:src="@drawable/time_icon"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView72"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView72" />
+                        app:layout_constraintTop_toBottomOf="@+id/divider19" />
 
                     <TextView
                         android:id="@+id/dateEnd2"
@@ -160,15 +170,13 @@
                         app:layout_constraintTop_toBottomOf="@+id/dateStart2" />
 
                     <TextView
-                        android:id="@+id/textView72"
+                        android:id="@+id/all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="50dp"
-                        android:layout_marginLeft="50dp"
                         android:layout_marginTop="20dp"
                         android:text="All day"
                         android:textColor="@color/White"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/dateStart2"
                         app:layout_constraintTop_toBottomOf="@+id/divider19" />
 
                     <View
@@ -177,10 +185,13 @@
                         android:layout_height="1dp"
                         android:background="@color/BackgroundDark"
 
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/divider16"
+                        android:id="@+id/divdes"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_marginTop="20dp"
@@ -189,10 +200,10 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/date4" />
+                        app:layout_constraintTop_toBottomOf="@+id/notTekst" />
 
                     <View
-                        android:id="@+id/divider15"
+                        android:id="@+id/divnot"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_marginTop="20dp"
@@ -201,23 +212,21 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/date5" />
+                        app:layout_constraintTop_toBottomOf="@+id/loctext" />
 
                     <TextView
-                        android:id="@+id/date4"
+                        android:id="@+id/notTekst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Mon. 13. jul 2020"
+                        android:text="30 min"
                         android:textColor="@color/White"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@+id/eventTitle"
-                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="@+id/dateEnd2"
-                        app:layout_constraintTop_toBottomOf="@+id/divider15" />
+                        app:layout_constraintTop_toBottomOf="@+id/divnot" />
 
                     <View
-                        android:id="@+id/divider13"
+                        android:id="@+id/divloc"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_marginTop="20dp"
@@ -226,57 +235,54 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                        app:layout_constraintTop_toBottomOf="@+id/reap" />
 
                     <TextView
-                        android:id="@+id/date5"
+                        android:id="@+id/loctext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="29dp"
-                        android:text="Mon. 13. jul 2020"
+                        android:layout_marginTop="20dp"
+                        android:text="location"
                         android:textColor="@color/White"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@+id/eventTitle"
-                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="@+id/dateEnd2"
-                        app:layout_constraintTop_toBottomOf="@+id/divider13" />
+                        app:layout_constraintTop_toBottomOf="@+id/divloc" />
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/reaIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="20dp"
                         android:src="@drawable/repeat_icon"
-                        app:layout_constraintStart_toStartOf="@+id/imageView10"
+                        app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toBottomOf="@+id/dateEnd2" />
 
                     <ImageView
-                        android:id="@+id/imageView7"
+                        android:id="@+id/locIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/location_icon"
-                        app:layout_constraintBottom_toBottomOf="@+id/date5"
-                        app:layout_constraintStart_toStartOf="@+id/imageView6"
-                        app:layout_constraintTop_toTopOf="@+id/date5" />
+                        app:layout_constraintBottom_toBottomOf="@+id/loctext"
+                        app:layout_constraintStart_toStartOf="@+id/reaIcon"
+                        app:layout_constraintTop_toTopOf="@+id/loctext" />
 
                     <ImageView
-                        android:id="@+id/imageView8"
+                        android:id="@+id/notIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_marginTop="20dp"
                         android:src="@drawable/notis_icon"
-                        app:layout_constraintBottom_toBottomOf="@+id/date4"
-                        app:layout_constraintStart_toStartOf="@+id/imageView7"
-                        app:layout_constraintTop_toBottomOf="@+id/divider15" />
+                        app:layout_constraintBottom_toBottomOf="@+id/notTekst"
+                        app:layout_constraintStart_toStartOf="@+id/allIcon"
+                        app:layout_constraintTop_toTopOf="@+id/notTekst" />
 
                     <ImageView
-                        android:id="@+id/imageView9"
+                        android:id="@+id/desIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:src="@drawable/edit_image_white"
-                        app:layout_constraintBottom_toBottomOf="@+id/date3"
-                        app:layout_constraintTop_toTopOf="@+id/date3"
-                        tools:layout_editor_absoluteX="15dp" />
+                        app:layout_constraintBottom_toBottomOf="@+id/des"
+                        app:layout_constraintStart_toStartOf="@+id/notIcon"
+                        app:layout_constraintTop_toTopOf="@+id/des" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

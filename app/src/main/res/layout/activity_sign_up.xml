@@ -122,6 +122,7 @@
                 android:id="@+id/country_signup"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
+                android:layout_marginTop="15dp"
                 android:drawableLeft="@drawable/county_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="Country"
@@ -132,7 +133,7 @@
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="@+id/date"
-                app:layout_constraintTop_toTopOf="@+id/city_signup" />
+                app:layout_constraintTop_toBottomOf="@+id/date" />
 
             <Spinner
                 android:id="@+id/room_spinner"
@@ -150,7 +151,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/city_signup" />
 
             <EditText
-                android:id="@+id/eventTitle"
+                android:id="@+id/date"
                 android:layout_width="320dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"

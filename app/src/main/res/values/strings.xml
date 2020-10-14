@@ -123,7 +123,7 @@
     </string-array>
 
     <string-array name="spinner_reapets">
-        <item>Does not reapet</item>
+        <item>Does not repeat</item>
         <item>Every day</item>
         <item>Every week</item>
         <item>Every month</item>

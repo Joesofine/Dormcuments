@@ -47,14 +47,14 @@
             <Spinner
                 android:id="@+id/spinner_color"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="24dp"
                 android:layout_marginTop="20dp"
                 android:spinnerMode="dropdown"
                 app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="@+id/spinner_notis"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/spinner_notis"
-                app:layout_constraintTop_toBottomOf="@+id/divider16" />
+                app:layout_constraintTop_toBottomOf="@+id/divnot" />
 
             <Button
                 android:id="@+id/save"
@@ -98,10 +98,10 @@
                 app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="@+id/location"
                 app:layout_constraintStart_toStartOf="@+id/spinner_color"
-                app:layout_constraintTop_toBottomOf="@+id/divider17" />
+                app:layout_constraintTop_toBottomOf="@+id/divdes" />
 
             <View
-                android:id="@+id/divider16"
+                android:id="@+id/divdes"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="20dp"
@@ -110,10 +110,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+                app:layout_constraintTop_toBottomOf="@+id/spinner_notis" />
 
             <View
-                android:id="@+id/divider15"
+                android:id="@+id/divnot"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="20dp"
@@ -207,7 +207,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView59" />
 
             <View
-                android:id="@+id/divider13"
+                android:id="@+id/divloc"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="100dp"
@@ -231,7 +231,7 @@
                 android:textColorHint="@color/lightHint"
                 android:textSize="24sp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintBottom_toTopOf="@+id/divider13"
+                app:layout_constraintBottom_toTopOf="@+id/divloc"
                 app:layout_constraintEnd_toEndOf="@+id/timeStart"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/textView59"
@@ -283,7 +283,7 @@
                 android:text="All day"
                 android:textColor="@color/White"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider13" />
+                app:layout_constraintTop_toBottomOf="@+id/divloc" />
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -297,7 +297,7 @@
                 app:layout_constraintTop_toTopOf="@+id/textView59" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/reaIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:src="@drawable/repeat_icon"
@@ -306,21 +306,21 @@
                 app:layout_constraintTop_toTopOf="@+id/spinner_repeat" />
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/locIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/location_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/location"
-                app:layout_constraintStart_toStartOf="@+id/imageView6"
+                app:layout_constraintStart_toStartOf="@+id/reaIcon"
                 app:layout_constraintTop_toTopOf="@+id/location" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/notIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:src="@drawable/notis_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/spinner_notis"
-                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintStart_toStartOf="@+id/locIcon"
                 app:layout_constraintTop_toTopOf="@+id/spinner_notis" />
 
             <Button
@@ -329,11 +329,11 @@
                 android:layout_height="20dp"
                 android:background="@drawable/color_button"
                 app:layout_constraintBottom_toBottomOf="@+id/spinner_color"
-                app:layout_constraintStart_toStartOf="@+id/imageView8"
+                app:layout_constraintStart_toStartOf="@+id/notIcon"
                 app:layout_constraintTop_toTopOf="@+id/spinner_color" />
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/desIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/edit_image_white"
@@ -348,9 +348,9 @@
                 android:layout_marginTop="20dp"
                 app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="@+id/spinner_repeat"
-                app:layout_constraintHorizontal_bias="0.403"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/location"
-                app:layout_constraintTop_toBottomOf="@+id/divider15" />
+                app:layout_constraintTop_toBottomOf="@+id/divider17" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
