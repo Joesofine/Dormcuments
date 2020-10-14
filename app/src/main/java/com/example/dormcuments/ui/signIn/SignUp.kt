@@ -41,6 +41,7 @@ class SignUp : AppCompatActivity() {
         val datePicker = findViewById<DatePicker>(R.id.datePicker)
 
         val today = Calendar.getInstance()
+
         datePicker.init(2000, today.get(Calendar.MONTH),
             today.get(Calendar.DAY_OF_MONTH))
 

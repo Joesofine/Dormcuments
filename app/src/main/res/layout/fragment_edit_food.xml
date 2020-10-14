@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-    tools:context=".ui.foodclub.FoodDetailsFragment">
+    tools:context=".ui.foodclub.EditFoodFragment">
 
 
     <ScrollView
@@ -48,7 +48,7 @@
                 app:srcCompat="@drawable/trash_icon" />
 
             <DatePicker
-                android:id="@+id/datePickerStart"
+                android:id="@+id/datePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="false"
@@ -169,7 +169,8 @@
                     android:selectAllOnFocus="true"
                     android:textColor="@color/White"
                     android:textColorHint="@color/lightHint"
-                    app:backgroundTint="@color/White"                    android:textSize="14sp"
+                    app:backgroundTint="@color/White"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

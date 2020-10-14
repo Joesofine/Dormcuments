@@ -73,7 +73,7 @@ class MeetingFragment : Fragment() {
         var expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
         var divider: View = ExpandableCardview.findViewById(R.id.div)
         var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
-        var meetingItem: TextView = ExpandableCardview.findViewById(R.id.resName)
+        var meetingItem: TextView = ExpandableCardview.findViewById(R.id.meetingItem)
         var sum: TextView = ExpandableCardview.findViewById(R.id.sum)
 
         meetingItem.setText(name)

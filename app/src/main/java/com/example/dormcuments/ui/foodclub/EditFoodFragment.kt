@@ -115,7 +115,40 @@ class EditFoodFragment : Fragment() {
             val part = parti.text.toString()
             val diet = die.text.toString()
 
-            if (spinner_c1.selectedItem.toString() != "none" || spinner_c2.selectedItem.toString() != "none"){
+            if (spinner_c1.selectedItem.toString() != "None" || spinner_c2.selectedItem.toString() != "None") {
+                if (spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) {
+                    Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show()
+                } else if (choosenDate == "") {
+                    date2.error = "Please choose a date"
+                } else {
+
+                    var clubid = bundle?.getString("id")
+                    val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, part, diet)
+
+
+                    if (clubid != null) {
+
+                        database.child(clubid).setValue(club)
+                            .addOnSuccessListener {
+                                Toast.makeText(context, "Foodclub has been updated", Toast.LENGTH_SHORT).show()
+                                getFragmentManager()?.popBackStack()
+                            }
+                            .addOnFailureListener {
+                                // Write failed
+                                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                            }
+
+                    }
+                }
+            }
+        }
+        /*root.findViewById<Button>(R.id.save).setOnClickListener {
+            val din = dinner.text.toString()
+            val not = note.text.toString()
+            val part = parti.text.toString()
+            val diet = die.text.toString()
+
+            if (spinner_c1.selectedItem.toString() != "None" || spinner_c2.selectedItem.toString() != "None"){
                 if (spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) {
                     Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show() }
             } else if (choosenDate == "") {
@@ -141,9 +174,11 @@ class EditFoodFragment : Fragment() {
             }
         }
 
+         */
         return root
     }
-        private fun deleteClub(clubid: String){
+
+    private fun deleteClub(clubid: String){
             var dName = database.child(clubid)
 
             dName.removeValue()

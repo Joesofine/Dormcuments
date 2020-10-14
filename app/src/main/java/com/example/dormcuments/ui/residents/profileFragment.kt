@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -170,10 +171,12 @@ class profileFragment : Fragment() {
 
             val edittextOld = EditText(context)
             edittextOld.hint = "Old Password"
+            edittextOld.setTransformationMethod(PasswordTransformationMethod.getInstance())
             layout.addView(edittextOld)
 
             val edittextNew = EditText(context)
             edittextNew.hint = "New Password"
+            edittextNew.setTransformationMethod(PasswordTransformationMethod.getInstance())
             layout.addView(edittextNew)
 
             alert.setView(layout)

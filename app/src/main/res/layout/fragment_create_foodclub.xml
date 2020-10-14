@@ -9,7 +9,7 @@
     tools:context=".ui.foodclub.CreateFoodclubFragment">
 
     <DatePicker
-        android:id="@+id/datePickerStart"
+        android:id="@+id/datePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="false"

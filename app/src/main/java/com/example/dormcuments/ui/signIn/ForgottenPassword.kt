@@ -31,12 +31,14 @@ class ForgottenPassword : AppCompatActivity() {
                 Firebase.auth.sendPasswordResetEmail(emailAddress)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Log.d(TAG, "Email sent.")
+
+                            Toast.makeText(applicationContext, "Email Send", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(applicationContext, SignIn::class.java)
+                            startActivity(intent)
                         }
                     }
             }
-            //val intent = Intent(applicationContext, SignIn::class.java)
-            //startActivity(intent)
+
         })
     }
 
