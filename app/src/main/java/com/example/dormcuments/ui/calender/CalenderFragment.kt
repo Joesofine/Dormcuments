@@ -20,14 +20,18 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_food_details.*
 import kotlinx.android.synthetic.main.list_element_calendar.*
+import kotlinx.android.synthetic.main.list_element_calendar.parti
 import org.w3c.dom.Text
 import java.util.*
 import kotlin.collections.ArrayList
 
 class CalenderFragment : Fragment(),View.OnClickListener {
     var database = FirebaseDatabase.getInstance().getReference("Events")
-    lateinit var getdata : ValueEventListener;
+    var databaseU = FirebaseDatabase.getInstance().getReference("Users")
+    lateinit var getdata : ValueEventListener
+    lateinit var Ugetdata : ValueEventListener
     lateinit var myContainer: LinearLayout
     private lateinit var auth: FirebaseAuth
     private val months = ArrayList<String>()
@@ -56,7 +60,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         auth = Firebase.auth
 
         myContainer = root.findViewById(R.id.LinScroll)
-        sliderLayout = root.findViewById(R.id.sliderLayout);
+        sliderLayout = root.findViewById(R.id.sliderLayout)
         scroll = root.findViewById(R.id.scroll)
         week = root.findViewById(R.id.weekID)
         month = root.findViewById(R.id.month)
@@ -72,7 +76,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         year.layoutParams = LinearLayout.LayoutParams(targetWidth, targetHeight)
 
 
-        val calendar = Calendar.getInstance();
+        val calendar = Calendar.getInstance()
         current_week = calendar.get(Calendar.WEEK_OF_YEAR)
         current_month= calendar.get(Calendar.MONTH)
         current_year= calendar.get(Calendar.YEAR)
@@ -87,22 +91,23 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for (i in p0.children) {
-                    var title: String = i.child("title").getValue() as String
-                    var dateStart: String = i.child("dateStart").getValue() as String
-                    var dateEnd: String = i.child("dateEnd").getValue() as String
-                    var timeStart: String = i.child("timeStart").getValue() as String
-                    var timeEnd: String = i.child("timeEnd").getValue() as String
-                    var location: String = i.child("location").getValue() as String
-                    var des: String = i.child("des").getValue() as String
-                    var allday: String = i.child("allDay").getValue() as String
-                    var notis: String = i.child("notification").getValue() as String
-                    var created: String = i.child("createdBy").getValue() as String
-                    var doesRepeat: String = i.child("doesRepeat").getValue() as String
+                    var title: String = i.child("title").value as String
+                    var dateStart: String = i.child("dateStart").value as String
+                    var dateEnd: String = i.child("dateEnd").value as String
+                    var timeStart: String = i.child("timeStart").value as String
+                    var timeEnd: String = i.child("timeEnd").value as String
+                    var location: String = i.child("location").value as String
+                    var des: String = i.child("des").value as String
+                    var allday: String = i.child("allDay").value as String
+                    var notis: String = i.child("notification").value as String
+                    var created: String = i.child("createdBy").value as String
+                    var doesRepeat: String = i.child("doesRepeat").value as String
+                    var par = i.child("participants").value.toString()
 
 
                     var eventid = i.key.toString()
 
-                    createEventView(title, dateStart, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid,  myContainer)
+                    createEventView(title, dateStart, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, myContainer)
                 }
             }
 
@@ -172,8 +177,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         for (element in arr) {
             val button = Button(context)
 
-            button.setFocusable(true)
-            button.setFocusableInTouchMode(true)
+            button.isFocusable = true
+            button.isFocusableInTouchMode = true
             button.layoutParams = LinearLayout.LayoutParams(buttonWidth, targetHeight)
             button.text = element
             button.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
@@ -181,8 +186,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
             sliderLayout.addView(button)
 
-            button.setOnClickListener() {
-                val childCount = sliderLayout.getChildCount()
+            button.setOnClickListener {
+                val childCount = sliderLayout.childCount
 
                 for (i in 0..childCount - 1) {
                     val v: View = sliderLayout.getChildAt(i)
@@ -234,7 +239,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     }
     private fun createEventView(title: String, dateStart: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
                                 allDay: String, notification: String, doesRepeat: String, createdBy: String,
-                                eventid: String, myContainer: LinearLayout){
+                                eventid: String, par: String, myContainer: LinearLayout){
 
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_calendar, null, false)
@@ -250,7 +255,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var startTime: TextView = ExpandableCardview.findViewById(R.id.timeStart2)
         var endTime: TextView = ExpandableCardview.findViewById(R.id.timeEnd2)
         var desc: TextView = ExpandableCardview.findViewById(R.id.des)
-        var desCon: ImageView = ExpandableCardview.findViewById(R.id.desIcon)
+        var desCon: ImageView = ExpandableCardview.findViewById(R.id.desCon)
         var loc: TextView = ExpandableCardview.findViewById(R.id.loctext)
         var locCon: ImageView = ExpandableCardview.findViewById(R.id.locIcon)
         var notCon: ImageView = ExpandableCardview.findViewById(R.id.notIcon)
@@ -260,9 +265,14 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var divdes: View = ExpandableCardview.findViewById(R.id.divdes)
         var divloc: View = ExpandableCardview.findViewById(R.id.divloc)
         var divnot: View = ExpandableCardview.findViewById(R.id.divnot)
+        var by: TextView = ExpandableCardview.findViewById(R.id.by)
+        var switch: Switch = ExpandableCardview.findViewById(R.id.joinSwitch)
+        var parti: TextView = ExpandableCardview.findViewById(R.id.parti)
 
-        eventtitle.setText(title)
-        Date.setText(dateStart)
+        eventtitle.text = title
+        Date.text = dateStart
+        by.text = "created by: $createdBy"
+        parti.text = par
 
         if (allDay.equals("true")) {
             startTime.visibility = View.GONE
@@ -270,21 +280,21 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
         else {
             all.visibility = View.GONE
-            startDate.setText(dateStart)
-            endDate.setText(dateEnd)
-            startTime.setText(timeStart)
-            endTime.setText(timeEnd)
+            startDate.text = dateStart
+            endDate.text = dateEnd
+            startTime.text = timeStart
+            endTime.text = timeEnd
         }
 
         if (doesRepeat.equals("Does not repeat")){
             reap.visibility = View.GONE
             reaCon.visibility = View.GONE
         } else {
-            reap.setText(doesRepeat)
+            reap.text = doesRepeat
         }
 
         if (!location.equals("")){
-            loc.setText(location)
+            loc.text = location
         } else {
             divloc.visibility = View.GONE
             loc.visibility = View.GONE
@@ -292,23 +302,26 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
 
         if (!notification.equals("No notification")){
-            notText.setText(notification)
+            notText.text = notification
             } else {
             divnot.visibility = View.GONE
             notText.visibility = View.GONE
             notCon.visibility = View.GONE
         }
         if (!des.equals("")){
-            desc.setText(des)
+            desc.text = des
         } else {
-            divdes.visibility = View.GONE
             desc.visibility = View.GONE
             desCon.visibility = View.GONE
+            divloc.visibility = View.GONE
         }
 
-        //Set OnClickListener that handles expansion and collapse of view
+
+
         titleLayout.setOnClickListener {
             expandList(sumLayout, expand)}
+
+        setSwitchForCurrentUser(switch,parti,eventid)
 
         myContainer.addView(ExpandableCardview)
     }
@@ -323,6 +336,62 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             sumLayout.visibility = View.GONE
             expand.rotation = 0f
         }
+    }
+
+    private fun listenerOnChange(switch: Switch, rn: String, eventid: String, parti: TextView){
+        switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
+            var st = ""
+            if (isChecked) {
+
+                if (parti.text.toString().isEmpty()) {
+                    parti.text = rn
+                } else {
+                    st = parti.text.toString() + ", " + rn
+                    parti.text = st
+                }
+
+                database.child(eventid).child("participants").setValue(st).addOnSuccessListener {
+                    Toast.makeText(context, "succesfully joined event", Toast.LENGTH_SHORT).show()
+                }
+                    .addOnFailureListener {}
+
+            } else {
+                if (parti.text.toString().contains(", $rn")) {
+                    st = parti.text.toString().replace(", $rn", "")
+                } else {
+                    st = parti.text.toString().replace(rn, "")
+                }
+                parti.text = st
+
+                database.child(eventid).child("participants").setValue(st).addOnSuccessListener {
+                    Toast.makeText(context, "Sign up deleted", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener { }
+
+            }
+        }
+    }
+
+    private fun setSwitchStatus(switch: Switch, rn: String, parti: TextView){
+        if ( parti.text.toString().contains(rn)){ switch.isChecked = true}
+    }
+
+    private fun setSwitchForCurrentUser(switch: Switch, parti: TextView, eventid: String){
+        Ugetdata = object : ValueEventListener {
+            val userid = auth.currentUser?.uid.toString()
+
+            override fun onDataChange(p0: DataSnapshot) {
+                var room: String = p0.child(userid).child("number").getValue() as String
+
+                setSwitchStatus(switch,room, parti)
+                listenerOnChange(switch,room,eventid, parti)
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                println("err")
+            }
+        }
+
+        databaseU.addListenerForSingleValueEvent(Ugetdata)
     }
 
 }

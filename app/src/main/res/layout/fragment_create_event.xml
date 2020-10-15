@@ -138,7 +138,7 @@
                 android:textColorHint="@color/lightHint"
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/timeEnd"
+                app:layout_constraintEnd_toEndOf="@+id/allday"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/spinner_repeat"
                 app:layout_constraintTop_toBottomOf="@+id/divider14" />
@@ -179,11 +179,9 @@
                 android:id="@+id/timeStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:layout_marginRight="50dp"
                 android:text="12.00"
                 android:textColor="@color/White"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/allday"
                 app:layout_constraintTop_toTopOf="@+id/dateStart" />
 
             <TextView
@@ -269,8 +267,10 @@
                 android:id="@+id/allday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView59"
-                app:layout_constraintEnd_toEndOf="@+id/timeStart"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView59" />
 
             <TextView
@@ -332,25 +332,25 @@
                 app:layout_constraintStart_toStartOf="@+id/notIcon"
                 app:layout_constraintTop_toTopOf="@+id/spinner_color" />
 
-            <ImageView
-                android:id="@+id/desIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/edit_image_white"
-                app:layout_constraintBottom_toBottomOf="@+id/des"
-                app:layout_constraintStart_toStartOf="@+id/colorIcon"
-                app:layout_constraintTop_toTopOf="@+id/des" />
-
             <Spinner
                 android:id="@+id/spinner_notis"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="@+id/spinner_repeat"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/location"
                 app:layout_constraintTop_toBottomOf="@+id/divider17" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/des"
+                app:layout_constraintStart_toStartOf="@+id/notIcon"
+                app:layout_constraintTop_toTopOf="@+id/des"
+                app:srcCompat="@drawable/ic_baseline_description_24" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

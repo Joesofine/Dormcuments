@@ -40,6 +40,8 @@ class CreateEventFragment : Fragment() {
     var choosenDateStart = ""
     var choosenDateEnd = ""
     lateinit var getdata : ValueEventListener;
+    lateinit var Sdate: LocalDate
+    lateinit var Edate: LocalDate
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -56,7 +58,7 @@ class CreateEventFragment : Fragment() {
         val today = Calendar.getInstance()
         auth = Firebase.auth
 
-        listenerOnChange(allday)
+        listenerOnChange(allday,root)
 
         root.findViewById<TextView>(R.id.dateStart).setOnClickListener {
             datePickerStart.visibility = View.VISIBLE
@@ -155,13 +157,14 @@ class CreateEventFragment : Fragment() {
             val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH)
             val monthformatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)
 
-            val date = LocalDate.of(datePickerStart.year, datePickerStart.month + 1, datePickerStart.dayOfMonth)
-            val weekday = (date.format(dayOfWeekFormatter))
+            Sdate = LocalDate.of(datePickerStart.year, datePickerStart.month + 1, datePickerStart.dayOfMonth)
+            val weekday = (Sdate.format(dayOfWeekFormatter))
             val dayofmonth = datePickerStart.dayOfMonth
-            val monthform = date.format(monthformatter)
+            val monthform = Sdate.format(monthformatter)
             val yearform = datePickerStart.year
             val msgStart = "$weekday. $dayofmonth. $monthform. $yearform"
             root.findViewById<TextView>(R.id.dateStart).setText(msgStart)
+            root.findViewById<TextView>(R.id.dateEnd).setText(msgStart)
             choosenDateStart = msgStart
             datePickerStart.visibility = View.GONE
         }
@@ -170,26 +173,35 @@ class CreateEventFragment : Fragment() {
         { view, year, month, day ->
             val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH)
             val monthformatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)
+            Edate = LocalDate.of(datePickerEnd.year, datePickerEnd.month + 1, datePickerEnd.dayOfMonth)
 
-            val date = LocalDate.of(datePickerStart.year, datePickerStart.month + 1, datePickerStart.dayOfMonth)
-            val weekday = (date.format(dayOfWeekFormatter))
-            val dayofmonth = datePickerStart.dayOfMonth
-            val monthform = date.format(monthformatter)
-            val yearform = datePickerStart.year
-            val msgEnd = "$weekday. $dayofmonth. $monthform. $yearform"
-            root.findViewById<TextView>(R.id.dateEnd).setText(msgEnd)
-            choosenDateEnd = msgEnd
-            datePickerEnd.visibility = View.GONE
+            if (Sdate.isAfter(Edate))
+            {
+                Toast.makeText(context, "End date cannot be before start date", Toast.LENGTH_SHORT).show()
+            } else {
+                val weekday = (Edate.format(dayOfWeekFormatter))
+                val dayofmonth = datePickerEnd.dayOfMonth
+                val monthform = Edate.format(monthformatter)
+                val yearform = datePickerEnd.year
+                val msgEnd = "$weekday. $dayofmonth. $monthform. $yearform"
+                root.findViewById<TextView>(R.id.dateEnd).setText(msgEnd)
+                choosenDateEnd = msgEnd
+                datePickerEnd.visibility = View.GONE
+            }
         }
 
         return root
     }
-    private fun listenerOnChange(switch: Switch){
+    private fun listenerOnChange(switch: Switch, root: View){
         switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
             if (isChecked){
                 all = "true"
+                root.findViewById<TextView>(R.id.timeStart).visibility = View.GONE
+                root.findViewById<TextView>(R.id.timeEnd).visibility = View.GONE
             } else {
                 all = "false"
+                root.findViewById<TextView>(R.id.timeStart).visibility = View.VISIBLE
+                root.findViewById<TextView>(R.id.timeEnd).visibility = View.VISIBLE
             }
         }
     }
@@ -197,7 +209,7 @@ class CreateEventFragment : Fragment() {
     private fun createEvent(title: String, datStart: String, datEnd: String, timStart: String, timEnd: String,
                             desc: String, locat: String, col: String, day: String, not: String, reapet: String, created: String){
         val eventid = database.push().key
-        val event = Event(title, datStart, datEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created)
+        val event = Event(title, datStart, datEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, "")
 
         if (eventid != null) {
 

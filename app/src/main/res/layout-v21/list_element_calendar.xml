@@ -66,9 +66,10 @@
                 android:textColor="@color/White"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/eventTitle"
+                app:layout_constraintStart_toStartOf="@+id/eventTitle"
                 app:layout_constraintTop_toBottomOf="@+id/eventTitle"
-                app:layout_constraintVertical_bias="0.0"
-                tools:layout_editor_absoluteX="132dp" />
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -88,13 +89,27 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp">
+
+                    <View
+                        android:id="@+id/divdes3"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/LighterDarkBlue"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView75" />
 
                     <TextView
                         android:id="@+id/reap"
@@ -184,15 +199,27 @@
                         android:id="@+id/divider19"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/LighterDarkBlue"
 
+                        android:layout_marginTop="20dp"
+                        android:background="@color/LighterDarkBlue"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/parti" />
+
+                    <View
+                        android:id="@+id/divdes"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/LighterDarkBlue"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <View
-                        android:id="@+id/divdes"
+                        android:id="@+id/divdes4"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_marginTop="20dp"
@@ -201,7 +228,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/notTekst" />
+                        app:layout_constraintTop_toBottomOf="@+id/loctext" />
 
                     <View
                         android:id="@+id/divnot"
@@ -213,7 +240,19 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/loctext" />
+                        app:layout_constraintTop_toBottomOf="@+id/reap" />
+
+                    <View
+                        android:id="@+id/divnot2"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/LighterDarkBlue"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/notTekst" />
 
                     <TextView
                         android:id="@+id/notTekst"
@@ -236,7 +275,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/reap" />
+                        app:layout_constraintTop_toBottomOf="@+id/des" />
 
                     <TextView
                         android:id="@+id/loctext"
@@ -277,13 +316,62 @@
                         app:layout_constraintTop_toTopOf="@+id/notTekst" />
 
                     <ImageView
-                        android:id="@+id/desIcon"
+                        android:id="@+id/desCon"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:src="@drawable/edit_image_white"
                         app:layout_constraintBottom_toBottomOf="@+id/des"
-                        app:layout_constraintStart_toStartOf="@+id/notIcon"
-                        app:layout_constraintTop_toTopOf="@+id/des" />
+                        app:layout_constraintStart_toStartOf="@+id/allIcon"
+                        app:layout_constraintTop_toTopOf="@+id/des"
+                        app:srcCompat="@drawable/ic_baseline_description_24" />
+
+                    <TextView
+                        android:id="@+id/by"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Created by: Josephine, 910"
+                        android:textColor="@color/White"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divdes3" />
+
+                    <TextView
+                        android:id="@+id/parti"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Participants"
+                        android:textColor="@color/White"
+                        app:layout_constraintStart_toStartOf="@+id/dateEnd2"
+                        app:layout_constraintTop_toBottomOf="@+id/divdes4" />
+
+                    <ImageView
+                        android:id="@+id/parcon"
+                        android:layout_width="18dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/parti"
+                        app:layout_constraintStart_toStartOf="@+id/allIcon"
+                        app:layout_constraintTop_toTopOf="@+id/parti"
+                        app:srcCompat="@drawable/participants_icon_white" />
+
+                    <TextView
+                        android:id="@+id/textView75"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Join?"
+                        android:textColor="@color/White"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/dateEnd2"
+                        app:layout_constraintTop_toBottomOf="@+id/divnot2" />
+
+                    <Switch
+                        android:id="@+id/joinSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView75"
+                        app:layout_constraintEnd_toEndOf="@+id/timeEnd2"
+                        app:layout_constraintTop_toTopOf="@+id/textView75" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

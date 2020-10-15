@@ -15,10 +15,11 @@ class Event {
     var notification = ""
     var doesRepeat = ""
     var createdBy = ""
+    var participants = ""
 
 
     constructor(title: String, dateStart: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
-                color: String, allDay: String, notification: String, doesRepeat: String, createdBy: String){
+                color: String, allDay: String, notification: String, doesRepeat: String, createdBy: String, participants: String){
 
         this.title = title
         this.timeStart = timeStart
@@ -32,5 +33,6 @@ class Event {
         this.notification = notification
         this.doesRepeat = doesRepeat
         this.createdBy = createdBy
+        this.participants = participants
     }
 }
