@@ -208,6 +208,22 @@ class CreateEventFragment : Fragment() {
 
     private fun createEvent(title: String, datStart: String, datEnd: String, timStart: String, timEnd: String,
                             desc: String, locat: String, col: String, day: String, not: String, reapet: String, created: String){
+
+        if (reapet.equals("Every week")){
+
+            val calendar = Calendar.getInstance()
+            val calendarNext = Calendar.getInstance()
+            calendarNext.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH))
+            val futureWeeksInYear = calendar.getActualMaximum(Calendar.WEEK_OF_YEAR) - calendar.get(Calendar.WEEK_OF_YEAR)
+            val WeeksInNextYear = calendarNext.getActualMaximum(Calendar.WEEK_OF_YEAR)
+
+            for (week in futureWeeksInYear..futureWeeksInYear + WeeksInNextYear){
+
+            }
+
+
+        }
+
         val eventid = database.push().key
         val event = Event(title, datStart, datEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, "")
 

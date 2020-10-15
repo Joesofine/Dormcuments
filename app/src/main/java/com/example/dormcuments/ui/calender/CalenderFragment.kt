@@ -268,6 +268,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var by: TextView = ExpandableCardview.findViewById(R.id.by)
         var switch: Switch = ExpandableCardview.findViewById(R.id.joinSwitch)
         var parti: TextView = ExpandableCardview.findViewById(R.id.parti)
+        var divpar:View = ExpandableCardview.findViewById(R.id.divdes4)
 
         eventtitle.text = title
         Date.text = dateStart
@@ -315,6 +316,11 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             desCon.visibility = View.GONE
             divloc.visibility = View.GONE
         }
+
+        if (des.equals("") && location.equals("")){
+            divpar.visibility = View.GONE
+        }
+
 
 
 
