@@ -158,6 +158,7 @@ class CreateEventFragment : Fragment() {
             val monthformatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)
 
             Sdate = LocalDate.of(datePickerStart.year, datePickerStart.month + 1, datePickerStart.dayOfMonth)
+            Edate = Sdate
             val weekday = (Sdate.format(dayOfWeekFormatter))
             val dayofmonth = datePickerStart.dayOfMonth
             val monthform = Sdate.format(monthformatter)
@@ -206,10 +207,12 @@ class CreateEventFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createEvent(title: String, datStart: String, datEnd: String, timStart: String, timEnd: String,
                             desc: String, locat: String, col: String, day: String, not: String, reapet: String, created: String){
 
         if (reapet.equals("Every week")){
+            var count = -7
 
             val calendar = Calendar.getInstance()
             val calendarNext = Calendar.getInstance()
@@ -218,28 +221,64 @@ class CreateEventFragment : Fragment() {
             val WeeksInNextYear = calendarNext.getActualMaximum(Calendar.WEEK_OF_YEAR)
 
             for (week in futureWeeksInYear..futureWeeksInYear + WeeksInNextYear){
+                count += 7
 
+
+                val repeatDateS = LocalDate.of(Sdate.year, Sdate.month, Sdate.dayOfMonth).plusDays(count.toLong())
+                val repeatDateE = LocalDate.of(Edate.year, Edate.month, Edate.dayOfMonth).plusDays(count.toLong())
+
+                val eventid = database.push().key
+
+                val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH)
+                val monthformatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM", Locale.ENGLISH)
+                val weekdayE = (repeatDateE.format(dayOfWeekFormatter))
+                val dayofmonthE = repeatDateE.dayOfMonth
+                val monthformE = repeatDateE.format(monthformatter)
+                val yearformE = repeatDateE.year
+                val msgEnd = "$weekdayE. $dayofmonthE. $monthformE. $yearformE"
+
+                val weekdayS = (repeatDateS.format(dayOfWeekFormatter))
+                val dayofmonthS = repeatDateS.dayOfMonth
+                val monthformS = repeatDateS.format(monthformatter)
+                val yearformS = repeatDateS.year
+                val msgStart = "$weekdayS. $dayofmonthS. $monthformS. $yearformS"
+
+                val event = Event(title, msgStart, msgEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, "")
+
+
+                if (eventid != null) {
+
+                    database.child(eventid).setValue(event)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Event has been created", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            // Write failed
+                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                        }
+                }
             }
 
+            requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CalenderFragment()).addToBackStack(null).commit()
 
-        }
+        } else {
+            val eventid = database.push().key
+            val event = Event(title, datStart, datEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, "")
 
-        val eventid = database.push().key
-        val event = Event(title, datStart, datEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, "")
+            if (eventid != null) {
 
-        if (eventid != null) {
-
-            database.child(eventid).setValue(event)
-                .addOnSuccessListener {
-                    Toast.makeText(context, "Event has been created", Toast.LENGTH_SHORT).show()
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CalenderFragment()).addToBackStack(null).commit()
+                database.child(eventid).setValue(event)
+                    .addOnSuccessListener {
+                        Toast.makeText(context, "Event has been created", Toast.LENGTH_SHORT).show()
+                        requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CalenderFragment()).addToBackStack(null).commit()
 
 
-                }
-                .addOnFailureListener {
-                    // Write failed
-                    Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-                }
+                    }
+                    .addOnFailureListener {
+                        // Write failed
+                        Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
     }
 
