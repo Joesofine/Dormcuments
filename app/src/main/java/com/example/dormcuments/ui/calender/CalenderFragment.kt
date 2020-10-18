@@ -1,13 +1,14 @@
 package com.example.dormcuments.ui.calender
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.FOCUS_LEFT
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -20,10 +21,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.fragment_food_details.*
-import kotlinx.android.synthetic.main.list_element_calendar.*
-import kotlinx.android.synthetic.main.list_element_calendar.parti
-import org.w3c.dom.Text
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalField
+import java.time.temporal.WeekFields
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -85,39 +86,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         makeMonthArr(current_month)
         makeYearArr(current_year)
 
-        buttonPressed(week,weeks,targetWidth - 120, current_week - 1)
-
-
-        getdata = object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                for (i in p0.children) {
-                    var title: String = i.child("title").value as String
-                    var dateStart: String = i.child("dateStart").value as String
-                    var dateEnd: String = i.child("dateEnd").value as String
-                    var timeStart: String = i.child("timeStart").value as String
-                    var timeEnd: String = i.child("timeEnd").value as String
-                    var location: String = i.child("location").value as String
-                    var des: String = i.child("des").value as String
-                    var allday: String = i.child("allDay").value as String
-                    var notis: String = i.child("notification").value as String
-                    var created: String = i.child("createdBy").value as String
-                    var doesRepeat: String = i.child("doesRepeat").value as String
-                    var par = i.child("participants").value.toString()
-
-
-                    var eventid = i.key.toString()
-
-                    createEventView(title, dateStart, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, myContainer)
-                }
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                println("err")
-            }
-        }
-
-        database.addValueEventListener(getdata)
-
+        buttonPressed(week, weeks, targetWidth - 120, current_week - 1)
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
             requireFragmentManager().beginTransaction().add(
@@ -133,13 +102,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     override fun onClick(p0: View?) {
         if (p0 === week || p0 === month || p0 === year) {
             if (p0 === week) {
-                buttonPressed(week,weeks,targetWidth - 120, current_week - 1)
+                buttonPressed(week, weeks, targetWidth - 120, current_week - 1)
 
             } else if (p0 === month) {
-                buttonPressed(month,months,targetWidth - 40, current_month)
+                buttonPressed(month, months, targetWidth - 40, current_month)
 
             } else if (p0 === year) {
-                buttonPressed(year,years,targetWidth * 3 / years.size, current_year - 2019)
+                buttonPressed(year, years, targetWidth * 3 / years.size, current_year - 2019)
             }
         }
     }
@@ -171,6 +140,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceAsColor")
     private fun buttonLoop(arr: ArrayList<String>, buttonWidth: Int) {
         sliderLayout.removeAllViews()
@@ -201,6 +171,76 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 }
                 button.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
                 context?.let { ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
+
+                if(arr.equals(weeks)){
+                    val monthformatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM")
+                    var weekNumber = element.replace("U", "").toInt()
+
+                    getdata = object : ValueEventListener {
+                        override fun onDataChange(p0: DataSnapshot) {
+                            for (i in p0.children) {
+
+                                var dateUn: String = i.child("unformattedDate").value as String
+                                var eventdate = dateUn.split("/")
+                                var local = LocalDate.of(eventdate[2].toInt(), eventdate[1].toInt(), eventdate[0].toInt())
+                                val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
+
+
+                                if (local.get(woy) == weekNumber){
+
+                                }
+
+
+                                var title: String = i.child("title").value as String
+                                var dateStart: String = i.child("dateStart").value as String
+                                var dateEnd: String = i.child("dateEnd").value as String
+                                var timeStart: String = i.child("timeStart").value as String
+                                var timeEnd: String = i.child("timeEnd").value as String
+                                var location: String = i.child("location").value as String
+                                var des: String = i.child("des").value as String
+                                var allday: String = i.child("allDay").value as String
+                                var notis: String = i.child("notification").value as String
+                                var created: String = i.child("createdBy").value as String
+                                var doesRepeat: String = i.child("doesRepeat").value as String
+                                var par = i.child("participants").value.toString()
+
+
+                                var eventid = i.key.toString()
+
+                                createEventView(
+                                    title,
+                                    dateStart,
+                                    dateEnd,
+                                    timeStart,
+                                    timeEnd,
+                                    des,
+                                    location,
+                                    allday,
+                                    notis,
+                                    doesRepeat,
+                                    created,
+                                    eventid,
+                                    par,
+                                    myContainer
+                                )
+                            }
+                        }
+
+                        override fun onCancelled(p0: DatabaseError) {
+                            println("err")
+                        }
+                    }
+
+                    database.addValueEventListener(getdata)
+
+
+
+
+
+                }
+
+
+
             }
         }
     }
@@ -237,9 +277,11 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             v.requestFocus()
         }
     }
-    private fun createEventView(title: String, dateStart: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
-                                allDay: String, notification: String, doesRepeat: String, createdBy: String,
-                                eventid: String, par: String, myContainer: LinearLayout){
+    private fun createEventView(
+        title: String, dateStart: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
+        allDay: String, notification: String, doesRepeat: String, createdBy: String,
+        eventid: String, par: String, myContainer: LinearLayout
+    ){
 
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_calendar, null, false)
@@ -327,14 +369,15 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         titleLayout.setOnClickListener {
             expandList(sumLayout, expand)}
 
-        setSwitchForCurrentUser(switch,parti,eventid)
+        setSwitchForCurrentUser(switch, parti, eventid)
 
         myContainer.addView(ExpandableCardview)
     }
 
     private fun expandList(
         sumLayout: ConstraintLayout,
-        expand: ImageView) {
+        expand: ImageView
+    ) {
         if (sumLayout.visibility == View.GONE) {
             sumLayout.visibility = View.VISIBLE
             expand.rotation = 90f
@@ -388,8 +431,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             override fun onDataChange(p0: DataSnapshot) {
                 var room: String = p0.child(userid).child("number").getValue() as String
 
-                setSwitchStatus(switch,room, parti)
-                listenerOnChange(switch,room,eventid, parti)
+                setSwitchStatus(switch, room, parti)
+                listenerOnChange(switch, room, eventid, parti)
             }
 
             override fun onCancelled(p0: DatabaseError) {

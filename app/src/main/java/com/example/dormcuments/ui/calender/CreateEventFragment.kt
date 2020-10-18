@@ -42,6 +42,7 @@ class CreateEventFragment : Fragment() {
     lateinit var getdata : ValueEventListener;
     lateinit var Sdate: LocalDate
     lateinit var Edate: LocalDate
+    lateinit var unformattedDate: String
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -164,6 +165,7 @@ class CreateEventFragment : Fragment() {
             val monthform = Sdate.format(monthformatter)
             val yearform = datePickerStart.year
             val msgStart = "$weekday. $dayofmonth. $monthform. $yearform"
+            unformattedDate = Sdate.toString()
             root.findViewById<TextView>(R.id.dateStart).setText(msgStart)
             root.findViewById<TextView>(R.id.dateEnd).setText(msgStart)
             choosenDateStart = msgStart
@@ -243,7 +245,7 @@ class CreateEventFragment : Fragment() {
                 val yearformS = repeatDateS.year
                 val msgStart = "$weekdayS. $dayofmonthS. $monthformS. $yearformS"
 
-                val event = Event(title, msgStart, msgEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, "")
+                val event = Event(title, msgStart, msgEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, "", unformattedDate)
 
 
                 if (eventid != null) {
@@ -263,7 +265,7 @@ class CreateEventFragment : Fragment() {
 
         } else {
             val eventid = database.push().key
-            val event = Event(title, datStart, datEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, "")
+            val event = Event(title, datStart, datEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, "", unformattedDate)
 
             if (eventid != null) {
 
