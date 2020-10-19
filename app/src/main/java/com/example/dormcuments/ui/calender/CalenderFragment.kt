@@ -52,6 +52,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -98,6 +99,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         return root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     override fun onClick(p0: View?) {
         if (p0 === week || p0 === month || p0 === year) {
@@ -173,7 +175,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 context?.let { ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
 
                 if(arr.equals(weeks)){
-                    val monthformatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM")
                     var weekNumber = element.replace("U", "").toInt()
 
                     getdata = object : ValueEventListener {
@@ -256,6 +257,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         targetHeight = week.layoutParams.height
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun buttonPressed(button: Button, arr: ArrayList<String>, width: Int, current: Int){
         week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
@@ -441,6 +443,10 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
 
         databaseU.addListenerForSingleValueEvent(Ugetdata)
+    }
+
+    private fun getArrData(){
+
     }
 
 }
