@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.fragment_calender.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
@@ -44,6 +46,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private lateinit var month: Button
     private lateinit var year: Button
     private lateinit var scroll: HorizontalScrollView
+    private lateinit var whoops: TextView
     var targetHeight = 0
     var targetWidth = 0
     private var current_week: Int = 0
@@ -52,6 +55,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +70,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         week = root.findViewById(R.id.weekID)
         month = root.findViewById(R.id.month)
         year = root.findViewById(R.id.year)
+        whoops = root.findViewById(R.id.whoops)
 
         week.setOnClickListener(this)
         month.setOnClickListener(this)
@@ -98,8 +103,10 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         return root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     override fun onClick(p0: View?) {
+
         if (p0 === week || p0 === month || p0 === year) {
             if (p0 === week) {
                 buttonPressed(week, weeks, targetWidth - 120, current_week - 1)
@@ -173,6 +180,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 context?.let { ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
 
                 if(arr.equals(weeks)){
+                    myContainer.removeAllViews()
                     val monthformatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM")
                     var weekNumber = element.replace("U", "").toInt()
 
@@ -181,15 +189,114 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                             for (i in p0.children) {
 
                                 var dateUn: String = i.child("unformattedDate").value as String
-                                var eventdate = dateUn.split("/")
-                                var local = LocalDate.of(eventdate[2].toInt(), eventdate[1].toInt(), eventdate[0].toInt())
+                                var eventdate = dateUn.split("-")
+                                var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
                                 val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
 
 
                                 if (local.get(woy) == weekNumber){
 
-                                }
+                                    var title: String = i.child("title").value as String
+                                    var dateStart: String = i.child("dateStart").value as String
+                                    var dateEnd: String = i.child("dateEnd").value as String
+                                    var timeStart: String = i.child("timeStart").value as String
+                                    var timeEnd: String = i.child("timeEnd").value as String
+                                    var location: String = i.child("location").value as String
+                                    var des: String = i.child("des").value as String
+                                    var allday: String = i.child("allDay").value as String
+                                    var notis: String = i.child("notification").value as String
+                                    var created: String = i.child("createdBy").value as String
+                                    var doesRepeat: String = i.child("doesRepeat").value as String
+                                    var par = i.child("participants").value.toString()
 
+
+                                    var eventid = i.key.toString()
+
+                                    createEventView(
+                                        title,
+                                        dateStart,
+                                        dateEnd,
+                                        timeStart,
+                                        timeEnd,
+                                        des,
+                                        location,
+                                        allday,
+                                        notis,
+                                        doesRepeat,
+                                        created,
+                                        eventid,
+                                        par,
+                                        myContainer
+                                    )
+                                }
+                            }
+
+                            if (myContainer.childCount == 0){
+                                whoops.visibility = View.VISIBLE
+                            } else {
+                                whoops.visibility = View.GONE
+                            }
+                        }
+
+                        override fun onCancelled(p0: DatabaseError) {
+                            println("err")
+                        }
+                    }
+
+                    database.addValueEventListener(getdata)
+                }
+
+            }
+        }
+    }
+
+    private fun getTagetSize(){
+        val displayMetrics = DisplayMetrics()
+        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+        var width = displayMetrics.widthPixels
+        var height = displayMetrics.heightPixels
+
+        targetWidth = ((width / 3))
+        targetHeight = week.layoutParams.height
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun buttonPressed(button: Button, arr: ArrayList<String>, width: Int, current: Int){
+        var count = 0
+        week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+        month.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+        year.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+
+        context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { week.setTextColor(it) }
+        context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { month.setTextColor(it) }
+        context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { year.setTextColor(it) }
+
+        button.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
+        context?.let {ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
+
+        buttonLoop(arr, width)
+        val v: View = sliderLayout.getChildAt(current)
+        if (v is Button) {
+            v.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
+            context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v.setTextColor(it) }
+            v.requestFocus()
+
+            if(arr.equals(weeks)){
+                myContainer.removeAllViews()
+
+                getdata = object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
+                        for (i in p0.children) {
+
+                            var dateUn: String = i.child("unformattedDate").value as String
+                            var eventdate = dateUn.split("-")
+                            var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
+                            val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
+
+
+                            if (local.get(woy) == current + 1){
 
                                 var title: String = i.child("title").value as String
                                 var dateStart: String = i.child("dateStart").value as String
@@ -226,55 +333,16 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                             }
                         }
 
-                        override fun onCancelled(p0: DatabaseError) {
-                            println("err")
-                        }
                     }
 
-                    database.addValueEventListener(getdata)
-
-
-
-
-
+                    override fun onCancelled(p0: DatabaseError) {
+                        println("err")
+                    }
                 }
 
-
-
+                database.addValueEventListener(getdata)
             }
-        }
-    }
 
-    private fun getTagetSize(){
-        val displayMetrics = DisplayMetrics()
-        requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
-
-        var width = displayMetrics.widthPixels
-        var height = displayMetrics.heightPixels
-
-        targetWidth = ((width / 3))
-        targetHeight = week.layoutParams.height
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun buttonPressed(button: Button, arr: ArrayList<String>, width: Int, current: Int){
-        week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
-        month.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
-        year.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
-
-        context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { week.setTextColor(it) }
-        context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { month.setTextColor(it) }
-        context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { year.setTextColor(it) }
-
-        button.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
-        context?.let {ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
-
-        buttonLoop(arr, width)
-        val v: View = sliderLayout.getChildAt(current)
-        if (v is Button) {
-            v.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
-            context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v.setTextColor(it) }
-            v.requestFocus()
         }
     }
     private fun createEventView(
