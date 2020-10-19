@@ -5,6 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/whoops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Whoops this week seems empty"
+        android:textColor="@color/White"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollView8" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add"
         android:layout_width="wrap_content"
@@ -171,6 +183,7 @@
     </HorizontalScrollView>
 
     <ScrollView
+        android:id="@+id/scrollView8"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
