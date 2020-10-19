@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.fragment_calender.*
+import kotlinx.android.synthetic.main.list_element_meeting.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
@@ -148,7 +149,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "UseCompatLoadingForDrawables")
     private fun buttonLoop(arr: ArrayList<String>, buttonWidth: Int) {
         sliderLayout.removeAllViews()
         for (element in arr) {
@@ -184,183 +185,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
                 if (arr.equals(weeks)) {
                     var weekNumber = element.replace("U", "").toInt()
-
-                    getdata = object : ValueEventListener {
-                        override fun onDataChange(p0: DataSnapshot) {
-                            for (i in p0.children) {
-
-                                var dateUn: String = i.child("unformattedDate").value as String
-                                var eventdate = dateUn.split("-")
-                                var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
-                                val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
-
-
-                                if (local.get(woy) == weekNumber) {
-
-                                    var title: String = i.child("title").value as String
-                                    var dateStart: String = i.child("dateStart").value as String
-                                    var dateEnd: String = i.child("dateEnd").value as String
-                                    var timeStart: String = i.child("timeStart").value as String
-                                    var timeEnd: String = i.child("timeEnd").value as String
-                                    var location: String = i.child("location").value as String
-                                    var des: String = i.child("des").value as String
-                                    var allday: String = i.child("allDay").value as String
-                                    var notis: String = i.child("notification").value as String
-                                    var created: String = i.child("createdBy").value as String
-                                    var doesRepeat: String = i.child("doesRepeat").value as String
-                                    var par = i.child("participants").value.toString()
-
-
-                                    var eventid = i.key.toString()
-
-                                    createEventView(
-                                        title,
-                                        dateStart,
-                                        dateEnd,
-                                        timeStart,
-                                        timeEnd,
-                                        des,
-                                        location,
-                                        allday,
-                                        notis,
-                                        doesRepeat,
-                                        created,
-                                        eventid,
-                                        par,
-                                        myContainer
-                                    )
-                                }
-                            }
-
-                            if (myContainer.childCount == 0) {
-                                whoops.visibility = View.VISIBLE
-                            } else {
-                                whoops.visibility = View.GONE
-                            }
-                        }
-
-                        override fun onCancelled(p0: DatabaseError) {
-                            println("err")
-                        }
-                    }
-
-                    database.addValueEventListener(getdata)
+                    getSortedEvents(0, weekNumber, weeks)
 
                 } else if (arr.equals(months)) {
-                    getdata = object : ValueEventListener {
-                        override fun onDataChange(p0: DataSnapshot) {
-                            for (i in p0.children) {
-
-                                var dateUn: String = i.child("unformattedDate").value as String
-                                var eventdate = dateUn.split("-")
-
-                                if (eventdate[1].toInt() == months.indexOf(element) + 1) {
-
-                                    var title: String = i.child("title").value as String
-                                    var dateStart: String = i.child("dateStart").value as String
-                                    var dateEnd: String = i.child("dateEnd").value as String
-                                    var timeStart: String = i.child("timeStart").value as String
-                                    var timeEnd: String = i.child("timeEnd").value as String
-                                    var location: String = i.child("location").value as String
-                                    var des: String = i.child("des").value as String
-                                    var allday: String = i.child("allDay").value as String
-                                    var notis: String = i.child("notification").value as String
-                                    var created: String = i.child("createdBy").value as String
-                                    var doesRepeat: String = i.child("doesRepeat").value as String
-                                    var par = i.child("participants").value.toString()
-
-
-                                    var eventid = i.key.toString()
-
-                                    createEventView(
-                                        title,
-                                        dateStart,
-                                        dateEnd,
-                                        timeStart,
-                                        timeEnd,
-                                        des,
-                                        location,
-                                        allday,
-                                        notis,
-                                        doesRepeat,
-                                        created,
-                                        eventid,
-                                        par,
-                                        myContainer
-                                    )
-                                }
-                            }
-                            if (myContainer.childCount == 0) {
-                                whoops.visibility = View.VISIBLE
-                            } else {
-                                whoops.visibility = View.GONE
-                            }
-                        }
-
-                        override fun onCancelled(p0: DatabaseError) {
-                            println("err")
-                        }
-                    }
-
-                    database.addValueEventListener(getdata)
+                    getSortedEvents(1, months.indexOf(element) + 1, months)
 
                 } else if (arr.equals(years)) {
-                    getdata = object : ValueEventListener {
-                        override fun onDataChange(p0: DataSnapshot) {
-                            for (i in p0.children) {
-
-                                var dateUn: String = i.child("unformattedDate").value as String
-                                var eventdate = dateUn.split("-")
-
-                                if (eventdate[0].toInt() == element.toInt()) {
-
-                                    var title: String = i.child("title").value as String
-                                    var dateStart: String = i.child("dateStart").value as String
-                                    var dateEnd: String = i.child("dateEnd").value as String
-                                    var timeStart: String = i.child("timeStart").value as String
-                                    var timeEnd: String = i.child("timeEnd").value as String
-                                    var location: String = i.child("location").value as String
-                                    var des: String = i.child("des").value as String
-                                    var allday: String = i.child("allDay").value as String
-                                    var notis: String = i.child("notification").value as String
-                                    var created: String = i.child("createdBy").value as String
-                                    var doesRepeat: String = i.child("doesRepeat").value as String
-                                    var par = i.child("participants").value.toString()
-
-
-                                    var eventid = i.key.toString()
-
-                                    createEventView(
-                                        title,
-                                        dateStart,
-                                        dateEnd,
-                                        timeStart,
-                                        timeEnd,
-                                        des,
-                                        location,
-                                        allday,
-                                        notis,
-                                        doesRepeat,
-                                        created,
-                                        eventid,
-                                        par,
-                                        myContainer
-                                    )
-                                }
-                            }
-                            if (myContainer.childCount == 0) {
-                                whoops.visibility = View.VISIBLE
-                            } else {
-                                whoops.visibility = View.GONE
-                            }
-                        }
-
-                        override fun onCancelled(p0: DatabaseError) {
-                            println("err")
-                        }
-                    }
-
-                    database.addValueEventListener(getdata)
+                    getSortedEvents(0, element.toInt(), years)
                 }
             }
         }
@@ -399,182 +230,19 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v.setTextColor(it) }
             v.requestFocus()
 
-            if(arr.equals(weeks)){
-                myContainer.removeAllViews()
+            if(arr == weeks){
+                getSortedEvents(0, current + 1, weeks)
 
-                getdata = object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
-                        for (i in p0.children) {
+            } else if (arr == months) {
+                getSortedEvents(1, current +1, months)
 
-                            var dateUn: String = i.child("unformattedDate").value as String
-                            var eventdate = dateUn.split("-")
-                            var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
-                            val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
-
-
-                            if (local.get(woy) == current + 1){
-
-                                var title: String = i.child("title").value as String
-                                var dateStart: String = i.child("dateStart").value as String
-                                var dateEnd: String = i.child("dateEnd").value as String
-                                var timeStart: String = i.child("timeStart").value as String
-                                var timeEnd: String = i.child("timeEnd").value as String
-                                var location: String = i.child("location").value as String
-                                var des: String = i.child("des").value as String
-                                var allday: String = i.child("allDay").value as String
-                                var notis: String = i.child("notification").value as String
-                                var created: String = i.child("createdBy").value as String
-                                var doesRepeat: String = i.child("doesRepeat").value as String
-                                var par = i.child("participants").value.toString()
-
-
-                                var eventid = i.key.toString()
-
-                                createEventView(
-                                    title,
-                                    dateStart,
-                                    dateEnd,
-                                    timeStart,
-                                    timeEnd,
-                                    des,
-                                    location,
-                                    allday,
-                                    notis,
-                                    doesRepeat,
-                                    created,
-                                    eventid,
-                                    par,
-                                    myContainer
-                                )
-                            }
-                        }
-
-                    }
-
-                    override fun onCancelled(p0: DatabaseError) {
-                        println("err")
-                    }
-                }
-
-                database.addValueEventListener(getdata)
-
-            } else if (arr.equals(months)) {
-                getdata = object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
-                        for (i in p0.children) {
-
-                            var dateUn: String = i.child("unformattedDate").value as String
-                            var eventdate = dateUn.split("-")
-
-                            if (eventdate[1].toInt() == current +1) {
-
-                                var title: String = i.child("title").value as String
-                                var dateStart: String = i.child("dateStart").value as String
-                                var dateEnd: String = i.child("dateEnd").value as String
-                                var timeStart: String = i.child("timeStart").value as String
-                                var timeEnd: String = i.child("timeEnd").value as String
-                                var location: String = i.child("location").value as String
-                                var des: String = i.child("des").value as String
-                                var allday: String = i.child("allDay").value as String
-                                var notis: String = i.child("notification").value as String
-                                var created: String = i.child("createdBy").value as String
-                                var doesRepeat: String = i.child("doesRepeat").value as String
-                                var par = i.child("participants").value.toString()
-
-
-                                var eventid = i.key.toString()
-
-                                createEventView(
-                                    title,
-                                    dateStart,
-                                    dateEnd,
-                                    timeStart,
-                                    timeEnd,
-                                    des,
-                                    location,
-                                    allday,
-                                    notis,
-                                    doesRepeat,
-                                    created,
-                                    eventid,
-                                    par,
-                                    myContainer
-                                )
-                            }
-                        }
-                        if (myContainer.childCount == 0) {
-                            whoops.visibility = View.VISIBLE
-                        } else {
-                            whoops.visibility = View.GONE
-                        }
-                    }
-
-                    override fun onCancelled(p0: DatabaseError) {
-                        println("err")
-                    }
-                }
-
-                database.addValueEventListener(getdata)
-
-            } else if (arr.equals(years)) {
-                getdata = object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
-                        for (i in p0.children) {
-
-                            var dateUn: String = i.child("unformattedDate").value as String
-                            var eventdate = dateUn.split("-")
-
-                            if (eventdate[0].toInt() == current + 2019) {
-                                var title: String = i.child("title").value as String
-                                var dateStart: String = i.child("dateStart").value as String
-                                var dateEnd: String = i.child("dateEnd").value as String
-                                var timeStart: String = i.child("timeStart").value as String
-                                var timeEnd: String = i.child("timeEnd").value as String
-                                var location: String = i.child("location").value as String
-                                var des: String = i.child("des").value as String
-                                var allday: String = i.child("allDay").value as String
-                                var notis: String = i.child("notification").value as String
-                                var created: String = i.child("createdBy").value as String
-                                var doesRepeat: String = i.child("doesRepeat").value as String
-                                var par = i.child("participants").value.toString()
-
-
-                                var eventid = i.key.toString()
-
-                                createEventView(
-                                    title,
-                                    dateStart,
-                                    dateEnd,
-                                    timeStart,
-                                    timeEnd,
-                                    des,
-                                    location,
-                                    allday,
-                                    notis,
-                                    doesRepeat,
-                                    created,
-                                    eventid,
-                                    par,
-                                    myContainer
-                                )
-                            }
-                        }
-                        if (myContainer.childCount == 0) {
-                            whoops.visibility = View.VISIBLE
-                        } else {
-                            whoops.visibility = View.GONE
-                        }
-                    }
-
-                    override fun onCancelled(p0: DatabaseError) {
-                        println("err")
-                    }
-                }
-
-                database.addValueEventListener(getdata)
+            } else if (arr == years) {
+                getSortedEvents(0, current + 2019, years)
             }
+
         }
     }
+    @SuppressLint("InflateParams", "UseSwitchCompatOrMaterialCode", "SetTextI18n")
     private fun createEventView(
         title: String, dateStart: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
         allDay: String, notification: String, doesRepeat: String, createdBy: String,
@@ -584,34 +252,34 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_calendar, null, false)
 
-        var sumLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.sumLayout)
-        var titleLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
-        var expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
-        var eventtitle: TextView = ExpandableCardview.findViewById(R.id.eventTitle)
-        var Date: TextView = ExpandableCardview.findViewById(R.id.date)
-        var all : TextView = ExpandableCardview.findViewById(R.id.all)
-        var startDate: TextView = ExpandableCardview.findViewById(R.id.dateStart2)
-        var endDate: TextView = ExpandableCardview.findViewById(R.id.dateEnd2)
-        var startTime: TextView = ExpandableCardview.findViewById(R.id.timeStart2)
-        var endTime: TextView = ExpandableCardview.findViewById(R.id.timeEnd2)
-        var desc: TextView = ExpandableCardview.findViewById(R.id.des)
-        var desCon: ImageView = ExpandableCardview.findViewById(R.id.desCon)
-        var loc: TextView = ExpandableCardview.findViewById(R.id.loctext)
-        var locCon: ImageView = ExpandableCardview.findViewById(R.id.locIcon)
-        var notCon: ImageView = ExpandableCardview.findViewById(R.id.notIcon)
-        var notText: TextView = ExpandableCardview.findViewById(R.id.notTekst)
-        var reap: TextView = ExpandableCardview.findViewById(R.id.reap)
-        var reaCon: ImageView = ExpandableCardview.findViewById(R.id.reaIcon)
-        var divloc: View = ExpandableCardview.findViewById(R.id.divloc)
-        var divnot: View = ExpandableCardview.findViewById(R.id.divnot)
-        var by: TextView = ExpandableCardview.findViewById(R.id.by)
-        var switch: Switch = ExpandableCardview.findViewById(R.id.joinSwitch)
-        var parti: TextView = ExpandableCardview.findViewById(R.id.parti)
-        var divpar:View = ExpandableCardview.findViewById(R.id.divdes4)
+        val sumLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.sumLayout)
+        val titleLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
+        val expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
+        val eventtitle: TextView = ExpandableCardview.findViewById(R.id.eventTitle)
+        val Date: TextView = ExpandableCardview.findViewById(R.id.date)
+        val all : TextView = ExpandableCardview.findViewById(R.id.all)
+        val startDate: TextView = ExpandableCardview.findViewById(R.id.dateStart2)
+        val endDate: TextView = ExpandableCardview.findViewById(R.id.dateEnd2)
+        val startTime: TextView = ExpandableCardview.findViewById(R.id.timeStart2)
+        val endTime: TextView = ExpandableCardview.findViewById(R.id.timeEnd2)
+        val desc: TextView = ExpandableCardview.findViewById(R.id.des)
+        val desCon: ImageView = ExpandableCardview.findViewById(R.id.desCon)
+        val loc: TextView = ExpandableCardview.findViewById(R.id.loctext)
+        val locCon: ImageView = ExpandableCardview.findViewById(R.id.locIcon)
+        val notCon: ImageView = ExpandableCardview.findViewById(R.id.notIcon)
+        val notText: TextView = ExpandableCardview.findViewById(R.id.notTekst)
+        val reap: TextView = ExpandableCardview.findViewById(R.id.reap)
+        val reaCon: ImageView = ExpandableCardview.findViewById(R.id.reaIcon)
+        val divloc: View = ExpandableCardview.findViewById(R.id.divloc)
+        val divnot: View = ExpandableCardview.findViewById(R.id.divnot)
+        val by: TextView = ExpandableCardview.findViewById(R.id.by)
+        val switch: Switch = ExpandableCardview.findViewById(R.id.joinSwitch)
+        val parti: TextView = ExpandableCardview.findViewById(R.id.parti)
+        val divpar:View = ExpandableCardview.findViewById(R.id.divdes4)
 
         eventtitle.text = title
         Date.text = dateStart
-        by.text = "created by: $createdBy"
+        by.text = "Created by:\n$createdBy"
         parti.text = par
 
         if (allDay.equals("true")) {
@@ -633,38 +301,16 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             reap.text = doesRepeat
         }
 
-        if (!location.equals("")){
-            loc.text = location
-        } else {
-            divloc.visibility = View.GONE
-            loc.visibility = View.GONE
-            locCon.visibility = View.GONE
-        }
-
-        if (!notification.equals("No notification")){
-            notText.text = notification
-            } else {
-            divnot.visibility = View.GONE
-            notText.visibility = View.GONE
-            notCon.visibility = View.GONE
-        }
-        if (!des.equals("")){
-            desc.text = des
-        } else {
-            desc.visibility = View.GONE
-            desCon.visibility = View.GONE
-            divloc.visibility = View.GONE
-        }
+        setVisiblityEvent(location, "", loc, divloc, locCon)
+        setVisiblityEvent(notification, "No notification", notText, divnot, notCon)
+        setVisiblityEvent(des, "", desc, divloc, desCon)
 
         if (des.equals("") && location.equals("")){
             divpar.visibility = View.GONE
         }
 
-        titleLayout.setOnClickListener {
-            expandList(sumLayout, expand)}
-
+        titleLayout.setOnClickListener { expandList(sumLayout, expand)}
         setSwitchForCurrentUser(switch, parti, eventid)
-
         myContainer.addView(ExpandableCardview)
     }
 
@@ -735,6 +381,76 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
 
         databaseU.addListenerForSingleValueEvent(Ugetdata)
+    }
+
+    private fun getSortedEvents(DateIndex: Int, relevantDatePart: Int, arr: ArrayList<String>){
+
+        getdata = object : ValueEventListener {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onDataChange(p0: DataSnapshot) {
+                for (i in p0.children) {
+
+                    var dateUn: String = i.child("unformattedDate").value as String
+                    var eventdate = dateUn.split("-")
+
+                    if (arr.equals(weeks)){
+                        var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
+                        val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
+
+                        if (local.get(woy) == relevantDatePart){
+                            eventDateCall(i)
+                        }
+                    } else {
+                        if (eventdate[DateIndex].toInt() == relevantDatePart) {
+                            eventDateCall(i)
+                        }
+                    }
+                }
+                setWhoops()
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                println("err")
+            }
+        }
+
+        database.addValueEventListener(getdata)
+    }
+
+    private fun eventDateCall(i: DataSnapshot){
+        var title: String = i.child("title").value as String
+        var dateStart: String = i.child("dateStart").value as String
+        var dateEnd: String = i.child("dateEnd").value as String
+        var timeStart: String = i.child("timeStart").value as String
+        var timeEnd: String = i.child("timeEnd").value as String
+        var location: String = i.child("location").value as String
+        var des: String = i.child("des").value as String
+        var allday: String = i.child("allDay").value as String
+        var notis: String = i.child("notification").value as String
+        var created: String = i.child("createdBy").value as String
+        var doesRepeat: String = i.child("doesRepeat").value as String
+        var par = i.child("participants").value.toString()
+        var eventid = i.key.toString()
+
+        createEventView(title, dateStart, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, myContainer)
+    }
+
+    private fun setWhoops(){
+        if (myContainer.childCount == 0) {
+            whoops.visibility = View.VISIBLE
+        } else {
+            whoops.visibility = View.GONE
+        }
+    }
+
+    private fun setVisiblityEvent(st: String, equals: String, tv: TextView, div: View, con: ImageView){
+        if (!st.equals(equals)){
+            tv.text = st
+        } else {
+            div.visibility = View.GONE
+            tv.visibility = View.GONE
+            con.visibility = View.GONE
+        }
     }
 
 }
