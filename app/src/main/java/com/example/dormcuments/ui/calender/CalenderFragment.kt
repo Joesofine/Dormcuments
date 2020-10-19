@@ -179,7 +179,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 button.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
                 context?.let { ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
 
-                if(arr.equals(weeks)){
+                if (arr.equals(weeks)) {
                     myContainer.removeAllViews()
                     val monthformatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM")
                     var weekNumber = element.replace("U", "").toInt()
@@ -194,7 +194,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                                 val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
 
 
-                                if (local.get(woy) == weekNumber){
+                                if (local.get(woy) == weekNumber) {
 
                                     var title: String = i.child("title").value as String
                                     var dateStart: String = i.child("dateStart").value as String
@@ -231,7 +231,127 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                                 }
                             }
 
-                            if (myContainer.childCount == 0){
+                            if (myContainer.childCount == 0) {
+                                whoops.visibility = View.VISIBLE
+                            } else {
+                                whoops.visibility = View.GONE
+                            }
+                        }
+
+                        override fun onCancelled(p0: DatabaseError) {
+                            println("err")
+                        }
+                    }
+
+                    database.addValueEventListener(getdata)
+
+                } else if (arr.equals(months)) {
+                    myContainer.removeAllViews()
+
+                    getdata = object : ValueEventListener {
+                        override fun onDataChange(p0: DataSnapshot) {
+                            for (i in p0.children) {
+
+                                var dateUn: String = i.child("unformattedDate").value as String
+                                var eventdate = dateUn.split("-")
+
+                                if (eventdate[1].toInt() == months.indexOf(element) + 1) {
+
+                                    var title: String = i.child("title").value as String
+                                    var dateStart: String = i.child("dateStart").value as String
+                                    var dateEnd: String = i.child("dateEnd").value as String
+                                    var timeStart: String = i.child("timeStart").value as String
+                                    var timeEnd: String = i.child("timeEnd").value as String
+                                    var location: String = i.child("location").value as String
+                                    var des: String = i.child("des").value as String
+                                    var allday: String = i.child("allDay").value as String
+                                    var notis: String = i.child("notification").value as String
+                                    var created: String = i.child("createdBy").value as String
+                                    var doesRepeat: String = i.child("doesRepeat").value as String
+                                    var par = i.child("participants").value.toString()
+
+
+                                    var eventid = i.key.toString()
+
+                                    createEventView(
+                                        title,
+                                        dateStart,
+                                        dateEnd,
+                                        timeStart,
+                                        timeEnd,
+                                        des,
+                                        location,
+                                        allday,
+                                        notis,
+                                        doesRepeat,
+                                        created,
+                                        eventid,
+                                        par,
+                                        myContainer
+                                    )
+                                }
+                            }
+                            if (myContainer.childCount == 0) {
+                                whoops.visibility = View.VISIBLE
+                            } else {
+                                whoops.visibility = View.GONE
+                            }
+                        }
+
+                        override fun onCancelled(p0: DatabaseError) {
+                            println("err")
+                        }
+                    }
+
+                    database.addValueEventListener(getdata)
+
+                } else if (arr.equals(years)) {
+                    myContainer.removeAllViews()
+
+                    getdata = object : ValueEventListener {
+                        override fun onDataChange(p0: DataSnapshot) {
+                            for (i in p0.children) {
+
+                                var dateUn: String = i.child("unformattedDate").value as String
+                                var eventdate = dateUn.split("-")
+
+                                if (eventdate[0].toInt() == element.toInt()) {
+
+                                    var title: String = i.child("title").value as String
+                                    var dateStart: String = i.child("dateStart").value as String
+                                    var dateEnd: String = i.child("dateEnd").value as String
+                                    var timeStart: String = i.child("timeStart").value as String
+                                    var timeEnd: String = i.child("timeEnd").value as String
+                                    var location: String = i.child("location").value as String
+                                    var des: String = i.child("des").value as String
+                                    var allday: String = i.child("allDay").value as String
+                                    var notis: String = i.child("notification").value as String
+                                    var created: String = i.child("createdBy").value as String
+                                    var doesRepeat: String = i.child("doesRepeat").value as String
+                                    var par = i.child("participants").value.toString()
+
+
+                                    var eventid = i.key.toString()
+
+                                    createEventView(
+                                        title,
+                                        dateStart,
+                                        dateEnd,
+                                        timeStart,
+                                        timeEnd,
+                                        des,
+                                        location,
+                                        allday,
+                                        notis,
+                                        doesRepeat,
+                                        created,
+                                        eventid,
+                                        par,
+                                        myContainer
+                                    )
+                                }
+                            }
+                            if (myContainer.childCount == 0) {
                                 whoops.visibility = View.VISIBLE
                             } else {
                                 whoops.visibility = View.GONE
@@ -245,7 +365,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
                     database.addValueEventListener(getdata)
                 }
-
             }
         }
     }
@@ -342,7 +461,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
                 database.addValueEventListener(getdata)
             }
-
         }
     }
     private fun createEventView(
