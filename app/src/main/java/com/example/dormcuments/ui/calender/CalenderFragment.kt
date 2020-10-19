@@ -84,8 +84,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
         val calendar = Calendar.getInstance()
         current_week = calendar.get(Calendar.WEEK_OF_YEAR)
-        current_month= calendar.get(Calendar.MONTH)
-        current_year= calendar.get(Calendar.YEAR)
+        current_month = calendar.get(Calendar.MONTH)
+        current_year = calendar.get(Calendar.YEAR)
 
         makeWeekArr(current_year)
         makeMonthArr(current_month)
@@ -164,6 +164,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             sliderLayout.addView(button)
 
             button.setOnClickListener {
+                myContainer.removeAllViews()
+                whoops.visibility = View.GONE
+
                 val childCount = sliderLayout.childCount
 
                 for (i in 0..childCount - 1) {
@@ -180,8 +183,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 context?.let { ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
 
                 if (arr.equals(weeks)) {
-                    myContainer.removeAllViews()
-                    val monthformatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM")
                     var weekNumber = element.replace("U", "").toInt()
 
                     getdata = object : ValueEventListener {
@@ -246,8 +247,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                     database.addValueEventListener(getdata)
 
                 } else if (arr.equals(months)) {
-                    myContainer.removeAllViews()
-
                     getdata = object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot) {
                             for (i in p0.children) {
@@ -306,8 +305,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                     database.addValueEventListener(getdata)
 
                 } else if (arr.equals(years)) {
-                    myContainer.removeAllViews()
-
                     getdata = object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot) {
                             for (i in p0.children) {
@@ -383,7 +380,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun buttonPressed(button: Button, arr: ArrayList<String>, width: Int, current: Int){
-        var count = 0
+        myContainer.removeAllViews()
         week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
         month.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
         year.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
@@ -460,6 +457,121 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 }
 
                 database.addValueEventListener(getdata)
+
+            } else if (arr.equals(months)) {
+                getdata = object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
+                        for (i in p0.children) {
+
+                            var dateUn: String = i.child("unformattedDate").value as String
+                            var eventdate = dateUn.split("-")
+
+                            if (eventdate[1].toInt() == current +1) {
+
+                                var title: String = i.child("title").value as String
+                                var dateStart: String = i.child("dateStart").value as String
+                                var dateEnd: String = i.child("dateEnd").value as String
+                                var timeStart: String = i.child("timeStart").value as String
+                                var timeEnd: String = i.child("timeEnd").value as String
+                                var location: String = i.child("location").value as String
+                                var des: String = i.child("des").value as String
+                                var allday: String = i.child("allDay").value as String
+                                var notis: String = i.child("notification").value as String
+                                var created: String = i.child("createdBy").value as String
+                                var doesRepeat: String = i.child("doesRepeat").value as String
+                                var par = i.child("participants").value.toString()
+
+
+                                var eventid = i.key.toString()
+
+                                createEventView(
+                                    title,
+                                    dateStart,
+                                    dateEnd,
+                                    timeStart,
+                                    timeEnd,
+                                    des,
+                                    location,
+                                    allday,
+                                    notis,
+                                    doesRepeat,
+                                    created,
+                                    eventid,
+                                    par,
+                                    myContainer
+                                )
+                            }
+                        }
+                        if (myContainer.childCount == 0) {
+                            whoops.visibility = View.VISIBLE
+                        } else {
+                            whoops.visibility = View.GONE
+                        }
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+                        println("err")
+                    }
+                }
+
+                database.addValueEventListener(getdata)
+
+            } else if (arr.equals(years)) {
+                getdata = object : ValueEventListener {
+                    override fun onDataChange(p0: DataSnapshot) {
+                        for (i in p0.children) {
+
+                            var dateUn: String = i.child("unformattedDate").value as String
+                            var eventdate = dateUn.split("-")
+
+                            if (eventdate[0].toInt() == current + 2019) {
+                                var title: String = i.child("title").value as String
+                                var dateStart: String = i.child("dateStart").value as String
+                                var dateEnd: String = i.child("dateEnd").value as String
+                                var timeStart: String = i.child("timeStart").value as String
+                                var timeEnd: String = i.child("timeEnd").value as String
+                                var location: String = i.child("location").value as String
+                                var des: String = i.child("des").value as String
+                                var allday: String = i.child("allDay").value as String
+                                var notis: String = i.child("notification").value as String
+                                var created: String = i.child("createdBy").value as String
+                                var doesRepeat: String = i.child("doesRepeat").value as String
+                                var par = i.child("participants").value.toString()
+
+
+                                var eventid = i.key.toString()
+
+                                createEventView(
+                                    title,
+                                    dateStart,
+                                    dateEnd,
+                                    timeStart,
+                                    timeEnd,
+                                    des,
+                                    location,
+                                    allday,
+                                    notis,
+                                    doesRepeat,
+                                    created,
+                                    eventid,
+                                    par,
+                                    myContainer
+                                )
+                            }
+                        }
+                        if (myContainer.childCount == 0) {
+                            whoops.visibility = View.VISIBLE
+                        } else {
+                            whoops.visibility = View.GONE
+                        }
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+                        println("err")
+                    }
+                }
+
+                database.addValueEventListener(getdata)
             }
         }
     }
@@ -490,7 +602,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var notText: TextView = ExpandableCardview.findViewById(R.id.notTekst)
         var reap: TextView = ExpandableCardview.findViewById(R.id.reap)
         var reaCon: ImageView = ExpandableCardview.findViewById(R.id.reaIcon)
-        var divdes: View = ExpandableCardview.findViewById(R.id.divdes)
         var divloc: View = ExpandableCardview.findViewById(R.id.divloc)
         var divnot: View = ExpandableCardview.findViewById(R.id.divnot)
         var by: TextView = ExpandableCardview.findViewById(R.id.by)
@@ -548,9 +659,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         if (des.equals("") && location.equals("")){
             divpar.visibility = View.GONE
         }
-
-
-
 
         titleLayout.setOnClickListener {
             expandList(sumLayout, expand)}
