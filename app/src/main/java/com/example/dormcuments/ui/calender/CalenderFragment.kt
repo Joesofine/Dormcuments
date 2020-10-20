@@ -338,6 +338,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                     st = parti.text.toString() + ", " + rn
                     parti.text = st
                 }
+                st = parti.text.toString()
 
                 database.child(eventid).child("participants").setValue(st).addOnSuccessListener {
                     Toast.makeText(context, "succesfully joined event", Toast.LENGTH_SHORT).show()
