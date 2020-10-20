@@ -21,11 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.fragment_calender.*
-import kotlinx.android.synthetic.main.list_element_meeting.*
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
 import java.time.temporal.WeekFields
 import java.util.*
@@ -242,9 +238,10 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
         }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("InflateParams", "UseSwitchCompatOrMaterialCode", "SetTextI18n")
     private fun createEventView(
-        title: String, dateStart: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
+        title: String, dateStart: String, unformattedDate: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
         allDay: String, notification: String, doesRepeat: String, createdBy: String,
         eventid: String, par: String, myContainer: LinearLayout
     ){
@@ -276,9 +273,14 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         val switch: Switch = ExpandableCardview.findViewById(R.id.joinSwitch)
         val parti: TextView = ExpandableCardview.findViewById(R.id.parti)
         val divpar:View = ExpandableCardview.findViewById(R.id.divdes4)
+        val uf: TextView = ExpandableCardview.findViewById(R.id.unformatted)
+
+        var eventdate = unformattedDate.split("-")
+        var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
 
         eventtitle.text = title
         Date.text = dateStart
+        uf.text = unformattedDate
         by.text = "Created by:\n$createdBy"
         parti.text = par
 
@@ -311,7 +313,50 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
         titleLayout.setOnClickListener { expandList(sumLayout, expand)}
         setSwitchForCurrentUser(switch, parti, eventid)
-        myContainer.addView(ExpandableCardview)
+
+
+        if (myContainer.childCount == 0) {
+            myContainer.addView(ExpandableCardview)
+        } else {
+            for (i in 0..myContainer.childCount - 1) {
+                val ufd = myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
+                val elementDate = LocalDate.of(ufd[0].toInt(),ufd[1].toInt(),ufd[2].toInt())
+
+                if (elementDate.isAfter(local) || elementDate.isEqual(local) ) {
+                    myContainer.addView(ExpandableCardview, i)
+                    break
+
+                } else if (local.isAfter(elementDate)) {
+                    if (i == myContainer.childCount - 1) {
+                        myContainer.addView(ExpandableCardview)
+                        break
+
+                    } else {
+                        val ufdK = myContainer.getChildAt(i+1).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
+                        val elementDateK = LocalDate.of(ufdK[0].toInt(),ufdK[1].toInt(),ufdK[2].toInt())
+
+                        if (local.isBefore(elementDateK) || local.isEqual(elementDateK)) {
+                            myContainer.addView(ExpandableCardview, i + 1)
+                            break
+
+                        } else {
+
+                            for (j in i + 1..myContainer.childCount - 1) {
+                                val ufdJ = myContainer.getChildAt(j).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
+                                val elementDateJ = LocalDate.of(ufdJ[0].toInt(), ufdJ[1].toInt(), ufdJ[2].toInt())
+
+                                if (local.isBefore(elementDateJ)) {
+                                    myContainer.addView(ExpandableCardview, j)
+                                    break
+
+                                }
+                            }
+                        }
+                        break
+                    }
+                }
+            }
+        }
     }
 
     private fun expandList(
@@ -418,7 +463,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         database.addValueEventListener(getdata)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun eventDateCall(i: DataSnapshot){
+        var dateUn: String = i.child("unformattedDate").value as String
         var title: String = i.child("title").value as String
         var dateStart: String = i.child("dateStart").value as String
         var dateEnd: String = i.child("dateEnd").value as String
@@ -433,7 +480,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var par = i.child("participants").value.toString()
         var eventid = i.key.toString()
 
-        createEventView(title, dateStart, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, myContainer)
+        createEventView(title, dateStart, dateUn, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, myContainer)
     }
 
     private fun setWhoops(){
