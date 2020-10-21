@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Mon. 13. jul 2020"
+                android:text="Monday"
                 android:textColor="@color/Black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -296,6 +296,7 @@
                         android:layout_marginTop="20dp"
                         android:src="@drawable/repeat_icon"
                         android:tint="@color/Black"
+                        app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toBottomOf="@+id/dateEnd2" />
 
@@ -306,6 +307,7 @@
                         android:src="@drawable/location_icon"
                         android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/loctext"
+                        app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/reaIcon"
                         app:layout_constraintTop_toTopOf="@+id/loctext" />
 
@@ -316,6 +318,7 @@
                         android:src="@drawable/notis_icon"
                         android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/notTekst"
+                        app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toTopOf="@+id/notTekst" />
 
@@ -325,6 +328,7 @@
                         android:layout_height="0dp"
                         android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/des"
+                        app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toTopOf="@+id/des"
                         app:srcCompat="@drawable/ic_baseline_description_24" />
@@ -357,6 +361,7 @@
                         android:layout_height="0dp"
                         android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/parti"
+                        app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toTopOf="@+id/parti"
                         app:srcCompat="@drawable/participants_icon_white" />

@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
 import java.time.temporal.WeekFields
 import java.util.*
@@ -243,8 +244,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private fun createEventView(
         title: String, dateStart: String, unformattedDate: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
         allDay: String, notification: String, doesRepeat: String, createdBy: String,
-        eventid: String, par: String, myContainer: LinearLayout
-    ){
+        eventid: String, par: String, myContainer: LinearLayout, arr: ArrayList<String>){
 
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_calendar, null, false)
@@ -279,10 +279,21 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
 
         eventtitle.text = title
-        Date.text = dateStart
         uf.text = unformattedDate
         by.text = "Created by:\n$createdBy"
         parti.text = par
+
+        val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH)
+        val dayAndMonthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM", Locale.ENGLISH)
+        val yearFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.ENGLISH)
+
+        if (arr.equals(weeks)){
+            Date.text = local.format(dayOfWeekFormatter)
+        } else if (arr.equals(months)){
+            Date.text = local.format(dayAndMonthFormatter)
+        } else {
+            Date.text = local.format(yearFormatter)
+        }
 
         if (allDay.equals("true")) {
             startTime.visibility = View.GONE
@@ -444,11 +455,11 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                         val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
 
                         if (local.get(woy) == relevantDatePart){
-                            eventDateCall(i)
+                            eventDateCall(i, arr)
                         }
                     } else {
                         if (eventdate[DateIndex].toInt() == relevantDatePart) {
-                            eventDateCall(i)
+                            eventDateCall(i, arr)
                         }
                     }
                 }
@@ -460,11 +471,11 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             }
         }
 
-        database.addValueEventListener(getdata)
+        database.addListenerForSingleValueEvent(getdata)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun eventDateCall(i: DataSnapshot){
+    private fun eventDateCall(i: DataSnapshot, arr: ArrayList<String>){
         var dateUn: String = i.child("unformattedDate").value as String
         var title: String = i.child("title").value as String
         var dateStart: String = i.child("dateStart").value as String
@@ -480,7 +491,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var par = i.child("participants").value.toString()
         var eventid = i.key.toString()
 
-        createEventView(title, dateStart, dateUn, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, myContainer)
+        createEventView(title, dateStart, dateUn, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, myContainer, arr)
     }
 
     private fun setWhoops(){
