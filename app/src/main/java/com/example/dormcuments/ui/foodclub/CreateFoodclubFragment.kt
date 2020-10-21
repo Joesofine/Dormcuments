@@ -1,16 +1,20 @@
 package com.example.dormcuments.ui.foodclub
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_create_foodclub.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class CreateFoodclubFragment : Fragment() , View.OnClickListener{
@@ -18,6 +22,7 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
     var choosenDate = ""
     var unform = ""
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +35,10 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH))
 
         { view, year, month, day ->
-            val month = month + 1
-            val msg = "$day/$month"
+            val local = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
+            //val month = month + 1
+            val Formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM", Locale.ENGLISH)
+            val msg = local.format(Formatter)
             unform = "$day/$month/$year"
             root.findViewById<EditText>(R.id.date2).setText(msg)
             choosenDate = msg
@@ -51,32 +58,31 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
+            Toast.makeText(context, "hej", Toast.LENGTH_SHORT).show()
             val din = dinner.text.toString()
             val not = note.text.toString()
 
-            if (spinner_c1.selectedItem.toString() != "None" || spinner_c2.selectedItem.toString() != "None") {
-                if (spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) {
+            if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
                     Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show()
-                } else if (choosenDate == "") {
+            } else if (choosenDate == "") {
                     date2.error = "Please choose a date"
-                } else {
+            } else {
 
-                    val clubid = database.push().key
-                    val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, "", "", unform)
+                val clubid = database.push().key
+                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, "", "", unform)
 
-                    if (clubid != null) {
+                if (clubid != null) {
 
-                        database.child(clubid).setValue(club)
-                            .addOnSuccessListener {
-                                Toast.makeText(context, "Foodclub been created", Toast.LENGTH_SHORT).show()
-                                requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, FoodclubFragment()).addToBackStack(null)
-                                    .commit()
-                            }
-                            .addOnFailureListener {
-                                // Write failed
-                                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-                            }
-                    }
+                    database.child(clubid).setValue(club)
+                        .addOnSuccessListener {
+                            Toast.makeText(context, "Foodclub been created", Toast.LENGTH_SHORT).show()
+                            requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, FoodclubFragment()).addToBackStack(null)
+                                .commit()
+                        }
+                        .addOnFailureListener {
+                            // Write failed
+                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                        }
                 }
             }
         }

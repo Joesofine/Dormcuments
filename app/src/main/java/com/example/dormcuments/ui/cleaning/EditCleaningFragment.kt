@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.google.firebase.database.DataSnapshot
@@ -17,10 +19,13 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_create_cleaning.*
+import kotlinx.android.synthetic.main.fragment_create_foodclub.*
 import kotlinx.android.synthetic.main.fragment_edit_food.date2
 import kotlinx.android.synthetic.main.fragment_edit_food.note
 import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c1
 import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c2
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class EditCleaningFragment : Fragment() {
@@ -32,6 +37,7 @@ class EditCleaningFragment : Fragment() {
     var unform = ""
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,8 +87,9 @@ class EditCleaningFragment : Fragment() {
 
         datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
                 view, year, month, day ->
-            val month = month + 1
-            val msg = "$day/$month"
+            val local = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
+            val Formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM", Locale.ENGLISH)
+            val msg = local.format(Formatter)
             unform = "$day/$month/$year"
             root.findViewById<EditText>(R.id.date2).setText(msg)
             choosenDate = msg
@@ -135,7 +142,9 @@ class EditCleaningFragment : Fragment() {
             val stat = stats.text.toString()
 
 
-            if (choosenDate == "") {
+            if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
+                Toast.makeText(context, "Cannot select the same cleaner twice", Toast.LENGTH_SHORT).show()
+            } else if (choosenDate == "") {
                 date2.error = "Please choose a date"
             } else {
 

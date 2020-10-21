@@ -1,6 +1,7 @@
 package com.example.dormcuments.ui.cleaning
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
@@ -10,6 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
@@ -18,6 +20,8 @@ import kotlinx.android.synthetic.main.fragment_create_foodclub.date2
 import kotlinx.android.synthetic.main.fragment_create_foodclub.note
 import kotlinx.android.synthetic.main.fragment_create_foodclub.spinner_c1
 import kotlinx.android.synthetic.main.fragment_create_foodclub.spinner_c2
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -28,6 +32,7 @@ class CreateCleaningFragment() : Fragment() {
     var unform = ""
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +52,9 @@ class CreateCleaningFragment() : Fragment() {
         )
 
         { view, year, month, day ->
-            val month = month + 1
-            val msg = "$day/$month"
+            val local = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
+            val Formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM", Locale.ENGLISH)
+            val msg = local.format(Formatter)
             unform = "$day/$month/$year"
             root.findViewById<EditText>(R.id.date2).setText(msg)
             choosenDate = msg
@@ -82,7 +88,9 @@ class CreateCleaningFragment() : Fragment() {
             val tas = task.text.toString()
             val not = note.text.toString()
 
-            if (choosenDate == "") {
+            if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
+                Toast.makeText(context, "Cannot select the same cleaner twice", Toast.LENGTH_SHORT).show()
+            } else if (choosenDate == "") {
                 date2.error = "Please choose a date"
             } else {
 
