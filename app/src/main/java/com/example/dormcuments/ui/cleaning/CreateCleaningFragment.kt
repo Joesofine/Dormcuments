@@ -25,6 +25,8 @@ class CreateCleaningFragment() : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Cleaning")
     var choosenDate = ""
     var str = ""
+    var unform = ""
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -47,6 +49,7 @@ class CreateCleaningFragment() : Fragment() {
         { view, year, month, day ->
             val month = month + 1
             val msg = "$day/$month"
+            unform = "$day/$month/$year"
             root.findViewById<EditText>(R.id.date2).setText(msg)
             choosenDate = msg
             datePicker.visibility = View.GONE
@@ -90,7 +93,7 @@ class CreateCleaningFragment() : Fragment() {
                     choosenDate,
                     tas,
                     not,
-                    "Unchecked"
+                    "Unchecked", unform
                 )
 
                 if (cleaningid != null) {

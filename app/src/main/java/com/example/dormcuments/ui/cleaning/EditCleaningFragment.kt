@@ -29,6 +29,8 @@ class EditCleaningFragment : Fragment() {
     var choosenDate = ""
     var str = ""
     var status: Boolean = false
+    var unform = ""
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -81,6 +83,7 @@ class EditCleaningFragment : Fragment() {
                 view, year, month, day ->
             val month = month + 1
             val msg = "$day/$month"
+            unform = "$day/$month/$year"
             root.findViewById<EditText>(R.id.date2).setText(msg)
             choosenDate = msg
             datePicker.visibility = View.GONE
@@ -137,7 +140,7 @@ class EditCleaningFragment : Fragment() {
             } else {
 
                 //var cleanningid = bundle?.getString("id")
-                val cleaning = Cleaning(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, tas, not, stat)
+                val cleaning = Cleaning(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, tas, not, stat, unform)
 
 
                 if (cleaningid != null) {
