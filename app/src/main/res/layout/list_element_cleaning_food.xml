@@ -64,6 +64,16 @@
             android:text="01"
             app:layout_constraintEnd_toStartOf="@+id/textView9"
             app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/unformatted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="shhh"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/date"
+            app:layout_constraintStart_toEndOf="@+id/date"
+            app:layout_constraintTop_toTopOf="@+id/date" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

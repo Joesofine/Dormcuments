@@ -16,6 +16,7 @@ import java.util.*
 class CreateFoodclubFragment : Fragment() , View.OnClickListener{
     var database = FirebaseDatabase.getInstance().getReference("Foodclub")
     var choosenDate = ""
+    var unform = ""
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -31,6 +32,7 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         { view, year, month, day ->
             val month = month + 1
             val msg = "$day/$month"
+            unform = "$day/$month/$year"
             root.findViewById<EditText>(R.id.date2).setText(msg)
             choosenDate = msg
             datePicker.visibility = View.GONE
@@ -60,7 +62,7 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
                 } else {
 
                     val clubid = database.push().key
-                    val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, "", "")
+                    val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, "", "", unform)
 
                     if (clubid != null) {
 
