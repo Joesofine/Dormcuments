@@ -14,7 +14,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/more_button"
+        android:background="@drawable/white_round_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="EventTitle"
-                android:textColor="@color/White"
+                android:textColor="@color/Black"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -48,7 +48,7 @@
                 android:layout_height="21dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:tint="@color/White"
+                android:tint="@color/Black"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/date"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="Mon. 13. jul 2020"
-                android:textColor="@color/White"
+                android:textColor="@color/Black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/eventTitle"
@@ -116,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Does not reapet"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/dateEnd2"
                         app:layout_constraintTop_toTopOf="@+id/reaIcon" />
@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="description"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/dateEnd2"
                         app:layout_constraintTop_toBottomOf="@+id/divdes" />
@@ -137,7 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="13.00"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         app:layout_constraintEnd_toEndOf="@+id/timeStart2"
                         app:layout_constraintTop_toTopOf="@+id/dateEnd2" />
 
@@ -149,7 +149,7 @@
                         android:layout_marginLeft="50dp"
                         android:layout_marginTop="20dp"
                         android:text="Mon. 13. Jul. 2020"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/all" />
 
@@ -160,7 +160,7 @@
                         android:layout_marginEnd="50dp"
                         android:layout_marginRight="50dp"
                         android:text="12.00"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/dateStart2" />
 
@@ -172,6 +172,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="20dp"
                         android:src="@drawable/time_icon"
+                        android:tint="@color/Black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/divider19" />
 
@@ -181,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Mon. 13. Jul. 2020"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         app:layout_constraintStart_toStartOf="@+id/dateStart2"
                         app:layout_constraintTop_toBottomOf="@+id/dateStart2" />
 
@@ -191,7 +192,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="All day"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         app:layout_constraintStart_toStartOf="@+id/dateStart2"
                         app:layout_constraintTop_toBottomOf="@+id/divider19" />
 
@@ -260,7 +261,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="30 min"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/dateEnd2"
                         app:layout_constraintTop_toBottomOf="@+id/divnot" />
@@ -283,7 +284,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="location"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/dateEnd2"
                         app:layout_constraintTop_toBottomOf="@+id/divloc" />
@@ -294,6 +295,7 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="20dp"
                         android:src="@drawable/repeat_icon"
+                        android:tint="@color/Black"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toBottomOf="@+id/dateEnd2" />
 
@@ -302,6 +304,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/location_icon"
+                        android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/loctext"
                         app:layout_constraintStart_toStartOf="@+id/reaIcon"
                         app:layout_constraintTop_toTopOf="@+id/loctext" />
@@ -311,6 +314,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:src="@drawable/notis_icon"
+                        android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/notTekst"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toTopOf="@+id/notTekst" />
@@ -319,6 +323,7 @@
                         android:id="@+id/desCon"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
+                        android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/des"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toTopOf="@+id/des"
@@ -331,7 +336,7 @@
                         android:layout_marginTop="20dp"
                         android:gravity="center"
                         android:text="Created by: Josephine, 910"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/divdes3" />
@@ -342,7 +347,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Participants"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         app:layout_constraintStart_toStartOf="@+id/dateEnd2"
                         app:layout_constraintTop_toBottomOf="@+id/divdes4" />
 
@@ -350,6 +355,7 @@
                         android:id="@+id/parcon"
                         android:layout_width="18dp"
                         android:layout_height="0dp"
+                        android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/parti"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toTopOf="@+id/parti"
@@ -361,7 +367,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:text="Join?"
-                        android:textColor="@color/White"
+                        android:textColor="@color/Black"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@+id/dateEnd2"
                         app:layout_constraintTop_toBottomOf="@+id/divnot2" />

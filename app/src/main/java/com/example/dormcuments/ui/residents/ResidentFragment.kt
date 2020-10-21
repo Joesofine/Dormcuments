@@ -143,8 +143,17 @@ class ResidentFragment : Fragment() {
         age.text = getAge(birthday[2].toInt() ,birthday[1].toInt() ,birthday[0].toInt())
         birth.text = bdate
         from.text = sfrom
-        diet.text = food
-        funny.text = fact
+
+        if (food.equals("")){
+            diet.text = "None"
+        } else {
+            diet.text = food
+        }
+        if (fact.equals("")){
+            funny.text = "I'm not very funny"
+        } else {
+            funny.text = fact
+        }
 
         titleLayout.setOnClickListener { expandList(sumLayout, expand) }
 
