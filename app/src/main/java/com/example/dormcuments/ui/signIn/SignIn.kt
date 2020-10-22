@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -66,6 +67,7 @@ class SignIn : AppCompatActivity() {
         setIconsTint(password, R.drawable.password_icon_white, R.drawable.password_icon_tint)
 
         signIpButton.setOnClickListener(View.OnClickListener {
+            progressBar10.visibility = View.VISIBLE
             signIn(mail.text.toString().toLowerCase().replace(" ", ""), password.text.toString())
         })
 
@@ -91,6 +93,7 @@ class SignIn : AppCompatActivity() {
         login.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
+                    progressBar10.visibility = View.VISIBLE
                     val credenials =
                         FacebookAuthProvider.getCredential(loginResult.accessToken.token);
 
@@ -117,9 +120,12 @@ class SignIn : AppCompatActivity() {
                                                         Toast.LENGTH_SHORT
                                                     ).show()
                                                     startActivity(Intent(applicationContext, SignUpWithFacebookFragment::class.java))
+                                                    progressBar10.visibility = View.GONE
+
                                                 }
                                                 .addOnFailureListener {
                                                     // Write failed
+                                                    progressBar10.visibility = View.GONE
                                                     Toast.makeText(
                                                         applicationContext,
                                                         "Try again",
@@ -148,15 +154,19 @@ class SignIn : AppCompatActivity() {
                         } else {
                             println("Facebook token: " + loginResult.accessToken.token)
                             startActivity(Intent(applicationContext, MainActivity::class.java))
+                            progressBar10.visibility = View.GONE
                         }
                     }
                 }
 
                 override fun onCancel() {
-                    println("Facebook onCancel"); }
+                    println("Facebook onCancel");
+                    progressBar10.visibility = View.GONE
+                }
 
                 override fun onError(error: FacebookException) {
                     println("Facebook onError")
+                    progressBar10.visibility = View.GONE
                 }
             })
     }
@@ -199,9 +209,11 @@ class SignIn : AppCompatActivity() {
                     Log.d(TAG, "signInWithEmail:success")
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     startActivity(intent)
+                    progressBar10.visibility = View.GONE
                     val user = auth.currentUser
                 } else {
                     // If sign in fails, display a message to the user.
+                    progressBar10.visibility = View.GONE
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext, "Authentication failed.",
@@ -213,6 +225,7 @@ class SignIn : AppCompatActivity() {
                 if (!task.isSuccessful) {
                     status.setText(R.string.auth_failed)
                     status.visibility = View.VISIBLE
+                    progressBar10.visibility = View.GONE
                 }
                 // [END_EXCLUDE]
             }
@@ -240,42 +253,7 @@ class SignIn : AppCompatActivity() {
         return valid
     }
 
-    private fun getFbInfo() {
-        val request: GraphRequest = GraphRequest.newMeRequest(
-            AccessToken.getCurrentAccessToken(),
-            object : GraphRequest.GraphJSONObjectCallback {
-                override fun onCompleted(
-                    `object`: JSONObject,
-                    response: GraphResponse
-                ) {
-                    try {
-                        val id: String = `object`.getString("id")
-                        val first_name: String = `object`.getString("first_name")
-                        val last_name: String = `object`.getString("last_name")
-                        val gender: String = `object`.getString("gender")
-                        val birthday: String = `object`.getString("birthday")
-                        val image_url = "http://graph.facebook.com/$id/picture?type=large"
-                        val email: String
-                        if (`object`.has("email")) {
-                            email = `object`.getString("email")
-                        }
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
-                    }
-                }
-            })
-        val parameters = Bundle()
-        parameters.putString(
-            "fields",
-            "id,first_name,last_name,email,gender,birthday"
-        ) // id,first_name,last_name,email,gender,birthday,cover,picture.type(large)
-        request.setParameters(parameters)
-        request.executeAsync()
-    }
-
-
     companion object {
         private const val TAG = "EmailPassword"
-        private const val RC_MULTI_FACTOR = 9005
     }
 }
