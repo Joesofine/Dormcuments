@@ -31,6 +31,8 @@ class FoodDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_food_details, container, false)
+        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar9)
+        progressBar.visibility = View.VISIBLE
         val bundle = this.arguments
         val checked = root.findViewById<Switch>(R.id.switchJoin)
         var ch1 = ""
@@ -97,7 +99,7 @@ class FoodDetailsFragment : Fragment() {
                         setId(clubid)
                     }
                 }
-
+                progressBar.visibility = View.GONE
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
         }
