@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
+import com.example.dormcuments.ui.cleaning.CleaningDetailsFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -70,7 +71,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         month = root.findViewById(R.id.month)
         year = root.findViewById(R.id.year)
         whoops = root.findViewById(R.id.whoops)
-        progressBar = root.findViewById<ProgressBar>(R.id.progressBar2)
+        progressBar = root.findViewById(R.id.progressBar2)
 
 
 
@@ -279,6 +280,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         val parti: TextView = ExpandableCardview.findViewById(R.id.parti)
         val divpar:View = ExpandableCardview.findViewById(R.id.divdes4)
         val uf: TextView = ExpandableCardview.findViewById(R.id.unformatted)
+        val editEvent: ImageView = ExpandableCardview.findViewById(R.id.editEvent)
 
         var eventdate = unformattedDate.split("-")
         var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
@@ -329,6 +331,15 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
         titleLayout.setOnClickListener { expandList(sumLayout, expand)}
         setSwitchForCurrentUser(switch, parti, eventid)
+
+        editEvent.setOnClickListener{
+            val bundle = Bundle()
+            bundle.putString("id", eventid)
+            val fragment2 = EditEventFragment()
+            fragment2.arguments = bundle
+            fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
+        }
+
 
 
         if (myContainer.childCount == 0) {
