@@ -25,8 +25,9 @@ class MeetingFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         var root = inflater.inflate(R.layout.fragment_meeting, container, false)
-
         myContainer = root.findViewById(R.id.LinScroll)
+        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar5)
+        progressBar.visibility = View.VISIBLE
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
@@ -37,6 +38,7 @@ class MeetingFragment : Fragment() {
 
                     createTopic(name1, sum1, topicId, myContainer)
                 }
+                progressBar.visibility = View.GONE
             }
 
             override fun onCancelled(p0: DatabaseError) {

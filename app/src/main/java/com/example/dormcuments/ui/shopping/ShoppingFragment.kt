@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
@@ -26,8 +23,9 @@ class ShoppingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_shopping, container, false)
-
         myContainer = root.findViewById(R.id.LinScroll)
+        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar7)
+        progressBar.visibility = View.VISIBLE
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
@@ -38,6 +36,7 @@ class ShoppingFragment : Fragment() {
 
                     createTopic(name1, itemId, myContainer)
                 }
+                progressBar.visibility = View.GONE
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
         }

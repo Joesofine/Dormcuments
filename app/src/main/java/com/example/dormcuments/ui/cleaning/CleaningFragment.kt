@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.doOnAttach
@@ -32,6 +33,10 @@ class CleaningFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_cleaning, container, false)
         myContainer = root.findViewById(R.id.LinScroll)
+        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar3)
+        progressBar.visibility = View.VISIBLE
+
+
 
         getdata = object : ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
@@ -45,6 +50,8 @@ class CleaningFragment : Fragment() {
 
                     createCleaning(cleaner1,cleaner2, date1, cleaningid, unform, myContainer)
                 }
+                progressBar.visibility = View.GONE
+
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
         }

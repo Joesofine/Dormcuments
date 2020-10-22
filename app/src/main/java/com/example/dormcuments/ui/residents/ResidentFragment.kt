@@ -11,10 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnAttach
@@ -47,7 +44,9 @@ class ResidentFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_residents, container, false)
-        residentLayout = root.findViewById(R.id.residentLayout);
+        residentLayout = root.findViewById(R.id.residentLayout)
+        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar6)
+        progressBar.visibility = View.VISIBLE
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
@@ -61,6 +60,7 @@ class ResidentFragment : Fragment() {
 
                     createResident(name, roomnumber, date, from, diet, fact, residentLayout)
                 }
+                progressBar.visibility = View.GONE
             }
             override fun onCancelled(p0: DatabaseError) {
                 println("err")

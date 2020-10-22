@@ -45,6 +45,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private lateinit var year: Button
     private lateinit var scroll: HorizontalScrollView
     private lateinit var whoops: TextView
+    private lateinit var progressBar: ProgressBar
     var targetHeight = 0
     var targetWidth = 0
     private var current_week: Int = 0
@@ -69,6 +70,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         month = root.findViewById(R.id.month)
         year = root.findViewById(R.id.year)
         whoops = root.findViewById(R.id.whoops)
+        progressBar = root.findViewById<ProgressBar>(R.id.progressBar2)
+
+
 
         week.setOnClickListener(this)
         month.setOnClickListener(this)
@@ -208,6 +212,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun buttonPressed(button: Button, arr: ArrayList<String>, width: Int, current: Int){
+        progressBar.visibility = View.VISIBLE
         myContainer.removeAllViews()
         week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
         month.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
@@ -464,6 +469,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                     }
                 }
                 setWhoops()
+                progressBar.visibility = View.GONE
             }
 
             override fun onCancelled(p0: DatabaseError) {

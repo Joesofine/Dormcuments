@@ -44,6 +44,8 @@ class CleaningDetailsFragment : Fragment() {
         val extraTask = root.findViewById<ConstraintLayout>(R.id.extraTask)
         val expandWeekly = root.findViewById<ImageView>(R.id.expandWeekly)
         val expandExtra = root.findViewById<ImageView>(R.id.expandExtra)
+        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar8)
+        progressBar.visibility = View.VISIBLE
 
         auth = Firebase.auth
         val bundle = this.arguments
@@ -79,6 +81,7 @@ class CleaningDetailsFragment : Fragment() {
                         setVisiblityOnExtra(extras)
                     }
                 }
+                progressBar.visibility = View.GONE
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
         }

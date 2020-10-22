@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.doOnAttach
@@ -34,6 +35,8 @@ class FoodclubFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_foodclub, container, false)
         myContainer = root.findViewById(R.id.LinScroll)
+        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar4)
+        progressBar.visibility = View.VISIBLE
 
         getdata = object : ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
@@ -48,6 +51,7 @@ class FoodclubFragment : Fragment() {
 
                     createClub(chef1,chef2, date1, clubid, unform, myContainer)
                 }
+                progressBar.visibility = View.GONE
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
         }

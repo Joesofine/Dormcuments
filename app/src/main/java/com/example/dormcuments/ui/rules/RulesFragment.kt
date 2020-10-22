@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.example.dormcuments.R
+import kotlinx.android.synthetic.main.fragment_rules.*
 import kotlinx.coroutines.*
 import java.net.URL
 import java.util.ArrayList
@@ -19,7 +21,8 @@ class RulesFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_rules, container, false)
-
+        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar)
+        progressBar.visibility = View.VISIBLE
 
         ruleArr.clear()
 
@@ -34,6 +37,8 @@ class RulesFragment : Fragment() {
                 for (i: Int in 0..csv.size-1) {
                     val rule = csv[i].replace("\"", "")//.split(",")[0]
                     ruleArr.add(rule)
+                    progressBar.visibility = View.GONE
+
                 }
 
                 if (ruleArr.size != 0) {
