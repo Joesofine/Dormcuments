@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:473127585653:android:a8300ec151b110614b753c",
         "android_client_info": {
-          "package_name": "com.example.dormcuments"
+          "package_name": "com.joeSoFine.dormcuments"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "473127585653-3qolddsu3gfou6s7i3fp3qgrdhokfnsj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.dormcuments",
+            "package_name": "com.joeSoFine.dormcuments",
             "certificate_hash": "729e2538ca0148302acea0458badaa5c32a3a08e"
           }
         },

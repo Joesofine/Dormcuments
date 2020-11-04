@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/calender"
-        android:name="com.example.dormcuments.ui.calender.CalenderFragment"
+        android:name="com.joeSoFine.dormcuments.ui.calender.CalenderFragment"
         android:label="@string/title_calender"
         tools:layout="@layout/fragment_calender" />
 
     <fragment
         android:id="@+id/shopping"
-        android:name="com.example.dormcuments.ui.shopping.ShoppingFragment"
+        android:name="com.joeSoFine.dormcuments.ui.shopping.ShoppingFragment"
         android:label="@string/title_shopping"
         tools:layout="@layout/fragment_shopping" />
 
     <fragment
         android:id="@+id/foodclub"
-        android:name="com.example.dormcuments.ui.foodclub.FoodclubFragment"
+        android:name="com.joeSoFine.dormcuments.ui.foodclub.FoodclubFragment"
         android:label="@string/title_foodclub"
         tools:layout="@layout/fragment_foodclub" />
 
     <fragment
         android:id="@+id/more"
-        android:name="com.example.dormcuments.ui.more.MoreFragment"
+        android:name="com.joeSoFine.dormcuments.ui.more.MoreFragment"
         android:label="@string/title_more"
         tools:layout="@layout/fragment_more" />
 

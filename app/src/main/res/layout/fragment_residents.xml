@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/profileButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:tint="@color/White"
+        app:layout_constraintBottom_toBottomOf="@+id/helpButton"
+        app:layout_constraintEnd_toStartOf="@+id/helpButton"
+        app:srcCompat="@drawable/profile_icon" />
+
     <ProgressBar
         android:id="@+id/progressBar6"
         style="?android:attr/progressBarStyle"
@@ -39,8 +50,6 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_help_24"
@@ -75,17 +84,5 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
-
-    <ImageView
-        android:id="@+id/profileButton"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:tint="@color/White"
-        app:layout_constraintBottom_toBottomOf="@+id/helpButton"
-        app:layout_constraintEnd_toStartOf="@+id/helpButton"
-        app:layout_constraintTop_toTopOf="@+id/helpButton"
-        app:srcCompat="@drawable/profile_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

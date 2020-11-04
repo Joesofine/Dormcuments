@@ -33,7 +33,7 @@
             app:backgroundTint="@color/White"
             android:inputType="textPersonName|textCapSentences"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/addItem"
+            app:layout_constraintEnd_toStartOf="@+id/addItem2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +46,7 @@
             android:background="#00FFFFFF"
             android:src="@drawable/ic_baseline_add_shopping_cart_24"
             android:tint="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="@+id/inputItem"
+            app:layout_constraintBottom_toBottomOf="@+id/inputItem2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/inputItem2" />
     </androidx.constraintlayout.widget.ConstraintLayout>

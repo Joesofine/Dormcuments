@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dormcuments">
+    package="com.joeSoFine.dormcuments">
 
     <application
         android:allowBackup="true"
@@ -9,14 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.signIn.SignUpWithFacebookFragment"></activity>
+        <activity android:name="com.joeSoFine.dormcuments.ui.signIn.SignUpWithFacebookFragment"></activity>
         <activity android:name=".ui.signIn.AuthenticatedActivity"></activity>
-        <activity android:name=".ui.signIn.SignUp_Image"></activity>
-        <activity android:name=".ui.signIn.SignUp" />
-        <activity android:name=".ui.signIn.ForgottenPassword" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.joeSoFine.dormcuments.ui.signIn.SignUp_Image"></activity>
+        <activity android:name="com.joeSoFine.dormcuments.ui.signIn.SignUp" />
+        <activity android:name="com.joeSoFine.dormcuments.ui.signIn.ForgottenPassword" />
+        <activity android:name="com.joeSoFine.dormcuments.MainActivity" />
         <activity
-            android:name=".ui.signIn.SignIn"
+            android:name="com.joeSoFine.dormcuments.ui.signIn.SignIn"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
