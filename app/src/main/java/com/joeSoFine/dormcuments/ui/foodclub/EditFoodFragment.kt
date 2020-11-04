@@ -190,5 +190,5 @@ class EditFoodFragment : Fragment() {
             Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
             getFragmentManager()?.popBackStack()
             getFragmentManager()?.popBackStack()
-        }
+    }
 }

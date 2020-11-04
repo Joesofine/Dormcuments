@@ -16,6 +16,19 @@
             android:layout_height="match_parent"
             android:paddingBottom="30dp">
 
+            <ImageView
+                android:id="@+id/delete4"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/trash_icon"
+                tools:ignore="VectorDrawableCompat" />
+
             <DatePicker
                 android:id="@+id/datePickerEnd"
                 android:layout_width="wrap_content"
@@ -207,8 +220,7 @@
 
             <EditText
                 android:id="@+id/eventTitle"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:drawablePadding="10dp"
                 android:hint="Title"
@@ -222,7 +234,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/timeStart"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/textView59"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="0dp" />
 
             <DatePicker
                 android:id="@+id/datePickerStart"
@@ -250,7 +263,8 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/trash_icon" />
+                app:srcCompat="@drawable/trash_icon"
+                tools:ignore="VectorDrawableCompat" />
 
             <Switch
                 android:id="@+id/allday"
@@ -339,7 +353,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/des"
                 app:layout_constraintStart_toStartOf="@+id/notIcon"
                 app:layout_constraintTop_toTopOf="@+id/des"
-                app:srcCompat="@drawable/ic_baseline_description_24" />
+                app:srcCompat="@drawable/ic_baseline_description_24"
+                tools:ignore="VectorDrawableCompat" />
 
             <TextView
                 android:id="@+id/createdText"

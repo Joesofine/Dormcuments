@@ -1,6 +1,7 @@
 package com.joeSoFine.dormcuments.ui.calender
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
@@ -54,8 +55,9 @@ class EditEventFragment: Fragment() {
         val today = Calendar.getInstance()
         val bundle = this.arguments
         eventid = bundle?.getString("id").toString()
-
         auth = Firebase.auth
+
+        root.findViewById<ImageView>(R.id.delete4).visibility = View.VISIBLE
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
@@ -151,6 +153,26 @@ class EditEventFragment: Fragment() {
             } else {
                 updateEvent(title, datStart, datEnd, timStart, timEnd, desc, locat, col, all, not, reapet, created)
             }
+        }
+
+        root.findViewById<ImageView>(R.id.delete4).setOnClickListener() {
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(R.string.dialogTitle)
+            builder.setMessage(R.string.dialogMessage)
+            builder.setIcon(R.drawable.ic_baseline_warning_24)
+
+            builder.setPositiveButton("Continue"){dialogInterface, which ->
+                if (eventid != null) {
+                    deleteEvent(eventid)
+                    Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
+                }
+            }
+            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+            }
+
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
 
         val myAdapterRea = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_reapets))
@@ -314,5 +336,13 @@ class EditEventFragment: Fragment() {
                     }
             }
         }
+    }
+    private fun deleteEvent(eventid: String){
+        var dName = database.child(eventid)
+
+        dName.removeValue()
+        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
+        getFragmentManager()?.popBackStack()
+        getFragmentManager()?.popBackStack()
     }
 }
