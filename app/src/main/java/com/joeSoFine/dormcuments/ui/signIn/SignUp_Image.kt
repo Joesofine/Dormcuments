@@ -20,18 +20,18 @@ import com.google.firebase.storage.ktx.storage
 import com.joeSoFine.dormcuments.R
 import kotlinx.android.synthetic.main.activity_sign_up.save
 import kotlinx.android.synthetic.main.activity_sign_up2.*
+import java.io.File
+import java.io.FileInputStream
 
 
 class SignUp_Image : AppCompatActivity() {
+
+    lateinit var imageUri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up2)
 
-        val storage = Firebase.storage
-        var storageRef = storage.reference
-        var imagesRef: StorageReference? = storageRef.child("images")
-        var spaceRef = storageRef.child("images/profile.jpg")
 
         choosePic.setOnClickListener(){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -54,6 +54,27 @@ class SignUp_Image : AppCompatActivity() {
         }
 
         save.setOnClickListener(View.OnClickListener {
+            val storage = Firebase.storage
+            var storageRef = storage.reference
+            var imagesRef: StorageReference? = storageRef.child("profile.jpg")
+            var spaceRef = storageRef.child("images/profile.jpg")
+
+            var file = imageUri
+            val riversRef = storageRef.child("images/${file.lastPathSegment}")
+
+            var uploadTask = riversRef.putFile(file)
+                uploadTask.addOnFailureListener {
+                    // Handle unsuccessful uploads
+                    Toast.makeText(applicationContext, "FAILED", Toast.LENGTH_SHORT).show()
+                }.addOnSuccessListener { taskSnapshot ->
+                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                    // ...
+                    riversRef.downloadUrl
+
+                    Toast.makeText(applicationContext, "SUCCES", Toast.LENGTH_SHORT).show()
+
+                }
+
             val intent = Intent(applicationContext, SignIn::class.java)
             startActivity(intent)
         })
@@ -94,7 +115,7 @@ class SignUp_Image : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            val imageUri: Uri? = data?.data
+            imageUri = data?.data!!
             downloaded_picture.setImageURI(imageUri)
             var bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
 

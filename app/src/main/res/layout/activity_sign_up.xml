@@ -163,6 +163,7 @@
                 android:inputType="none"
                 android:selectAllOnFocus="true"
                 android:textColorHint="@color/lightHint"
+                android:textColor="@color/White"
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
