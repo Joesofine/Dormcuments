@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.joeSoFine.dormcuments.ui.signIn.SignUpWithFacebookFragment"></activity>
-        <activity android:name=".ui.signIn.AuthenticatedActivity"></activity>
         <activity android:name="com.joeSoFine.dormcuments.ui.signIn.SignUp_Image"></activity>
         <activity android:name="com.joeSoFine.dormcuments.ui.signIn.SignUp" />
         <activity android:name="com.joeSoFine.dormcuments.ui.signIn.ForgottenPassword" />

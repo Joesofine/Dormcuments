@@ -51,6 +51,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private var current_week: Int = 0
     private var current_month: Int = 0
     private var current_year: Int = 0
+    private var bool: Boolean = false
 
 
 
@@ -340,15 +341,15 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
 
 
-
-        if (myContainer.childCount == 0) {
+        // Sorts events first date first
+        if (myContainer.childCount == 0) { // For empty list, input into index 0
             myContainer.addView(ExpandableCardview)
         } else {
             for (i in 0..myContainer.childCount - 1) {
                 val ufd = myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
                 val elementDate = LocalDate.of(ufd[0].toInt(),ufd[1].toInt(),ufd[2].toInt())
 
-                if (elementDate.isAfter(local) || elementDate.isEqual(local) ) {
+                if (elementDate.isAfter(local) || elementDate.isEqual(local) ) { // If the date of current and existing element is same or current is before, input before.
                     myContainer.addView(ExpandableCardview, i)
                     break
 
@@ -373,13 +374,16 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
                                 if (local.isBefore(elementDateJ)) {
                                     myContainer.addView(ExpandableCardview, j)
+                                    bool = true
                                     break
-
                                 }
                             }
                         }
-                        break
                     }
+                }
+                if (bool){
+                    bool = false
+                    break
                 }
             }
         }
@@ -465,16 +469,24 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                     var dateUn: String = i.child("unformattedDate").value as String
                     var eventdate = dateUn.split("-")
 
-                    if (arr.equals(weeks)){
-                        var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
-                        val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
-
-                        if (local.get(woy) == relevantDatePart){
+                    if (arr.equals(years)){
+                        if (eventdate[DateIndex].toInt() == relevantDatePart) {
                             eventDateCall(i, arr)
                         }
                     } else {
-                        if (eventdate[DateIndex].toInt() == relevantDatePart) {
-                            eventDateCall(i, arr)
+                        if (eventdate[0].toInt() == current_year) {
+                            if (arr.equals(weeks)) {
+                                var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
+                                val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
+
+                                if (local.get(woy) == relevantDatePart) {
+                                    eventDateCall(i, arr)
+                                }
+                            } else {
+                                if (eventdate[DateIndex].toInt() == relevantDatePart) {
+                                    eventDateCall(i, arr)
+                                }
+                            }
                         }
                     }
                 }
