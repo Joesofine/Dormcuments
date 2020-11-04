@@ -408,6 +408,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginTop="5dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/by"
                         app:layout_constraintStart_toStartOf="@+id/by"
                         app:layout_constraintTop_toBottomOf="@+id/by"

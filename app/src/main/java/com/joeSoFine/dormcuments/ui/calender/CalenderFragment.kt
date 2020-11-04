@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import org.w3c.dom.Text
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
@@ -330,7 +331,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
 
         titleLayout.setOnClickListener { expandList(sumLayout, expand)}
-        setSwitchForCurrentUser(switch, parti, eventid)
+        setSwitchAndEditForCurrentUser(switch, parti, editEvent, by, eventid)
 
         editEvent.setOnClickListener{
             val bundle = Bundle()
@@ -440,13 +441,14 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         if ( parti.text.toString().contains(rn)){ switch.isChecked = true}
     }
 
-    private fun setSwitchForCurrentUser(switch: Switch, parti: TextView, eventid: String){
+    private fun setSwitchAndEditForCurrentUser(switch: Switch, parti: TextView, editIV: ImageView, createdTV: TextView, eventid: String){
         Ugetdata = object : ValueEventListener {
             val userid = auth.currentUser?.uid.toString()
 
             override fun onDataChange(p0: DataSnapshot) {
                 var room: String = p0.child(userid).child("number").getValue() as String
 
+                visivlityEditButton(room, editIV, createdTV)
                 setSwitchStatus(switch, room, parti)
                 listenerOnChange(switch, room, eventid, parti)
             }
@@ -537,6 +539,11 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             div.visibility = View.GONE
             tv.visibility = View.GONE
             con.visibility = View.GONE
+        }
+    }
+    private fun visivlityEditButton(room: String, IV: ImageView, TV: TextView) {
+        if (TV.text.toString().contains(room)) {
+            IV.visibility = View.VISIBLE
         }
     }
 
