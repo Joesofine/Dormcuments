@@ -54,10 +54,8 @@ class SignUp_Image : AppCompatActivity() {
         }
 
         save.setOnClickListener(View.OnClickListener {
-            val storage = Firebase.storage
-            var storageRef = storage.reference
-            var imagesRef: StorageReference? = storageRef.child("profile.jpg")
-            var spaceRef = storageRef.child("images/profile.jpg")
+            var storageRef = Firebase.storage.reference
+
 
             var file = imageUri
             val riversRef = storageRef.child("images/${file.lastPathSegment}")

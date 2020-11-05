@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.ui.signIn.SignIn
 import com.joeSoFine.dormcuments.ui.signIn.User
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.city_signup
 import java.util.*
@@ -44,6 +46,7 @@ class profileFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         auth = Firebase.auth
+        val storageReference = Firebase.storage.reference.child("images/2090")
 
         val date: EditText = root.findViewById(R.id.date)
         val name_signup: EditText = root.findViewById(R.id.name_signup)
@@ -55,6 +58,8 @@ class profileFragment : Fragment() {
         val close: Button = root.findViewById(R.id.close)
         val city_edit:EditText = root.findViewById(R.id.city_edit)
         val country_edit:EditText = root.findViewById(R.id.country_edit)
+        val userImage = root.findViewById<ImageView>(R.id.userImage)
+
         val userid = auth.currentUser?.uid
 
         if (auth.currentUser != null) {
@@ -91,6 +96,10 @@ class profileFragment : Fragment() {
                     funfact.setText(fact)
                     date.setText(getAge(byear, bmonth, bday))
                     room_spinner.setSelection((room_spinner.adapter as ArrayAdapter<String>).getPosition(rnumber))
+
+                    context?.let { Glide.with(it).load("https://firebasestorage.googleapis.com/v0/b/dormcuments.appspot.com/o/images%2F2092?alt=media&token=0b2c797e-fe2f-489f-860d-e82d0a2f01de").into(userImage) };
+
+
 
                     datePicker.init(birthday[2].toInt(), birthday[1].toInt() - 1, birthday[0].toInt()) { view, year, month, day ->
                         val month = month + 1

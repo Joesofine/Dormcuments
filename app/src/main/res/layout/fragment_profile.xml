@@ -13,7 +13,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="30dp">
 
 
@@ -21,19 +21,19 @@
                 android:id="@+id/delete"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="40dp"
                 android:background="@color/LighterDarkBlue"
                 android:text="Delete Account"
                 android:textAllCaps="false"
+                app:layout_constraintBottom_toTopOf="@+id/save"
                 app:layout_constraintEnd_toEndOf="@+id/funfact"
-                app:layout_constraintStart_toStartOf="@+id/funfact"
-                app:layout_constraintTop_toBottomOf="@+id/signout" />
+                app:layout_constraintStart_toStartOf="@+id/funfact" />
 
             <EditText
                 android:id="@+id/city_edit"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:drawableRight="@drawable/edit_pen_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="City"
@@ -43,14 +43,14 @@
                 android:textSize="14sp"
                 android:visibility="gone"
                 app:backgroundTint="@color/White"
-                app:layout_constraintStart_toStartOf="@+id/date"
-                app:layout_constraintTop_toBottomOf="@+id/city_signup" />
+                app:layout_constraintBottom_toTopOf="@id/diet"
+                app:layout_constraintStart_toStartOf="@+id/date" />
 
             <EditText
                 android:id="@+id/country_edit"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:drawableRight="@drawable/edit_pen_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="Country"
@@ -60,8 +60,8 @@
                 android:textSize="14sp"
                 android:visibility="gone"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/date"
-                app:layout_constraintTop_toBottomOf="@+id/city_signup" />
+                app:layout_constraintBottom_toTopOf="@id/diet"
+                app:layout_constraintEnd_toEndOf="@+id/date" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
@@ -108,9 +108,9 @@
 
             <EditText
                 android:id="@+id/name_signup"
-                android:layout_width="320dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginBottom="15dp"
                 android:drawableRight="@drawable/edit_pen_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="Firstname Lastname"
@@ -119,16 +119,15 @@
                 android:textColorHint="@color/lightHint"
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintBottom_toTopOf="@id/room_spinner"
+                app:layout_constraintEnd_toEndOf="@+id/userImage"
+                app:layout_constraintStart_toStartOf="@+id/userImage" />
 
             <EditText
                 android:id="@+id/city_signup"
-                android:layout_width="320dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:drawableRight="@drawable/edit_pen_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="City, Country"
@@ -137,31 +136,31 @@
                 android:textColorHint="@color/lightHint"
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/city_edit"
+                app:layout_constraintEnd_toEndOf="@+id/date"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/date" />
+                app:layout_constraintStart_toStartOf="@+id/date" />
 
             <Spinner
                 android:id="@+id/room_spinner"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:layout_width="320dp"
+                android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="false"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:gravity="left"
                 android:padding="0dp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_signup" />
+                app:layout_constraintBottom_toTopOf="@id/date"
+                app:layout_constraintEnd_toEndOf="@+id/name_signup"
+                app:layout_constraintStart_toStartOf="@+id/name_signup" />
 
             <EditText
                 android:id="@+id/date"
-                android:layout_width="320dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
                 android:drawableRight="@drawable/edit_pen_icon_white"
                 android:drawablePadding="10dp"
                 android:editable="false"
@@ -172,15 +171,15 @@
                 android:textColorHint="@color/lightHint"
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/room_spinner" />
+                app:layout_constraintBottom_toTopOf="@id/city_signup"
+                app:layout_constraintEnd_toEndOf="@+id/room_spinner"
+                app:layout_constraintStart_toStartOf="@+id/room_spinner" />
 
             <EditText
                 android:id="@+id/funfact"
-                android:layout_width="320dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="40dp"
                 android:drawableRight="@drawable/edit_pen_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="Funfact"
@@ -191,16 +190,16 @@
                 android:textColorHint="@color/lightHint"
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/resetPassword"
+                app:layout_constraintEnd_toEndOf="@+id/diet"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/diet" />
+                app:layout_constraintStart_toStartOf="@+id/diet" />
 
             <EditText
                 android:id="@+id/diet"
-                android:layout_width="320dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
                 android:drawableRight="@drawable/edit_pen_icon_white"
                 android:drawablePadding="10dp"
                 android:hint="Diets and Allergies"
@@ -211,72 +210,77 @@
                 android:textColorHint="@color/lightHint"
                 android:textSize="14sp"
                 app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/funfact"
+                app:layout_constraintEnd_toEndOf="@+id/city_signup"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/country_edit" />
+                app:layout_constraintStart_toStartOf="@+id/city_signup" />
 
             <Button
                 android:id="@+id/save"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/sign_in_button"
                 android:text="Save Changes"
                 android:textAllCaps="false"
                 android:textColor="#0C0000"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/signout"
-                app:layout_constraintStart_toStartOf="@+id/signout"
-                app:layout_constraintTop_toBottomOf="@+id/delete" />
+                app:layout_constraintStart_toStartOf="@+id/signout" />
 
             <Button
                 android:id="@+id/resetPassword"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/LighterDarkBlue"
                 android:text="Reset password"
                 android:textAllCaps="false"
+                app:layout_constraintBottom_toTopOf="@+id/signout"
                 app:layout_constraintEnd_toEndOf="@+id/funfact"
-                app:layout_constraintStart_toStartOf="@+id/funfact"
-                app:layout_constraintTop_toBottomOf="@+id/funfact" />
+                app:layout_constraintStart_toStartOf="@+id/funfact" />
 
             <Button
                 android:id="@+id/signout"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/LighterDarkBlue"
                 android:text="Sign Out"
                 android:textAllCaps="false"
+                app:layout_constraintBottom_toTopOf="@+id/delete"
                 app:layout_constraintEnd_toEndOf="@+id/funfact"
-                app:layout_constraintStart_toStartOf="@+id/funfact"
-                app:layout_constraintTop_toBottomOf="@+id/resetPassword" />
+                app:layout_constraintStart_toStartOf="@+id/funfact" />
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="50dp"
-                android:background="@color/ButtonDark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/backgrounds/scenic" />
-
-            <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/editImageButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="170dp"
-                android:layout_marginLeft="170dp"
-                android:layout_marginTop="170dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="40dp"
                 android:background="@drawable/more_button"
                 android:cropToPadding="false"
                 android:padding="5dp"
                 android:src="@drawable/edit_image_white"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+                app:layout_constraintBottom_toTopOf="@+id/name_signup"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/name_signup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
