@@ -14,6 +14,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
@@ -27,27 +28,28 @@ import java.io.FileInputStream
 class SignUp_Image : AppCompatActivity() {
 
     lateinit var imageUri: Uri
+    var database = FirebaseDatabase.getInstance().getReference("Users")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up2)
 
 
-        choosePic.setOnClickListener(){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        choosePic.setOnClickListener() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                    PackageManager.PERMISSION_DENIED){
+                    PackageManager.PERMISSION_DENIED
+                ) {
                     //permission denied
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
                     //show popup to request runtime permission
                     requestPermissions(permissions, PERMISSION_CODE);
-                }
-                else{
+                } else {
                     //permission already granted
                     pickImageFromGallery();
                 }
-            }
-            else{
+            } else {
                 //system OS is < Marshmallow
                 pickImageFromGallery();
             }
@@ -56,25 +58,39 @@ class SignUp_Image : AppCompatActivity() {
         save.setOnClickListener(View.OnClickListener {
             var storageRef = Firebase.storage.reference
 
+            val user: User? = intent.getParcelableExtra("user")
+            val userId: String? = intent.getStringExtra("userid")
 
             var file = imageUri
-            val riversRef = storageRef.child("images/${file.lastPathSegment}")
 
-            var uploadTask = riversRef.putFile(file)
-                uploadTask.addOnFailureListener {
-                    // Handle unsuccessful uploads
-                    Toast.makeText(applicationContext, "FAILED", Toast.LENGTH_SHORT).show()
-                }.addOnSuccessListener { taskSnapshot ->
-                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                    // ...
-                    riversRef.downloadUrl
+            val imagesRef = storageRef.child("images/${file.lastPathSegment}")
 
-                    Toast.makeText(applicationContext, "SUCCES", Toast.LENGTH_SHORT).show()
+            var uploadTask = imagesRef.putFile(file)
+            uploadTask.addOnFailureListener {
+                // Handle unsuccessful uploads
+                Toast.makeText(applicationContext, "FAILED", Toast.LENGTH_SHORT).show()
+            }.addOnSuccessListener { taskSnapshot ->
+                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                // ...
 
+                if (user != null) {
+                    user.url = imagesRef.downloadUrl.toString()
+
+                    if (userId != null) {
+                        database.child(userId).setValue(user)
+                            .addOnSuccessListener {
+                                Toast.makeText(applicationContext, "SUCCES", Toast.LENGTH_SHORT).show()
+
+                                val intent = Intent(applicationContext, SignIn::class.java)
+                                startActivity(intent)
+                            }
+                            .addOnFailureListener {
+                                // Write failed
+                                Toast.makeText(applicationContext, "Try again", Toast.LENGTH_SHORT).show()
+                            }
+                    }
                 }
-
-            val intent = Intent(applicationContext, SignIn::class.java)
-            startActivity(intent)
+            }
         })
     }
 

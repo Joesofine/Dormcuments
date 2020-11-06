@@ -82,6 +82,7 @@ class profileFragment : Fragment() {
                     var orgin = p0.child(userid).child("from").getValue().toString()
                     var food = p0.child(userid).child("diet").getValue().toString()
                     var fact = p0.child(userid).child("funfact").getValue().toString()
+                    var url: String = p0.child(userid).child("url").getValue().toString()
 
                     val byear = birthday[2].toInt()
                     val bmonth = birthday[1].toInt()
@@ -97,9 +98,7 @@ class profileFragment : Fragment() {
                     date.setText(getAge(byear, bmonth, bday))
                     room_spinner.setSelection((room_spinner.adapter as ArrayAdapter<String>).getPosition(rnumber))
 
-                    context?.let { Glide.with(it).load("https://firebasestorage.googleapis.com/v0/b/dormcuments.appspot.com/o/images%2F2092?alt=media&token=0b2c797e-fe2f-489f-860d-e82d0a2f01de").into(userImage) };
-
-
+                    context?.let { Glide.with(it).load(url).into(userImage) }
 
                     datePicker.init(birthday[2].toInt(), birthday[1].toInt() - 1, birthday[0].toInt()) { view, year, month, day ->
                         val month = month + 1
@@ -291,7 +290,7 @@ class profileFragment : Fragment() {
                 country_signup.error = "Please let us know where you are from"
             } else {
 
-                val user = User(fname, number, bdate, from, diet, fact)
+                val user = User(fname, number, bdate, from, diet, fact, "")
 
                 if (userid != null) {
                     database.child(userid).setValue(user)

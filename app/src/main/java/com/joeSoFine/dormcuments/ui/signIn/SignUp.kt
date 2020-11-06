@@ -146,22 +146,17 @@ class SignUp : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
-                    Toast.makeText(applicationContext, "User has been created", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Part 1 done", Toast.LENGTH_SHORT).show()
                     val userId = auth.currentUser?.uid
 
-                    //val userId = database.push().key
-                    val user = User(fname, number, bdate, from, diet, fact)
+                    val user = User(fname, number, bdate, from, diet, fact, "")
 
                     if (userId != null) {
-                        database.child(userId).setValue(user)
-                            .addOnSuccessListener {
-                                val intent = Intent(applicationContext, SignUp_Image::class.java)
-                                startActivity(intent)
-                            }
-                            .addOnFailureListener {
-                                // Write failed
-                                Toast.makeText(applicationContext, "Try again", Toast.LENGTH_SHORT).show()
-                            }
+
+                        val intent = Intent(applicationContext, SignUp_Image::class.java)
+                        intent.putExtra(("userid"), userId)
+                        intent.putExtra("user", user)
+                        startActivity(intent)
                     }
                 } else {
                     // If sign in fails, display a message to the user.

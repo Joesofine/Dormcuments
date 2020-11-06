@@ -105,7 +105,7 @@ class SignIn : AppCompatActivity() {
 
                                         val user = User(
                                             `object`.getString("name"), "Roomnumber",
-                                            `object`.getString("birthday"), "", "", "")
+                                            `object`.getString("birthday"), "", "", "", "")
 
                                         val userId = auth.currentUser?.uid
                                         if (userId != null) {
