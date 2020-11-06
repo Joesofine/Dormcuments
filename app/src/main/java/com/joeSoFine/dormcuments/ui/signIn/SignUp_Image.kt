@@ -74,7 +74,7 @@ class SignUp_Image : AppCompatActivity() {
                 // ...
 
                 if (user != null) {
-                    user.url = imagesRef.downloadUrl.toString()
+                    user.url = taskSnapshot.uploadSessionUri.toString()
 
                     if (userId != null) {
                         database.child(userId).setValue(user)
