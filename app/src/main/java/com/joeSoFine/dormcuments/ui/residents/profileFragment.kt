@@ -3,9 +3,12 @@ package com.joeSoFine.dormcuments.ui.residents
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.PorterDuff
+import android.media.ThumbnailUtils
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.method.PasswordTransformationMethod
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -13,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.joeSoFine.dormcuments.R
@@ -46,7 +50,6 @@ class profileFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         auth = Firebase.auth
-        val storageReference = Firebase.storage.reference.child("images/2090")
 
         val date: EditText = root.findViewById(R.id.date)
         val name_signup: EditText = root.findViewById(R.id.name_signup)
@@ -357,5 +360,10 @@ class profileFragment : Fragment() {
 
         dName.removeValue()
         Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
+    }
+
+    fun getSquareCropDimensionForBitmap(bitmap: Bitmap): Int {
+        //use the smallest dimension of the image to crop to
+        return Math.min(bitmap.width, bitmap.height)
     }
  }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
+import com.bumptech.glide.Glide
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -44,8 +45,10 @@ class ResidentFragment : Fragment() {
                     var from: String = i.child("from").getValue() as String
                     var fact: String = i.child("funfact").getValue() as String
                     var roomnumber: String = i.child("number").getValue() as String
+                    var url: String = i.child("url").getValue().toString()
 
-                    createResident(name, roomnumber, date, from, diet, fact, residentLayout)
+
+                    createResident(name, roomnumber, date, from, diet, fact, url, residentLayout)
                 }
                 progressBar.visibility = View.GONE
             }
@@ -101,7 +104,7 @@ class ResidentFragment : Fragment() {
      */
 
 
-    private fun createResident(fullname: String, rn: String, bdate: String, sfrom: String, food: String, fact: String, myContainer: LinearLayout){
+    private fun createResident(fullname: String, rn: String, bdate: String, sfrom: String, food: String, fact: String, url: String, myContainer: LinearLayout){
         val ExpandableCardview: View = layoutInflater.inflate(R.layout.list_element_resident, null, false)
 
         var sumLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.sumLayout)
@@ -115,6 +118,10 @@ class ResidentFragment : Fragment() {
         var from: TextView = ExpandableCardview.findViewById(R.id.from)
         var diet: TextView = ExpandableCardview.findViewById(R.id.diet)
         var funny: TextView = ExpandableCardview.findViewById(R.id.fact)
+        var userImg: ImageView = ExpandableCardview.findViewById(R.id.userImage)
+
+        context?.let { Glide.with(it).load(url).into(userImg) }
+
 
         if (fullname.contains(" ")){
             val name = fullname.split(" ")
