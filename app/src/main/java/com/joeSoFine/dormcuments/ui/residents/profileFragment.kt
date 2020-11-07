@@ -5,10 +5,8 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
-import android.media.ThumbnailUtils
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.method.PasswordTransformationMethod
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -16,12 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.joeSoFine.dormcuments.R
-import com.joeSoFine.dormcuments.ui.signIn.SignIn
-import com.joeSoFine.dormcuments.ui.signIn.User
+import com.bumptech.glide.request.target.SimpleTarget
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -30,9 +25,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
+import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.ui.signIn.SignIn
+import com.joeSoFine.dormcuments.ui.signIn.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.activity_sign_up.city_signup
+import kotlinx.android.synthetic.main.fragment_edit_food.*
 import java.util.*
 
 
@@ -102,6 +99,7 @@ class profileFragment : Fragment() {
                     room_spinner.setSelection((room_spinner.adapter as ArrayAdapter<String>).getPosition(rnumber))
 
                     context?.let { Glide.with(it).load(url).into(userImage) }
+
 
                     datePicker.init(birthday[2].toInt(), birthday[1].toInt() - 1, birthday[0].toInt()) { view, year, month, day ->
                         val month = month + 1
