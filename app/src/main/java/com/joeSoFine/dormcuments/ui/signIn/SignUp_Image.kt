@@ -11,10 +11,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -22,10 +24,10 @@ import com.joeSoFine.dormcuments.R
 import kotlinx.android.synthetic.main.activity_sign_up.save
 import kotlinx.android.synthetic.main.activity_sign_up2.*
 import java.io.ByteArrayOutputStream
-import java.util.*
 
 
 class SignUp_Image : AppCompatActivity() {
+    private val PERMISSION_REQUEST_CODE = 1
 
     lateinit var imageUri: Uri
     var database = FirebaseDatabase.getInstance().getReference("Users")
@@ -35,6 +37,7 @@ class SignUp_Image : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up2)
 
         choosePic.setOnClickListener() {
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
                     PackageManager.PERMISSION_DENIED
@@ -94,6 +97,13 @@ class SignUp_Image : AppCompatActivity() {
         })
     }
 
+    fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path.toString())
+    }
+
     private fun pickImageFromGallery() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
@@ -128,13 +138,18 @@ class SignUp_Image : AppCompatActivity() {
     //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
+            requestPermission()
             imageUri = data?.data!!
             var bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
 
             val height_dimension: Int = getSquareCropDimensionForBitmap(bitmap)
             val width_dimension = height_dimension + 300
             var croped_bitmap = ThumbnailUtils.extractThumbnail(bitmap, height_dimension, width_dimension)
+            var cropUri = getImageUriFromBitmap(applicationContext, croped_bitmap)
+            println(cropUri)
+            imageUri = cropUri
             downloaded_picture.setImageBitmap(croped_bitmap)
         }
     }
@@ -144,5 +159,16 @@ class SignUp_Image : AppCompatActivity() {
         return Math.min(bitmap.width, bitmap.height)
     }
 
+    private fun requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Toast.makeText(
+                this,
+                "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_REQUEST_CODE)
+        }
+    }
 
 }
