@@ -136,7 +136,6 @@ class SignUp_Image : AppCompatActivity() {
             val width_dimension = height_dimension + 300
             var croped_bitmap = ThumbnailUtils.extractThumbnail(bitmap, height_dimension, width_dimension)
             downloaded_picture.setImageBitmap(croped_bitmap)
-
         }
     }
 
