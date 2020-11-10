@@ -8,10 +8,9 @@
         android:type="linear"/>
 
     <corners
-        android:radius="5dp"/>
+    
+        android:topLeftRadius="5dp"/>
 
-    <stroke
-        android:width="0.5dp"
-        android:color="@color/VeryDarkBlueTopBar"/>
+
 
 </shape>

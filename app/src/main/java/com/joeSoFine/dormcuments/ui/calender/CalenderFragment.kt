@@ -251,7 +251,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private fun createEventView(
         title: String, dateStart: String, unformattedDate: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
         allDay: String, notification: String, doesRepeat: String, createdBy: String,
-        eventid: String, par: String, myContainer: LinearLayout, arr: ArrayList<String>){
+        eventid: String, par: String, color: String, myContainer: LinearLayout, arr: ArrayList<String>){
 
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_calendar, null, false)
@@ -282,6 +282,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         val divpar:View = ExpandableCardview.findViewById(R.id.divdes4)
         val uf: TextView = ExpandableCardview.findViewById(R.id.unformatted)
         val editEvent: ImageView = ExpandableCardview.findViewById(R.id.editEvent)
+        val colorView:ConstraintLayout = ExpandableCardview.findViewById(R.id.colorShow)
 
         var eventdate = unformattedDate.split("-")
         var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
@@ -290,6 +291,14 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         uf.text = unformattedDate
         by.text = "Created by:\n$createdBy"
         parti.text = par
+
+        if (color.equals("Blue")){
+            colorView.setBackgroundResource(R.drawable.blue_round_button)
+        } else if (color.equals("Red")){
+            colorView.setBackgroundResource(R.drawable.red_round_button);
+        } else {
+            colorView.setBackgroundResource(R.drawable.default_round_button);
+        }
 
         val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH)
         val dayAndMonthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM", Locale.ENGLISH)
@@ -330,7 +339,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             divpar.visibility = View.GONE
         }
 
-        titleLayout.setOnClickListener { expandList(sumLayout, expand)}
+        titleLayout.setOnClickListener { expandList(sumLayout, expand, colorView, color)}
         setSwitchAndEditForCurrentUser(switch, parti, editEvent, by, eventid)
 
         editEvent.setOnClickListener{
@@ -392,14 +401,30 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
     private fun expandList(
         sumLayout: ConstraintLayout,
-        expand: ImageView
+        expand: ImageView,
+        colorView: ConstraintLayout,
+        color: String
     ) {
         if (sumLayout.visibility == View.GONE) {
             sumLayout.visibility = View.VISIBLE
             expand.rotation = 90f
+            if (color.equals("Blue")){
+                colorView.setBackgroundResource(R.drawable.blue_expand_button)
+            } else if (color.equals("Red")){
+                colorView.setBackgroundResource(R.drawable.red_expand_button);
+            } else {
+                colorView.setBackgroundResource(R.drawable.default_expand_button);
+            }
         } else if (sumLayout.visibility == View.VISIBLE) {
             sumLayout.visibility = View.GONE
             expand.rotation = 0f
+            if (color.equals("Blue")){
+                colorView.setBackgroundResource(R.drawable.blue_round_button)
+            } else if (color.equals("Red")){
+                colorView.setBackgroundResource(R.drawable.red_round_button);
+            } else {
+                colorView.setBackgroundResource(R.drawable.default_round_button);
+            }
         }
     }
 
@@ -519,9 +544,10 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var created: String = i.child("createdBy").value as String
         var doesRepeat: String = i.child("doesRepeat").value as String
         var par = i.child("participants").value.toString()
+        var color = i.child("color").value.toString()
         var eventid = i.key.toString()
 
-        createEventView(title, dateStart, dateUn, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, myContainer, arr)
+        createEventView(title, dateStart, dateUn, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, color, myContainer, arr)
     }
 
     private fun setWhoops(){
