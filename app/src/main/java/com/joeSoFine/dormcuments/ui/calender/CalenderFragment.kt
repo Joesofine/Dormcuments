@@ -417,6 +417,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 colorView.setBackgroundResource(R.drawable.default_expand_button);
             }
         } else if (sumLayout.visibility == View.VISIBLE) {
+
             sumLayout.visibility = View.GONE
             expand.rotation = 0f
             if (color.equals("Blue")){
