@@ -1,12 +1,19 @@
 package com.joeSoFine.dormcuments.ui.residents
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
+import android.media.ThumbnailUtils
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.method.PasswordTransformationMethod
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -14,6 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -25,11 +33,17 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.ui.signIn.SignIn
+import com.joeSoFine.dormcuments.ui.signIn.SignUp_Image
 import com.joeSoFine.dormcuments.ui.signIn.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_up.city_signup
+import kotlinx.android.synthetic.main.activity_sign_up2.*
 import kotlinx.android.synthetic.main.fragment_edit_food.*
+import kotlinx.android.synthetic.main.fragment_profile.*
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 
@@ -39,8 +53,13 @@ class profileFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Users")
     var targetHeight = 0
     var targetWidth = 0
+    private val PERMISSION_REQUEST_CODE = 1
+    lateinit var imageUri: Uri
+    lateinit var url: String
 
-    @SuppressLint("ResourceAsColor")
+
+
+    @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +68,7 @@ class profileFragment : Fragment() {
         auth = Firebase.auth
 
         val date: EditText = root.findViewById(R.id.date)
-        val name_signup: EditText = root.findViewById(R.id.name_signup)
+        val name_signup = root.findViewById<EditText>(R.id.name_signup)
         val room_spinner: Spinner = root.findViewById(R.id.room_spinner)
         val from: EditText = root.findViewById(R.id.city_signup)
         val diet: EditText = root.findViewById(R.id.diet)
@@ -59,7 +78,7 @@ class profileFragment : Fragment() {
         val city_edit:EditText = root.findViewById(R.id.city_edit)
         val country_edit:EditText = root.findViewById(R.id.country_edit)
         val userImage = root.findViewById<ImageView>(R.id.userImage)
-
+        val editImage = root.findViewById<ImageView>(R.id.editImageButton)
         val userid = auth.currentUser?.uid
 
         if (auth.currentUser != null) {
@@ -70,6 +89,25 @@ class profileFragment : Fragment() {
             }
         }
 
+        editImage.setOnClickListener() {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_DENIED
+                ) {
+                    //permission denied
+                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                    //show popup to request runtime permission
+                    requestPermissions(permissions, profileFragment.PERMISSION_CODE);
+                } else {
+                    //permission already granted
+                    pickImageFromGallery();
+                }
+            } else {
+                //system OS is < Marshmallow
+                pickImageFromGallery();
+            }
+        }
 
         getdata = object : ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
@@ -78,11 +116,11 @@ class profileFragment : Fragment() {
                 if (userid != null) {
                     var name = p0.child(userid).child("fname").getValue().toString()
                     var rnumber = p0.child(userid).child("number").getValue().toString()
-                    var birthday = p0.child(userid).child("bdate").getValue().toString().split("/")
+                    var birthday = p0.child(userid).child("bdate").getValue().toString()
                     var orgin = p0.child(userid).child("from").getValue().toString()
                     var food = p0.child(userid).child("diet").getValue().toString()
                     var fact = p0.child(userid).child("funfact").getValue().toString()
-                    var url: String = p0.child(userid).child("url").getValue().toString()
+                    url = p0.child(userid).child("url").getValue().toString()
 
                     val byear = birthday[2].toInt()
                     val bmonth = birthday[1].toInt()
@@ -95,7 +133,7 @@ class profileFragment : Fragment() {
                     country_edit.setText(cc[1])
                     diet.setText(food)
                     funfact.setText(fact)
-                    date.setText(getAge(byear, bmonth, bday))
+                    date.setText(birthday)
                     room_spinner.setSelection((room_spinner.adapter as ArrayAdapter<String>).getPosition(rnumber))
 
                     context?.let { Glide.with(it).load(url).into(userImage) }
@@ -120,15 +158,15 @@ class profileFragment : Fragment() {
                 datePicker.visibility = View.VISIBLE
                 close.visibility = View.VISIBLE
                 date.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_tint, 0)
-                date.getBackground().mutate().setColorFilter(
-                    getResources().getColor(android.R.color.holo_blue_dark),
+                date.background.mutate().setColorFilter(
+                    resources.getColor(android.R.color.holo_blue_dark),
                     PorterDuff.Mode.SRC_ATOP
                 )
             } else {
                 datePicker.visibility = View.GONE
                 close.visibility = View.GONE
                 date.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
-                date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                date.background.mutate().setColorFilter(resources.getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
             }
         }
         from.setOnFocusChangeListener { view, hasFocus ->
@@ -138,9 +176,11 @@ class profileFragment : Fragment() {
                 country_edit.visibility = View.VISIBLE
             } else {
                 city_signup.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
-                city_signup.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                city_signup.background.mutate().setColorFilter(resources.getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
             }
         }
+
+
 
 
         val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
@@ -201,7 +241,7 @@ class profileFragment : Fragment() {
                         if (task.isSuccessful) {
 
                             if (newPassword != "") {
-                                user!!.updatePassword(newPassword)
+                                user.updatePassword(newPassword)
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) { Toast.makeText(context, "Password is changed", Toast.LENGTH_SHORT).show()
                                         } else {
@@ -268,7 +308,7 @@ class profileFragment : Fragment() {
         }
 
         root.findViewById<Button>(R.id.save).setOnClickListener(){
-
+            var storageRef = Firebase.storage.reference
             val fname = name_signup.text.toString()
             val number = room_spinner.selectedItem.toString()
             val bdate = date.text.toString()
@@ -277,7 +317,6 @@ class profileFragment : Fragment() {
             val from = "$city, $country"
             val diet = diet.text.toString()
             val fact = funfact.text.toString()
-
 
             if (fname.isEmpty()) {
                 name_signup.error = "Please write a name"
@@ -290,19 +329,42 @@ class profileFragment : Fragment() {
             } else if (country.isEmpty()) {
                 country_signup.error = "Please let us know where you are from"
             } else {
+                val user = User(fname, number, bdate, from, diet, fact, url)
+                if (user != null) {
+                    if (userid != null) {
+                        if (imageUri != null) {
+                            var file = imageUri
+                            val imagesRef = storageRef.child("images/${file.lastPathSegment}")
 
-                val user = User(fname, number, bdate, from, diet, fact, "")
+                            var uploadTask = imagesRef.putFile(file)
+                            uploadTask.addOnFailureListener {
+                                Toast.makeText(context, "FAILED", Toast.LENGTH_SHORT).show()
+                            }.addOnSuccessListener { taskSnapshot ->
+                                imagesRef.downloadUrl.addOnSuccessListener { uri ->
+                                    user.url = uri.toString()
 
-                if (userid != null) {
-                    database.child(userid).setValue(user)
-                        .addOnSuccessListener {
-                            Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
-                            getFragmentManager()?.popBackStack()
+                                        database.child(userid).setValue(user)
+                                         .addOnSuccessListener {
+                                               Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
+                                               getFragmentManager()?.popBackStack()
+                                            }
+                                            .addOnFailureListener {
+                                               // Write failed
+                                                 Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
+                                             }
+                                }
+                            }
+                        } else {
+                            database.child(userid).setValue(user).addOnSuccessListener {
+                                Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
+                                getFragmentManager()?.popBackStack()
+                            }
+                            .addOnFailureListener {
+                                // Write failed
+                                Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
+                            }
                         }
-                        .addOnFailureListener {
-                            // Write failed
-                            Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
-                        }
+                    }
                 }
             }
         }
@@ -360,8 +422,77 @@ class profileFragment : Fragment() {
         Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
     }
 
-    fun getSquareCropDimensionForBitmap(bitmap: Bitmap): Int {
+    private fun getSquareCropDimensionForBitmap(bitmap: Bitmap): Int {
         //use the smallest dimension of the image to crop to
         return Math.min(bitmap.width, bitmap.height)
     }
+
+    private fun pickImageFromGallery() {
+        //Intent to pick image
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, profileFragment.IMAGE_PICK_CODE)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when(requestCode){
+            profileFragment.PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED
+                ) {
+                    //permission from popup granted
+                    pickImageFromGallery()
+                } else {
+                    //permission from popup denied
+                    Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    //handle result of picked image
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == profileFragment.IMAGE_PICK_CODE){
+            requestPermission()
+            imageUri = data?.data!!
+            var bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
+
+            val height_dimension: Int = getSquareCropDimensionForBitmap(bitmap)
+            val width_dimension = height_dimension + 300
+            var croped_bitmap = ThumbnailUtils.extractThumbnail(bitmap, height_dimension, width_dimension)
+            var cropUri = context?.let { getImageUriFromBitmap(it, croped_bitmap) }
+            println(cropUri)
+            imageUri = cropUri!!
+            userImage.setImageBitmap(croped_bitmap)
+        }
+    }
+
+    private fun requestPermission() {
+        if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Toast.makeText(
+                context,
+                "Write External Storage permission allows us to do store images. Please allow this permission in App Settings.",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    private fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        return Uri.parse(path.toString())
+    }
+
+    companion object {
+        //image pick code
+        private val IMAGE_PICK_CODE = 1000;
+        //Permission code
+        private val PERMISSION_CODE = 1001;
+    }
+
  }
