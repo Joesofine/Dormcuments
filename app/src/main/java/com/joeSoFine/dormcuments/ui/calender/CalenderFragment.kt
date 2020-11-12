@@ -293,9 +293,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         by.text = "Created by:\n$createdBy"
         parti.text = par
 
-        if (color.equals("Blue")){
+        if (color.equals("Social event")){
             colorView.setBackgroundResource(R.drawable.blue_round_button)
-        } else if (color.equals("Red")){
+        } else if (color.equals("Book kitchen")){
             colorView.setBackgroundResource(R.drawable.red_round_button);
         } else {
             colorView.setBackgroundResource(R.drawable.default_round_button);
@@ -409,9 +409,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         if (sumLayout.visibility == View.GONE) {
             sumLayout.visibility = View.VISIBLE
             expand.rotation = 90f
-            if (color.equals("Blue")){
+            if (color.equals("Social Event")){
                 colorView.setBackgroundResource(R.drawable.blue_expand_button)
-            } else if (color.equals("Red")){
+            } else if (color.equals("Book kitchen")){
                 colorView.setBackgroundResource(R.drawable.red_expand_button);
             } else {
                 colorView.setBackgroundResource(R.drawable.default_expand_button);
@@ -420,9 +420,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
             sumLayout.visibility = View.GONE
             expand.rotation = 0f
-            if (color.equals("Blue")){
+            if (color.equals("Social Event")){
                 colorView.setBackgroundResource(R.drawable.blue_round_button)
-            } else if (color.equals("Red")){
+            } else if (color.equals("Book kitchen")){
                 colorView.setBackgroundResource(R.drawable.red_round_button);
             } else {
                 colorView.setBackgroundResource(R.drawable.default_round_button);

@@ -34,7 +34,7 @@ android {
     defaultConfig {
         multiDexEnabled true
         applicationId "com.joeSoFine.dormcuments"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 6
         versionName "6.0"

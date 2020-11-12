@@ -108,9 +108,9 @@
     <string name="auth_failed">Authentication failed</string>
 
     <string-array name="spinner_colors">
-        <item>Default Color</item>
-        <item>Red</item>
-        <item>Blue</item>
+        <item>Event type</item>
+        <item>Book kitchen</item>
+        <item>Social event</item>
     </string-array>
 
     <string-array name="spinner_notification">

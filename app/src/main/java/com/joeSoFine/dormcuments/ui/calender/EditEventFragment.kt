@@ -190,13 +190,13 @@ class EditEventFragment: Fragment() {
         spinner_color.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (spinner_color.selectedItem.toString() == "Default Color"){
+                if (spinner_color.selectedItem.toString() == "Event type"){
                     colorIcon.background = resources.getDrawable(R.drawable.color_button)
                 }
-                if (spinner_color.selectedItem.toString() == "Red") {
+                if (spinner_color.selectedItem.toString() == "Book kitchen") {
                     colorIcon.background = resources.getDrawable(R.drawable.color_button_red)
                 }
-                if (spinner_color.selectedItem.toString() == "Blue"){
+                if (spinner_color.selectedItem.toString() == "Social event"){
                     colorIcon.background = resources.getDrawable(R.drawable.color_button_blue)
                 }
             }

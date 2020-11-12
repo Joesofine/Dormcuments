@@ -30,8 +30,14 @@
 
 
     // Color button
-    <color name="blue">#0005d1</color>
-    <color name="red">#e10500</color>
+    <color name="defaultColor">#ffffff</color>
+    <color name="cleaning">#fd9500</color>
+    <color name="foodclub">#5bc33a</color>
+    <color name="meeting">#23beff</color>
+    <color name="booking">#e8002e</color>
+    <color name="social">#c16eee</color>
+
+
 </resources>
 
 
