@@ -28,7 +28,7 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_create_foodclub, container, false)
+        val root = inflater.inflate(R.layout.fragment_edit_food, container, false)
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
 

@@ -31,7 +31,7 @@ class EditFoodFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Foodclub")
     lateinit var getdata : ValueEventListener
     var choosenDate = ""
-    var unform = ""
+    lateinit var unform: String
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
@@ -45,6 +45,8 @@ class EditFoodFragment : Fragment() {
         val today = Calendar.getInstance()
         var clubid = bundle?.getString("id")
 
+        root.findViewById<ImageView>(R.id.delete2).visibility = View.VISIBLE
+
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 if (clubid != null) {
@@ -55,6 +57,7 @@ class EditFoodFragment : Fragment() {
                     var note = p0.child(clubid).child("note").getValue().toString()
                     var par = p0.child(clubid).child("participants").getValue().toString()
                     var diet = p0.child(clubid).child("diets").getValue().toString()
+                    unform = p0.child(clubid).child("unform").getValue().toString()
 
                     choosenDate = date
                     root.findViewById<Spinner>(R.id.spinner_c1).setSelection((spinner_c1.adapter as ArrayAdapter<String>).getPosition(w1))

@@ -41,8 +41,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/trash_icon" />
@@ -65,7 +64,7 @@
             <EditText
                 android:id="@+id/dinner"
                 android:layout_width="320dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/pot_icon_white"
                 android:drawablePadding="10dp"
@@ -73,8 +72,8 @@
                 android:selectAllOnFocus="true"
                 android:textColor="@color/White"
                 android:textColorHint="@color/lightHint"
-                app:backgroundTint="@color/White"
                 android:textSize="14sp"
+                app:backgroundTint="@color/White"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

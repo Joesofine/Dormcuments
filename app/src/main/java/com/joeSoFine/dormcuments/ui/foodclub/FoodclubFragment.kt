@@ -27,6 +27,7 @@ class FoodclubFragment : Fragment() {
     lateinit var getdata : ValueEventListener;
     lateinit var myContainer: LinearLayout
     var bool = false
+    lateinit var unform: String
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +46,7 @@ class FoodclubFragment : Fragment() {
                     var chef1: String = i.child("c1").getValue() as String
                     var chef2: String = i.child("c2").getValue() as String
                     var date1: String = i.child("date").getValue() as String
-                    var unform: String = i.child("unform").getValue() as String
+                    unform = i.child("unform").getValue() as String
                     var clubid = i.key.toString()
 
                     createClub(chef1,chef2, date1, clubid, unform, myContainer)
