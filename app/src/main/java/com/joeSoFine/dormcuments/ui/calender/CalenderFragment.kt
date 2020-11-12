@@ -284,6 +284,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         val uf: TextView = ExpandableCardview.findViewById(R.id.unformatted)
         val editEvent: ImageView = ExpandableCardview.findViewById(R.id.editEvent)
         val colorView:ConstraintLayout = ExpandableCardview.findViewById(R.id.colorShow)
+        val colorExpand:ConstraintLayout = ExpandableCardview.findViewById(R.id.colorShowExand)
+
 
         var eventdate = unformattedDate.split("-")
         var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
@@ -295,10 +297,15 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
         if (color.equals("Social event")){
             colorView.setBackgroundResource(R.drawable.blue_round_button)
+            colorExpand.setBackgroundResource(R.drawable.blue_expand_button)
+
         } else if (color.equals("Book kitchen")){
             colorView.setBackgroundResource(R.drawable.red_round_button);
+            colorExpand.setBackgroundResource(R.drawable.red_expand_button)
+
         } else {
             colorView.setBackgroundResource(R.drawable.default_round_button);
+            colorExpand.setBackgroundResource(R.drawable.default_expand_button)
         }
 
         val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH)
@@ -340,7 +347,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             divpar.visibility = View.GONE
         }
 
-        titleLayout.setOnClickListener { expandList(sumLayout, expand, colorView, color)}
+        titleLayout.setOnClickListener { expandList(sumLayout, expand, colorView, colorExpand)}
         setSwitchAndEditForCurrentUser(switch, parti, editEvent, by, eventid)
 
         editEvent.setOnClickListener{
@@ -404,29 +411,19 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         sumLayout: ConstraintLayout,
         expand: ImageView,
         colorView: ConstraintLayout,
-        color: String
+        colorExand: ConstraintLayout
     ) {
         if (sumLayout.visibility == View.GONE) {
             sumLayout.visibility = View.VISIBLE
             expand.rotation = 90f
-            if (color.equals("Social Event")){
-                colorView.setBackgroundResource(R.drawable.blue_expand_button)
-            } else if (color.equals("Book kitchen")){
-                colorView.setBackgroundResource(R.drawable.red_expand_button);
-            } else {
-                colorView.setBackgroundResource(R.drawable.default_expand_button);
-            }
-        } else if (sumLayout.visibility == View.VISIBLE) {
+            colorView.visibility = View.GONE
+            colorExand.visibility = View.VISIBLE
 
+        } else if (sumLayout.visibility == View.VISIBLE) {
             sumLayout.visibility = View.GONE
             expand.rotation = 0f
-            if (color.equals("Social Event")){
-                colorView.setBackgroundResource(R.drawable.blue_round_button)
-            } else if (color.equals("Book kitchen")){
-                colorView.setBackgroundResource(R.drawable.red_round_button);
-            } else {
-                colorView.setBackgroundResource(R.drawable.default_round_button);
-            }
+            colorView.visibility = View.VISIBLE
+            colorExand.visibility = View.GONE
         }
     }
 

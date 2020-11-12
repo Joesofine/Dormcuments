@@ -29,6 +29,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/colorShow"
+                android:layout_width="5dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/blue_round_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/eventTitle"
                 android:layout_width="wrap_content"
@@ -72,12 +85,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/colorShow"
+                android:id="@+id/colorShowExand"
                 android:layout_width="5dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:background="@drawable/blue_round_button"
+                android:background="@drawable/blue_expand_button"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
