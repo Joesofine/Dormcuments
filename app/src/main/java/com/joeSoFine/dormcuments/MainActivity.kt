@@ -4,15 +4,23 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import com.joeSoFine.dormcuments.ui.calender.CalenderFragment
 
-class MainActivity : AppCompatActivity() {
+private const val NUM_PAGES = 5
+
+class MainActivity : FragmentActivity() {
     private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var viewPager: ViewPager2
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,5 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 
         firebaseAnalytics = Firebase.analytics
+
+
     }
 }
