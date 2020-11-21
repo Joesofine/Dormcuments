@@ -63,13 +63,13 @@
                 android:layout_height="21dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:tint="@color/Black"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/eventTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/date"
                 app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
-                tools:ignore="VectorDrawableCompat" />
+                tools:ignore="VectorDrawableCompat"
+                app:tint="@color/Black" />
 
             <TextView
                 android:id="@+id/date"
@@ -201,9 +201,9 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="20dp"
                         android:src="@drawable/time_icon"
-                        android:tint="@color/Black"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divider19" />
+                        app:layout_constraintTop_toBottomOf="@+id/divider19"
+                        app:tint="@color/Black" />
 
                     <TextView
                         android:id="@+id/dateEnd2"
@@ -327,43 +327,44 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="20dp"
                         android:src="@drawable/repeat_icon"
-                        android:tint="@color/Black"
                         app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
-                        app:layout_constraintTop_toBottomOf="@+id/dateEnd2" />
+                        app:layout_constraintTop_toBottomOf="@+id/dateEnd2"
+                        app:tint="@color/Black" />
 
                     <ImageView
                         android:id="@+id/locIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/location_icon"
-                        android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/loctext"
                         app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/reaIcon"
-                        app:layout_constraintTop_toTopOf="@+id/loctext" />
+                        app:layout_constraintTop_toTopOf="@+id/loctext"
+                        app:tint="@color/Black" />
 
                     <ImageView
                         android:id="@+id/notIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:src="@drawable/notis_icon"
-                        android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/notTekst"
                         app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
-                        app:layout_constraintTop_toTopOf="@+id/notTekst" />
+                        app:layout_constraintTop_toTopOf="@+id/notTekst"
+                        app:tint="@color/Black" />
 
                     <ImageView
                         android:id="@+id/desCon"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/des"
                         app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toTopOf="@+id/des"
-                        app:srcCompat="@drawable/ic_baseline_description_24" />
+                        app:srcCompat="@drawable/ic_baseline_description_24"
+                        app:tint="@color/Black"
+                        tools:ignore="VectorDrawableCompat" />
 
                     <TextView
                         android:id="@+id/by"
@@ -394,12 +395,12 @@
                         android:id="@+id/parcon"
                         android:layout_width="18dp"
                         android:layout_height="0dp"
-                        android:tint="@color/Black"
                         app:layout_constraintBottom_toBottomOf="@+id/parti"
                         app:layout_constraintEnd_toEndOf="@+id/allIcon"
                         app:layout_constraintStart_toStartOf="@+id/allIcon"
                         app:layout_constraintTop_toTopOf="@+id/parti"
-                        app:srcCompat="@drawable/participants_icon_white" />
+                        app:srcCompat="@drawable/participants_icon_white"
+                        app:tint="@color/Black" />
 
                     <TextView
                         android:id="@+id/textView75"
