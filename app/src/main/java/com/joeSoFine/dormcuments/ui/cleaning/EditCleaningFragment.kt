@@ -11,19 +11,23 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.joeSoFine.dormcuments.R
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.joeSoFine.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.joeSoFine.dormcuments.databaseService
 import kotlinx.android.synthetic.main.fragment_create_cleaning.*
 import kotlinx.android.synthetic.main.fragment_edit_food.date2
 import kotlinx.android.synthetic.main.fragment_edit_food.note
-import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c1
 import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c2
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 class EditCleaningFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Cleaning")
@@ -32,7 +36,7 @@ class EditCleaningFragment : Fragment() {
     var str = ""
     var status: Boolean = false
     var unform = ""
-
+    val ref = "Cleaning"
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
@@ -47,40 +51,19 @@ class EditCleaningFragment : Fragment() {
         var cleaningid = bundle?.getString("id")
         root.findViewById<ImageView>(R.id.delete).visibility = View.VISIBLE
 
+        database.addValueEventListener(databaseService.setEventListener(
+            cleaningid!!,
+            root.findViewById<Spinner>(R.id.spinner_c1),
+            root.findViewById<Spinner>(R.id.spinner_c2),
+            root.findViewById<EditText>(R.id.date2),
+            root.findViewById<EditText>(R.id.task),
+            root.findViewById<EditText>(R.id.note),
+            root.findViewById<TextView>(R.id.stats),
+            root.findViewById<TextView>(R.id.unf)
+        ))
 
-
-
-        getdata = object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-
-                if (bundle != null) {
-                    //var cleaningid = bundle.getString("id")
-                    if (cleaningid != null) {
-
-                        var w1 = p0.child(cleaningid).child("c1").getValue().toString()
-                        var w2 = p0.child(cleaningid).child("c2").getValue().toString()
-                        var date: String = p0.child(cleaningid).child("date").getValue().toString()
-                        var task = p0.child(cleaningid).child("task").getValue().toString()
-                        var note = p0.child(cleaningid).child("note").getValue().toString()
-                        var stat = p0.child(cleaningid).child("checkedBy").getValue().toString()
-
-                        root.findViewById<Spinner>(R.id.spinner_c1).setSelection((spinner_c1.adapter as ArrayAdapter<String>).getPosition(w1))
-                        root.findViewById<Spinner>(R.id.spinner_c2).setSelection((spinner_c2.adapter as ArrayAdapter<String>).getPosition(w2))
-                        choosenDate = date
-                        root.findViewById<EditText>(R.id.date2).setText(choosenDate)
-                        root.findViewById<EditText>(R.id.task).setText(task)
-                        root.findViewById<EditText>(R.id.note).setText(note)
-                        root.findViewById<TextView>(R.id.stats).text = stat
-
-                        switchIni(root)
-                    }
-                }
-            }
-            override fun onCancelled(p0: DatabaseError) { println("err") }
-        }
-
-        database.addValueEventListener(getdata)
-        database.addListenerForSingleValueEvent(getdata)
+        choosenDate = root.findViewById<EditText>(R.id.date2).text.toString()
+        unform = root.findViewById<TextView>(R.id.unf).text.toString()
 
         datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
                 view, year, month, day ->

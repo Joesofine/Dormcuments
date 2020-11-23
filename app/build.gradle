@@ -103,5 +103,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-perf-ktx'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.30.1'
+
 
 }
