@@ -19,7 +19,10 @@ import com.joeSoFine.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.joeSoFine.dormcuments.databaseService
+import com.joeSoFine.dormcuments.ui.UITools
 import kotlinx.android.synthetic.main.fragment_create_cleaning.*
+import kotlinx.android.synthetic.main.fragment_create_cleaning.spinner_c1
+import kotlinx.android.synthetic.main.fragment_create_foodclub.*
 import kotlinx.android.synthetic.main.fragment_edit_food.date2
 import kotlinx.android.synthetic.main.fragment_edit_food.note
 import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c2
@@ -32,9 +35,7 @@ import kotlin.collections.ArrayList
 class EditCleaningFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Cleaning")
     lateinit var getdata : ValueEventListener
-    var choosenDate = ""
     var str = ""
-    var status: Boolean = false
     var unform = ""
     val ref = "Cleaning"
 
@@ -46,8 +47,6 @@ class EditCleaningFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_create_cleaning, container, false)
         val bundle = this.arguments
-        val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
-        val today = Calendar.getInstance()
         var cleaningid = bundle?.getString("id")
         root.findViewById<ImageView>(R.id.delete).visibility = View.VISIBLE
 
@@ -62,89 +61,14 @@ class EditCleaningFragment : Fragment() {
             root.findViewById<TextView>(R.id.unf)
         ))
 
-        choosenDate = root.findViewById<EditText>(R.id.date2).text.toString()
         unform = root.findViewById<TextView>(R.id.unf).text.toString()
+        unform = UITools.setUpDatepicker(root)
+        UITools.iniSpinners(root,requireContext(), resources.getStringArray(R.array.spinner_cooks))
+        UITools.onTaskClicked(root, root.findViewById<Switch>(R.id.switchH))
+        UITools.onDeleteClicked(root, requireContext(), cleaningid, ref, requireFragmentManager())
+        UITools.onCleaningSavedClick(cleaningid, ref, root, spinner_c1, spinner_c2, task.text.toString(), note.text.toString(),stats.text.toString(), unform, date2,
+            requireContext(), requireFragmentManager())
 
-        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
-                view, year, month, day ->
-            val local = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
-            val Formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM", Locale.ENGLISH)
-            val msg = local.format(Formatter)
-            unform = "$day/$month/$year"
-            root.findViewById<EditText>(R.id.date2).setText(msg)
-            choosenDate = msg
-            datePicker.visibility = View.GONE
-        }
-
-        root.findViewById<EditText>(R.id.date2).setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                datePicker.visibility = View.VISIBLE
-            }
-            true
-        }
-
-        root.findViewById<EditText>(R.id.task).setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                switchH.requestFocus()
-            }
-            true
-        }
-
-        val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_cooks))
-        myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
-        root.findViewById<Spinner>(R.id.spinner_c1).adapter = myAdapter
-        root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
-
-        root.findViewById<ImageView>(R.id.delete).setOnClickListener(){
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle(R.string.dialogTitle)
-            builder.setMessage(R.string.dialogMessage)
-            builder.setIcon(R.drawable.ic_baseline_warning_24)
-
-            builder.setPositiveButton("Continue"){dialogInterface, which ->
-                if (cleaningid != null) {
-                    deleteCleaning(cleaningid)
-                    Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
-                }
-            }
-            builder.setNeutralButton("Cancel"){dialogInterface , which ->
-            }
-
-            val alertDialog: AlertDialog = builder.create()
-            alertDialog.setCancelable(false)
-            alertDialog.show()
-
-        }
-
-        root.findViewById<Button>(R.id.save).setOnClickListener {
-            val tas = task.text.toString()
-            val not = note.text.toString()
-            val stat = stats.text.toString()
-
-
-            if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
-                Toast.makeText(context, "Cannot select the same cleaner twice", Toast.LENGTH_SHORT).show()
-            } else if (choosenDate == "") {
-                date2.error = "Please choose a date"
-            } else {
-
-                //var cleanningid = bundle?.getString("id")
-                val cleaning = Cleaning(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, tas, not, stat, unform)
-
-
-                if (cleaningid != null) {
-                    database.child(cleaningid).setValue(cleaning)
-                        .addOnSuccessListener {
-                            Toast.makeText(context, "Cleaning has been updated", Toast.LENGTH_SHORT).show()
-                            getFragmentManager()?.popBackStack()
-                        }
-                        .addOnFailureListener {
-                            // Write failed
-                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-                        }
-                }
-            }
-        }
 
         return root
     }
@@ -215,12 +139,4 @@ class EditCleaningFragment : Fragment() {
         if ( str.contains(st)){ switch.isChecked = true}
     }
 
-    private fun deleteCleaning(cleaningid: String){
-        var dName = database.child(cleaningid)
-
-        dName.removeValue()
-        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
-        getFragmentManager()?.popBackStack()
-        getFragmentManager()?.popBackStack()
-    }
 }

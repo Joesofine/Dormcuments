@@ -39,16 +39,12 @@ class CreateCleaningFragment() : Fragment() {
 
         switchIni(root)
         unform = UITools.setUpDatepicker(root)
-        iniSpinners(root)
+        UITools.iniSpinners(root,requireContext(),resources.getStringArray(R.array.spinner_cooks))
 
         root.findViewById<Button>(R.id.save).setOnClickListener { onSavedClick() }
 
-        root.findViewById<EditText>(R.id.task).setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                switchH.requestFocus()
-            }
-            true
-        }
+        UITools.onTaskClicked(root, switchH)
+
 
         return root
     }
@@ -101,19 +97,6 @@ class CreateCleaningFragment() : Fragment() {
         }
     }
 
-
-
-    private fun iniSpinners(root: View){
-        val myAdapter = ArrayAdapter(
-            requireContext(), R.layout.spinner_layout, resources.getStringArray(
-                R.array.spinner_cooks
-            )
-        )
-        myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
-        root.findViewById<Spinner>(R.id.spinner_c1).adapter = myAdapter
-        root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
-    }
-
     private fun validateInput(): Boolean {
         return if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
             Toast.makeText(context, "Cannot select the same cleaner twice", Toast.LENGTH_SHORT).show()
@@ -139,7 +122,7 @@ class CreateCleaningFragment() : Fragment() {
             )
 
             if (cleaningid != null) {
-                databaseService.saveToDatabase(ref, cleaningid, cleaning, requireContext(), CleaningFragment(), requireFragmentManager())
+                databaseService.saveCleaningToDatabase(ref, cleaningid, cleaning, requireContext(), CleaningFragment(), requireFragmentManager())
             }
         }
     }

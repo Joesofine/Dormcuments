@@ -20,8 +20,8 @@ object databaseService {
         return id
     }
 
-    public fun saveToDatabase(ref: String, id: String, obj: Cleaning, context: Context, frag: Fragment, fragmentManager: FragmentManager){
-        database.getReference(ref).child(id).setValue(obj)
+    public fun saveCleaningToDatabase(ref: String, id: String, clean: Cleaning, context: Context, frag: Fragment, fragmentManager: FragmentManager){
+        database.getReference(ref).child(id).setValue(clean)
             .addOnSuccessListener {
                 Toast.makeText(context, "Created", Toast.LENGTH_SHORT).show()
                 fragmentManager.beginTransaction().replace(
@@ -61,4 +61,12 @@ object databaseService {
         return getdata
     }
 
+    fun delteChildFromDatabase(id: String, ref: String, context: Context, fragmentManager: FragmentManager){
+        var dName = database.getReference(ref).child(id)
+
+        dName.removeValue()
+        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
+        fragmentManager.popBackStack()
+        fragmentManager.popBackStack()
+    }
 }
