@@ -108,6 +108,7 @@ object UITools {
                 if (id != null) {
                     databaseService.saveCleaningToDatabase(ref, id, cleaning, context, CleaningFragment(), fragmentManager)
                 }
+
             }
         }
     }
