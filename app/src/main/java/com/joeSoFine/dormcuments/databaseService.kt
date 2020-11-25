@@ -49,11 +49,21 @@ object databaseService {
          return cleaning
     }
 
-    fun setEventListener(id: String, spinner1: Spinner, spinner2: Spinner, date: EditText, task: EditText, note: EditText, stat: TextView, unform: TextView): ValueEventListener {
+    fun setEventListener(
+        root: View,
+        id: String,
+        spinner1: Spinner,
+        spinner2: Spinner,
+        date: EditText,
+        task: EditText,
+        note: EditText,
+        stat: TextView,
+        unform: TextView
+    ): ValueEventListener {
         var getdata = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var clean = getDataFromDatabase(id, snapshot)
-                UITools.setUpPreCleaning(clean, spinner1, spinner2, date, task, note, stat, unform)
+                UITools.setUpPreCleaning(root, clean, spinner1, spinner2, date, task, note, stat, unform)
             }
             override fun onCancelled(error: DatabaseError) {
             }
