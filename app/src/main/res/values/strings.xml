@@ -5,9 +5,11 @@
     <string name="title_shopping">Shopping</string>
     <string name="title_foodclub">Foodclub</string>
     <string name="title_more">More</string>
-    <string name="title_meeting">Meeting Agenda</string>
+    <string name="title_meeting">Meetings</string>
     <string name="title_cleaning">Kitchen Cleaning</string>
     <string name="title_rules">Rules</string>
+    <string name="title_profile">My Profile</string>
+    <string name="title_inventory">Inventory Shopping</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

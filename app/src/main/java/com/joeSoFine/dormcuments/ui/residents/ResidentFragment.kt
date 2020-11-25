@@ -60,12 +60,6 @@ class ResidentFragment : Fragment() {
         database.addListenerForSingleValueEvent(getdata)
         root.doOnAttach { database.removeEventListener(getdata) }
 
-        root.findViewById<ImageView>(R.id.profileButton).setOnClickListener(){
-            requireFragmentManager().beginTransaction().add(
-                R.id.nav_host_fragment,
-                profileFragment()
-            ).addToBackStack(null).commit()
-        }
         return root
     }
 

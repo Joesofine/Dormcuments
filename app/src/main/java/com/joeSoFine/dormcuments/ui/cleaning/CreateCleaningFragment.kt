@@ -40,8 +40,8 @@ class CreateCleaningFragment() : Fragment() {
         switchIni(root)
         unform = UITools.setUpDatepicker(root)
         UITools.iniSpinners(root,requireContext(),resources.getStringArray(R.array.spinner_cooks))
-
         root.findViewById<Button>(R.id.save).setOnClickListener { onSavedClick() }
+
 
         UITools.onTaskClicked(root, root.findViewById(R.id.switchH))
 
