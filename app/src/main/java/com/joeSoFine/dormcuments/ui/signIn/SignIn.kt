@@ -90,7 +90,12 @@ class SignIn : AppCompatActivity() {
         login.registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(loginResult: LoginResult) {
-                    progressBar10.visibility = View.VISIBLE
+                    Toast.makeText(
+                        applicationContext,
+                        "Facebook are still only avablable for developers",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                   /* progressBar10.visibility = View.VISIBLE
                     val credenials =
                         FacebookAuthProvider.getCredential(loginResult.accessToken.token);
 
@@ -154,17 +159,33 @@ class SignIn : AppCompatActivity() {
                             progressBar10.visibility = View.GONE
                         }
                     }
+
+                    */
                 }
+
+
 
                 override fun onCancel() {
                     println("Facebook onCancel");
                     progressBar10.visibility = View.GONE
+                    Toast.makeText(
+                        applicationContext,
+                        "Facebook are still only avablable for developers",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onError(error: FacebookException) {
                     println("Facebook onError")
                     progressBar10.visibility = View.GONE
+                    Toast.makeText(
+                        applicationContext,
+                        "Facebook are still only avablable for developers",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+
+
             })
     }
 

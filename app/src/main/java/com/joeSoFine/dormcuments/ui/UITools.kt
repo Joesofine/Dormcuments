@@ -122,7 +122,7 @@ object UITools {
 
     }
 
-    private fun validateCleaningInput(spinner_c1: Spinner, spinner_c2: Spinner, date2: EditText, context: Context): Boolean {
+    fun validateCleaningInput(spinner_c1: Spinner, spinner_c2: Spinner, date2: EditText, context: Context): Boolean {
         return if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
             Toast.makeText(context, "Cannot select the same cleaner twice", Toast.LENGTH_SHORT).show()
             false

@@ -43,7 +43,7 @@ class CreateCleaningFragment() : Fragment() {
 
         root.findViewById<Button>(R.id.save).setOnClickListener { onSavedClick() }
 
-        UITools.onTaskClicked(root, switchH)
+        UITools.onTaskClicked(root, root.findViewById(R.id.switchH))
 
 
         return root
