@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import com.joeSoFine.dormcuments.BaseBackPressedListener
+import com.joeSoFine.dormcuments.MainActivity
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.ui.UITools
 import kotlinx.coroutines.*
@@ -22,6 +24,7 @@ class  RulesFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_rules, container, false)
+
         var progressBar = root.findViewById<ProgressBar>(R.id.progressBar)
         progressBar.visibility = View.VISIBLE
 

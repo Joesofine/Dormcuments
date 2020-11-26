@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Happitat</string>
     <string name="example"><u>Pick Date</u></string>
-    <string name="title_calender">Calender</string>
+    <string name="title_calender">Calendar</string>
     <string name="title_shopping">Shopping</string>
     <string name="title_foodclub">Foodclub</string>
     <string name="title_more">More</string>

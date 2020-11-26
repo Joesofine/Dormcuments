@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormapp.ui.rules.RulesFragment
+import com.joeSoFine.dormcuments.BaseBackPressedListener
+import com.joeSoFine.dormcuments.MainActivity
 import com.joeSoFine.dormcuments.R
-import com.joeSoFine.dormcuments.ui.meeting.MeetingFragment
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
+import com.joeSoFine.dormcuments.ui.meeting.MeetingFragment
 import com.joeSoFine.dormcuments.ui.residents.ResidentFragment
 import com.joeSoFine.dormcuments.ui.residents.profileFragment
 import com.joeSoFine.dormcuments.ui.shopping.InventoryShoppingFragment
 import kotlinx.android.synthetic.main.fragment_more.*
+
 
 class MoreFragment : Fragment(),View.OnClickListener  {
 
@@ -24,6 +27,9 @@ class MoreFragment : Fragment(),View.OnClickListener  {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_more, container, false)
+        var activity = activity
+        (activity as MainActivity).setOnBackPressedListener(BaseBackPressedListener(activity))
+
 
         val rules_button = root.findViewById(R.id.rules_button) as Button;
         val residents_button = root.findViewById(R.id.residents_button) as Button;
@@ -60,7 +66,7 @@ class MoreFragment : Fragment(),View.OnClickListener  {
                     requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, MeetingFragment()).addToBackStack(null).commit()
                 }
                 p0 === profile_button -> {
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, profileFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, profileFragment()).addToBackStack(null).commit()
                 }
                 p0 === inventory_button -> {
                     requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, InventoryShoppingFragment()).addToBackStack(null).commit()
