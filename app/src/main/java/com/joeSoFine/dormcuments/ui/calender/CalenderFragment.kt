@@ -159,8 +159,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         for (element in arr) {
             val button = Button(context)
 
-            button.isFocusable = true
-            button.isFocusableInTouchMode = true
             button.layoutParams = LinearLayout.LayoutParams(buttonWidth, targetHeight)
             button.text = element
             button.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
@@ -233,6 +231,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         if (v is Button) {
             v.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
             context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v.setTextColor(it) }
+            v.isFocusable = true
+            v.isFocusableInTouchMode = true
             v.requestFocus()
 
             if(arr == weeks){
