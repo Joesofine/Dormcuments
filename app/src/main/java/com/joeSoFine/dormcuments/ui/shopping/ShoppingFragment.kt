@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
+import com.joeSoFine.dormcuments.ui.UITools
 
 class ShoppingFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Shoppinglist")
@@ -50,6 +51,11 @@ class ShoppingFragment : Fragment() {
                 AddShopItem()
             ).addToBackStack(null).commit()
         }
+
+        root.findViewById<ImageView>(R.id.question).setOnClickListener{
+            UITools.onHelpedClicked(requireContext(), "Welcome to grocery shopping", "On this page you can get an overview of all the grocery what needs to be bought. \nHere you can add items to the list just click the + button. \nClick the X to remove an item.")
+        }
+
         return root
     }
 

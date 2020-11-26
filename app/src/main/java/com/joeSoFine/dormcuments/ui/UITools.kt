@@ -9,6 +9,7 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.DialogTitle
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
 import com.joeSoFine.dormcuments.R
@@ -191,5 +192,17 @@ object UITools {
     }
 
 
+    fun onHelpedClicked(context: Context, dialogTitle: String, dialogMsg: String){
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(dialogTitle)
+        builder.setMessage(dialogMsg)
+        builder.setIcon(R.drawable.help_dialog_icon_foreground)
 
+        builder.setPositiveButton("Continue"){dialogInterface, which ->
+        }
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
 }

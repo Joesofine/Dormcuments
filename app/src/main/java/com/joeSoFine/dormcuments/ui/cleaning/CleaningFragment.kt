@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.joeSoFine.dormcuments.ui.UITools
 import java.time.LocalDate
 
 class CleaningFragment : Fragment() {
@@ -62,6 +63,10 @@ class CleaningFragment : Fragment() {
 
         root.findViewById<FloatingActionButton>(R.id.add3).setOnClickListener {
             requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, CreateCleaningFragment()).addToBackStack(null).commit()
+        }
+
+        root.findViewById<ImageView>(R.id.question).setOnClickListener{
+            UITools.onHelpedClicked(requireContext(), "Welcome to cleaning schedule", "On this page you can get an overview of all the planned cleanings as well as create new ones or edit the existings ones. \n Click on the details icon, to go to the details page. Here you are shown the tasks of the cleaning as well as who is cleaning, date and wheter is has been checked.")
         }
         return root
     }

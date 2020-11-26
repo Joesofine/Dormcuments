@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.joeSoFine.dormcuments.ui.UITools
 
 class MeetingFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Agenda")
@@ -56,6 +57,10 @@ class MeetingFragment : Fragment() {
                 AddTopic()
             ).addToBackStack(null).commit()
 
+        }
+
+        root.findViewById<ImageView>(R.id.question).setOnClickListener{
+            UITools.onHelpedClicked(requireContext(), "Welcome to meeting agendas", "On this page you can view and add topic you would like to dicuss on the next kitchen meeting. Click the X to delte a topic, the arrow to show a desription or add to create a new one. \n This page is not done, and will be exteended with summary of the meetings as well as overview of pcomming meetings and participants.")
         }
         return root
     }

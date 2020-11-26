@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.joeSoFine.dormcuments.ui.UITools
 import java.util.*
 
 class ResidentFragment : Fragment() {
@@ -59,6 +60,12 @@ class ResidentFragment : Fragment() {
         database.addValueEventListener(getdata)
         database.addListenerForSingleValueEvent(getdata)
         root.doOnAttach { database.removeEventListener(getdata) }
+
+
+        root.findViewById<ImageView>(R.id.helpButton).setOnClickListener{
+            UITools.onHelpedClicked(requireContext(), "Welcome to residents", "On this page you can get an overview of all the residents. Here you can see photos, birthdays and diets of the people living at the kitchen. \n Click on the arrow to expand the resident view and see the details of the chosen resident.")
+        }
+
 
         return root
     }

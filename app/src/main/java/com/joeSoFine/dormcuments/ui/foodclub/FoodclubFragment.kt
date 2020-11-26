@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.joeSoFine.dormcuments.ui.UITools
 import java.time.LocalDate
 
 
@@ -63,6 +64,10 @@ class FoodclubFragment : Fragment() {
 
         root.findViewById<FloatingActionButton>(R.id.add2).setOnClickListener {
             requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, CreateFoodclubFragment()).addToBackStack(null).commit()
+        }
+
+        root.findViewById<ImageView>(R.id.question).setOnClickListener{
+            UITools.onHelpedClicked(requireContext(), "Welcome to foodclub schedule", "On this page you can get an overview of all the planned foodclubs as well as create new ones or edit the existings ones. \n Click on the details icon, to go to the details page. Here you can see who is cooking, what they are cooking, diets of participant and the date.")
         }
         return root
     }

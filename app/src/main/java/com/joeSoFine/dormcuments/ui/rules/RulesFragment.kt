@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.ui.UITools
 import kotlinx.coroutines.*
 import java.net.URL
 import java.util.ArrayList
 
-class RulesFragment : Fragment() {
+class  RulesFragment : Fragment() {
     var ruleArr: ArrayList<String> = ArrayList()
 
     override fun onCreateView(
@@ -46,6 +48,11 @@ class RulesFragment : Fragment() {
                 }
             }
         }
+
+        root.findViewById<ImageView>(R.id.question).setOnClickListener{
+            UITools.onHelpedClicked(requireContext(), "Welcome to rules overview", "On this page you can read all the agreed upon rules, these rules are taken from a google docs in the kitchen drive, and should be edited there. To change the rules, this needs to be discussed at a kitchen meeting.")
+        }
+
         return root
     }
 
