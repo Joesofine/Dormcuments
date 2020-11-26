@@ -31,11 +31,11 @@
 
     // Color button
     <color name="defaultColor">#ffffff</color>
-    <color name="cleaning">#fd9500</color>
-    <color name="foodclub">#5bc33a</color>
-    <color name="meeting">#23beff</color>
-    <color name="booking">#e8002e</color>
-    <color name="social">#c16eee</color>
+    <color name="cleaning">#f0d458</color>
+    <color name="foodclub">#7af37e</color>
+    <color name="meeting">#7ac7f3</color>
+    <color name="booking">#ef5152</color>
+    <color name="social">#c3a0f6</color>
 
 
 </resources>
