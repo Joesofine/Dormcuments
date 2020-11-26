@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_create_cleaning.*
 class EditCleaningFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Cleaning")
     lateinit var getdata : ValueEventListener
-    var str = ""
     var unform = ""
     val ref = "Cleaning"
 

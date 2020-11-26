@@ -25,7 +25,6 @@ import java.util.*
 
 
 class CreateCleaningFragment() : Fragment() {
-    var str = ""
     var unform = ""
     val ref = "Cleaning"
 
@@ -45,6 +44,7 @@ class CreateCleaningFragment() : Fragment() {
         UITools.switchIni(root, task)
         unform = UITools.setUpDatepicker(root)
         UITools.iniSpinners(root,requireContext(),resources.getStringArray(R.array.spinner_cooks))
+        UITools.onTaskClicked(root, root.findViewById(R.id.switchH))
 
         root.findViewById<Button>(R.id.save).setOnClickListener { val cleaning = Cleaning(
             spinner_c1.selectedItem.toString(),
@@ -66,7 +66,6 @@ class CreateCleaningFragment() : Fragment() {
                 requireFragmentManager())
         }
 
-        UITools.onTaskClicked(root, root.findViewById(R.id.switchH))
 
 
         return root
