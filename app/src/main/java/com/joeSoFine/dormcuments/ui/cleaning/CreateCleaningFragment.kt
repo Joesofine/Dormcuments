@@ -36,95 +36,39 @@ class CreateCleaningFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_create_cleaning, container, false)
+        val spinner_c1 = root.findViewById<Spinner>(R.id.spinner_c1)
+        val spinner_c2 = root.findViewById<Spinner>(R.id.spinner_c2)
+        val date2 = root.findViewById<EditText>(R.id.date2)
+        val task = root.findViewById<EditText>(R.id.task)
+        val note = root.findViewById<EditText>(R.id.note)
 
-        switchIni(root)
+        UITools.switchIni(root, task)
         unform = UITools.setUpDatepicker(root)
         UITools.iniSpinners(root,requireContext(),resources.getStringArray(R.array.spinner_cooks))
-        root.findViewById<Button>(R.id.save).setOnClickListener { onSavedClick() }
 
+        root.findViewById<Button>(R.id.save).setOnClickListener { val cleaning = Cleaning(
+            spinner_c1.selectedItem.toString(),
+            spinner_c2.selectedItem.toString(),
+            date2.text.toString(),
+            task.text.toString(),
+            note.text.toString(),
+            "Unchecked",
+            unform
+        )
+            UITools.onCleaningSavedClick(
+                databaseService.generateID(ref)!!,
+                ref,
+                spinner_c1,
+                spinner_c2,
+                date2,
+                cleaning,
+                requireContext(),
+                requireFragmentManager())
+        }
 
         UITools.onTaskClicked(root, root.findViewById(R.id.switchH))
 
 
         return root
     }
-
-    private fun switchIni(root: View){
-        val switchA = root.findViewById<Switch>(R.id.switchA)
-        val switchB = root.findViewById<Switch>(R.id.switchB)
-        val switchC = root.findViewById<Switch>(R.id.switchC)
-        val switchD = root.findViewById<Switch>(R.id.switchD)
-        val switchE = root.findViewById<Switch>(R.id.switchE)
-        val switchF = root.findViewById<Switch>(R.id.switchF)
-        val switchG = root.findViewById<Switch>(R.id.switchG)
-        val switchH = root.findViewById<Switch>(R.id.switchH)
-        val switchI = root.findViewById<Switch>(R.id.switchI)
-        val switchJ = root.findViewById<Switch>(R.id.switchJ)
-        val switchK = root.findViewById<Switch>(R.id.switchK)
-
-        listenerOnChange(switchA, "A")
-        listenerOnChange(switchB, "B")
-        listenerOnChange(switchC, "C")
-        listenerOnChange(switchD, "D")
-        listenerOnChange(switchE, "E")
-        listenerOnChange(switchF, "F")
-        listenerOnChange(switchG, "G")
-        listenerOnChange(switchH, "H")
-        listenerOnChange(switchI, "I")
-        listenerOnChange(switchJ, "J")
-        listenerOnChange(switchK, "K")
-
-    }
-
-    private fun listenerOnChange(switch: Switch, st: String){
-        switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
-            if (str.isEmpty()){
-                str = st
-            } else {
-                str = task.text.toString() + " + " + st
-            }
-            if (isChecked){
-                task.setText(str)
-            } else {
-                val s = str.split(" + ")
-                if (st == s[0]){
-                    str = task.text.toString().replace("$st + ", "")
-                } else {
-                    str = task.text.toString().replace(" + $st", "")
-                }
-                task.setText(str)
-            }
-        }
-    }
-
-    private fun validateInput(): Boolean {
-        return if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
-            Toast.makeText(context, "Cannot select the same cleaner twice", Toast.LENGTH_SHORT).show()
-            false
-        } else if (date2.text.toString() == "") {
-            date2.error = "Please choose a date"
-            false
-        } else {
-            true
-        }
-    }
-    private fun onSavedClick(){
-        if (validateInput()){
-            val cleaningid = databaseService.generateID(ref)
-            val cleaning = Cleaning(
-                spinner_c1.selectedItem.toString(),
-                spinner_c2.selectedItem.toString(),
-                date2.text.toString(),
-                task.text.toString(),
-                note.text.toString(),
-                "Unchecked",
-                unform
-            )
-
-            if (cleaningid != null) {
-                databaseService.saveCleaningToDatabase(ref, cleaningid, cleaning, requireContext(), CleaningFragment(), requireFragmentManager())
-            }
-        }
-    }
-
 }

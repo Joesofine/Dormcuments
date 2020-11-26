@@ -103,18 +103,8 @@ object UITools {
         }
     }
 
-    fun onCleaningSavedClick(id: String, ref: String, root: View, spinner_c1: Spinner, spinner_c2: Spinner, task: EditText, note: EditText, stats: TextView, unform: TextView, date2: EditText, context: Context,fragmentManager: FragmentManager) {
+    fun onCleaningSavedClick(id: String, ref: String, spinner_c1: Spinner, spinner_c2: Spinner, date2: EditText, cleaning: Cleaning, context: Context,fragmentManager: FragmentManager) {
         if (validateCleaningInput(spinner_c1, spinner_c2, date2, context)) {
-            val cleaning = Cleaning(
-                spinner_c1.selectedItem.toString(),
-                spinner_c2.selectedItem.toString(),
-                root.findViewById<EditText>(R.id.date2).text.toString(),
-                task.text.toString(),
-                note.text.toString(),
-                stats.text.toString(),
-                unform.text.toString()
-            )
-
             if (id != null) {
                 databaseService.saveCleaningToDatabase(ref, id, cleaning, context, CleaningFragment(), fragmentManager)
             }

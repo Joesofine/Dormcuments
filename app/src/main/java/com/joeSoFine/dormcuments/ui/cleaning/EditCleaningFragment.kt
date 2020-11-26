@@ -59,17 +59,25 @@ class EditCleaningFragment : Fragment() {
         UITools.onTaskClicked(root, root.findViewById(R.id.switchH))
         UITools.onDeleteClicked(root, requireContext(), cleaningid, ref, requireFragmentManager())
 
+
+
         root.findViewById<Button>(R.id.save).setOnClickListener {
+            val cleaning = Cleaning(
+                spinner_c1.selectedItem.toString(),
+                spinner_c2.selectedItem.toString(),
+                date2.text.toString(),
+                task.text.toString(),
+                note.text.toString(),
+                stats.text.toString(),
+                unf.text.toString()
+            )
+
             UITools.onCleaningSavedClick(cleaningid,
                 ref,
-                root,
                 spinner_c1,
                 spinner_c2,
-                task,
-                note,
-                stats,
-                unf,
                 date2,
+                cleaning,
                 requireContext(),
                 requireFragmentManager())
         }
