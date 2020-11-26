@@ -67,7 +67,7 @@ class FoodclubFragment : Fragment() {
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(), "Welcome to foodclub schedule", "On this page you can get an overview of all the planned foodclubs as well as create new ones or edit the existings ones. \n Click on the details icon, to go to the details page. Here you can see who is cooking, what they are cooking, diets of participant and the date.")
+            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleFoodclub, R.string.helpDialogMsgFoodclub)
         }
         return root
     }

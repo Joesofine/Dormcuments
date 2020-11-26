@@ -60,7 +60,7 @@ class MeetingFragment : Fragment() {
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(), "Welcome to meeting agendas", "On this page you can view and add topic you would like to dicuss on the next kitchen meeting. Click the X to delte a topic, the arrow to show a desription or add to create a new one. \n This page is not done, and will be exteended with summary of the meetings as well as overview of pcomming meetings and participants.")
+            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleMeetings, R.string.helpDialogMsgMeetings)
         }
         return root
     }

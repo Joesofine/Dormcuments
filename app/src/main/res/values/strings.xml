@@ -97,6 +97,34 @@
     <string name="dialogTitleDelete">Deleting Account</string>
     <string name="dialogMessageDelete">Are you sure you want to delete account for good? </string>
 
+    <string name="helpDialogTitleCleaning">Welcome to cleaning schedule</string>
+    <string name="helpDialogTitleFoodclub">Welcome to foodclub schedule</string>
+    <string name="helpDialogTitleRules">Welcome to rules overview</string>
+    <string name="helpDialogTitleResident">Welcome to residents</string>
+    <string name="helpDialogTitleMeetings">Welcome to meeting agendas</string>
+    <string name="helpDialogTitleInventory">Welcome to inventory shopping</string>
+    <string name="helpDialogTitleGrocery">Welcome to grocery shopping</string>
+
+    <string name="helpDialogMsgCleaning">On this page you can get an overview of all the planned cleanings as well as create new ones or edit the existings ones.
+ Click on the details icon, to go to the details page. Here you are shown the tasks of the cleaning as well as who is cleaning, date and wheter is has been checked.</string>
+    <string name="helpDialogMsgFoodclub">On this page you can get an overview of all the planned foodclubs as well as create new ones or edit the existings ones.
+ Click on the details icon, to go to the details page. Here you can see who is cooking, what they are cooking, diets of participant and the date.</string>
+    <string name="helpDialogMsgRules">On this page you can read all the agreed upon rules, these rules are taken from a google docs in the kitchen drive, and should be edited there. To change the rules, this needs to be discussed at a kitchen meeting.</string>
+    <string name="helpDialogMsgResident">On this page you can get an overview of all the residents. Here you can see photos, birthdays and diets of the people living at the kitchen.
+ Click on the arrow to expand the resident view and see the details of the chosen resident.</string>
+    <string name="helpDialogMsgMeetings">On this page you can view and add topic you would like to dicuss on the next kitchen meeting. Click the X to delte a topic, the arrow to show a desription or add to create a new one.
+ This page is not done, and will be exteended with summary of the meetings as well as overview of pcomming meetings and participants.</string>
+    <string name="helpDialogMsgInventory">On this page you can get an overview of all the grocery what needs to be bought. Here you can add items to the list just click the + button.
+ Click the X to remove an item.</string>
+    <string name="helpDialogMsgGrocery">On this page you can get an overview of all the grocery what needs to be bought.
+Here you can add items to the list just click the + button.
+Click the X to remove an item.</string>
+
+
+
+
+
+
     <string name="title_activity_sign_up_picture">Sign in</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="and"><![CDATA[&]]></string>

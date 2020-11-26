@@ -66,7 +66,7 @@ class CleaningFragment : Fragment() {
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(), "Welcome to cleaning schedule", "On this page you can get an overview of all the planned cleanings as well as create new ones or edit the existings ones. \n Click on the details icon, to go to the details page. Here you are shown the tasks of the cleaning as well as who is cleaning, date and wheter is has been checked.")
+            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleCleaning, R.string.helpDialogMsgCleaning)
         }
         return root
     }

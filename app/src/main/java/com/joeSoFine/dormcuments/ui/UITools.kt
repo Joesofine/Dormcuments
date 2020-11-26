@@ -9,15 +9,11 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.DialogTitle
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
-import kotlinx.android.synthetic.main.fragment_create_cleaning.*
-import kotlinx.android.synthetic.main.fragment_edit_food.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -192,7 +188,7 @@ object UITools {
     }
 
 
-    fun onHelpedClicked(context: Context, dialogTitle: String, dialogMsg: String){
+    fun onHelpedClicked(context: Context, dialogTitle: Int, dialogMsg: Int){
         val builder = AlertDialog.Builder(context)
         builder.setTitle(dialogTitle)
         builder.setMessage(dialogMsg)

@@ -50,7 +50,7 @@ class  RulesFragment : Fragment() {
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(), "Welcome to rules overview", "On this page you can read all the agreed upon rules, these rules are taken from a google docs in the kitchen drive, and should be edited there. To change the rules, this needs to be discussed at a kitchen meeting.")
+            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleRules, R.string.helpDialogMsgRules)
         }
 
         return root

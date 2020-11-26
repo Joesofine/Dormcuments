@@ -63,7 +63,7 @@ class ResidentFragment : Fragment() {
 
 
         root.findViewById<ImageView>(R.id.helpButton).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(), "Welcome to residents", "On this page you can get an overview of all the residents. Here you can see photos, birthdays and diets of the people living at the kitchen. \n Click on the arrow to expand the resident view and see the details of the chosen resident.")
+            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleResident, R.string.helpDialogMsgResident)
         }
 
 

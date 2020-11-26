@@ -53,7 +53,7 @@ class ShoppingFragment : Fragment() {
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(), "Welcome to grocery shopping", "On this page you can get an overview of all the grocery what needs to be bought. \nHere you can add items to the list just click the + button. \nClick the X to remove an item.")
+            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)
         }
 
         return root

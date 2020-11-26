@@ -11,7 +11,6 @@ import com.joeSoFine.dormcuments.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 import com.joeSoFine.dormcuments.ui.UITools
-import kotlinx.android.synthetic.main.fragment_shopping.*
 
 class InventoryShoppingFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Inventory")
@@ -56,7 +55,7 @@ class InventoryShoppingFragment : Fragment() {
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(), "Welcome to inventory shopping", "On this page you can get an overview of all the grocery what needs to be bought. Here you can add items to the list just click the + button. \n Click the X to remove an item.")
+            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleInventory, R.string.helpDialogMsgInventory)
         }
         return root
     }
