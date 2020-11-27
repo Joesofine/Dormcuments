@@ -1,19 +1,20 @@
 package com.joeSoFine.dormcuments
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.joeSoFine.dormcuments.ui.UITools
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
+import com.joeSoFine.dormcuments.ui.shopping.Item
 
 object databaseService {
     var database = FirebaseDatabase.getInstance()
+    var c = 0
+
 
     public fun generateID(ref: String): String? {
         val id = database.getReference(ref).push().key
@@ -33,6 +34,23 @@ object databaseService {
                 // Write failed
                 Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    fun saveShopItemToDatabase(ref: String, id: String, product: Item, context: Context, layout: LinearLayout, layoutInflater: LayoutInflater): Int {
+        if (id != null) {
+            database.getReference(ref).child(id).setValue(product)
+                .addOnSuccessListener {
+                    c = 1
+                    Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT)
+                        .show()
+                    UITools.createShopAdd(layout,layoutInflater,ref, context)
+                }
+                .addOnFailureListener {
+                    // Write failed
+                    Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                }
+        }
+        return c
     }
 
      fun getDataFromDatabase(id: String, p0: DataSnapshot): Cleaning {
@@ -71,12 +89,53 @@ object databaseService {
         return getdata
     }
 
-    fun delteChildFromDatabase(id: String, ref: String, context: Context, fragmentManager: FragmentManager){
+    fun delteChildFromDatabase(id: String, ref: String, context: Context){
         var dName = database.getReference(ref).child(id)
 
         dName.removeValue()
         Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
-        fragmentManager.popBackStack()
-        fragmentManager.popBackStack()
+    }
+
+    fun setShopChildListener(progressBar: ProgressBar, myContainer: LinearLayout, layoutInflater: LayoutInflater, context: Context, ref: String){
+        var childListener = object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                progressBar.visibility = View.VISIBLE
+                UITools.createShopItem(snapshot.child("name").value.toString(),snapshot.key.toString(),myContainer,layoutInflater, context, ref)
+                progressBar.visibility = View.GONE
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                progressBar.visibility = View.VISIBLE
+
+                for (i in 0..myContainer.childCount - 1) {
+                    if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
+                        myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text = snapshot.child("name").value.toString()
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                progressBar.visibility = View.VISIBLE
+                for (i in 0..myContainer.childCount - 1) {
+                    if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
+                        myContainer.removeView(myContainer.getChildAt(i))
+                        progressBar.visibility = View.GONE
+                    }
+                }
+
+
+                Toast.makeText(context, snapshot.child("name").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        }
+
+        database.getReference(ref).addChildEventListener(childListener)
     }
 }

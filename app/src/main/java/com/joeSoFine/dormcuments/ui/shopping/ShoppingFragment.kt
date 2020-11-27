@@ -1,22 +1,35 @@
 package com.joeSoFine.dormcuments.ui.shopping
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.text.Html
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
-import com.joeSoFine.dormcuments.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
+import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.R.drawable.*
+import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.ui.UITools
+import kotlinx.android.synthetic.main.layout_add_item.*
+import org.w3c.dom.Comment
+
 
 class ShoppingFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Shoppinglist")
-    lateinit var getdata : ValueEventListener
+    //lateinit var getdata : ValueEventListener
     lateinit var myContainer: LinearLayout
+    val ref = "Shoppinglist"
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,69 +39,51 @@ class ShoppingFragment : Fragment() {
         var progressBar = root.findViewById<ProgressBar>(R.id.progressBar7)
         progressBar.visibility = View.VISIBLE
 
-        getdata = object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-
-                for (i in p0.children) {
-                    var name1: String = i.child("name").getValue() as String
-                    var itemId = i.key.toString()
-
-                    createTopic(name1, itemId, myContainer)
-                }
-                progressBar.visibility = View.GONE
-            }
-            override fun onCancelled(p0: DatabaseError) { println("err") }
+        databaseService.setShopChildListener(progressBar, myContainer, layoutInflater, requireContext(), ref )
+        if (myContainer.childCount == 0){
+            progressBar.visibility = View.GONE
         }
 
-        database.addValueEventListener(getdata)
-        database.addListenerForSingleValueEvent(getdata)
-
-        root.doOnAttach { database.removeEventListener(getdata) }
-
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
-            requireFragmentManager().beginTransaction().add(
-                R.id.nav_host_fragment,
-                AddShopItem()
-            ).addToBackStack(null).commit()
+            val layout = LinearLayout(context)
+            layout.orientation = LinearLayout.VERTICAL
+
+            val alert = AlertDialog.Builder(context, R.style.MyDialogStyle)
+            alert.setTitle(Html.fromHtml("<font color='#FFFFFF'>Add items to list</font>"))
+            UITools.createShopAdd(layout,layoutInflater, ref, requireContext())
+            alert.setView(layout)
+
+            alert.setPositiveButton("Done") { dialog, whichButton ->
+            }
+            alert.show().withCenteredButtons()
+
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)
+            UITools.onHelpedClicked(requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)
         }
 
         return root
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        database.removeEventListener(getdata)
+    fun AlertDialog.withCenteredButtons() {
+        val positive = getButton(AlertDialog.BUTTON_POSITIVE)
 
+        //Disable the material spacer view in case there is one
+        val parent = positive.parent as? LinearLayout
+        parent?.gravity = Gravity.CENTER_HORIZONTAL
+        val leftSpacer = parent?.getChildAt(1)
+        leftSpacer?.visibility = View.GONE
+
+        //Force the default buttons to center
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        layoutParams.weight = 1f
+        layoutParams.gravity = Gravity.CENTER
+
+        positive.layoutParams = layoutParams
     }
-
-    private fun createTopic(name: String, itemid: String ,myContainer: LinearLayout){
-
-        val ExpandableCardview: View =
-            layoutInflater.inflate(R.layout.list_element_shopping, null, false)
-        var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
-        var shoppingItem: TextView = ExpandableCardview.findViewById(R.id.shoppingItem)
-
-        shoppingItem.setText(name)
-
-        delete.setOnClickListener {
-            myContainer.removeView(ExpandableCardview)
-            deleteItem(itemid)
-        }
-
-        myContainer.addView(ExpandableCardview)
-    }
-
-
-    private fun deleteItem(itemId: String){
-        var dName = database.child(itemId)
-        dName.removeValue()
-        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
-    }
-
-
-
 }

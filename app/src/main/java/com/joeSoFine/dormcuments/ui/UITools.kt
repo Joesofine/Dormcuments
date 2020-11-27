@@ -4,16 +4,21 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
+import android.view.View.inflate
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
+import com.joeSoFine.dormcuments.ui.shopping.Item
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -87,8 +92,10 @@ object UITools {
 
         builder.setPositiveButton("Continue"){dialogInterface, which ->
             if (id != null) {
-                databaseService.delteChildFromDatabase(id, ref, context, fragmentManager)
+                databaseService.delteChildFromDatabase(id, ref, context)
                 Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
+                fragmentManager.popBackStack()
+                fragmentManager.popBackStack()
             }
         }
         builder.setNeutralButton("Cancel"){dialogInterface , which ->
@@ -201,4 +208,77 @@ object UITools {
         alertDialog.setCancelable(false)
         alertDialog.show()
     }
+
+    fun createShopItem(name: String, itemid: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, context: Context, ref: String){
+        var ExpandableCardview = layoutInflater.inflate(R.layout.list_element_shopping, null, false)
+
+        var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
+        var shoppingItem: TextView = ExpandableCardview.findViewById(R.id.shoppingItem)
+        var idContainer: TextView = ExpandableCardview.findViewById(R.id.idCon)
+
+        shoppingItem.text = name
+        idContainer.text = itemid
+
+        delete.setOnClickListener {
+            myContainer.removeView(ExpandableCardview)
+            databaseService.delteChildFromDatabase(itemid, ref, context)
+        }
+
+        myContainer.addView(ExpandableCardview)
+    }
+
+    fun AlertDialog.withCenteredButtons() {
+        val positive = getButton(AlertDialog.BUTTON_POSITIVE)
+
+        //Disable the material spacer view in case there is one
+        val parent = positive.parent as? LinearLayout
+        parent?.gravity = Gravity.CENTER_HORIZONTAL
+        val leftSpacer = parent?.getChildAt(1)
+        leftSpacer?.visibility = View.GONE
+
+        //Force the default buttons to center
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        layoutParams.weight = 1f
+        layoutParams.gravity = Gravity.CENTER
+
+        positive.layoutParams = layoutParams
+    }
+
+    fun createShopAdd(layout: LinearLayout, layoutInflater: LayoutInflater, ref: String, context: Context){
+        val ExpandableCardview: View =
+            layoutInflater.inflate(R.layout.layout_add_item, null, false)
+
+        var add: ImageView = ExpandableCardview.findViewById(R.id.addItem2)
+        var inputItem: EditText = ExpandableCardview.findViewById(R.id.inputItem2)
+        var c = 0
+
+        inputItem.requestFocus()
+
+
+        add.setOnClickListener {
+            if (c > 0) {
+                add.isEnabled = false
+            } else {
+                val item = inputItem.text.toString()
+
+                if (item.isEmpty()) {
+                    inputItem.error = "Please input a product"
+
+                } else {
+
+                    val itemId = databaseService.generateID(ref)
+                    val product = Item(item)
+
+                    c = databaseService.saveShopItemToDatabase(ref, itemId!!,product, context, layout, layoutInflater)
+                }
+            }
+        }
+        layout.addView(ExpandableCardview)
+    }
+
+
 }

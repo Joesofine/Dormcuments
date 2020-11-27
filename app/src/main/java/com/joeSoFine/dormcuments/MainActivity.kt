@@ -44,11 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val bottomNavigationView = findViewById<View>(R.id.nav_view) as BottomNavigationView
-        val fragments: List<Fragment> = supportFragmentManager.fragments
-        //val f: Fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
-
-        val f = supportFragmentManager.fragments.last()?.getChildFragmentManager()?.getFragments()?.get(0)
-
+        val f = supportFragmentManager.fragments.last()?.childFragmentManager?.fragments?.get(0)
 
         if (onBackPressedListener != null) {
             if (f is ShoppingFragment || f is FoodclubFragment || f is MoreFragment) {
