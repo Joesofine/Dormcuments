@@ -36,8 +36,8 @@ android {
         applicationId "com.joeSoFine.dormcuments"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 8
-        versionName "8.0"
+        versionCode 9
+        versionName "9.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

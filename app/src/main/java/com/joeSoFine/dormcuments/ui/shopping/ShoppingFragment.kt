@@ -41,7 +41,7 @@ class ShoppingFragment : Fragment() {
 
         databaseService.setShopChildListener(progressBar, myContainer, layoutInflater, requireContext(), ref )
         if (myContainer.childCount == 0){
-            progressBar.visibility = View.GONE
+            //progressBar.visibility = View.GONE
         }
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {

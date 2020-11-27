@@ -106,7 +106,6 @@ object databaseService {
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 progressBar.visibility = View.VISIBLE
-
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
                         myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text = snapshot.child("name").value.toString()
@@ -121,19 +120,18 @@ object databaseService {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
                         myContainer.removeView(myContainer.getChildAt(i))
                         progressBar.visibility = View.GONE
+                        Toast.makeText(context, snapshot.child("name").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
                     }
                 }
-
-
-                Toast.makeText(context, snapshot.child("name").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                progressBar.visibility = View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {
+                progressBar.visibility = View.GONE
             }
-
         }
 
         database.getReference(ref).addChildEventListener(childListener)
