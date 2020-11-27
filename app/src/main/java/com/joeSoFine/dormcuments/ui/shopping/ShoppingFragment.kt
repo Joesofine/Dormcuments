@@ -2,25 +2,19 @@ package com.joeSoFine.dormcuments.ui.shopping
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 import com.joeSoFine.dormcuments.R
-import com.joeSoFine.dormcuments.R.drawable.*
 import com.joeSoFine.dormcuments.databaseService
-import com.joeSoFine.dormcuments.ui.UITools
-import kotlinx.android.synthetic.main.layout_add_item.*
-import org.w3c.dom.Comment
+import com.joeSoFine.dormcuments.UITools
 
 
 class ShoppingFragment : Fragment() {

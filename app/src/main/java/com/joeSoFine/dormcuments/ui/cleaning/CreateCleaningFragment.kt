@@ -4,24 +4,14 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
-import com.google.firebase.database.FirebaseDatabase
 import com.joeSoFine.dormcuments.databaseService
-import com.joeSoFine.dormcuments.ui.UITools
-import kotlinx.android.synthetic.main.fragment_create_cleaning.*
-import kotlinx.android.synthetic.main.fragment_create_foodclub.date2
-import kotlinx.android.synthetic.main.fragment_create_foodclub.note
-import kotlinx.android.synthetic.main.fragment_create_foodclub.spinner_c1
-import kotlinx.android.synthetic.main.fragment_create_foodclub.spinner_c2
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
+import com.joeSoFine.dormcuments.UITools
 
 
 class CreateCleaningFragment() : Fragment() {

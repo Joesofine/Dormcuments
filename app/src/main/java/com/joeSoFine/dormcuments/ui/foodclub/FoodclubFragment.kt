@@ -19,7 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.joeSoFine.dormcuments.ui.UITools
+import com.joeSoFine.dormcuments.UITools
 import java.time.LocalDate
 
 

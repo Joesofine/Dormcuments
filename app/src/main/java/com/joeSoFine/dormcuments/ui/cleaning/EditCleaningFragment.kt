@@ -13,8 +13,7 @@ import com.joeSoFine.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.joeSoFine.dormcuments.databaseService
-import com.joeSoFine.dormcuments.ui.UITools
-import kotlinx.android.synthetic.main.fragment_create_cleaning.*
+import com.joeSoFine.dormcuments.UITools
 
 class EditCleaningFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Cleaning")

@@ -8,10 +8,8 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import com.joeSoFine.dormcuments.BaseBackPressedListener
-import com.joeSoFine.dormcuments.MainActivity
 import com.joeSoFine.dormcuments.R
-import com.joeSoFine.dormcuments.ui.UITools
+import com.joeSoFine.dormcuments.UITools
 import kotlinx.coroutines.*
 import java.net.URL
 import java.util.ArrayList

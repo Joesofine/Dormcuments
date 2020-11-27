@@ -8,14 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.doOnAttach
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 import com.joeSoFine.dormcuments.databaseService
-import com.joeSoFine.dormcuments.ui.UITools
+import com.joeSoFine.dormcuments.UITools
 
 class InventoryShoppingFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Inventory")

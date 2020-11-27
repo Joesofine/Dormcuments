@@ -1,4 +1,4 @@
-package com.joeSoFine.dormcuments.ui
+package com.joeSoFine.dormcuments
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -9,13 +9,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
-import android.view.View.inflate
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
-import com.joeSoFine.dormcuments.R
-import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
 import com.joeSoFine.dormcuments.ui.shopping.Item
