@@ -18,8 +18,6 @@ import com.joeSoFine.dormcuments.UITools
 
 
 class ShoppingFragment : Fragment() {
-    var database = FirebaseDatabase.getInstance().getReference("Shoppinglist")
-    //lateinit var getdata : ValueEventListener
     lateinit var myContainer: LinearLayout
     val ref = "Shoppinglist"
 
@@ -34,9 +32,6 @@ class ShoppingFragment : Fragment() {
         progressBar.visibility = View.VISIBLE
 
         databaseService.setShopChildListener(progressBar, myContainer, layoutInflater, requireContext(), ref )
-        if (myContainer.childCount == 0){
-            //progressBar.visibility = View.GONE
-        }
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
             val layout = LinearLayout(context)

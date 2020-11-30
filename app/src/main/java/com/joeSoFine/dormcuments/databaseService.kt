@@ -118,10 +118,10 @@ object databaseService {
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
                         myContainer.removeView(myContainer.getChildAt(i))
-                        progressBar.visibility = View.GONE
                         Toast.makeText(context, snapshot.child("name").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
                     }
                 }
+                progressBar.visibility = View.GONE
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
