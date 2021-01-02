@@ -11,9 +11,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
-import com.joeSoFine.dormcuments.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -22,7 +20,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import org.w3c.dom.Text
+import com.joeSoFine.dormcuments.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
@@ -74,8 +72,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         year = root.findViewById(R.id.year)
         whoops = root.findViewById(R.id.whoops)
         progressBar = root.findViewById(R.id.progressBar2)
-
-
 
         week.setOnClickListener(this)
         month.setOnClickListener(this)
@@ -140,13 +136,23 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         months.add("December")
     }
     private fun makeWeekArr(current_year: Int){
+        val cal = Calendar.getInstance()
+        cal[Calendar.YEAR] = current_year - 1
+        cal[Calendar.MONTH] = Calendar.DECEMBER
+        cal[Calendar.DAY_OF_MONTH] = 31
+        val last_year_weeks = (cal[Calendar.WEEK_OF_YEAR])
+
+        if (last_year_weeks == 53){
+            weeks.add("U53")
+        }
+
         for (i in 1..Calendar.getInstance().getActualMaximum(Calendar.WEEK_OF_YEAR)) {
             val st = "U$i"
             weeks.add(st)
         }
     }
     private fun makeYearArr(current_year: Int){
-        for (i in 2019..current_year + 1) {
+        for (i in current_year - 1..current_year + 1) {
             years.add(i.toString())
         }
     }
@@ -227,24 +233,43 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         context?.let {ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
 
         buttonLoop(arr, width)
-        val v: View = sliderLayout.getChildAt(current)
-        if (v is Button) {
-            v.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
-            context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v.setTextColor(it) }
-            v.isFocusable = true
-            v.isFocusableInTouchMode = true
-            v.requestFocus()
 
-            if(arr == weeks){
-                getSortedEvents(0, current + 1, weeks)
+        if (current == 52) {
+            for (i in 0 until sliderLayout.childCount) {
+                val v1: View = sliderLayout.getChildAt(i)
+                if (v1 is Button) {
+                    if (v1.text.contains("53")) {
+                        v1.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
+                        context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v1.setTextColor(it) }
+                        v1.isFocusable = true
+                        v1.isFocusableInTouchMode = true
+                        v1.requestFocus()
+                        getSortedEvents(0, current + 1, weeks)
+                    }
 
-            } else if (arr == months) {
-                getSortedEvents(1, current +1, months)
-
-            } else if (arr == years) {
-                getSortedEvents(0, current + 2019, years)
+                }
             }
 
+        } else {
+            val v: View = sliderLayout.getChildAt(current)
+            if (v is Button) {
+                v.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
+                context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v.setTextColor(it) }
+                v.isFocusable = true
+                v.isFocusableInTouchMode = true
+                v.requestFocus()
+
+                if (arr == weeks) {
+                    getSortedEvents(0, current + 1, weeks)
+
+                } else if (arr == months) {
+                    getSortedEvents(1, current + 1, months)
+
+                } else if (arr == years) {
+                    getSortedEvents(0, current + 2019, years)
+                }
+
+            }
         }
     }
     @RequiresApi(Build.VERSION_CODES.O)
@@ -252,7 +277,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private fun createEventView(
         title: String, dateStart: String, unformattedDate: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
         allDay: String, notification: String, doesRepeat: String, createdBy: String,
-        eventid: String, par: String, color: String, myContainer: LinearLayout, arr: ArrayList<String>){
+        eventid: String, par: String, color: String, myContainer: LinearLayout, arr: ArrayList<String>
+    ){
 
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_calendar, null, false)
@@ -365,7 +391,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         } else {
             for (i in 0..myContainer.childCount - 1) {
                 val ufd = myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
-                val elementDate = LocalDate.of(ufd[0].toInt(),ufd[1].toInt(),ufd[2].toInt())
+                val elementDate = LocalDate.of(ufd[0].toInt(), ufd[1].toInt(), ufd[2].toInt())
 
                 if (elementDate.isAfter(local) || elementDate.isEqual(local) ) { // If the date of current and existing element is same or current is before, input before.
                     myContainer.addView(ExpandableCardview, i)
@@ -377,8 +403,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                         break
 
                     } else {
-                        val ufdK = myContainer.getChildAt(i+1).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
-                        val elementDateK = LocalDate.of(ufdK[0].toInt(),ufdK[1].toInt(),ufdK[2].toInt())
+                        val ufdK = myContainer.getChildAt(i + 1).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
+                        val elementDateK = LocalDate.of(ufdK[0].toInt(), ufdK[1].toInt(), ufdK[2].toInt())
 
                         if (local.isBefore(elementDateK) || local.isEqual(elementDateK)) {
                             myContainer.addView(ExpandableCardview, i + 1)
@@ -546,7 +572,25 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var color = i.child("color").value.toString()
         var eventid = i.key.toString()
 
-        createEventView(title, dateStart, dateUn, dateEnd, timeStart, timeEnd, des, location, allday, notis, doesRepeat, created, eventid, par, color, myContainer, arr)
+        createEventView(
+            title,
+            dateStart,
+            dateUn,
+            dateEnd,
+            timeStart,
+            timeEnd,
+            des,
+            location,
+            allday,
+            notis,
+            doesRepeat,
+            created,
+            eventid,
+            par,
+            color,
+            myContainer,
+            arr
+        )
     }
 
     private fun setWhoops(){
