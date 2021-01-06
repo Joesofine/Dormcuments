@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.firebase.database.*
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
+import com.joeSoFine.dormcuments.ui.foodclub.Foodclub
 import com.joeSoFine.dormcuments.ui.shopping.Item
 
 object databaseService {
@@ -143,6 +144,7 @@ object databaseService {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 progressBar.visibility = View.VISIBLE
+                if (ref.equals("Foodclub")){
                 UITools.createClubItem(
                     snapshot.child("c1").value.toString(),
                     snapshot.child("c2").value.toString(),
@@ -154,7 +156,21 @@ object databaseService {
                     fragmentManager,
                     context,
                     ref
-                )
+                )}
+                else if(ref.equals("Cleaning")){
+                    UITools.createCleaningItem(
+                        snapshot.child("c1").value.toString(),
+                        snapshot.child("c2").value.toString(),
+                        snapshot.child("date").value.toString(),
+                        snapshot.key.toString(),
+                        snapshot.child("unform").value.toString(),
+                        myContainer,
+                        layoutInflater,
+                        fragmentManager,
+                        context,
+                        ref
+                    )
+                }
                 progressBar.visibility = View.GONE
             }
 
