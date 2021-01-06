@@ -1,9 +1,11 @@
 package com.joeSoFine.dormcuments
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.firebase.database.*
@@ -107,7 +109,7 @@ object databaseService {
                 progressBar.visibility = View.VISIBLE
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
-                        myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text = snapshot.child("name").value.toString()
+                        myContainer.getChildAt(i).findViewById<TextView>(R.id.shoppingItem).text = snapshot.child("name").value.toString()
                         progressBar.visibility = View.GONE
                     }
                 }
@@ -133,6 +135,61 @@ object databaseService {
             }
         }
 
+        database.getReference(ref).addChildEventListener(childListener)
+    }
+
+    fun setFoodChildListener(progressBar: ProgressBar, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, ref: String) {
+        var childListener = object : ChildEventListener {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                progressBar.visibility = View.VISIBLE
+                UITools.createClubItem(
+                    snapshot.child("c1").value.toString(),
+                    snapshot.child("c2").value.toString(),
+                    snapshot.child("date").value.toString(),
+                    snapshot.key.toString(),
+                    snapshot.child("unform").value.toString(),
+                    myContainer,
+                    layoutInflater,
+                    fragmentManager,
+                    context,
+                    ref
+                )
+                progressBar.visibility = View.GONE
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                progressBar.visibility = View.VISIBLE
+                for (i in 0..myContainer.childCount - 1) {
+                    if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
+                        myContainer.getChildAt(i).findViewById<TextView>(R.id.who1).text = snapshot.child("c1").value.toString()
+                        myContainer.getChildAt(i).findViewById<TextView>(R.id.who2).text = snapshot.child("c2").value.toString()
+                        myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = snapshot.child("date").value.toString()
+                        myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text = snapshot.child("unform").value.toString()
+                        progressBar.visibility = View.GONE
+                    }
+                }
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                progressBar.visibility = View.VISIBLE
+                for (i in 0..myContainer.childCount - 1) {
+                    if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
+                        myContainer.removeView(myContainer.getChildAt(i))
+                        Toast.makeText(context, snapshot.child("date").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                progressBar.visibility = View.GONE
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                progressBar.visibility = View.GONE
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                progressBar.visibility = View.GONE
+            }
+        }
         database.getReference(ref).addChildEventListener(childListener)
     }
 }
