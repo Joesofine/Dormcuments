@@ -124,7 +124,7 @@ class FoodclubFragment : Fragment() {
         } else {
             for (i in 0..myContainer.childCount - 1) {
                 val ufd = myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
-                val elementDate = LocalDate.of(ufd[2].toInt(),ufd[1].toInt(),ufd[0].toInt())
+                val elementDate = LocalDate.of(ufd[2].toInt(),ufd[1].toInt() + 1,ufd[0].toInt())
 
                 if (elementDate.isAfter(local) || elementDate.isEqual(local) ) {
                     myContainer.addView(ExpandableCardview, i)
@@ -148,7 +148,7 @@ class FoodclubFragment : Fragment() {
 
                             for (j in k..myContainer.childCount - 1) {
                                 val ufdJ = myContainer.getChildAt(j).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
-                                val elementDateJ = LocalDate.of(ufdJ[2].toInt(), ufdJ[1].toInt(), ufdJ[0].toInt())
+                                val elementDateJ = LocalDate.of(ufdJ[2].toInt(), ufdJ[1].toInt() + 1, ufdJ[0].toInt())
 
                                 if (local.isBefore(elementDateJ)) {
                                     myContainer.addView(ExpandableCardview, j)

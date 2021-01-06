@@ -53,9 +53,6 @@ class FoodDetailsFragment : Fragment() {
                         var w2 = p0.child(clubid).child("c2").getValue().toString().substring(1,3)
                         var par = p0.child(clubid).child("participants").getValue().toString()
 
-
-
-
                         if(w1.equals("on") || w2.equals("on")){
                             if(w1.equals("on") && w2.equals("on")){
                                 w1 = "NA"
@@ -93,6 +90,7 @@ class FoodDetailsFragment : Fragment() {
                         root.findViewById<TextView>(R.id.chefs).text = "$w1, $w2"
                         root.findViewById<TextView>(R.id.date).text = p0.child(clubid).child("date").getValue().toString()
                         root.findViewById<TextView>(R.id.dinner).text = p0.child(clubid).child("dinner").getValue().toString()
+                        root.findViewById<TextView>(R.id.diets).text = p0.child(clubid).child("diets").getValue().toString()
                         root.findViewById<TextView>(R.id.note).text = p0.child(clubid).child("note").getValue().toString()
                         chefs = root.findViewById<TextView>(R.id.chefs).text.toString().split(", ")
 
@@ -183,6 +181,7 @@ class FoodDetailsFragment : Fragment() {
                     }
                     if (diets.text.toString().isEmpty()) {
                         diets.text = diet
+                        fst = diets.text.toString()
                     } else {
                         fst = diets.text.toString() + ", " + diet
                         diets.text = fst
