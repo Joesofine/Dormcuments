@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.foodclub.Foodclub
@@ -157,7 +158,7 @@ object databaseService {
                     context,
                     ref
                 )}
-                else if(ref.equals("Cleaning")){
+                else if (ref.equals("Cleaning")){
                     UITools.createCleaningItem(
                         snapshot.child("c1").value.toString(),
                         snapshot.child("c2").value.toString(),
@@ -171,6 +172,20 @@ object databaseService {
                         ref
                     )
                 }
+                else if (ref.equals("Users")){
+                    UITools.createResident(
+                        snapshot.child("fname").value.toString(),
+                        snapshot.child("number").value.toString(),
+                        snapshot.key.toString(),
+                        snapshot.child("bdate").value.toString(),
+                        snapshot.child("from").value.toString(),
+                        snapshot.child("diet").value.toString(),
+                        snapshot.child("funfact").value.toString(),
+                        snapshot.child("url").value.toString(),
+                        myContainer,
+                        layoutInflater,
+                        context)
+                }
                 progressBar.visibility = View.GONE
             }
 
@@ -178,11 +193,36 @@ object databaseService {
                 progressBar.visibility = View.VISIBLE
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
-                        myContainer.getChildAt(i).findViewById<TextView>(R.id.who1).text = snapshot.child("c1").value.toString()
-                        myContainer.getChildAt(i).findViewById<TextView>(R.id.who2).text = snapshot.child("c2").value.toString()
-                        myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = snapshot.child("date").value.toString()
-                        myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text = snapshot.child("unform").value.toString()
-                        progressBar.visibility = View.GONE
+                        if (ref.equals("User")){
+                            var fname = snapshot.child("fname").value.toString()
+
+                            if (fname.contains(" ")){
+                                val name = fname.split(" ")
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.resName).text = name[0]
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.resLast).text = name[1]
+                            } else {
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.resName).text = fname
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.resLast).text = " "
+                            }
+
+                            var bdate = snapshot.child("bdate").value.toString()
+                            val birthday = bdate.split("/")
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.age).text = UITools.getAge(birthday[2].toInt() ,birthday[1].toInt() ,birthday[0].toInt())
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.birthday).text = bdate
+                            context?.let { Glide.with(it).load(snapshot.child("url").value.toString()).into(myContainer.getChildAt(i).findViewById<ImageView>(R.id.userImage)) }
+
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.resRn).text = snapshot.child("number").value.toString()
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.from).text = snapshot.child("from").value.toString()
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.diet).text = snapshot.child("diet").value.toString()
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.fact).text = snapshot.child("funfact").value.toString()
+
+                        } else {
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.who1).text = snapshot.child("c1").value.toString()
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.who2).text = snapshot.child("c2").value.toString()
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = snapshot.child("date").value.toString()
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text = snapshot.child("unform").value.toString()
+                            progressBar.visibility = View.GONE
+                        }
                     }
                 }
             }
@@ -192,7 +232,7 @@ object databaseService {
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
                         myContainer.removeView(myContainer.getChildAt(i))
-                        Toast.makeText(context, snapshot.child("date").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, snapshot.child("fname").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
                     }
                 }
                 progressBar.visibility = View.GONE

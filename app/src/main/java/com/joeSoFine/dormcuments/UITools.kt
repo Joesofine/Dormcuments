@@ -13,7 +13,9 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.Glide
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningDetailsFragment
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
@@ -439,6 +441,113 @@ object UITools {
             }
         }
         layout.addView(ExpandableCardview)
+    }
+
+
+    fun createResident(fullname: String, rn: String, userId: String, bdate: String, sfrom: String, food: String, fact: String, url: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, context: Context){
+        val ExpandableCardview: View = layoutInflater.inflate(R.layout.list_element_resident, null, false)
+
+        var sumLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.sumLayout)
+        var titleLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
+        var expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
+        var room: TextView = ExpandableCardview.findViewById(R.id.resRn)
+        var resName: TextView = ExpandableCardview.findViewById(R.id.resName)
+        var resLast: TextView = ExpandableCardview.findViewById(R.id.resLast)
+        var age: TextView = ExpandableCardview.findViewById(R.id.age)
+        var birth: TextView = ExpandableCardview.findViewById(R.id.birthday)
+        var from: TextView = ExpandableCardview.findViewById(R.id.from)
+        var diet: TextView = ExpandableCardview.findViewById(R.id.diet)
+        var funny: TextView = ExpandableCardview.findViewById(R.id.fact)
+        var userImg: ImageView = ExpandableCardview.findViewById(R.id.userImage)
+        var id: TextView = ExpandableCardview.findViewById(R.id.idCon)
+
+        context?.let { Glide.with(it).load(url).into(userImg) }
+
+
+        if (fullname.contains(" ")){
+            val name = fullname.split(" ")
+            resName.text = name[0]
+            resLast.text = name[1]
+        } else {
+            resName.text = fullname
+            resLast.text = ""
+        }
+
+        val birthday = bdate.split("/")
+        room.text = rn
+        age.text = getAge(birthday[2].toInt() ,birthday[1].toInt() ,birthday[0].toInt())
+        birth.text = bdate
+        from.text = sfrom
+        id.text = userId
+
+        if (food.equals("")){
+            diet.text = "None"
+        } else {
+            diet.text = food
+        }
+        if (fact.equals("")){
+            funny.text = "I'm not very funny"
+        } else {
+            funny.text = fact
+        }
+
+        titleLayout.setOnClickListener { expandList(sumLayout, expand) }
+
+        if (myContainer.childCount == 0) {
+            myContainer.addView(ExpandableCardview)
+        } else {
+            for (i in 0..myContainer.childCount - 1) {
+                val room = myContainer.getChildAt(i).findViewById<TextView>(R.id.resRn).text.toString().toInt()
+                if (room >= rn.toInt()) {
+                    myContainer.addView(ExpandableCardview, i)
+                    break
+
+                } else if (room < rn.toInt()) {
+                    if (i == myContainer.childCount - 1) {
+                        myContainer.addView(ExpandableCardview)
+                        break
+
+                    } else if (rn.toInt() <= i+1)  {
+                        myContainer.addView(ExpandableCardview, i + 1)
+                        break
+
+                    } else {
+                        for (k in i+1..myContainer.childCount -1){
+                            val roomK = myContainer.getChildAt(k).findViewById<TextView>(R.id.resRn).text.toString().toInt()
+                            if (rn.toInt() < roomK){
+                                myContainer.addView(ExpandableCardview, k)
+                                break
+
+                            }
+                        }
+                    }
+                    break
+                }
+            }
+        }
+    }
+
+    fun expandList(
+        sumLayout: ConstraintLayout, expand: ImageView) {
+        if (sumLayout.visibility == View.GONE) {
+            sumLayout.visibility = View.VISIBLE
+            expand.rotation = 90f
+        } else if (sumLayout.visibility == View.VISIBLE) {
+            sumLayout.visibility = View.GONE
+            expand.rotation = 0f
+        }
+    }
+
+    fun getAge(year: Int, month: Int, day: Int): String? {
+        val dob = Calendar.getInstance()
+        val today = Calendar.getInstance()
+        dob[year, month] = day
+        var age = today[Calendar.YEAR] - dob[Calendar.YEAR]
+        if (today[Calendar.DAY_OF_YEAR] < dob[Calendar.DAY_OF_YEAR]) {
+            age--
+        }
+        val ageInt = age
+        return ageInt.toString()
     }
 
 
