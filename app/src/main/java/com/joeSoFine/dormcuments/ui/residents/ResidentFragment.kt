@@ -19,24 +19,16 @@ import com.joeSoFine.dormcuments.databaseService
 import java.util.*
 
 class ResidentFragment : Fragment() {
-    var database = FirebaseDatabase.getInstance().getReference("Users")
     val ref = "Users"
-    lateinit var getdata : ValueEventListener;
-    private lateinit var residentLayout: LinearLayout
-    /*val Float.px: Float
-        get() = (this * Resources.getSystem().displayMetrics.density).toFloat()
-    val Int.dp: Int
-        get() = (this / Resources.getSystem().displayMetrics.density).toInt()
-
-     */
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
         val root = inflater.inflate(R.layout.fragment_residents, container, false)
-        residentLayout = root.findViewById(R.id.residentLayout)
         var progressBar = root.findViewById<ProgressBar>(R.id.progressBar6)
+        var residentLayout = root.findViewById<LinearLayout>(R.id.residentLayout)
         progressBar.visibility = View.VISIBLE
 
         databaseService.setFoodChildListener(progressBar, residentLayout, layoutInflater, requireFragmentManager(), requireContext(), ref )
