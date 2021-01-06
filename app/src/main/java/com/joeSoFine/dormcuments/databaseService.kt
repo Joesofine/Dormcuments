@@ -186,6 +186,16 @@ object databaseService {
                         layoutInflater,
                         context)
                 }
+                else if (ref.equals("Agenda")){
+                    UITools.createTopic(snapshot.child("name").value.toString(),
+                        snapshot.child("summary").value.toString(),
+                        snapshot.key.toString(),
+                        myContainer,
+                        layoutInflater,
+                        ref,
+                        context
+                    )
+                }
                 progressBar.visibility = View.GONE
             }
 
@@ -216,7 +226,13 @@ object databaseService {
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.diet).text = snapshot.child("diet").value.toString()
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.fact).text = snapshot.child("funfact").value.toString()
 
-                        } else {
+                        } else if (ref.equals("Agenda")){
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.meetingItem).text = snapshot.child("name").value.toString()
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.sum).text = snapshot.child("summary").value.toString()
+                        }
+
+
+                        else {
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.who1).text = snapshot.child("c1").value.toString()
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.who2).text = snapshot.child("c2").value.toString()
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = snapshot.child("date").value.toString()
@@ -232,7 +248,7 @@ object databaseService {
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
                         myContainer.removeView(myContainer.getChildAt(i))
-                        Toast.makeText(context, snapshot.child("fname").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, snapshot.child("name").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
                     }
                 }
                 progressBar.visibility = View.GONE

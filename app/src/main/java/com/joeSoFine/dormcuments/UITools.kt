@@ -527,6 +527,35 @@ object UITools {
         }
     }
 
+    fun createTopic(name: String, des: String, topicId: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, ref: String, context: Context){
+
+        val ExpandableCardview: View =
+            layoutInflater.inflate(R.layout.list_element_meeting, null, false)
+
+        var sumLayout : ConstraintLayout  = ExpandableCardview.findViewById(R.id.sumLayout)
+        var titleLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
+        var expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
+        var divider: View = ExpandableCardview.findViewById(R.id.div)
+        var delete: ImageView = ExpandableCardview.findViewById(R.id.delete)
+        var meetingItem: TextView = ExpandableCardview.findViewById(R.id.meetingItem)
+        var sum: TextView = ExpandableCardview.findViewById(R.id.sum)
+        var id: TextView = ExpandableCardview.findViewById(R.id.idCon)
+
+        meetingItem.setText(name)
+        sum.setText(des)
+        id.text = topicId
+
+        //Set OnClickListener that handles expansion and collapse of view
+        titleLayout.setOnClickListener {
+            expandListMeeting(sumLayout, expand, divider) }
+
+        delete.setOnClickListener {
+            databaseService.delteChildFromDatabase(topicId, ref, context )
+        }
+
+        myContainer.addView(ExpandableCardview)
+    }
+
     fun expandList(
         sumLayout: ConstraintLayout, expand: ImageView) {
         if (sumLayout.visibility == View.GONE) {
@@ -548,6 +577,21 @@ object UITools {
         }
         val ageInt = age
         return ageInt.toString()
+    }
+
+    fun expandListMeeting(
+        sumLayout: ConstraintLayout,
+        expand: ImageView, divider: View
+    ) {
+        if (sumLayout.visibility == View.GONE) {
+            sumLayout.visibility = View.VISIBLE
+            divider.visibility = View.GONE
+            expand.rotation = 90f
+        } else if (sumLayout.visibility == View.VISIBLE) {
+            sumLayout.visibility = View.GONE
+            divider.visibility = View.VISIBLE
+            expand.rotation = 0f
+        }
     }
 
 
