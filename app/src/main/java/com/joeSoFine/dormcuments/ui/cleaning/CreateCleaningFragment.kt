@@ -36,7 +36,8 @@ class CreateCleaningFragment() : Fragment() {
         UITools.iniSpinners(root,requireContext(),resources.getStringArray(R.array.spinner_cooks))
         UITools.onTaskClicked(root, root.findViewById(R.id.switchH))
 
-        root.findViewById<Button>(R.id.save).setOnClickListener { val cleaning = Cleaning(
+        root.findViewById<Button>(R.id.save).setOnClickListener {
+            val cleaning = Cleaning(
             spinner_c1.selectedItem.toString(),
             spinner_c2.selectedItem.toString(),
             date2.text.toString(),

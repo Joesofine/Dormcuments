@@ -116,7 +116,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 buttonPressed(month, months, targetWidth - 40, current_month)
 
             } else if (p0 === year) {
-                buttonPressed(year, years, targetWidth * 3 / years.size, current_year - 2019)
+                buttonPressed(year, years, targetWidth * 3 / years.size, current_year - (current_year - 1) )
             }
         }
     }
@@ -251,7 +251,12 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             }
 
         } else {
-            val v: View = sliderLayout.getChildAt(current)
+            var current_longYear = current
+            if (arr.size == 53) {
+                current_longYear = current + 1
+            }
+
+            val v: View = sliderLayout.getChildAt(current_longYear)
             if (v is Button) {
                 v.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
                 context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v.setTextColor(it) }
@@ -266,7 +271,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                     getSortedEvents(1, current + 1, months)
 
                 } else if (arr == years) {
-                    getSortedEvents(0, current + 2019, years)
+                    getSortedEvents(0, current + current_year - 1, years)
                 }
 
             }
