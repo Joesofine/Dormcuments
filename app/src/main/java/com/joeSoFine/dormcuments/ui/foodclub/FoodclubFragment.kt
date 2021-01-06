@@ -89,7 +89,7 @@ class FoodclubFragment : Fragment() {
         var un: TextView = ExpandableCardview.findViewById(R.id.unformatted)
 
         var eventdate = unform.split("/")
-        var local = LocalDate.of(eventdate[2].toInt(), eventdate[1].toInt(), eventdate[0].toInt())
+        var local = LocalDate.of(eventdate[2].toInt(), eventdate[1].toInt() + 1, eventdate[0].toInt())
 
         if (c1.equals("None") || c2.equals("None")) {
             if (c1.equals("None") && c2.equals("None")) {
@@ -138,7 +138,7 @@ class FoodclubFragment : Fragment() {
                     } else {
                         val k = i + 1
                         val ufdK = myContainer.getChildAt(k).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
-                        val elementDateK = LocalDate.of(ufdK[2].toInt(),ufdK[1].toInt(),ufdK[0].toInt())
+                        val elementDateK = LocalDate.of(ufdK[2].toInt(),ufdK[1].toInt() + 1,ufdK[0].toInt())
 
                         if (local.isBefore(elementDateK) || local.isEqual(elementDateK)) {
                             myContainer.addView(ExpandableCardview, k)
