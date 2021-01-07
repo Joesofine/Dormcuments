@@ -1,4 +1,4 @@
-package com.joeSoFine.dormcuments
+package com.joeSoFine.dormcuments.ui.meeting
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import com.joeSoFine.dormcuments.R
 
 //
 class summaryFragment : Fragment() {

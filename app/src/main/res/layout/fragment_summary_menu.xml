@@ -3,13 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.meeting.summaryFragment">
+    tools:context=".SummaryMenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <WebView
-        android:id="@+id/webs"
+    <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </FrameLayout>
