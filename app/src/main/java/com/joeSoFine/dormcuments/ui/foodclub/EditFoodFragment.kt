@@ -60,8 +60,8 @@ class EditFoodFragment : Fragment() {
                     unform = p0.child(clubid).child("unform").getValue().toString()
 
                     choosenDate = date
-                    root.findViewById<Spinner>(R.id.spinner_c1).setSelection((spinner_c1.adapter as ArrayAdapter<String>).getPosition(w1))
-                    root.findViewById<Spinner>(R.id.spinner_c2).setSelection((spinner_c2.adapter as ArrayAdapter<String>).getPosition(w2))
+                    root.findViewById<Spinner>(R.id.spinner_c1).setSelection(( root.findViewById<Spinner>(R.id.spinner_c1).adapter as ArrayAdapter<String>).getPosition(w1))
+                    root.findViewById<Spinner>(R.id.spinner_c2).setSelection(( root.findViewById<Spinner>(R.id.spinner_c2).adapter as ArrayAdapter<String>).getPosition(w2))
                     root.findViewById<EditText>(R.id.date2).setText(choosenDate)
                     root.findViewById<EditText>(R.id.dinner).setText(dinner)
                     root.findViewById<EditText>(R.id.note).setText(note)
@@ -150,39 +150,6 @@ class EditFoodFragment : Fragment() {
                 }
             }
         }
-        /*root.findViewById<Button>(R.id.save).setOnClickListener {
-            val din = dinner.text.toString()
-            val not = note.text.toString()
-            val part = parti.text.toString()
-            val diet = die.text.toString()
-
-            if (spinner_c1.selectedItem.toString() != "None" || spinner_c2.selectedItem.toString() != "None"){
-                if (spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) {
-                    Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show() }
-            } else if (choosenDate == "") {
-                date2.error = "Please choose a date"
-            } else {
-
-                var clubid = bundle?.getString("id")
-                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, part, diet)
-
-
-                if (clubid != null) {
-
-                    database.child(clubid).setValue(club)
-                        .addOnSuccessListener {
-                            Toast.makeText(context, "Foodclub has been updated", Toast.LENGTH_SHORT).show()
-                            getFragmentManager()?.popBackStack()
-                        }
-                        .addOnFailureListener {
-                            // Write failed
-                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-                        }
-                }
-            }
-        }
-
-         */
         return root
     }
 
@@ -190,7 +157,6 @@ class EditFoodFragment : Fragment() {
             var dName = database.child(clubid)
 
             dName.removeValue()
-            Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
             getFragmentManager()?.popBackStack()
             getFragmentManager()?.popBackStack()
     }

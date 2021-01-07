@@ -58,7 +58,6 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
-            Toast.makeText(context, "hej", Toast.LENGTH_SHORT).show()
             val din = dinner.text.toString()
             val not = note.text.toString()
 

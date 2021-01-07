@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.UITools
+import com.joeSoFine.dormcuments.databaseService
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
@@ -52,7 +54,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private var current_month: Int = 0
     private var current_year: Int = 0
     private var bool: Boolean = false
-
+    val refE = "Events"
+    val refU = "Users"
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -92,7 +95,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         makeMonthArr(current_month)
         makeYearArr(current_year)
 
-        buttonPressed(week, weeks, targetWidth - 120, current_week - 1)
+        buttonPressed(week, weeks, "weeks",targetWidth - 120, current_week - 1)
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
             requireFragmentManager().beginTransaction().add(
@@ -110,13 +113,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
         if (p0 === week || p0 === month || p0 === year) {
             if (p0 === week) {
-                buttonPressed(week, weeks, targetWidth - 120, current_week - 1)
+                buttonPressed(week, weeks, "weeks",targetWidth - 120, current_week - 1)
 
             } else if (p0 === month) {
-                buttonPressed(month, months, targetWidth - 40, current_month)
+                buttonPressed(month, months, "months", targetWidth - 40, current_month)
 
             } else if (p0 === year) {
-                buttonPressed(year, years, targetWidth * 3 / years.size, current_year - (current_year - 1) )
+                buttonPressed(year, years, "years",targetWidth * 3 / years.size, current_year - (current_year - 1) )
             }
         }
     }
@@ -193,13 +196,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
                 if (arr.equals(weeks)) {
                     var weekNumber = element.replace("U", "").toInt()
-                    getSortedEvents(0, weekNumber, weeks)
+                    databaseService.getSortedEvents(0, weekNumber, "weeks", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
 
                 } else if (arr.equals(months)) {
-                    getSortedEvents(1, months.indexOf(element) + 1, months)
+                    databaseService.getSortedEvents(1, months.indexOf(element) + 1, "months", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
 
                 } else if (arr.equals(years)) {
-                    getSortedEvents(0, element.toInt(), years)
+                    databaseService.getSortedEvents(0, element.toInt(), "years", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
                 }
             }
         }
@@ -218,7 +221,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun buttonPressed(button: Button, arr: ArrayList<String>, width: Int, current: Int){
+    private fun buttonPressed(button: Button, arr: ArrayList<String>, arrString: String, width: Int, current: Int){
         progressBar.visibility = View.VISIBLE
         myContainer.removeAllViews()
         week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
@@ -244,7 +247,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                         v1.isFocusable = true
                         v1.isFocusableInTouchMode = true
                         v1.requestFocus()
-                        getSortedEvents(0, current + 1, weeks)
+                        databaseService.getSortedEvents(0, current + 1, "weeks", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
                     }
 
                 }
@@ -264,361 +267,17 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 v.isFocusableInTouchMode = true
                 v.requestFocus()
 
-                if (arr == weeks) {
-                    getSortedEvents(0, current + 1, weeks)
+                if (arrString == "weeks") {
+                    databaseService.getSortedEvents(0, current + 1, "weeks", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
 
-                } else if (arr == months) {
-                    getSortedEvents(1, current + 1, months)
+                } else if (arrString == "months") {
+                    databaseService.getSortedEvents(1, current + 1, "months", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
 
-                } else if (arr == years) {
-                    getSortedEvents(0, current + current_year - 1, years)
+                } else if (arrString == "years") {
+                    databaseService.getSortedEvents(0, current + current_year - 1, "years", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
                 }
 
             }
         }
     }
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("InflateParams", "UseSwitchCompatOrMaterialCode", "SetTextI18n")
-    private fun createEventView(
-        title: String, dateStart: String, unformattedDate: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
-        allDay: String, notification: String, doesRepeat: String, createdBy: String,
-        eventid: String, par: String, color: String, myContainer: LinearLayout, arr: ArrayList<String>
-    ){
-
-        val ExpandableCardview: View =
-            layoutInflater.inflate(R.layout.list_element_calendar, null, false)
-
-        val sumLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.sumLayout)
-        val titleLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
-        val expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
-        val eventtitle: TextView = ExpandableCardview.findViewById(R.id.eventTitle)
-        val Date: TextView = ExpandableCardview.findViewById(R.id.date)
-        val all : TextView = ExpandableCardview.findViewById(R.id.all)
-        val startDate: TextView = ExpandableCardview.findViewById(R.id.dateStart2)
-        val endDate: TextView = ExpandableCardview.findViewById(R.id.dateEnd2)
-        val startTime: TextView = ExpandableCardview.findViewById(R.id.timeStart2)
-        val endTime: TextView = ExpandableCardview.findViewById(R.id.timeEnd2)
-        val desc: TextView = ExpandableCardview.findViewById(R.id.des)
-        val desCon: ImageView = ExpandableCardview.findViewById(R.id.desCon)
-        val loc: TextView = ExpandableCardview.findViewById(R.id.loctext)
-        val locCon: ImageView = ExpandableCardview.findViewById(R.id.locIcon)
-        val notCon: ImageView = ExpandableCardview.findViewById(R.id.notIcon)
-        val notText: TextView = ExpandableCardview.findViewById(R.id.notTekst)
-        val reap: TextView = ExpandableCardview.findViewById(R.id.reap)
-        val reaCon: ImageView = ExpandableCardview.findViewById(R.id.reaIcon)
-        val divloc: View = ExpandableCardview.findViewById(R.id.divloc)
-        val divnot: View = ExpandableCardview.findViewById(R.id.divnot)
-        val by: TextView = ExpandableCardview.findViewById(R.id.by)
-        val switch: Switch = ExpandableCardview.findViewById(R.id.joinSwitch)
-        val parti: TextView = ExpandableCardview.findViewById(R.id.parti)
-        val divpar:View = ExpandableCardview.findViewById(R.id.divdes4)
-        val uf: TextView = ExpandableCardview.findViewById(R.id.unformatted)
-        val editEvent: ImageView = ExpandableCardview.findViewById(R.id.editEvent)
-        val colorView:ConstraintLayout = ExpandableCardview.findViewById(R.id.colorShow)
-        val colorExpand:ConstraintLayout = ExpandableCardview.findViewById(R.id.colorShowExand)
-
-
-        var eventdate = unformattedDate.split("-")
-        var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
-
-        eventtitle.text = title
-        uf.text = unformattedDate
-        by.text = "Created by:\n$createdBy"
-        parti.text = par
-
-        if (color.equals("Social event")){
-            colorView.setBackgroundResource(R.drawable.blue_round_button)
-            colorExpand.setBackgroundResource(R.drawable.blue_expand_button)
-
-        } else if (color.equals("Book kitchen")){
-            colorView.setBackgroundResource(R.drawable.red_round_button);
-            colorExpand.setBackgroundResource(R.drawable.red_expand_button)
-
-        } else {
-            colorView.setBackgroundResource(R.drawable.default_round_button);
-            colorExpand.setBackgroundResource(R.drawable.default_expand_button)
-        }
-
-        val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH)
-        val dayAndMonthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM", Locale.ENGLISH)
-        val yearFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.ENGLISH)
-
-        if (arr.equals(weeks)){
-            Date.text = local.format(dayOfWeekFormatter)
-        } else if (arr.equals(months)){
-            Date.text = local.format(dayAndMonthFormatter)
-        } else {
-            Date.text = local.format(yearFormatter)
-        }
-
-        if (allDay.equals("true")) {
-            startTime.visibility = View.GONE
-            endTime.visibility = View.GONE
-        }
-        else {
-            all.visibility = View.GONE
-            startDate.text = dateStart
-            endDate.text = dateEnd
-            startTime.text = timeStart
-            endTime.text = timeEnd
-        }
-
-        if (doesRepeat.equals("Does not repeat")){
-            reap.visibility = View.GONE
-            reaCon.visibility = View.GONE
-        } else {
-            reap.text = doesRepeat
-        }
-
-        setVisiblityEvent(location, "", loc, divloc, locCon)
-        setVisiblityEvent(notification, "No notification", notText, divnot, notCon)
-        setVisiblityEvent(des, "", desc, divloc, desCon)
-
-        if (des.equals("") && location.equals("")){
-            divpar.visibility = View.GONE
-        }
-
-        titleLayout.setOnClickListener { expandList(sumLayout, expand, colorView, colorExpand)}
-        setSwitchAndEditForCurrentUser(switch, parti, editEvent, by, eventid)
-
-        editEvent.setOnClickListener{
-            val bundle = Bundle()
-            bundle.putString("id", eventid)
-            val fragment2 = EditEventFragment()
-            fragment2.arguments = bundle
-            fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
-        }
-
-
-        // Sorts events first date first
-        if (myContainer.childCount == 0) { // For empty list, input into index 0
-            myContainer.addView(ExpandableCardview)
-        } else {
-            for (i in 0..myContainer.childCount - 1) {
-                val ufd = myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
-                val elementDate = LocalDate.of(ufd[0].toInt(), ufd[1].toInt(), ufd[2].toInt())
-
-                if (elementDate.isAfter(local) || elementDate.isEqual(local) ) { // If the date of current and existing element is same or current is before, input before.
-                    myContainer.addView(ExpandableCardview, i)
-                    break
-
-                } else if (local.isAfter(elementDate)) {
-                    if (i == myContainer.childCount - 1) {
-                        myContainer.addView(ExpandableCardview)
-                        break
-
-                    } else {
-                        val ufdK = myContainer.getChildAt(i + 1).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
-                        val elementDateK = LocalDate.of(ufdK[0].toInt(), ufdK[1].toInt(), ufdK[2].toInt())
-
-                        if (local.isBefore(elementDateK) || local.isEqual(elementDateK)) {
-                            myContainer.addView(ExpandableCardview, i + 1)
-                            break
-
-                        } else {
-
-                            for (j in i + 1..myContainer.childCount - 1) {
-                                val ufdJ = myContainer.getChildAt(j).findViewById<TextView>(R.id.unformatted).text.toString().split("-")
-                                val elementDateJ = LocalDate.of(ufdJ[0].toInt(), ufdJ[1].toInt(), ufdJ[2].toInt())
-
-                                if (local.isBefore(elementDateJ)) {
-                                    myContainer.addView(ExpandableCardview, j)
-                                    bool = true
-                                    break
-                                }
-                            }
-                        }
-                    }
-                }
-                if (bool){
-                    bool = false
-                    break
-                }
-            }
-        }
-    }
-
-    private fun expandList(
-        sumLayout: ConstraintLayout,
-        expand: ImageView,
-        colorView: ConstraintLayout,
-        colorExand: ConstraintLayout
-    ) {
-        if (sumLayout.visibility == View.GONE) {
-            sumLayout.visibility = View.VISIBLE
-            expand.rotation = 90f
-            colorView.visibility = View.GONE
-            colorExand.visibility = View.VISIBLE
-
-        } else if (sumLayout.visibility == View.VISIBLE) {
-            sumLayout.visibility = View.GONE
-            expand.rotation = 0f
-            colorView.visibility = View.VISIBLE
-            colorExand.visibility = View.GONE
-        }
-    }
-
-    private fun listenerOnChange(switch: Switch, rn: String, eventid: String, parti: TextView){
-        switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
-            var st = ""
-            if (isChecked) {
-
-                if (parti.text.toString().isEmpty()) {
-                    parti.text = rn
-                } else {
-                    st = parti.text.toString() + ", " + rn
-                    parti.text = st
-                }
-                st = parti.text.toString()
-
-                database.child(eventid).child("participants").setValue(st).addOnSuccessListener {
-                    Toast.makeText(context, "succesfully joined event", Toast.LENGTH_SHORT).show()
-                }
-                    .addOnFailureListener {}
-
-            } else {
-                if (parti.text.toString().contains(", $rn")) {
-                    st = parti.text.toString().replace(", $rn", "")
-                } else {
-                    st = parti.text.toString().replace(rn, "")
-                }
-                parti.text = st
-
-                database.child(eventid).child("participants").setValue(st).addOnSuccessListener {
-                    Toast.makeText(context, "Sign up deleted", Toast.LENGTH_SHORT).show()
-                }.addOnFailureListener { }
-
-            }
-        }
-    }
-
-    private fun setSwitchStatus(switch: Switch, rn: String, parti: TextView){
-        if ( parti.text.toString().contains(rn)){ switch.isChecked = true}
-    }
-
-    private fun setSwitchAndEditForCurrentUser(switch: Switch, parti: TextView, editIV: ImageView, createdTV: TextView, eventid: String){
-        Ugetdata = object : ValueEventListener {
-            val userid = auth.currentUser?.uid.toString()
-
-            override fun onDataChange(p0: DataSnapshot) {
-                var room: String = p0.child(userid).child("number").getValue() as String
-
-                visivlityEditButton(room, editIV, createdTV)
-                setSwitchStatus(switch, room, parti)
-                listenerOnChange(switch, room, eventid, parti)
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                println("err")
-            }
-        }
-
-        databaseU.addListenerForSingleValueEvent(Ugetdata)
-    }
-
-    private fun getSortedEvents(DateIndex: Int, relevantDatePart: Int, arr: ArrayList<String>){
-
-        getdata = object : ValueEventListener {
-            @RequiresApi(Build.VERSION_CODES.O)
-            override fun onDataChange(p0: DataSnapshot) {
-                for (i in p0.children) {
-
-                    var dateUn: String = i.child("unformattedDate").value as String
-                    var eventdate = dateUn.split("-")
-
-                    if (arr.equals(years)){
-                        if (eventdate[DateIndex].toInt() == relevantDatePart) {
-                            eventDateCall(i, arr)
-                        }
-                    } else {
-                        if (eventdate[0].toInt() == current_year) {
-                            if (arr.equals(weeks)) {
-                                var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
-                                val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
-
-                                if (local.get(woy) == relevantDatePart) {
-                                    eventDateCall(i, arr)
-                                }
-                            } else {
-                                if (eventdate[DateIndex].toInt() == relevantDatePart) {
-                                    eventDateCall(i, arr)
-                                }
-                            }
-                        }
-                    }
-                }
-                setWhoops()
-                progressBar.visibility = View.GONE
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                println("err")
-            }
-        }
-
-        database.addListenerForSingleValueEvent(getdata)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun eventDateCall(i: DataSnapshot, arr: ArrayList<String>){
-        var dateUn: String = i.child("unformattedDate").value as String
-        var title: String = i.child("title").value as String
-        var dateStart: String = i.child("dateStart").value as String
-        var dateEnd: String = i.child("dateEnd").value as String
-        var timeStart: String = i.child("timeStart").value as String
-        var timeEnd: String = i.child("timeEnd").value as String
-        var location: String = i.child("location").value as String
-        var des: String = i.child("des").value as String
-        var allday: String = i.child("allDay").value as String
-        var notis: String = i.child("notification").value as String
-        var created: String = i.child("createdBy").value as String
-        var doesRepeat: String = i.child("doesRepeat").value as String
-        var par = i.child("participants").value.toString()
-        var color = i.child("color").value.toString()
-        var eventid = i.key.toString()
-
-        createEventView(
-            title,
-            dateStart,
-            dateUn,
-            dateEnd,
-            timeStart,
-            timeEnd,
-            des,
-            location,
-            allday,
-            notis,
-            doesRepeat,
-            created,
-            eventid,
-            par,
-            color,
-            myContainer,
-            arr
-        )
-    }
-
-    private fun setWhoops(){
-        if (myContainer.childCount == 0) {
-            whoops.visibility = View.VISIBLE
-        } else {
-            whoops.visibility = View.GONE
-        }
-    }
-
-    private fun setVisiblityEvent(st: String, equals: String, tv: TextView, div: View, con: ImageView){
-        if (!st.equals(equals)){
-            tv.text = st
-        } else {
-            div.visibility = View.GONE
-            tv.visibility = View.GONE
-            con.visibility = View.GONE
-        }
-    }
-    private fun visivlityEditButton(room: String, IV: ImageView, TV: TextView) {
-        if (TV.text.toString().contains(room)) {
-            IV.visibility = View.VISIBLE
-        }
-    }
-
 }

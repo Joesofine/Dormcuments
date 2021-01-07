@@ -343,6 +343,5 @@ class EditEventFragment: Fragment() {
         dName.removeValue()
         Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
         getFragmentManager()?.popBackStack()
-        getFragmentManager()?.popBackStack()
     }
 }

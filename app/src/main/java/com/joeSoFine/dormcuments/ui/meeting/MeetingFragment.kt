@@ -18,8 +18,6 @@ import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
 
 class MeetingFragment : Fragment() {
-    var database = FirebaseDatabase.getInstance().getReference("Agenda")
-    lateinit var getdata : ValueEventListener;
     lateinit var myContainer: LinearLayout
     val ref = "Agenda"
 
