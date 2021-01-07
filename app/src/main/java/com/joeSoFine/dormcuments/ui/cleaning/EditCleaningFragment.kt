@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.joeSoFine.dormcuments.UICleaning
 import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.UITools
 
@@ -54,10 +55,8 @@ class EditCleaningFragment : Fragment() {
         unform = unf.text.toString()
         unform = UITools.setUpDatepicker(root)
         UITools.iniSpinners(root,requireContext(), resources.getStringArray(R.array.spinner_cooks))
-        UITools.onTaskClicked(root, root.findViewById(R.id.switchH))
+        UICleaning.onTaskClicked(root, root.findViewById(R.id.switchH))
         UITools.onDeleteClicked(root, requireContext(), cleaningid, ref, requireFragmentManager())
-
-
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
             val cleaning = Cleaning(
@@ -70,7 +69,7 @@ class EditCleaningFragment : Fragment() {
                 unf.text.toString()
             )
 
-            UITools.onCleaningSavedClick(cleaningid,
+            UICleaning.onCleaningSavedClick(cleaningid,
                 ref,
                 spinner_c1,
                 spinner_c2,

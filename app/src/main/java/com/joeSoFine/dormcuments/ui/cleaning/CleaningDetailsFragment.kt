@@ -47,6 +47,7 @@ class CleaningDetailsFragment : Fragment() {
         auth = Firebase.auth
         val bundle = this.arguments
 
+
         getdata = object : ValueEventListener {
             @SuppressLint("SetTextI18n")
             override fun onDataChange(p0: DataSnapshot) {
@@ -124,10 +125,6 @@ class CleaningDetailsFragment : Fragment() {
     private fun setId(cleaningid: String){
         editBundle = Bundle()
         editBundle.putString("id", cleaningid)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
     }
 
     private fun listenerOnChange(switch: Switch, rn: String, name: String, cleaningid: String){

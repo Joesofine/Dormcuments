@@ -28,8 +28,6 @@ object databaseService {
     var c = 0
     private var auth = Firebase.auth
 
-
-
     fun generateID(ref: String): String? {
         val id = database.getReference(ref).push().key
         return id
@@ -95,7 +93,7 @@ object databaseService {
         var getdata = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var clean = getDataFromDatabase(id, snapshot)
-                UITools.setUpPreCleaning(root, clean, spinner1, spinner2, date, task, note, stat, unform)
+                UICleaning.setUpPreCleaning(root, clean, spinner1, spinner2, date, task, note, stat, unform)
             }
             override fun onCancelled(error: DatabaseError) {
             }
@@ -293,7 +291,7 @@ object databaseService {
                     ref
                 )}
                 else if (ref.equals("Cleaning")){
-                    UITools.createCleaningItem(
+                    UICleaning.createCleaningItem(
                         snapshot.child("c1").value.toString(),
                         snapshot.child("c2").value.toString(),
                         snapshot.child("date").value.toString(),
@@ -411,7 +409,7 @@ object databaseService {
                 var room: String = p0.child(userid).child("number").getValue() as String
 
                 UITools.visivlityEditButton(room, editIV, createdTV)
-                UITools.setSwitchStatusEvents(switch, room, parti)
+                UICleaning.setSwitchStatusEvents(switch, room, parti)
                 listenerOnChangeEvents(switch, room, eventid, parti, ref, context)
             }
 

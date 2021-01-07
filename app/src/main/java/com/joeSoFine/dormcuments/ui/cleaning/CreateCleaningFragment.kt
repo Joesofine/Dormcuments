@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.UICleaning
 import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.UITools
 
@@ -31,10 +32,10 @@ class CreateCleaningFragment() : Fragment() {
         val task = root.findViewById<EditText>(R.id.task)
         val note = root.findViewById<EditText>(R.id.note)
 
-        UITools.switchIni(root, task)
+        UICleaning.switchIni(root, task)
         unform = UITools.setUpDatepicker(root)
         UITools.iniSpinners(root,requireContext(),resources.getStringArray(R.array.spinner_cooks))
-        UITools.onTaskClicked(root, root.findViewById(R.id.switchH))
+        UICleaning.onTaskClicked(root, root.findViewById(R.id.switchH))
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
             val cleaning = Cleaning(
@@ -46,7 +47,7 @@ class CreateCleaningFragment() : Fragment() {
             "Unchecked",
             unform
         )
-            UITools.onCleaningSavedClick(
+            UICleaning.onCleaningSavedClick(
                 databaseService.generateID(ref)!!,
                 ref,
                 spinner_c1,
