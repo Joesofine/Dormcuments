@@ -75,7 +75,7 @@ class CleaningDetailsFragment : Fragment() {
                         }
 
                         setId(cleaningid)
-                        setVisiblityOnExtra(extras)
+                        setVisiblityOnExtra(extras, root)
                     }
                 }
                 progressBar.visibility = View.GONE
@@ -179,7 +179,30 @@ class CleaningDetailsFragment : Fragment() {
         }
     }
 
-    private fun setVisiblityOnExtra(extras: String){
+    private fun setVisiblityOnExtra(extras: String, root: View){
+        val textA = root.findViewById<TextView>(R.id.textA)
+        val textB = root.findViewById<TextView>(R.id.textB)
+        val textC = root.findViewById<TextView>(R.id.textC)
+        val textD = root.findViewById<TextView>(R.id.textD)
+        val textE = root.findViewById<TextView>(R.id.textE)
+        val textF = root.findViewById<TextView>(R.id.textF)
+        val textG = root.findViewById<TextView>(R.id.textG)
+        val textH = root.findViewById<TextView>(R.id.textH)
+        val textI = root.findViewById<TextView>(R.id.textI)
+        val textJ = root.findViewById<TextView>(R.id.textJ)
+        val textK = root.findViewById<TextView>(R.id.textK)
+
+        val detailsA = root.findViewById<TextView>(R.id.detailsA)
+        val detailsB = root.findViewById<TextView>(R.id.detailsB)
+        val detailsC = root.findViewById<TextView>(R.id.detailsC)
+        val detailsD = root.findViewById<TextView>(R.id.detailsD)
+        val detailsE = root.findViewById<TextView>(R.id.detailsE)
+        val detailsF = root.findViewById<TextView>(R.id.detailsF)
+        val detailsG = root.findViewById<TextView>(R.id.detailsG)
+        val detailsH = root.findViewById<TextView>(R.id.detailsH)
+        val detailsI = root.findViewById<TextView>(R.id.detailsI)
+        val detailsJ = root.findViewById<TextView>(R.id.detailsJ)
+        val detailsK = root.findViewById<TextView>(R.id.detailsK)
 
         visibleTask(extras, "A", textA, detailsA)
         visibleTask(extras, "B", textB, detailsB)
