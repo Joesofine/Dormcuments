@@ -4,13 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.net.URL
 
 class SummaryMenuFragment : Fragment() {
     val arr = ArrayList<String>()
+    val sumArr = ArrayList<SumObject>()
+
 
 
 
@@ -21,21 +29,46 @@ class SummaryMenuFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_summary_menu, container, false)
         val list = root.findViewById<ListView>(R.id.list)
-        arr.add("0-1/01/01")
-        arr.add("0-2/02/02")
-        arr.add("0-3/03/03")
-        arr.add("0-4/04/04")
+        val myWebView: WebView = root.findViewById(R.id.webs)
 
 
 
 
+        GlobalScope.launch(Dispatchers.IO) {
+            val id = "12bpMAMO1x-nCekFFzxG2ZaIhHsM_rp5hPaMOIF7lzgw"
+            val url = "https://docs.google.com/spreadsheets/d/$id/export?format=csv&id=$id"
 
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            requireContext(), R.layout.listeelement_simple,
-            R.id.listeelem_overskrift, arr
-        )
+            val csv = URL(url).readText().split("\n")
 
-        list.adapter = adapter
+            for (i in 1..csv.size - 1){
+                val title = csv[i].split(",")[1]
+                val sumUrl = csv[i].split(",")[3]
+                val lastUpdate = csv[i].split(",")[5]
+
+                val sum = SumObject(title, sumUrl, lastUpdate)
+                sumArr.add(sum)
+                arr.add(title)
+            }
+
+            activity?.runOnUiThread(Runnable {
+                val adapter = adapter_list(requireContext(), sumArr)
+
+                list.adapter = adapter
+
+                list.setOnItemClickListener { parent, view, position, id ->
+                    Toast.makeText(context, sumArr[position].title, Toast.LENGTH_SHORT).show()
+
+                    myWebView.loadUrl(sumArr[position].url)
+
+                }
+
+            })
+
+        }
+
+
+
+
 
         return root
     }
