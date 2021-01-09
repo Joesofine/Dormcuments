@@ -11,6 +11,7 @@ import com.joeSoFine.dormcuments.BaseBackPressedListener
 import com.joeSoFine.dormcuments.MainActivity
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
+import com.joeSoFine.dormcuments.ui.meeting.MeetingFragment
 import com.joeSoFine.dormcuments.ui.meeting.SummaryMenuFragment
 import com.joeSoFine.dormcuments.ui.residents.ResidentFragment
 import com.joeSoFine.dormcuments.ui.residents.profileFragment
@@ -63,7 +64,7 @@ class MoreFragment : Fragment(),View.OnClickListener  {
                     requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, ResidentFragment()).addToBackStack(null).commit()
                 }
                 p0 === meeting_button -> {
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, SummaryMenuFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, MeetingFragment()).addToBackStack(null).commit()
                 }
                 p0 === profile_button -> {
                     requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, profileFragment()).addToBackStack(null).commit()

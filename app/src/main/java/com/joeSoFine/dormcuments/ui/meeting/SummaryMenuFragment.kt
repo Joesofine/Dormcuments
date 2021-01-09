@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.UITools
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -31,7 +33,9 @@ class SummaryMenuFragment : Fragment() {
         val list = root.findViewById<ListView>(R.id.list)
         val myWebView: WebView = root.findViewById(R.id.webs)
 
-
+        root.findViewById<ImageView>(R.id.question).setOnClickListener{
+            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleSum, R.string.helpDialogMsgSum)
+        }
 
 
         GlobalScope.launch(Dispatchers.IO) {

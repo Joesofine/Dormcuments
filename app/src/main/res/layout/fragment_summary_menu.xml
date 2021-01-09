@@ -5,10 +5,11 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".SummaryMenuFragment">
 
     <ImageView
-        android:id="@+id/question2"
+        android:id="@+id/question"
         android:layout_width="33dp"
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
