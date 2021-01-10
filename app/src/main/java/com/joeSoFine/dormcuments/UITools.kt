@@ -252,12 +252,12 @@ object UITools {
     }
 
 
-    fun createResident(fullname: String, rn: String, userId: String, bdate: String, sfrom: String, food: String, fact: String, url: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, context: Context){
+    fun createResident(fullname: String, rn: String, userId: String, bdate: String, sfrom: String, food: String, fact: String, url: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, context: Context) {
         val ExpandableCardview: View = layoutInflater.inflate(R.layout.list_element_resident, null, false)
 
-        var sumLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.sumLayout)
-        var titleLayout : ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
-        var expand : ImageView = ExpandableCardview.findViewById(R.id.expand)
+        var sumLayout: ConstraintLayout = ExpandableCardview.findViewById(R.id.sumLayout)
+        var titleLayout: ConstraintLayout = ExpandableCardview.findViewById(R.id.titleLayout)
+        var expand: ImageView = ExpandableCardview.findViewById(R.id.expand)
         var room: TextView = ExpandableCardview.findViewById(R.id.resRn)
         var resName: TextView = ExpandableCardview.findViewById(R.id.resName)
         var resLast: TextView = ExpandableCardview.findViewById(R.id.resLast)
@@ -269,38 +269,43 @@ object UITools {
         var userImg: ImageView = ExpandableCardview.findViewById(R.id.userImage)
         var id: TextView = ExpandableCardview.findViewById(R.id.idCon)
 
-        Glide.with(context.applicationContext).load(url).into(userImg)
+        if (!rn.isEmpty()) {
+            Glide.with(context.applicationContext).load(url).into(userImg)
 
-        if (fullname.contains(" ")){
-            val name = fullname.split(" ")
-            resName.text = name[0]
-            resLast.text = name[1]
-        } else {
-            resName.text = fullname
-            resLast.text = ""
+            if (fullname.contains(" ")) {
+                val name = fullname.split(" ")
+                resName.text = name[0]
+                resLast.text = name[1]
+            } else {
+                resName.text = fullname
+                resLast.text = ""
+            }
+
+            val birthday = bdate.split("/")
+            room.text = rn
+            age.text = getAge(birthday[2].toInt(), birthday[1].toInt(), birthday[0].toInt())
+            birth.text = bdate
+            from.text = sfrom
+            id.text = userId
+
+            if (food.equals("")) {
+                diet.text = "None"
+            } else {
+                diet.text = food
+            }
+            if (fact.equals("")) {
+                funny.text = "I'm not very funny"
+            } else {
+                funny.text = fact
+            }
+
+            titleLayout.setOnClickListener { expandList(sumLayout, expand) }
+
+
+            sortResidentsLowToHigh(myContainer, ExpandableCardview, rn.toInt())
         }
 
-        val birthday = bdate.split("/")
-        room.text = rn
-        age.text = getAge(birthday[2].toInt() ,birthday[1].toInt() ,birthday[0].toInt())
-        birth.text = bdate
-        from.text = sfrom
-        id.text = userId
 
-        if (food.equals("")){
-            diet.text = "None"
-        } else {
-            diet.text = food
-        }
-        if (fact.equals("")){
-            funny.text = "I'm not very funny"
-        } else {
-            funny.text = fact
-        }
-
-        titleLayout.setOnClickListener { expandList(sumLayout, expand) }
-
-        sortResidentsLowToHigh(myContainer, ExpandableCardview, rn.toInt())
     }
 
     fun sortResidentsLowToHigh(myContainer: LinearLayout, ExpandableCardview: View, rn: Int){

@@ -1,22 +1,27 @@
 package com.joeSoFine.dormcuments.ui.signIn
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.joeSoFine.dormcuments.MainActivity
-import com.joeSoFine.dormcuments.R
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.joeSoFine.dormcuments.MainActivity
+import com.joeSoFine.dormcuments.MainViewModel
+import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.databaseService
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_sign_up.*
+
 
 class SignUpWithFacebookFragment: AppCompatActivity() {
     var database = FirebaseDatabase.getInstance().getReference("Users")
@@ -40,26 +45,11 @@ class SignUpWithFacebookFragment: AppCompatActivity() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        if (bool == false) {
-            val userid = auth.currentUser?.uid
-            if (userid != null) {
-                auth.currentUser?.delete()?.addOnSuccessListener {
-                    databaseService.delteChildFromDatabase(userid, ref, applicationContext)
-                    val intent = Intent(applicationContext, SignIn::class.java)
-                    startActivity(intent)
-                    auth.signOut()
-                }
-            }
-
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_with_facebook)
         auth = Firebase.auth
+        ViewModelProvider(this).get(MainViewModel::class.java)
 
         setIconsTint(city_signup, R.drawable.city_icon_white, R.drawable.city_icon_tint)
         setIconsTint(country_signup, R.drawable.county_icon_white, R.drawable.county_icon_tint)

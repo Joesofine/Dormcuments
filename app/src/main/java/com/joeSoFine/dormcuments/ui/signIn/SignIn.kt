@@ -1,6 +1,8 @@
 package com.joeSoFine.dormcuments.ui.signIn
 
 import android.annotation.SuppressLint
+import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.net.Uri
@@ -13,6 +15,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -21,10 +25,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import com.joeSoFine.dormcuments.MainActivity
-import com.joeSoFine.dormcuments.OnBackPressedListener
+import com.joeSoFine.dormcuments.*
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.ui.foodclub.FoodclubFragment
 import com.joeSoFine.dormcuments.ui.more.MoreFragment
@@ -38,6 +44,7 @@ class SignIn : AppCompatActivity() {
     private var callbackManager: CallbackManager? = null
     private lateinit var auth: FirebaseAuth
     var database = FirebaseDatabase.getInstance().getReference("Users")
+    val ref = "Users"
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
@@ -50,9 +57,7 @@ class SignIn : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         if (user != null) {
             // User is signed in
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
+            checkIfCurrentUserExsist(applicationContext, ref)
         }
 
         // Code for generating hash key
@@ -170,9 +175,9 @@ class SignIn : AppCompatActivity() {
                             request.executeAsync()
                         } else {
                             println("Facebook token: " + loginResult.accessToken.token)
-                            val intent = Intent(applicationContext, MainActivity::class.java)
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            startActivity(intent)
+
+
+                            checkIfCurrentUserExsist(applicationContext, ref)
                             progressBar10.visibility = View.GONE
                         }
 
@@ -290,6 +295,30 @@ class SignIn : AppCompatActivity() {
         }
 
         return valid
+    }
+
+    fun checkIfCurrentUserExsist(applicationContext: Context, ref: String) {
+        var getdata = object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                val userid = auth.currentUser?.uid
+                if (userid != null) {
+                    var roomnumber = p0.child(userid).child("number").getValue().toString()
+                    if (roomnumber.isEmpty()) {
+                        val intent = Intent(applicationContext, SignUpWithFacebookFragment::class.java)
+                        startActivity(intent)
+
+                    } else {
+                        val intent = Intent(applicationContext, MainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        applicationContext.startActivity(intent)
+                    }
+                }
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                println("err")
+            }
+        }
+        databaseService.database.getReference(ref).addValueEventListener(getdata)
     }
 
 

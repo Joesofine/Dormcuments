@@ -2,11 +2,13 @@ package com.joeSoFine.dormcuments
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
@@ -17,6 +19,7 @@ import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.foodclub.Foodclub
 import com.joeSoFine.dormcuments.ui.shopping.Item
+import com.joeSoFine.dormcuments.ui.signIn.SignUpWithFacebookFragment
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
@@ -454,5 +457,4 @@ object databaseService {
             }
         }
     }
-
 }

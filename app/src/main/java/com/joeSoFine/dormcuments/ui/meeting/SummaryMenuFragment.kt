@@ -21,10 +21,6 @@ class SummaryMenuFragment : Fragment() {
     val arr = ArrayList<String>()
     val sumArr = ArrayList<SumObject>()
 
-
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
