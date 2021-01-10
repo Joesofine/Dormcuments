@@ -26,31 +26,34 @@ class SignUpWithFacebookFragment: AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        if (bool == false){
-            auth.currentUser?.delete()?.addOnSuccessListener {
-                val userid = auth.currentUser?.uid
-                if (userid != null) {
+        if (bool == false) {
+            val userid = auth.currentUser?.uid
+            if (userid != null) {
+                auth.currentUser?.delete()?.addOnSuccessListener {
+                    auth.signOut()
                     databaseService.delteChildFromDatabase(userid, ref, applicationContext)
                     val intent = Intent(applicationContext, SignIn::class.java)
                     startActivity(intent)
                 }
             }
+
         }
     }
 
     override fun onStop() {
         super.onStop()
-        if (bool == false){
-            auth.currentUser?.delete()?.addOnSuccessListener {
-                val userid = auth.currentUser?.uid
-                if (userid != null) {
+        if (bool == false) {
+            val userid = auth.currentUser?.uid
+            if (userid != null) {
+                auth.currentUser?.delete()?.addOnSuccessListener {
                     databaseService.delteChildFromDatabase(userid, ref, applicationContext)
                     val intent = Intent(applicationContext, SignIn::class.java)
                     startActivity(intent)
+                    auth.signOut()
                 }
             }
-        }
 
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
