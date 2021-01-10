@@ -24,6 +24,20 @@ class SignUpWithFacebookFragment: AppCompatActivity() {
     var bool = false
     val ref = "Users"
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (bool == false){
+            auth.currentUser?.delete()?.addOnSuccessListener {
+                val userid = auth.currentUser?.uid
+                if (userid != null) {
+                    databaseService.delteChildFromDatabase(userid, ref, applicationContext)
+                    val intent = Intent(applicationContext, SignIn::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
+    }
+
     override fun onStop() {
         super.onStop()
         if (bool == false){
@@ -31,12 +45,9 @@ class SignUpWithFacebookFragment: AppCompatActivity() {
                 val userid = auth.currentUser?.uid
                 if (userid != null) {
                     databaseService.delteChildFromDatabase(userid, ref, applicationContext)
-                    Toast.makeText(applicationContext, "Try again", Toast.LENGTH_SHORT).show()
                     val intent = Intent(applicationContext, SignIn::class.java)
                     startActivity(intent)
                 }
-            }?.addOnFailureListener{
-                Toast.makeText(applicationContext, "Try again", Toast.LENGTH_SHORT).show()
             }
         }
 

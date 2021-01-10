@@ -17,13 +17,18 @@ import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.MainActivity
+import com.joeSoFine.dormcuments.OnBackPressedListener
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.ui.foodclub.FoodclubFragment
+import com.joeSoFine.dormcuments.ui.more.MoreFragment
+import com.joeSoFine.dormcuments.ui.shopping.ShoppingFragment
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 
@@ -286,6 +291,7 @@ class SignIn : AppCompatActivity() {
 
         return valid
     }
+
 
     companion object {
         private const val TAG = "EmailPassword"

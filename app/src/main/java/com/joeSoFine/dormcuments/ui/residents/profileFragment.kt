@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.EmailAuthProvider
@@ -54,7 +55,7 @@ class profileFragment : Fragment() {
     var targetHeight = 0
     var targetWidth = 0
     private val PERMISSION_REQUEST_CODE = 1
-    lateinit var imageUri: Uri
+    var imageUri: Uri = "".toUri()
     lateinit var url: String
     val ref = "Users"
 
@@ -334,39 +335,37 @@ class profileFragment : Fragment() {
                 country_signup.error = "Please let us know where you are from"
             } else {
                 val user = User(fname, number, bdate, from, diet, fact, url)
-                if (user != null) {
-                    if (userid != null) {
-                        if (imageUri != null) {
-                            var file = imageUri
-                            val imagesRef = storageRef.child("images/${file.lastPathSegment}")
+                if (userid != null) {
+                    if (imageUri != "".toUri()) {
+                        var file = imageUri
+                        val imagesRef = storageRef.child("images/${file.lastPathSegment}")
 
-                            var uploadTask = imagesRef.putFile(file)
-                            uploadTask.addOnFailureListener {
-                                Toast.makeText(context, "FAILED", Toast.LENGTH_SHORT).show()
-                            }.addOnSuccessListener { taskSnapshot ->
-                                imagesRef.downloadUrl.addOnSuccessListener { uri ->
-                                    user.url = uri.toString()
+                        var uploadTask = imagesRef.putFile(file)
+                        uploadTask.addOnFailureListener {
+                            Toast.makeText(context, "FAILED", Toast.LENGTH_SHORT).show()
+                        }.addOnSuccessListener { taskSnapshot ->
+                            imagesRef.downloadUrl.addOnSuccessListener { uri ->
+                                user.url = uri.toString()
 
-                                        database.child(userid).setValue(user)
-                                         .addOnSuccessListener {
-                                               Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
-                                               getFragmentManager()?.popBackStack()
-                                            }
-                                            .addOnFailureListener {
-                                               // Write failed
-                                                 Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
-                                             }
-                                }
+                                    database.child(userid).setValue(user)
+                                     .addOnSuccessListener {
+                                           Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
+                                           getFragmentManager()?.popBackStack()
+                                        }
+                                        .addOnFailureListener {
+                                           // Write failed
+                                             Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
+                                         }
                             }
-                        } else {
-                            database.child(userid).setValue(user).addOnSuccessListener {
-                                Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
-                                getFragmentManager()?.popBackStack()
-                            }
-                            .addOnFailureListener {
-                                // Write failed
-                                Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
-                            }
+                        }
+                    } else {
+                        database.child(userid).setValue(user).addOnSuccessListener {
+                            Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
+                            getFragmentManager()?.popBackStack()
+                        }
+                        .addOnFailureListener {
+                            // Write failed
+                            Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
