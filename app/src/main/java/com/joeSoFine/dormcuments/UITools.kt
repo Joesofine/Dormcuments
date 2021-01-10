@@ -315,7 +315,7 @@ object UITools {
                         myContainer.addView(ExpandableCardview)
                         break
 
-                    } else if (rn.toInt() <= i+1)  {
+                    } else if (rn.toInt() <= myContainer.getChildAt(i + 1).findViewById<TextView>(R.id.resRn).text.toString().toInt())  {
                         myContainer.addView(ExpandableCardview, i + 1)
                         break
 
@@ -329,7 +329,7 @@ object UITools {
                             }
                         }
                     }
-                    break
+                    //break
                 }
             }
         }

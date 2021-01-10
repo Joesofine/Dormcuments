@@ -3,6 +3,7 @@ package com.joeSoFine.dormcuments.ui.signIn
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,8 +13,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.joeSoFine.dormcuments.MainActivity
-import com.joeSoFine.dormcuments.R
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -23,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.joeSoFine.dormcuments.MainActivity
+import com.joeSoFine.dormcuments.R
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 
@@ -103,7 +104,7 @@ class SignIn : AppCompatActivity() {
                         "Facebook are still only avablable for developers",
                         Toast.LENGTH_SHORT
                     ).show()
-                   progressBar10.visibility = View.VISIBLE
+                    progressBar10.visibility = View.VISIBLE
                     val credenials =
                         FacebookAuthProvider.getCredential(loginResult.accessToken.token);
 
@@ -116,19 +117,19 @@ class SignIn : AppCompatActivity() {
                                     try {
                                         println(`object`.toString())
 
+                                        val dimensionPixelSize =
+                                            resources.getDimensionPixelSize(com.facebook.R.dimen.com_facebook_profilepictureview_preset_size_large)
+                                        val profilePictureUri: Uri = Profile.getCurrentProfile().getProfilePictureUri(dimensionPixelSize, dimensionPixelSize)
+
                                         val user = User(
-                                            `object`.getString("name"), "Roomnumber",
-                                            `object`.getString("birthday"), "", "", "", "")
+                                            `object`.getString("name"), "",
+                                            `object`.getString("birthday"), "", "", "", profilePictureUri.toString()
+                                        )
 
                                         val userId = auth.currentUser?.uid
                                         if (userId != null) {
                                             database.child(userId).setValue(user)
                                                 .addOnSuccessListener {
-                                                    Toast.makeText(
-                                                        applicationContext,
-                                                        "User Created",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
                                                     val intent = Intent(applicationContext, SignUpWithFacebookFragment::class.java)
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                                                     startActivity(intent)
@@ -170,9 +171,14 @@ class SignIn : AppCompatActivity() {
                             startActivity(intent)
                             progressBar10.visibility = View.GONE
                         }
+
+                        Toast.makeText(
+                            applicationContext,
+                            "Facebook are still only avablable for developers",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-
 
 
                 override fun onCancel() {
