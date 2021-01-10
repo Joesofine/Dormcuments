@@ -301,35 +301,38 @@ object UITools {
 
         titleLayout.setOnClickListener { expandList(sumLayout, expand) }
 
+        sortResidentsLowToHigh(myContainer, ExpandableCardview, rn.toInt())
+    }
+
+    fun sortResidentsLowToHigh(myContainer: LinearLayout, ExpandableCardview: View, rn: Int){
         if (myContainer.childCount == 0) {
             myContainer.addView(ExpandableCardview)
         } else {
             for (i in 0..myContainer.childCount - 1) {
                 val room = myContainer.getChildAt(i).findViewById<TextView>(R.id.resRn).text.toString().toInt()
-                if (room >= rn.toInt()) {
+                if (room >= rn) {
                     myContainer.addView(ExpandableCardview, i)
                     break
 
-                } else if (room < rn.toInt()) {
+                } else if (room < rn) {
                     if (i == myContainer.childCount - 1) {
                         myContainer.addView(ExpandableCardview)
                         break
 
-                    } else if (rn.toInt() <= myContainer.getChildAt(i + 1).findViewById<TextView>(R.id.resRn).text.toString().toInt())  {
+                    } else if (rn <= myContainer.getChildAt(i + 1).findViewById<TextView>(R.id.resRn).text.toString().toInt())  {
                         myContainer.addView(ExpandableCardview, i + 1)
                         break
 
                     } else {
                         for (k in i+1..myContainer.childCount -1){
                             val roomK = myContainer.getChildAt(k).findViewById<TextView>(R.id.resRn).text.toString().toInt()
-                            if (rn.toInt() < roomK){
+                            if (rn < roomK){
                                 myContainer.addView(ExpandableCardview, k)
                                 break
 
                             }
                         }
                     }
-                    //break
                 }
             }
         }
