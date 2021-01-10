@@ -41,6 +41,14 @@ class SignIn : AppCompatActivity() {
 
         auth = Firebase.auth
 
+        val user = Firebase.auth.currentUser
+        if (user != null) {
+            // User is signed in
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+        }
+
         // Code for generating hash key
         /* try {
             val info = packageManager.getPackageInfo(
@@ -95,7 +103,7 @@ class SignIn : AppCompatActivity() {
                         "Facebook are still only avablable for developers",
                         Toast.LENGTH_SHORT
                     ).show()
-                   /* progressBar10.visibility = View.VISIBLE
+                   progressBar10.visibility = View.VISIBLE
                     val credenials =
                         FacebookAuthProvider.getCredential(loginResult.accessToken.token);
 
@@ -121,7 +129,9 @@ class SignIn : AppCompatActivity() {
                                                         "User Created",
                                                         Toast.LENGTH_SHORT
                                                     ).show()
-                                                    startActivity(Intent(applicationContext, SignUpWithFacebookFragment::class.java))
+                                                    val intent = Intent(applicationContext, SignUpWithFacebookFragment::class.java)
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                                    startActivity(intent)
                                                     progressBar10.visibility = View.GONE
 
                                                 }
@@ -155,12 +165,12 @@ class SignIn : AppCompatActivity() {
                             request.executeAsync()
                         } else {
                             println("Facebook token: " + loginResult.accessToken.token)
-                            startActivity(Intent(applicationContext, MainActivity::class.java))
+                            val intent = Intent(applicationContext, MainActivity::class.java)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            startActivity(intent)
                             progressBar10.visibility = View.GONE
                         }
                     }
-
-                    */
                 }
 
 
@@ -226,6 +236,7 @@ class SignIn : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val intent = Intent(applicationContext, MainActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                     progressBar10.visibility = View.GONE
                     val user = auth.currentUser

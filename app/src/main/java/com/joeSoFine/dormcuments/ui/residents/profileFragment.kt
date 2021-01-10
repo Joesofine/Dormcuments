@@ -24,7 +24,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -36,7 +35,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.ui.signIn.SignIn
-import com.joeSoFine.dormcuments.ui.signIn.SignUp_Image
 import com.joeSoFine.dormcuments.ui.signIn.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.city_signup
@@ -56,8 +54,6 @@ class profileFragment : Fragment() {
     private val PERMISSION_REQUEST_CODE = 1
     lateinit var imageUri: Uri
     lateinit var url: String
-
-
 
     @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onCreateView(
@@ -274,6 +270,7 @@ class profileFragment : Fragment() {
                 signOut()
                 Toast.makeText(context, "You are now signed out", Toast.LENGTH_SHORT).show()
                 val intent = Intent(context, SignIn::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
                 }
             builder.setNeutralButton("Cancel"){ dialogInterface, which ->
