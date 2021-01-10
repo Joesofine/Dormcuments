@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.joeSoFine.dormcuments.SmartTools
 import kotlinx.android.synthetic.main.fragment_edit_food.*
 import kotlinx.android.synthetic.main.fragment_edit_food.date2
 import kotlinx.android.synthetic.main.fragment_edit_food.dinner
@@ -39,6 +40,8 @@ class EditFoodFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        SmartTools.setUpOnBackPressed(requireActivity())
+
         val root = inflater.inflate(R.layout.fragment_edit_food, container, false)
         val bundle = this.arguments
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)

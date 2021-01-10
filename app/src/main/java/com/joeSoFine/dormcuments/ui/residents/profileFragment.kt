@@ -34,6 +34,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.SmartTools
+import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.ui.signIn.SignIn
 import com.joeSoFine.dormcuments.ui.signIn.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -54,6 +56,7 @@ class profileFragment : Fragment() {
     private val PERMISSION_REQUEST_CODE = 1
     lateinit var imageUri: Uri
     lateinit var url: String
+    val ref = "Users"
 
     @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onCreateView(
@@ -135,7 +138,7 @@ class profileFragment : Fragment() {
                     date.setText(birthday)
                     room_spinner.setSelection((room_spinner.adapter as ArrayAdapter<String>).getPosition(rnumber))
 
-                    context?.let { Glide.with(it).load(url).into(userImage) }
+                    Glide.with(context!!.applicationContext).load(url).into(userImage)
 
 
                     datePicker.init(birthday[2].toInt(), birthday[1].toInt() - 1, birthday[0].toInt()) { view, year, month, day ->
@@ -291,7 +294,7 @@ class profileFragment : Fragment() {
 
                 auth.currentUser?.delete()?.addOnSuccessListener {
                     if (userid != null) {
-                        deleteUser(userid)
+                        databaseService.delteChildFromDatabase(userid, ref, requireContext())
                         Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
                         val intent = Intent(context, SignIn::class.java)
                         startActivity(intent)
@@ -394,17 +397,7 @@ class profileFragment : Fragment() {
             }
         }
     }
-    private fun getAge(year: Int, month: Int, day: Int): String? {
-        val dob = Calendar.getInstance()
-        val today = Calendar.getInstance()
-        dob[year, month] = day
-        var age = today[Calendar.YEAR] - dob[Calendar.YEAR]
-        if (today[Calendar.DAY_OF_YEAR] < dob[Calendar.DAY_OF_YEAR]) {
-            age--
-        }
-        val ageInt = age
-        return ageInt.toString()
-    }
+
 
     private fun getTagetSize(){
         val displayMetrics = DisplayMetrics()
@@ -416,17 +409,7 @@ class profileFragment : Fragment() {
         targetWidth = width
         targetHeight = height
     }
-    private fun deleteUser(userid: String){
-        var dName = database.child(userid)
 
-        dName.removeValue()
-        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
-    }
-
-    fun getSquareCropDimensionForBitmap(bitmap: Bitmap): Int {
-        //use the smallest dimension of the image to crop to
-        return Math.min(bitmap.width, bitmap.height)
-    }
 
     private fun pickImageFromGallery() {
         //Intent to pick image
@@ -460,10 +443,10 @@ class profileFragment : Fragment() {
             imageUri = data?.data!!
             var bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
 
-            val height_dimension: Int = getSquareCropDimensionForBitmap(bitmap)
+            val height_dimension: Int = SmartTools.getSquareCropDimensionForBitmap(bitmap)
             val width_dimension = height_dimension + 300
             var croped_bitmap = ThumbnailUtils.extractThumbnail(bitmap, height_dimension, width_dimension)
-            var cropUri = context?.let { getImageUriFromBitmap(it, croped_bitmap) }
+            var cropUri = context?.let { SmartTools.getImageUriFromBitmap(it, croped_bitmap) }
             println(cropUri)
             imageUri = cropUri!!
             userImage.setImageBitmap(croped_bitmap)
@@ -482,12 +465,6 @@ class profileFragment : Fragment() {
         }
     }
 
-    private fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
-        val bytes = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
-        return Uri.parse(path.toString())
-    }
 
     companion object {
         //image pick code

@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.joeSoFine.dormcuments.SmartTools
 import kotlinx.android.synthetic.main.fragment_create_event.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -42,6 +43,7 @@ class CreateEventFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        SmartTools.setUpOnBackPressed(requireActivity())
         val root = inflater.inflate(R.layout.fragment_create_event, container, false)
         val spinner_color = root.findViewById<Spinner>(R.id.spinner_color)
         val allday = root.findViewById<Switch>(R.id.allday)

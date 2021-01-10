@@ -131,7 +131,6 @@ class SignIn : AppCompatActivity() {
                                             database.child(userId).setValue(user)
                                                 .addOnSuccessListener {
                                                     val intent = Intent(applicationContext, SignUpWithFacebookFragment::class.java)
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                                                     startActivity(intent)
                                                     progressBar10.visibility = View.GONE
 

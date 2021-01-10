@@ -25,13 +25,12 @@ class ResidentFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
         val root = inflater.inflate(R.layout.fragment_residents, container, false)
         var progressBar = root.findViewById<ProgressBar>(R.id.progressBar6)
         var residentLayout = root.findViewById<LinearLayout>(R.id.residentLayout)
         progressBar.visibility = View.VISIBLE
 
-        databaseService.setFoodChildListener(progressBar, residentLayout, layoutInflater, requireFragmentManager(), requireContext(), ref )
+        databaseService.setFoodChildListener(progressBar, residentLayout, layoutInflater, requireFragmentManager(), requireContext(), ref)
 
         root.findViewById<ImageView>(R.id.helpButton).setOnClickListener{
             UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleResident, R.string.helpDialogMsgResident)

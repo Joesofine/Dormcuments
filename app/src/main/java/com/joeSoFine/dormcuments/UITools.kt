@@ -167,7 +167,7 @@ object UITools {
             bundle.putString("id", clubid)
             val fragment2 = FoodDetailsFragment()
             fragment2.arguments = bundle
-            fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()        }
+            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()        }
 
 
 
@@ -269,8 +269,7 @@ object UITools {
         var userImg: ImageView = ExpandableCardview.findViewById(R.id.userImage)
         var id: TextView = ExpandableCardview.findViewById(R.id.idCon)
 
-        context?.let { Glide.with(it).load(url).into(userImg) }
-
+        Glide.with(context.applicationContext).load(url).into(userImg)
 
         if (fullname.contains(" ")){
             val name = fullname.split(" ")

@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
+import com.joeSoFine.dormcuments.SmartTools
 import kotlinx.android.synthetic.main.fragment_create_foodclub.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

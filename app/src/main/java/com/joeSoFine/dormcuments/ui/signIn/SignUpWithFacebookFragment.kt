@@ -8,18 +8,39 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.joeSoFine.dormcuments.MainActivity
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.joeSoFine.dormcuments.databaseService
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpWithFacebookFragment: AppCompatActivity() {
     var database = FirebaseDatabase.getInstance().getReference("Users")
     private lateinit var auth: FirebaseAuth
+    var bool = false
+    val ref = "Users"
 
+    override fun onStop() {
+        super.onStop()
+        if (bool == false){
+            auth.currentUser?.delete()?.addOnSuccessListener {
+                val userid = auth.currentUser?.uid
+                if (userid != null) {
+                    databaseService.delteChildFromDatabase(userid, ref, applicationContext)
+                    Toast.makeText(applicationContext, "Try again", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(applicationContext, SignIn::class.java)
+                    startActivity(intent)
+                }
+            }?.addOnFailureListener{
+                Toast.makeText(applicationContext, "Try again", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +110,7 @@ class SignUpWithFacebookFragment: AppCompatActivity() {
             startActivity(intent)
 
             Toast.makeText(applicationContext, "Succes", Toast.LENGTH_SHORT).show()
+            bool = true
         }
     }
 
