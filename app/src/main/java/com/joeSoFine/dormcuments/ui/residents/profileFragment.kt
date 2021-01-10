@@ -423,7 +423,7 @@ class profileFragment : Fragment() {
         Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun getSquareCropDimensionForBitmap(bitmap: Bitmap): Int {
+    fun getSquareCropDimensionForBitmap(bitmap: Bitmap): Int {
         //use the smallest dimension of the image to crop to
         return Math.min(bitmap.width, bitmap.height)
     }
