@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.SmartTools
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.fragment_food_details.*
 
 
@@ -170,128 +171,52 @@ class FoodDetailsFragment : Fragment() {
     private fun listenerOnChange(switch: Switch, rn: String, diet: String, ch1Diet: String, ch2Diet: String, clubid: String){
         switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
             val chefs = chefs.text.toString().split(", ")
-            var st = ""
-            var fst = ""
+            val room = rn.substring(1,3)
+            var parti_string = ""
+            var diet_string = ""
             if (isChecked) {
-                if (chefs[0].contains(rn.substring(1,3)) || chefs[1].contains(rn.substring(1,3))){
+                if (chefs[0].contains(room) || chefs[1].contains(room)){
                     switch.isChecked = true
                 } else {
-                    if (parti.text.toString().isEmpty()) {
-                        parti.text = rn
-                    } else {
-                        st = parti.text.toString() + ", " + rn
-                        parti.text = st
-                    }
-                    if (diets.text.toString().isEmpty()) {
-                        diets.text = diet
-                        fst = diets.text.toString()
-                    } else {
-                        fst = diets.text.toString() + ", " + diet
-                        diets.text = fst
-                    }
-                    if (!chefs[0].contains("NA")) {
-                        val ch1 = chefs[0]
-                        if (parti.text.toString().contains("9$ch1,")) {
-                            st = st.replace("9$ch1, ", "")
-                        } else {
-                            st = st.replace("9$ch1", "")
-                        }
-                    }
-                    if (!chefs[1].contains("NA")) {
-                        val ch2 = chefs[1]
-                        if (parti.text.toString().contains("9$ch2,")) {
-                            st = st.replace("9$ch2, ", "")
-                        } else {
-                            st = st.replace("9$ch2", "")
-                        }
-                    }
-                    if (diets.text.toString().contains(ch1Diet)) {
-                        if (diets.text.toString().contains("$ch1Diet, ")) {
-                            fst = diets.text.toString().replace("$ch1Diet, ", "")
-                        } else {
-                            fst = diets.text.toString().replace("$ch1Diet", "")
-                        }
-                        if (diets.text.toString().contains(ch2Diet)) {
-                            if (diets.text.toString().contains("$ch2Diet, ")) {
-                                fst = diets.text.toString().replace("$ch2Diet, ", "")
-                            } else {
-                                fst = diets.text.toString().replace("$ch2Diet", "")
-                            }
-                        }
-                    }
-                    database.child(clubid).child("participants").setValue(st).addOnSuccessListener {
-                        Toast.makeText(context, "succesfully joined foodclub", Toast.LENGTH_SHORT).show()
-                    }
-                        .addOnFailureListener {}
+                    parti_string = checkIfTextviewIsEmpty(parti, rn)
+                    diet_string = checkIfTextviewIsEmpty(diets, diet)
 
-                    database.child(clubid).child("diets").setValue(fst).addOnSuccessListener {}
-                        .addOnFailureListener {}
+                    parti_string = removeChefFromParticipants(chefs[0], parti_string)
+                    parti_string = removeChefFromParticipants(chefs[1], parti_string)
+
+                    diet_string = removeChefDietFromDiets(ch1Diet, diet_string)
+                    diet_string = removeChefDietFromDiets(ch2Diet, diet_string)
+
+                    pushToDatabase(clubid, "participants", parti_string)
+                    pushToDatabase(clubid, "diets", diet_string)
                 }
 
             } else {
-                if (chefs[0].contains(rn.substring(1, 3)) || chefs[1].contains(rn.substring(1, 3))) {
+                if (chefs[0].contains(room) || chefs[1].contains(room)) {
                     switch.isChecked = true
                 } else {
 
-                    if (parti.text.toString().contains(", $rn")) {
-                        st = parti.text.toString().replace(", $rn", "")
-                    } else {
-                        st = parti.text.toString().replace(rn, "")
-                    }
-                    if (diets.text.toString().contains(", $diet")) {
-                        fst = diets.text.toString().replace(", $diet", "")
-                    } else {
-                        fst = diets.text.toString().replace(diet, "")
-                    }
-                    parti.text = st
-                    diets.text = fst
+                    parti_string = removeFromDatabaseAndTextview(parti, rn)
+                    diet_string = removeFromDatabaseAndTextview(diets, diet)
 
-                    if (!chefs[0].contains("NA")) {
-                        val ch1 = chefs[0]
-                        if (parti.text.toString().contains("9$ch1,")) {
-                            st = st.replace("9$ch1, ", "")
-                        } else {
-                            st = st.replace("9$ch1", "")
-                        }
-                    }
-                    if (!chefs[1].contains("NA")) {
-                        val ch2 = chefs[1]
-                        if (parti.text.toString().contains("9$ch2,")) {
-                            st = st.replace("9$ch2, ", "")
-                        } else {
-                            st = st.replace("9$ch2", "")
-                        }
-                    }
-                    if (diets.text.toString().contains(ch1Diet)) {
-                        if (diets.text.toString().contains("$ch1Diet, ")) {
-                            fst = diets.text.toString().replace("$ch1Diet, ", "")
-                        } else {
-                            fst = diets.text.toString().replace("$ch1Diet", "")
-                        }
-                        if (diets.text.toString().contains(ch2Diet)) {
-                            if (diets.text.toString().contains("$ch2Diet, ")) {
-                                fst = diets.text.toString().replace("$ch2Diet, ", "")
-                            } else {
-                                fst = diets.text.toString().replace("$ch2Diet", "")
-                            }
-                        }
-                    }
+                    parti_string = removeChefFromParticipants(chefs[0], parti_string)
+                    parti_string = removeChefFromParticipants(chefs[1], parti_string)
 
-                    database.child(clubid).child("participants").setValue(st).addOnSuccessListener {
-                        Toast.makeText(context, "Sign up deleted", Toast.LENGTH_SHORT).show()
-                    }.addOnFailureListener { }
-                    database.child(clubid).child("diets").setValue(fst).addOnSuccessListener {
-                    }.addOnFailureListener {}
+                    diet_string = removeChefDietFromDiets(ch1Diet, diet_string)
+                    diet_string = removeChefDietFromDiets(ch2Diet, diet_string)
+
+                    pushToDatabase(clubid, "participants", parti_string)
+                    pushToDatabase(clubid, "diets", diet_string)
                 }
             }
         }
     }
 
-    private fun setSwitchStatus(switch: Switch, rn: String){
+    fun setSwitchStatus(switch: Switch, rn: String){
         if ( parti.text.toString().contains(rn)){ switch.isChecked = true}
     }
 
-    private fun setChefDiets(ch1Diet: String, ch2Diet: String){
+    fun setChefDiets(ch1Diet: String, ch2Diet: String){
         if(ch1Diet != "" || ch2Diet != ""){
             if(ch1Diet != "" && ch2Diet != ""){
                 diets.text = "$ch1Diet, $ch2Diet"
@@ -301,5 +226,55 @@ class FoodDetailsFragment : Fragment() {
                 diets.text = ch2Diet
             }
         }
+    }
+
+    fun checkIfTextviewIsEmpty(textview: TextView, input: String): String {
+        var string = textview.text.toString()
+        if (string.isEmpty()) {
+            string = input
+        } else {
+            string = string + ", " + input
+        }
+        textview.text = string
+        return string
+    }
+
+    fun removeChefFromParticipants (chef:String, st: String): String {
+        var string = st
+        if (!chef.contains("NA")) {
+            if (string.contains("9$chef,")) {
+                string = string.replace("9$chef, ", "")
+            } else {
+                string = string.replace("9$chef", "")
+            }
+        }
+        return string
+    }
+
+    fun removeChefDietFromDiets(chefDiet:String, st: String): String {
+        var string = st
+        if (string.contains(chefDiet)) {
+            if (string.contains("$chefDiet, ")) {
+                string = string.replace("$chefDiet, ", "")
+            } else {
+                string = string.replace("$chefDiet", "")
+            }
+        }
+        return string
+    }
+
+    fun removeFromDatabaseAndTextview(textview: TextView, input: String): String {
+        var string = textview.text.toString()
+        if (string.contains(", $input")) {
+            string = string.replace(", $input", "")
+        } else {
+            string = string.replace(input, "")
+        }
+        textview.text = string
+        return string
+    }
+
+    fun pushToDatabase(id: String, path: String, string: String) {
+        database.child(id).child(path).setValue(string)
     }
 }
