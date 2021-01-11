@@ -43,6 +43,7 @@ class FoodDetailsFragment : Fragment() {
         var ch2 = ""
         auth = Firebase.auth
         var chefs = "".split("")
+        var diet_db = ""
 
 
         getdata = object : ValueEventListener {
@@ -94,9 +95,9 @@ class FoodDetailsFragment : Fragment() {
                         root.findViewById<TextView>(R.id.chefs).text = "$w1, $w2"
                         root.findViewById<TextView>(R.id.date).text = p0.child(clubid).child("date").getValue().toString()
                         root.findViewById<TextView>(R.id.dinner).text = p0.child(clubid).child("dinner").getValue().toString()
-                        root.findViewById<TextView>(R.id.diets).text = p0.child(clubid).child("diets").getValue().toString()
                         root.findViewById<TextView>(R.id.note).text = p0.child(clubid).child("note").getValue().toString()
                         chefs = root.findViewById<TextView>(R.id.chefs).text.toString().split(", ")
+                        diet_db = p0.child(clubid).child("diets").getValue().toString()
 
                         setId(clubid)
                     }
@@ -131,7 +132,7 @@ class FoodDetailsFragment : Fragment() {
                     }
 
 
-                    setChefDiets(chf1Diet,chf2Diet)
+                    setChefDiets(chf1Diet,chf2Diet, diet_db)
                     setSwitchStatus(checked,roomnumber)
                     if (clubid != null) {
                         listenerOnChange(checked,roomnumber, diet, chf1Diet, chf2Diet, clubid)
@@ -163,17 +164,13 @@ class FoodDetailsFragment : Fragment() {
         editBundle.putString("id", clubid)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
     @SuppressLint("SetTextI18n")
     private fun listenerOnChange(switch: Switch, rn: String, diet: String, ch1Diet: String, ch2Diet: String, clubid: String){
         switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
             val chefs = chefs.text.toString().split(", ")
             val room = rn.substring(1,3)
-            var parti_string = ""
-            var diet_string = ""
+            var parti_string: String
+            var diet_string: String
             if (isChecked) {
                 if (chefs[0].contains(room) || chefs[1].contains(room)){
                     switch.isChecked = true
@@ -181,32 +178,17 @@ class FoodDetailsFragment : Fragment() {
                     parti_string = checkIfTextviewIsEmpty(parti, rn)
                     diet_string = checkIfTextviewIsEmpty(diets, diet)
 
-                    parti_string = removeChefFromParticipants(chefs[0], parti_string)
-                    parti_string = removeChefFromParticipants(chefs[1], parti_string)
-
-                    diet_string = removeChefDietFromDiets(ch1Diet, diet_string)
-                    diet_string = removeChefDietFromDiets(ch2Diet, diet_string)
-
-                    pushToDatabase(clubid, "participants", parti_string)
-                    pushToDatabase(clubid, "diets", diet_string)
+                    parseToDatabase(clubid,diet_string, parti_string, ch1Diet, ch2Diet, chefs[0], chefs[1])
                 }
 
             } else {
                 if (chefs[0].contains(room) || chefs[1].contains(room)) {
                     switch.isChecked = true
                 } else {
-
                     parti_string = removeFromDatabaseAndTextview(parti, rn)
                     diet_string = removeFromDatabaseAndTextview(diets, diet)
 
-                    parti_string = removeChefFromParticipants(chefs[0], parti_string)
-                    parti_string = removeChefFromParticipants(chefs[1], parti_string)
-
-                    diet_string = removeChefDietFromDiets(ch1Diet, diet_string)
-                    diet_string = removeChefDietFromDiets(ch2Diet, diet_string)
-
-                    pushToDatabase(clubid, "participants", parti_string)
-                    pushToDatabase(clubid, "diets", diet_string)
+                    parseToDatabase(clubid,diet_string, parti_string, ch1Diet, ch2Diet, chefs[0], chefs[1])
                 }
             }
         }
@@ -216,14 +198,28 @@ class FoodDetailsFragment : Fragment() {
         if ( parti.text.toString().contains(rn)){ switch.isChecked = true}
     }
 
-    fun setChefDiets(ch1Diet: String, ch2Diet: String){
-        if(ch1Diet != "" || ch2Diet != ""){
-            if(ch1Diet != "" && ch2Diet != ""){
-                diets.text = "$ch1Diet, $ch2Diet"
-            } else if (ch1Diet != ""){
-                diets.text = ch1Diet
-            } else  if (ch2Diet != ""){
-                diets.text = ch2Diet
+    fun setChefDiets(ch1Diet: String, ch2Diet: String, diet_db: String){
+        if (diet_db.isEmpty()){
+            if(ch1Diet != "" || ch2Diet != ""){
+                if(ch1Diet != "" && ch2Diet != ""){
+                    diets.text = "$ch1Diet, $ch2Diet"
+                } else if (ch1Diet != ""){
+                    diets.text = ch1Diet
+                } else  if (ch2Diet != ""){
+                    diets.text = ch2Diet
+                }
+            }
+        } else {
+            if(ch1Diet != "" || ch2Diet != ""){
+                if(ch1Diet != "" && ch2Diet != ""){
+                    diets.text = "$ch1Diet, $ch2Diet, $diet_db"
+                } else if (ch1Diet != ""){
+                    diets.text = "$ch1Diet, $diet_db"
+                } else  if (ch2Diet != ""){
+                    diets.text = "$ch2Diet, $diet_db"
+                }
+            } else {
+                diets.text = diet_db
             }
         }
     }
@@ -276,5 +272,19 @@ class FoodDetailsFragment : Fragment() {
 
     fun pushToDatabase(id: String, path: String, string: String) {
         database.child(id).child(path).setValue(string)
+    }
+
+    fun parseToDatabase(clubid: String, diet_string:String, parti_string: String, ch1Diet: String,ch2Diet: String, ch1: String, ch2: String){
+        var string_parti = ""
+        var string_diet = ""
+
+        string_parti = removeChefFromParticipants(ch1, parti_string)
+        string_parti = removeChefFromParticipants(ch2, string_parti)
+
+        string_diet = removeChefDietFromDiets(ch1Diet, diet_string)
+        string_diet = removeChefDietFromDiets(ch2Diet, string_diet)
+
+        pushToDatabase(clubid, "participants", string_parti)
+        pushToDatabase(clubid, "diets", string_diet)
     }
 }
