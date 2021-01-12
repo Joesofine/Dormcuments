@@ -21,9 +21,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
+import com.nambimobile.widgets.efab.ExpandableFabLayout
 import java.time.LocalDate
 
-class CleaningFragment : Fragment() {
+class CleaningFragment : Fragment(), View.OnClickListener {
     val ref = "Cleaning"
     lateinit var myContainer: LinearLayout
 
@@ -36,16 +37,26 @@ class CleaningFragment : Fragment() {
         val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
         databaseService.setFoodChildListener(lottie, myContainer, layoutInflater, requireFragmentManager(), requireContext(), ref )
-
-
-        root.findViewById<FloatingActionButton>(R.id.add3).setOnClickListener {
-            requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, CreateCleaningFragment()).addToBackStack(null).commit()
-        }
-
-        root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleCleaning, R.string.helpDialogMsgCleaning)
-        }
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // Although you can set onClickListener functionality for ExpandableFab widget views via
+        // XML, Android limits us to defining their methods in the parent Activity. This has a
+        // number of downsides when using Fragments, especially from a re-usability standpoint. A
+        // better solution would be to implement View.OnClickListener on the Fragment, and define
+        // the onClickListeners cleanly like below (see the onClick method for the rest)
+        val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
+
+        expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.option1 -> { requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, CreateCleaningFragment()).addToBackStack(null).commit() }
+            R.id.option2 -> { UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleCleaning, R.string.helpDialogMsgCleaning)}
+            // so on and so forth...
+        }
     }
 
 

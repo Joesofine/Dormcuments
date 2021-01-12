@@ -92,9 +92,6 @@
             app:label_position="right"
             app:label_translationXPx="100"/>
 
-
-        />
-
     </com.nambimobile.widgets.efab.ExpandableFabLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

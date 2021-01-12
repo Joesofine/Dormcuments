@@ -134,4 +134,45 @@
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.nambimobile.widgets.efab.ExpandableFabLayout
+        android:id="@+id/fab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.nambimobile.widgets.efab.Overlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.nambimobile.widgets.efab.ExpandableFab
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/ui_margin_medium" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_baseline_add_shopping_cart_24"
+            app:label_text="Create cleaning"
+            app:label_textColor="@android:color/white"
+            app:label_textSize="@dimen/text_size"
+            app:label_backgroundColor="@color/meeting"
+            app:label_position="right"
+            app:label_translationXPx="100"/>
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_baseline_help_24"
+            app:label_text="Help"
+            app:label_textColor="@android:color/white"
+            app:label_textSize="@dimen/text_size"
+            app:label_backgroundColor="@color/meeting"
+            app:label_position="right"
+            app:label_translationXPx="100"/>
+
+    </com.nambimobile.widgets.efab.ExpandableFabLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

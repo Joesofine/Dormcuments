@@ -159,21 +159,5 @@ Click the X to remove an item.</string>
         <item>Every year</item>
     </string-array>
 
-    <string name="bottom_app_bar_compatibility_fragment">BottomAppBar Compatibility</string>
-    <string name="bottom_app_bar_compatibility_fragment_info">
-        Below we see the ExpandableFab working with the BottomAppBar, right out of the box.\n\nFor
-        developers using a BottomAppBar with different ExpandableFabs in portrait and landscape
-        (like this example): see the code in this fragment for a simple runtime anchor trick. Turn
-        your device to landscape to see how it works.\n\nTo have the Overlay cover the BottomAppBar,
-        define the Overlay AFTER the BottomAppBar in your \'ExpandableFabLayout\'.
-    </string>
-    <string name="clcf_snackbar_above_efab">Display Snackbar above ExpandableFab</string>
-    <string name="clcf_snackbar_below_efab">Display Snackbar below ExpandableFab</string>
-    <string name="snackbar_compatibility_fragment_info">
-        \'ExpandableFabLayout\' is the parent of every view in the ExpandableFab widget. It derives
-        from CoordinatorLayout, meaning it can play nicely with many of the new Material Design
-        behaviors, views and animations.\n\nClick the buttons below to see the widget interact with
-        a \'Snackbar\' for instance.
-    </string>
 
 </resources>

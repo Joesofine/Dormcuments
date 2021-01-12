@@ -52,6 +52,7 @@ class ShoppingFragment : Fragment(), View.OnClickListener {
             R.id.option1 -> { UITools.addItemDialog(requireContext(), layoutInflater, requireFragmentManager(), ref)}
             R.id.option2 -> { UITools.onHelpedClicked(requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)}
             // so on and so forth...
-        }    }
+        }
+    }
 
 }
