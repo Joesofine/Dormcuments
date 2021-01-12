@@ -38,17 +38,7 @@ class InventoryShoppingFragment : Fragment() {
         }
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
-            val layout = LinearLayout(context)
-            layout.orientation = LinearLayout.VERTICAL
-
-            val alert = AlertDialog.Builder(context, R.style.MyDialogStyle)
-            alert.setTitle(Html.fromHtml("<font color='#FFFFFF'>Add items to list</font>"))
-            UITools.createShopAdd(layout,layoutInflater, ref, requireContext())
-            alert.setView(layout)
-
-            alert.setPositiveButton("Done") { dialog, whichButton ->
-            }
-            alert.show().withCenteredButtons()
+            UITools.addItemDialog(requireContext(), layoutInflater, requireFragmentManager(), ref)
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{

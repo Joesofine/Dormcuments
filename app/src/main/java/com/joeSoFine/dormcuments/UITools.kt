@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -26,6 +27,8 @@ import com.joeSoFine.dormcuments.ui.calender.EditEventFragment
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningDetailsFragment
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
+import com.joeSoFine.dormcuments.ui.meeting.MeetingFragment
+import com.joeSoFine.dormcuments.ui.meeting.Topic
 import com.joeSoFine.dormcuments.ui.shopping.Item
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -218,20 +221,26 @@ object UITools {
         }
     }
 
+    fun createTopicAdd(layout: LinearLayout, layoutInflater: LayoutInflater, ref: String, context: Context){
+        val ExpandableCardview: View =
+            layoutInflater.inflate(R.layout.fragment_add_topic, null, false)
+
+        layout.addView(ExpandableCardview)
+    }
+
 
     fun createShopAdd(layout: LinearLayout, layoutInflater: LayoutInflater, ref: String, context: Context){
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.layout_add_item, null, false)
 
-        var add: ImageView = ExpandableCardview.findViewById(R.id.addItem2)
+        var add: ImageButton = ExpandableCardview.findViewById(R.id.addItem2)
         var inputItem: EditText = ExpandableCardview.findViewById(R.id.inputItem2)
-        var c = 0
+        var c = false
 
         inputItem.requestFocus()
 
-
         add.setOnClickListener {
-            if (c > 0) {
+            if (c == true) {
                 add.isEnabled = false
             } else {
                 val item = inputItem.text.toString()
@@ -240,11 +249,10 @@ object UITools {
                     inputItem.error = "Please input a product"
 
                 } else {
-
-                    val itemId = databaseService.generateID(ref)
                     val product = Item(item)
-
-                    c = databaseService.saveShopItemToDatabase(ref, itemId!!,product, context, layout, layoutInflater)
+                    createShopAdd(layout, layoutInflater, ref, context)
+                    databaseService.saveShopItemToDatabase(ref, product, context, layout, layoutInflater)
+                    c = true
                 }
             }
         }
@@ -653,5 +661,63 @@ object UITools {
             myContainer,
             arrString, layoutInflater, fragmentManager, ref, context
         )
+    }
+
+    fun addItemDialog (context: Context, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, ref: String) {
+        val layout = LinearLayout(context)
+        layout.orientation = LinearLayout.VERTICAL
+
+        val alert = AlertDialog.Builder(context, R.style.MyDialogStyle)
+        alert.setTitle(Html.fromHtml("<font color='#FFFFFF'>Add items to list</font>"))
+
+        if (ref.equals("Agenda")) {
+            createTopicAdd(layout, layoutInflater, ref, context)
+        } else {
+            createShopAdd(layout, layoutInflater, ref, context)
+        }
+
+        alert.setView(layout)
+
+        alert.setPositiveButton("Done") { dialog, whichButton ->
+            if (ref.equals("Agenda")) {
+                val topic = layout.getChildAt(0).findViewById<EditText>(R.id.inputItem).text.toString()
+                val des = layout.getChildAt(0).findViewById<EditText>(R.id.sum).text.toString()
+
+                if (!topic.isEmpty()) {
+                    val top = Topic(topic, des)
+                    databaseService.pushTopicToDatabase(ref, top, context, fragmentManager)
+                }
+
+            } else {
+                val item = layout.getChildAt(layout.childCount - 1).findViewById<EditText>(R.id.inputItem2).text.toString()
+
+                if (!item.isEmpty()) {
+                    val product = Item(item)
+                    databaseService.saveShopItemToDatabase(ref, product, context, layout, layoutInflater)
+                }
+            }
+        }
+        alert.show().withCenteredButtons()
+    }
+
+    fun AlertDialog.withCenteredButtons() {
+        val positive = getButton(AlertDialog.BUTTON_POSITIVE)
+
+        //Disable the material spacer view in case there is one
+        val parent = positive.parent as? LinearLayout
+        parent?.gravity = Gravity.CENTER_HORIZONTAL
+        val leftSpacer = parent?.getChildAt(1)
+        leftSpacer?.visibility = View.GONE
+
+        //Force the default buttons to center
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        layoutParams.weight = 1f
+        layoutParams.gravity = Gravity.CENTER
+
+        positive.layoutParams = layoutParams
     }
 }

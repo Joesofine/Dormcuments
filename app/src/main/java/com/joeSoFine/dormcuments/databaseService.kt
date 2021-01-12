@@ -18,8 +18,11 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.foodclub.Foodclub
+import com.joeSoFine.dormcuments.ui.meeting.MeetingFragment
+import com.joeSoFine.dormcuments.ui.meeting.Topic
 import com.joeSoFine.dormcuments.ui.shopping.Item
 import com.joeSoFine.dormcuments.ui.signIn.SignUpWithFacebookFragment
+import kotlinx.android.synthetic.main.fragment_add_topic.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
@@ -51,22 +54,19 @@ object databaseService {
             }
     }
 
-    fun saveShopItemToDatabase(ref: String, id: String, product: Item, context: Context, layout: LinearLayout, layoutInflater: LayoutInflater): Int {
-        if (id != null) {
-            database.getReference(ref).child(id).setValue(product)
-                .addOnSuccessListener {
-                    c = 1
-                    Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT)
-                        .show()
-                    UITools.createShopAdd(layout,layoutInflater,ref, context)
-                }
-                .addOnFailureListener {
-                    // Write failed
-                    Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-                }
-        }
-        return c
+    fun saveShopItemToDatabase(ref: String, product: Item, context: Context, layout: LinearLayout, layoutInflater: LayoutInflater) {
+        val id = generateID(ref)
+        database.getReference(ref).child(id!!).setValue(product)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            .addOnFailureListener {
+                // Write failed
+                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+            }
     }
+
 
      fun getDataFromDatabase(id: String, p0: DataSnapshot): Cleaning {
          var cleaning = Cleaning(
@@ -456,5 +456,18 @@ object databaseService {
 
             }
         }
+    }
+
+    fun pushTopicToDatabase(ref: String, topic: Topic, context: Context, fragmentManager: FragmentManager){
+        val topicId = generateID(ref)
+        database.getReference(ref).child(topicId!!).setValue(topic)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Topic has been added", Toast.LENGTH_SHORT).show()
+                fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, MeetingFragment()).addToBackStack(null).commit()
+            }
+            .addOnFailureListener {
+                // Write failed
+                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+            }
     }
 }

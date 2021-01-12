@@ -33,11 +33,7 @@ class MeetingFragment : Fragment() {
         databaseService.setFoodChildListener(progressBar,myContainer,layoutInflater, requireFragmentManager(), requireContext(), ref)
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
-            requireFragmentManager().beginTransaction().add(
-                R.id.nav_host_fragment,
-                AddTopic()
-            ).addToBackStack(null).commit()
-
+            UITools.addItemDialog(requireContext(), layoutInflater, requireFragmentManager(), ref)
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{

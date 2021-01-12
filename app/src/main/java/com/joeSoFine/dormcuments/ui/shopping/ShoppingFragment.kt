@@ -16,7 +16,6 @@ import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.UITools
 
-
 class ShoppingFragment : Fragment() {
     lateinit var myContainer: LinearLayout
     val ref = "Shoppinglist"
@@ -34,18 +33,7 @@ class ShoppingFragment : Fragment() {
         databaseService.setShopChildListener(progressBar, myContainer, layoutInflater, requireContext(), ref )
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
-            val layout = LinearLayout(context)
-            layout.orientation = LinearLayout.VERTICAL
-
-            val alert = AlertDialog.Builder(context, R.style.MyDialogStyle)
-            alert.setTitle(Html.fromHtml("<font color='#FFFFFF'>Add items to list</font>"))
-            UITools.createShopAdd(layout,layoutInflater, ref, requireContext())
-            alert.setView(layout)
-
-            alert.setPositiveButton("Done") { dialog, whichButton ->
-            }
-            alert.show().withCenteredButtons()
-
+            UITools.addItemDialog(requireContext(), layoutInflater, requireFragmentManager(), ref)
         }
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{
@@ -55,24 +43,4 @@ class ShoppingFragment : Fragment() {
         return root
     }
 
-    fun AlertDialog.withCenteredButtons() {
-        val positive = getButton(AlertDialog.BUTTON_POSITIVE)
-
-        //Disable the material spacer view in case there is one
-        val parent = positive.parent as? LinearLayout
-        parent?.gravity = Gravity.CENTER_HORIZONTAL
-        val leftSpacer = parent?.getChildAt(1)
-        leftSpacer?.visibility = View.GONE
-
-        //Force the default buttons to center
-        val layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-
-        layoutParams.weight = 1f
-        layoutParams.gravity = Gravity.CENTER
-
-        positive.layoutParams = layoutParams
-    }
 }
