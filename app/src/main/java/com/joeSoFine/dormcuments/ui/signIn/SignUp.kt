@@ -157,6 +157,7 @@ class SignUp : AppCompatActivity() {
                         intent.putExtra(("userid"), userId)
                         intent.putExtra("user", user)
                         startActivity(intent)
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout)
                     }
                 } else {
                     // If sign in fails, display a message to the user.

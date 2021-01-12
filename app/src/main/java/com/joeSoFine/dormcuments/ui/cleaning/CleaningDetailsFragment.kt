@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -41,8 +42,7 @@ class CleaningDetailsFragment : Fragment() {
         val extraTask = root.findViewById<ConstraintLayout>(R.id.extraTask)
         val expandWeekly = root.findViewById<ImageView>(R.id.expandWeekly)
         val expandExtra = root.findViewById<ImageView>(R.id.expandExtra)
-        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar8)
-        progressBar.visibility = View.VISIBLE
+        val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
         auth = Firebase.auth
         val bundle = this.arguments
@@ -79,7 +79,7 @@ class CleaningDetailsFragment : Fragment() {
                         setVisiblityOnExtra(extras, root)
                     }
                 }
-                progressBar.visibility = View.GONE
+                lottie.visibility = View.GONE
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
         }

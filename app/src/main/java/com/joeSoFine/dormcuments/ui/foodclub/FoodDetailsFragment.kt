@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.ui.foodclub.EditFoodFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -35,8 +36,7 @@ class FoodDetailsFragment : Fragment() {
         SmartTools.setUpOnBackPressed(requireActivity())
 
         val root = inflater.inflate(R.layout.fragment_food_details, container, false)
-        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar9)
-        progressBar.visibility = View.VISIBLE
+        val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
         val bundle = this.arguments
         val checked = root.findViewById<Switch>(R.id.switchJoin)
         var ch1 = ""
@@ -102,7 +102,7 @@ class FoodDetailsFragment : Fragment() {
                         setId(clubid)
                     }
                 }
-                progressBar.visibility = View.GONE
+                lottie.visibility = View.GONE
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
         }

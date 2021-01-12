@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
@@ -27,10 +28,9 @@ class MeetingFragment : Fragment() {
     ): View? {
         var root = inflater.inflate(R.layout.fragment_meeting, container, false)
         myContainer = root.findViewById(R.id.LinScroll)
-        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar5)
-        progressBar.visibility = View.VISIBLE
+        val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
-        databaseService.setFoodChildListener(progressBar,myContainer,layoutInflater, requireFragmentManager(), requireContext(), ref)
+        databaseService.setFoodChildListener(lottie,myContainer,layoutInflater, requireFragmentManager(), requireContext(), ref)
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
             UITools.addItemDialog(requireContext(), layoutInflater, requireFragmentManager(), ref)

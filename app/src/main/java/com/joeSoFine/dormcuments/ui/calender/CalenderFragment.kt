@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -23,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
+import kotlinx.android.synthetic.main.fragment_rules.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
@@ -32,28 +34,24 @@ import kotlin.collections.ArrayList
 
 class CalenderFragment : Fragment(),View.OnClickListener {
     var database = FirebaseDatabase.getInstance().getReference("Events")
-    var databaseU = FirebaseDatabase.getInstance().getReference("Users")
     lateinit var getdata : ValueEventListener
-    lateinit var Ugetdata : ValueEventListener
     lateinit var myContainer: LinearLayout
     private lateinit var auth: FirebaseAuth
     private val months = ArrayList<String>()
     private val weeks = ArrayList<String>()
     private val years = ArrayList<String>()
-    private val currentMonthArr = ArrayList<String>()
     private lateinit var sliderLayout: LinearLayout
     private lateinit var week: Button
     private lateinit var month: Button
     private lateinit var year: Button
     private lateinit var scroll: HorizontalScrollView
     private lateinit var whoops: TextView
-    private lateinit var progressBar: ProgressBar
+    private lateinit var lottie: LottieAnimationView
     var targetHeight = 0
     var targetWidth = 0
     private var current_week: Int = 0
     private var current_month: Int = 0
     private var current_year: Int = 0
-    private var bool: Boolean = false
     val refE = "Events"
     val refU = "Users"
 
@@ -65,6 +63,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_calender, container, false)
+        lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
         auth = Firebase.auth
 
         myContainer = root.findViewById(R.id.LinScroll)
@@ -74,7 +73,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         month = root.findViewById(R.id.month)
         year = root.findViewById(R.id.year)
         whoops = root.findViewById(R.id.whoops)
-        progressBar = root.findViewById(R.id.progressBar2)
 
         week.setOnClickListener(this)
         month.setOnClickListener(this)
@@ -196,13 +194,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
                 if (arr.equals(weeks)) {
                     var weekNumber = element.replace("U", "").toInt()
-                    databaseService.getSortedEvents(0, weekNumber, "weeks", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
+                    databaseService.getSortedEvents(0, weekNumber, "weeks", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
 
                 } else if (arr.equals(months)) {
-                    databaseService.getSortedEvents(1, months.indexOf(element) + 1, "months", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
+                    databaseService.getSortedEvents(1, months.indexOf(element) + 1, "months", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
 
                 } else if (arr.equals(years)) {
-                    databaseService.getSortedEvents(0, element.toInt(), "years", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
+                    databaseService.getSortedEvents(0, element.toInt(), "years", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
                 }
             }
         }
@@ -222,7 +220,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun buttonPressed(button: Button, arr: ArrayList<String>, arrString: String, width: Int, current: Int){
-        progressBar.visibility = View.VISIBLE
+        lottie.visibility = View.VISIBLE
         myContainer.removeAllViews()
         week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
         month.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
@@ -247,7 +245,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                         v1.isFocusable = true
                         v1.isFocusableInTouchMode = true
                         v1.requestFocus()
-                        databaseService.getSortedEvents(0, current + 1, "weeks", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
+                        databaseService.getSortedEvents(0, current + 1, "weeks", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
                     }
 
                 }
@@ -268,13 +266,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 v.requestFocus()
 
                 if (arrString == "weeks") {
-                    databaseService.getSortedEvents(0, current + 1, "weeks", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
+                    databaseService.getSortedEvents(0, current + 1, "weeks", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
 
                 } else if (arrString == "months") {
-                    databaseService.getSortedEvents(1, current + 1, "months", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
+                    databaseService.getSortedEvents(1, current + 1, "months", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
 
                 } else if (arrString == "years") {
-                    databaseService.getSortedEvents(0, current + current_year - 1, "years", progressBar, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
+                    databaseService.getSortedEvents(0, current + current_year - 1, "years", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
                 }
 
             }

@@ -12,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.doOnAttach
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
@@ -32,10 +33,9 @@ class CleaningFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_cleaning, container, false)
         myContainer = root.findViewById(R.id.LinScroll)
-        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar3)
-        progressBar.visibility = View.VISIBLE
+        val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
-        databaseService.setFoodChildListener(progressBar, myContainer, layoutInflater, requireFragmentManager(), requireContext(), ref )
+        databaseService.setFoodChildListener(lottie, myContainer, layoutInflater, requireFragmentManager(), requireContext(), ref )
 
 
         root.findViewById<FloatingActionButton>(R.id.add3).setOnClickListener {

@@ -257,15 +257,15 @@
         app:layout_constraintEnd_toEndOf="@+id/divider9"
         app:layout_constraintTop_toTopOf="@+id/textView71" />
 
-    <ProgressBar
-        android:id="@+id/progressBar9"
-        style="?android:attr/progressBarStyle"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="350dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/threedots" />
 </androidx.constraintlayout.widget.ConstraintLayout>

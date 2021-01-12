@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UITools
 import kotlinx.coroutines.Dispatchers
@@ -25,8 +26,7 @@ class SummaryMenuFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_summary_menu, container, false)
         val list = root.findViewById<ListView>(R.id.list)
         val myWebView: WebView = root.findViewById(R.id.webs)
-        val progressBar: ProgressBar = root.findViewById(R.id.progressBar12)
-        progressBar.visibility = View.VISIBLE
+        val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
 
         root.findViewById<ImageView>(R.id.question).setOnClickListener{
@@ -61,7 +61,7 @@ class SummaryMenuFragment : Fragment() {
                     myWebView.loadUrl(sumArr[position].url)
 
                 }
-                progressBar.visibility = View.GONE
+                lottie.visibility = View.GONE
 
             })
 

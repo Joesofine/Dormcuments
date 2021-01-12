@@ -77,18 +77,20 @@ class SignIn : AppCompatActivity() {
         setIconsTint(password, R.drawable.password_icon_white, R.drawable.password_icon_tint)
 
         signIpButton.setOnClickListener(View.OnClickListener {
-            progressBar10.visibility = View.VISIBLE
+            animation_view.visibility = View.VISIBLE
             signIn(mail.text.toString().toLowerCase().replace(" ", ""), password.text.toString())
         })
 
         SignUpButton.setOnClickListener(View.OnClickListener {
             val intent = Intent(applicationContext, SignUp::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         })
 
         ForgotPasswordBotton.setOnClickListener(View.OnClickListener {
             val intent = Intent(applicationContext, ForgottenPassword::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
         })
 
 
@@ -108,7 +110,7 @@ class SignIn : AppCompatActivity() {
                         "Facebook are still only avablable for developers",
                         Toast.LENGTH_SHORT
                     ).show()
-                    progressBar10.visibility = View.VISIBLE
+                    animation_view.visibility = View.VISIBLE
                     val credenials =
                         FacebookAuthProvider.getCredential(loginResult.accessToken.token);
 
@@ -136,12 +138,13 @@ class SignIn : AppCompatActivity() {
                                                 .addOnSuccessListener {
                                                     val intent = Intent(applicationContext, SignUpWithFacebookFragment::class.java)
                                                     startActivity(intent)
-                                                    progressBar10.visibility = View.GONE
+                                                    overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+                                                    animation_view.visibility = View.GONE
 
                                                 }
                                                 .addOnFailureListener {
                                                     // Write failed
-                                                    progressBar10.visibility = View.GONE
+                                                    animation_view.visibility = View.GONE
                                                     Toast.makeText(
                                                         applicationContext,
                                                         "Try again",
@@ -172,7 +175,7 @@ class SignIn : AppCompatActivity() {
 
 
                             databaseService.checkIfCurrentUserExsist(applicationContext, ref)
-                            progressBar10.visibility = View.GONE
+                            animation_view.visibility = View.GONE
                         }
 
                         Toast.makeText(
@@ -186,7 +189,7 @@ class SignIn : AppCompatActivity() {
 
                 override fun onCancel() {
                     println("Facebook onCancel");
-                    progressBar10.visibility = View.GONE
+                    animation_view.visibility = View.GONE
                     Toast.makeText(
                         applicationContext,
                         "Facebook are still only avablable for developers",
@@ -196,7 +199,7 @@ class SignIn : AppCompatActivity() {
 
                 override fun onError(error: FacebookException) {
                     println("Facebook onError")
-                    progressBar10.visibility = View.GONE
+                    animation_view.visibility = View.GONE
                     Toast.makeText(
                         applicationContext,
                         "Facebook are still only avablable for developers",
@@ -247,11 +250,13 @@ class SignIn : AppCompatActivity() {
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
-                    progressBar10.visibility = View.GONE
+                    overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+
+                    animation_view.visibility = View.GONE
                     val user = auth.currentUser
                 } else {
                     // If sign in fails, display a message to the user.
-                    progressBar10.visibility = View.GONE
+                    animation_view.visibility = View.GONE
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext, "Authentication failed.",
@@ -263,7 +268,7 @@ class SignIn : AppCompatActivity() {
                 if (!task.isSuccessful) {
                     status.setText(R.string.auth_failed)
                     status.visibility = View.VISIBLE
-                    progressBar10.visibility = View.GONE
+                    animation_view.visibility = View.GONE
                 }
                 // [END_EXCLUDE]
             }

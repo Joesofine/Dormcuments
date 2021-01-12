@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UITools
 import kotlinx.coroutines.*
@@ -22,9 +23,7 @@ class  RulesFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_rules, container, false)
-
-        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar)
-        progressBar.visibility = View.VISIBLE
+        val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
         ruleArr.clear()
 
@@ -39,7 +38,7 @@ class  RulesFragment : Fragment() {
                 for (i: Int in 0..csv.size-1) {
                     val rule = csv[i].replace("\"", "")//.split(",")[0]
                     ruleArr.add(rule)
-                    progressBar.visibility = View.GONE
+                    lottie.visibility = View.GONE
 
                 }
 

@@ -112,6 +112,7 @@ class SignUpWithFacebookFragment: AppCompatActivity() {
 
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
 
             Toast.makeText(applicationContext, "Succes", Toast.LENGTH_SHORT).show()
             bool = true

@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -37,10 +38,9 @@ class FoodclubFragment : Fragment() {
         SmartTools.setUpOnBackPressed(requireActivity())
 
         myContainer = root.findViewById(R.id.LinScroll)
-        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar4)
-        progressBar.visibility = View.VISIBLE
+        val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
-       databaseService.setFoodChildListener(progressBar,myContainer, layoutInflater, requireFragmentManager(), requireContext(), ref )
+       databaseService.setFoodChildListener(lottie,myContainer, layoutInflater, requireFragmentManager(), requireContext(), ref )
 
         root.findViewById<FloatingActionButton>(R.id.add2).setOnClickListener {
             requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CreateFoodclubFragment()).addToBackStack(null).commit()

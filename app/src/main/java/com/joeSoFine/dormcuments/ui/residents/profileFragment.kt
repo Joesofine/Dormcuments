@@ -24,6 +24,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -79,9 +80,8 @@ class profileFragment : Fragment() {
         val country_edit:EditText = root.findViewById(R.id.country_edit)
         val userImage = root.findViewById<ImageView>(R.id.userImage)
         val editImage = root.findViewById<ImageView>(R.id.editImageButton)
-        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar11)
+        val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
-        progressBar.visibility = View.VISIBLE
         val userid = auth.currentUser?.uid
 
         if (auth.currentUser != null) {
@@ -148,7 +148,7 @@ class profileFragment : Fragment() {
                         date.setText(msg)
                         date.setTextColor(resources.getColor(R.color.White))
                     }
-                    progressBar.visibility = View.GONE
+                    lottie.visibility = View.GONE
                 }
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }

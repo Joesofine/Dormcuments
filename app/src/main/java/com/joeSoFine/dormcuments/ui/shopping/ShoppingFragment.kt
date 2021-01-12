@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 import com.joeSoFine.dormcuments.R
@@ -27,10 +28,9 @@ class ShoppingFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_shopping, container, false)
         myContainer = root.findViewById(R.id.LinScroll)
-        var progressBar = root.findViewById<ProgressBar>(R.id.progressBar7)
-        progressBar.visibility = View.VISIBLE
+        val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
-        databaseService.setShopChildListener(progressBar, myContainer, layoutInflater, requireContext(), ref )
+        databaseService.setShopChildListener(lottie, myContainer, layoutInflater, requireContext(), ref )
 
         root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
             UITools.addItemDialog(requireContext(), layoutInflater, requireFragmentManager(), ref)

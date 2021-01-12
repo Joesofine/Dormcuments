@@ -7,31 +7,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient">
 
-
-    <!-- <Button
-         android:id="@+id/fb"
-         android:layout_width="match_parent"
-         android:layout_height="40dp"
-         android:layout_marginStart="30dp"
-         android:layout_marginLeft="30dp"
-         android:layout_marginTop="10dp"
-         android:layout_marginEnd="30dp"
-         android:layout_marginRight="30dp"
-         android:background="@color/facebook"
-         android:drawableLeft="@drawable/facebook"
-         android:elevation="10dp"
-         android:gravity="center"
-         android:paddingLeft="15dp"
-         android:paddingRight="30dp"
-         android:text="Continue wirh Facebook"
-         android:textAllCaps="false"
-         android:textColor="#FFFFFF"
-         android:textStyle="normal"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintHorizontal_bias="0.5"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/textView3" /> -->
-
     <Button
         android:id="@+id/SignUpButton"
         android:layout_width="wrap_content"
@@ -215,15 +190,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-    <ProgressBar
-        android:id="@+id/progressBar10"
-        style="?android:attr/progressBarStyle"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/threedots" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

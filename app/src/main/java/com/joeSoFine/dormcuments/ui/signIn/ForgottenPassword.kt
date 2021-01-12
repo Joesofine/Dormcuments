@@ -34,6 +34,7 @@ class ForgottenPassword : AppCompatActivity() {
                             Toast.makeText(applicationContext, "Email Send", Toast.LENGTH_SHORT).show()
                             val intent = Intent(applicationContext, SignIn::class.java)
                             startActivity(intent)
+                            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
                         }
                     }
             }

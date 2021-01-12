@@ -24,14 +24,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/hapi" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="0dp"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/White"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/threedots" />
 
     <TextView
         android:id="@+id/textView1"

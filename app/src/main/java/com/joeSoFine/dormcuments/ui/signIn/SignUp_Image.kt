@@ -85,6 +85,7 @@ class SignUp_Image : AppCompatActivity() {
 
                                     val intent = Intent(applicationContext, SignIn::class.java)
                                     startActivity(intent)
+                                    overridePendingTransition(R.anim.fadein, R.anim.fadeout)
                                 }
                                 .addOnFailureListener {
                                     // Write failed

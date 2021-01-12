@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -109,7 +110,7 @@ object databaseService {
         dName.removeValue()
     }
 
-    fun setShopChildListener(progressBar: ProgressBar, myContainer: LinearLayout, layoutInflater: LayoutInflater, context: Context, ref: String){
+    fun setShopChildListener(progressBar: LottieAnimationView, myContainer: LinearLayout, layoutInflater: LayoutInflater, context: Context, ref: String){
         var childListener = object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 progressBar.visibility = View.VISIBLE
@@ -152,7 +153,7 @@ object databaseService {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getSortedEvents(DateIndex: Int, relevantDatePart: Int, arrString: String, progressBar: ProgressBar, current_year: Int, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, refE: String, refU: String, whoops: TextView) {
+    fun getSortedEvents(DateIndex: Int, relevantDatePart: Int, arrString: String, progressBar: LottieAnimationView, current_year: Int, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, refE: String, refU: String, whoops: TextView) {
         var childListener = object : ChildEventListener {
             override fun onChildAdded(i: DataSnapshot, previousChildName: String?) {
                     var dateUn: String = i.child("unformattedDate").value as String
@@ -275,7 +276,7 @@ object databaseService {
         database.getReference(refE).addChildEventListener(childListener)
     }
 
-        fun setFoodChildListener(progressBar: ProgressBar, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, ref: String) {
+        fun setFoodChildListener(progressBar: LottieAnimationView, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, ref: String) {
         var childListener = object : ChildEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
