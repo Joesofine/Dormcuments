@@ -29,19 +29,14 @@ class SpalshActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
 
 
-        Handler().postDelayed({
-            // This method will be executed once the timer is over
-            // Start your app main activity
-
-            if (user != null) {
-                // User is signed in
-                databaseService.checkIfCurrentUserExsist(applicationContext, ref)
-            } else {
-                val intent = Intent(applicationContext, SignIn::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-            }
-        }, SPLASH_TIME_OUT)
+        if (user != null) {
+            // User is signed in
+            databaseService.checkIfCurrentUserExsist(applicationContext, ref)
+        } else {
+            val intent = Intent(applicationContext, SignIn::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+        }
     }
 }
