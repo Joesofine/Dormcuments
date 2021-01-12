@@ -7,16 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormapp.ui.rules.RulesFragment
-import com.joeSoFine.dormcuments.BaseBackPressedListener
-import com.joeSoFine.dormcuments.MainActivity
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.SmartTools
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
 import com.joeSoFine.dormcuments.ui.meeting.MeetingFragment
-import com.joeSoFine.dormcuments.ui.meeting.SummaryMenuFragment
+import com.joeSoFine.dormcuments.ui.kitchenDocuments.SummaryMenuFragment
 import com.joeSoFine.dormcuments.ui.residents.ResidentFragment
 import com.joeSoFine.dormcuments.ui.residents.profileFragment
-import com.joeSoFine.dormcuments.ui.shopping.InventoryShoppingFragment
 import kotlinx.android.synthetic.main.fragment_more.*
 
 

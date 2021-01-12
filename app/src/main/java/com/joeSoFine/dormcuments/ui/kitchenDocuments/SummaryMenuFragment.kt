@@ -1,4 +1,4 @@
-package com.joeSoFine.dormcuments.ui.meeting
+package com.joeSoFine.dormcuments.ui.kitchenDocuments
 
 import android.os.Bundle
 import android.view.LayoutInflater
