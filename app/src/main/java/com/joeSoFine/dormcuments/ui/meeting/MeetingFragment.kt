@@ -44,13 +44,6 @@ class MeetingFragment : Fragment() {
             UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleMeetings, R.string.helpDialogMsgMeetings)
         }
 
-        root.findViewById<ImageView>(R.id.documents).setOnClickListener{
-            requireFragmentManager().beginTransaction().add(
-                R.id.nav_host_fragment,
-                SummaryMenuFragment()
-            ).addToBackStack(null).commit()
-        }
-
         return root
     }
 
