@@ -69,7 +69,7 @@ class MoreFragment : Fragment(),View.OnClickListener  {
                     requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, profileFragment()).addToBackStack(null).commit()
                 }
                 p0 === inventory_button -> {
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, InventoryShoppingFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, SummaryMenuFragment()).addToBackStack(null).commit()
                 }
             }
         }

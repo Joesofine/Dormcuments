@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/shopping"
-        android:name="com.joeSoFine.dormcuments.ui.shopping.ShoppingFragment"
+        android:name="com.joeSoFine.dormcuments.ui.shopping.ShopViewpagerFragment"
         android:label="@string/title_shopping"
         tools:layout="@layout/fragment_shopping" />
 
