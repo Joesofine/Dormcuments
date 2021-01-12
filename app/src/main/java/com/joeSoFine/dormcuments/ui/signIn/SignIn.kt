@@ -51,6 +51,7 @@ class SignIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+        animation_view.visibility = View.GONE
 
         auth = Firebase.auth
 
