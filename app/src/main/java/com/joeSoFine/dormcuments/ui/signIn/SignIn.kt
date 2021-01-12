@@ -54,12 +54,6 @@ class SignIn : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        val user = Firebase.auth.currentUser
-        if (user != null) {
-            // User is signed in
-            checkIfCurrentUserExsist(applicationContext, ref)
-        }
-
         // Code for generating hash key
         /* try {
             val info = packageManager.getPackageInfo(
@@ -177,7 +171,7 @@ class SignIn : AppCompatActivity() {
                             println("Facebook token: " + loginResult.accessToken.token)
 
 
-                            checkIfCurrentUserExsist(applicationContext, ref)
+                            databaseService.checkIfCurrentUserExsist(applicationContext, ref)
                             progressBar10.visibility = View.GONE
                         }
 
@@ -296,31 +290,6 @@ class SignIn : AppCompatActivity() {
 
         return valid
     }
-
-    fun checkIfCurrentUserExsist(applicationContext: Context, ref: String) {
-        var getdata = object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                val userid = auth.currentUser?.uid
-                if (userid != null) {
-                    var roomnumber = p0.child(userid).child("number").getValue().toString()
-                    if (roomnumber.isEmpty()) {
-                        val intent = Intent(applicationContext, SignUpWithFacebookFragment::class.java)
-                        startActivity(intent)
-
-                    } else {
-                        val intent = Intent(applicationContext, MainActivity::class.java)
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        applicationContext.startActivity(intent)
-                    }
-                }
-            }
-            override fun onCancelled(p0: DatabaseError) {
-                println("err")
-            }
-        }
-        databaseService.database.getReference(ref).addValueEventListener(getdata)
-    }
-
 
     companion object {
         private const val TAG = "EmailPassword"

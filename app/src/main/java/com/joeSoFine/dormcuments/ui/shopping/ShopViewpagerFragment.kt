@@ -33,6 +33,7 @@ class ShopViewpagerFragment : Fragment() {
         var viewPager2: ViewPager2 = root.findViewById(R.id.pager)
         var adapter = ExampleStateAdapter(requireActivity().supportFragmentManager,lifecycle)
         viewPager2.adapter = adapter
+        viewPager2.setPageTransformer(ZoomOutPageTransformer())
 
         // If you want to scroll the ViewPager Vertical uncomment the next line:
         // viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL

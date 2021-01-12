@@ -470,4 +470,28 @@ object databaseService {
                 Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
             }
     }
+
+    fun checkIfCurrentUserExsist(applicationContext: Context, ref: String) {
+        var getdata = object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                val userid = auth.currentUser?.uid
+                if (userid != null) {
+                    var roomnumber = p0.child(userid).child("number").getValue().toString()
+                    if (roomnumber.isEmpty()) {
+                        val intent = Intent(applicationContext, SignUpWithFacebookFragment::class.java)
+                        applicationContext.startActivity(intent)
+
+                    } else {
+                        val intent = Intent(applicationContext, MainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        applicationContext.startActivity(intent)
+                    }
+                }
+            }
+            override fun onCancelled(p0: DatabaseError) {
+                println("err")
+            }
+        }
+        database.getReference(ref).addValueEventListener(getdata)
+    }
 }
