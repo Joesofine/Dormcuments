@@ -84,7 +84,7 @@ object UITools {
 
         builder.setPositiveButton("Continue"){dialogInterface, which ->
             if (id != null) {
-                databaseService.delteChildFromDatabase(id, ref, context)
+                databaseService.delteChildFromDatabase(id, ref)
                 Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
                 fragmentManager.popBackStack()
                 fragmentManager.popBackStack()
@@ -125,7 +125,7 @@ object UITools {
 
         delete.setOnClickListener {
             myContainer.removeView(ExpandableCardview)
-            databaseService.delteChildFromDatabase(itemid, ref, context)
+            databaseService.delteChildFromDatabase(itemid, ref)
         }
 
         myContainer.addView(ExpandableCardview)
@@ -373,7 +373,7 @@ object UITools {
             expandListMeeting(sumLayout, expand, divider) }
 
         delete.setOnClickListener {
-            databaseService.delteChildFromDatabase(topicId, ref, context )
+            databaseService.delteChildFromDatabase(topicId, ref)
         }
 
         myContainer.addView(ExpandableCardview)

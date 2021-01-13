@@ -105,7 +105,7 @@ object databaseService {
         return getdata
     }
 
-    fun delteChildFromDatabase(id: String, ref: String, context: Context){
+    fun delteChildFromDatabase(id: String, ref: String){
         var dName = database.getReference(ref).child(id)
         dName.removeValue()
     }

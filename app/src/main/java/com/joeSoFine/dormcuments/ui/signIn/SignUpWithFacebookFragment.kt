@@ -36,7 +36,7 @@ class SignUpWithFacebookFragment: AppCompatActivity() {
             if (userid != null) {
                 auth.currentUser?.delete()?.addOnSuccessListener {
                     auth.signOut()
-                    databaseService.delteChildFromDatabase(userid, ref, applicationContext)
+                    databaseService.delteChildFromDatabase(userid, ref)
                     val intent = Intent(applicationContext, SignIn::class.java)
                     startActivity(intent)
                 }

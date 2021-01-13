@@ -17,6 +17,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.joeSoFine.dormcuments.SmartTools
+import com.joeSoFine.dormcuments.UITools
+import com.joeSoFine.dormcuments.databaseService
 import kotlinx.android.synthetic.main.fragment_edit_food.*
 import kotlinx.android.synthetic.main.fragment_edit_food.date2
 import kotlinx.android.synthetic.main.fragment_edit_food.dinner
@@ -30,6 +32,7 @@ import java.util.*
 
 class EditFoodFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Foodclub")
+    val ref = "Foodclub"
     lateinit var getdata : ValueEventListener
     var choosenDate = ""
     lateinit var unform: String
@@ -40,15 +43,11 @@ class EditFoodFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        SmartTools.setUpOnBackPressed(requireActivity())
-
         val root = inflater.inflate(R.layout.fragment_edit_food, container, false)
         val bundle = this.arguments
-        val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
-        val today = Calendar.getInstance()
         var clubid = bundle?.getString("id")
 
-        root.findViewById<ImageView>(R.id.delete2).visibility = View.VISIBLE
+        root.findViewById<ImageView>(R.id.delete).visibility = View.VISIBLE
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
@@ -70,7 +69,6 @@ class EditFoodFragment : Fragment() {
                     root.findViewById<EditText>(R.id.note).setText(note)
                     root.findViewById<TextView>(R.id.parti).setText(par)
                     root.findViewById<TextView>(R.id.die).setText(diet)
-
                 }
             }
             override fun onCancelled(p0: DatabaseError) { println("err") }
@@ -79,48 +77,11 @@ class EditFoodFragment : Fragment() {
         database.addValueEventListener(getdata)
         database.addListenerForSingleValueEvent(getdata)
 
-        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
-                view, year, month, day ->
-            val local = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
-            val Formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM", Locale.ENGLISH)
-            val msg = local.format(Formatter)
-            unform = "$day/$month/$year"
-            root.findViewById<EditText>(R.id.date2).setText(msg)
-            choosenDate = msg
-            datePicker.visibility = View.GONE
-        }
+        unform = UITools.setUpDatepicker(root)
 
-        root.findViewById<EditText>(R.id.date2).setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                datePicker.visibility = View.VISIBLE
-            }
-            true
-        }
+        UITools.iniSpinners(root,requireContext(), resources.getStringArray(R.array.spinner_cooks))
+        UITools.onDeleteClicked(root, requireContext(), clubid!!, ref, requireFragmentManager())
 
-        val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_cooks))
-        myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
-        root.findViewById<Spinner>(R.id.spinner_c1).adapter = myAdapter
-        root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
-
-        root.findViewById<ImageView>(R.id.delete2).setOnClickListener() {
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle(R.string.dialogTitle)
-            builder.setMessage(R.string.dialogMessage)
-            builder.setIcon(R.drawable.ic_baseline_warning_24)
-
-            builder.setPositiveButton("Continue"){dialogInterface, which ->
-                if (clubid != null) {
-                    deleteClub(clubid)
-                    Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
-                }
-            }
-            builder.setNeutralButton("Cancel"){dialogInterface , which ->
-            }
-
-            val alertDialog: AlertDialog = builder.create()
-            alertDialog.setCancelable(false)
-            alertDialog.show()
-        }
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
             val din = dinner.text.toString()
@@ -154,13 +115,5 @@ class EditFoodFragment : Fragment() {
             }
         }
         return root
-    }
-
-    private fun deleteClub(clubid: String){
-            var dName = database.child(clubid)
-
-            dName.removeValue()
-            getFragmentManager()?.popBackStack()
-            getFragmentManager()?.popBackStack()
     }
 }

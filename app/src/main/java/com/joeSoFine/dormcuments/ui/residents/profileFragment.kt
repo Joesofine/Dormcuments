@@ -300,7 +300,7 @@ class profileFragment : Fragment() {
 
                 auth.currentUser?.delete()?.addOnSuccessListener {
                     if (userid != null) {
-                        databaseService.delteChildFromDatabase(userid, ref, requireContext())
+                        databaseService.delteChildFromDatabase(userid, ref)
                         Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
                         val intent = Intent(context, SignIn::class.java)
                         startActivity(intent)
