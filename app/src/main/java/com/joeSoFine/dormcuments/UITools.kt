@@ -472,7 +472,11 @@ object UITools {
             colorView.setBackgroundResource(R.drawable.red_round_button);
             colorExpand.setBackgroundResource(R.drawable.red_expand_button)
 
-        } else {
+        } else if (color.equals("Meeting")) {
+            colorView.setBackgroundResource(R.drawable.meeting_round_button);
+            colorExpand.setBackgroundResource(R.drawable.meeting_expand_button)
+
+        } else if (color.equals("Cleaning")) {
             colorView.setBackgroundResource(R.drawable.default_round_button);
             colorExpand.setBackgroundResource(R.drawable.default_expand_button)
         }

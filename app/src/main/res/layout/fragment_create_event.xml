@@ -7,367 +7,374 @@
     android:background="@drawable/background_gradient"
     android:orientation="vertical">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="30dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/delete4"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/trash_icon"
-                tools:ignore="VectorDrawableCompat" />
-
-            <DatePicker
-                android:id="@+id/datePickerEnd"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/succes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:animateLayoutChanges="false"
-                android:background="#FFFFFF"
-                android:calendarViewShown="false"
-                android:datePickerMode="calendar"
-                android:elevation="5dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Spinner
-                android:id="@+id/spinner_repeat"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="35dp"
-                android:layout_marginRight="35dp"
-                app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/dateEnd"
-                app:layout_constraintTop_toBottomOf="@+id/dateEnd" />
-
-            <Spinner
-                android:id="@+id/spinner_color"
-                android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="20dp"
-                android:spinnerMode="dropdown"
-                app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_notis"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/spinner_notis"
-                app:layout_constraintTop_toBottomOf="@+id/divnot" />
-
-            <Button
-                android:id="@+id/save"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/sign_in_button"
-                android:text="save"
-                android:textAllCaps="false"
-                android:textColor="#0C0000"
-                app:layout_constraintEnd_toEndOf="@+id/des"
-                app:layout_constraintStart_toStartOf="@+id/des"
-                app:layout_constraintTop_toBottomOf="@+id/des" />
-
-            <View
-                android:id="@+id/divider17"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/BackgroundDark"
-
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_color" />
-
-            <EditText
-                android:id="@+id/des"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@android:color/transparent"
-                android:drawablePadding="10dp"
-                android:hint="Add Desription"
-                android:inputType="textLongMessage|textMultiLine|textCapSentences"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/White"
-                android:textColorHint="@color/lightHint"
-                android:textSize="14sp"
-                app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/location"
-                app:layout_constraintStart_toStartOf="@+id/spinner_color"
-                app:layout_constraintTop_toBottomOf="@+id/divdes" />
-
-            <View
-                android:id="@+id/divdes"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/BackgroundDark"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_notis" />
-
-            <View
-                android:id="@+id/divnot"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/BackgroundDark"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/location" />
-
-            <EditText
-                android:id="@+id/location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@android:color/transparent"
-                android:drawablePadding="10dp"
-                android:hint="Location"
-                android:inputType="textLongMessage|textMultiLine|textCapSentences"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/White"
-                android:textColorHint="@color/lightHint"
-                android:textSize="14sp"
-                app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/allday"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/spinner_repeat"
-                app:layout_constraintTop_toBottomOf="@+id/divider14" />
-
-            <View
-                android:id="@+id/divider14"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/BackgroundDark"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_repeat" />
-
-            <TextView
-                android:id="@+id/timeEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="13.00"
-                android:textColor="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/timeStart"
-                app:layout_constraintTop_toTopOf="@+id/dateEnd" />
-
-            <TextView
-                android:id="@+id/timeStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="12.00"
-                android:textColor="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/allday"
-                app:layout_constraintTop_toTopOf="@+id/dateStart" />
-
-            <TextView
-                android:id="@+id/dateEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Mon. 13. Jul. 2020"
-                android:textColor="@color/White"
-                app:layout_constraintStart_toStartOf="@+id/textView59"
-                app:layout_constraintTop_toBottomOf="@+id/dateStart" />
-
-            <TextView
-                android:id="@+id/dateStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Mon. 13. Jul. 2020"
-                android:textColor="@color/White"
-                app:layout_constraintStart_toStartOf="@+id/textView59"
-                app:layout_constraintTop_toBottomOf="@+id/textView59" />
-
-            <View
-                android:id="@+id/divloc"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="100dp"
-                android:background="@color/BackgroundDark"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/eventTitle"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:drawablePadding="10dp"
-                android:hint="Title"
-                android:inputType="textLongMessage|textMultiLine|textCapSentences"
-                android:selectAllOnFocus="true"
-                android:textColor="@color/White"
-                android:textColorHint="@color/lightHint"
-                android:textSize="24sp"
-                app:backgroundTint="@color/White"
-                app:layout_constraintBottom_toTopOf="@+id/divloc"
-                app:layout_constraintEnd_toEndOf="@+id/timeStart"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/textView59"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="0dp" />
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/succes" />
 
-            <DatePicker
-                android:id="@+id/datePickerStart"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/fail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:animateLayoutChanges="false"
-                android:background="#FFFFFF"
-                android:calendarViewShown="false"
-                android:datePickerMode="calendar"
-                android:elevation="5dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/delete"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/trash_icon"
-                tools:ignore="VectorDrawableCompat" />
-
-            <Switch
-                android:id="@+id/allday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:layout_marginRight="50dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView59"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView59" />
-
-            <TextView
-                android:id="@+id/textView59"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="20dp"
-                android:text="All day"
-                android:textColor="@color/White"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divloc" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:src="@drawable/time_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/textView59"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView59" />
-
-            <ImageView
-                android:id="@+id/reaIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:src="@drawable/repeat_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/spinner_repeat"
-                app:layout_constraintStart_toStartOf="@+id/imageView5"
-                app:layout_constraintTop_toTopOf="@+id/spinner_repeat" />
-
-            <ImageView
-                android:id="@+id/locIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/location_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/location"
-                app:layout_constraintStart_toStartOf="@+id/reaIcon"
-                app:layout_constraintTop_toTopOf="@+id/location" />
-
-            <ImageView
-                android:id="@+id/notIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:src="@drawable/notis_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/spinner_notis"
-                app:layout_constraintStart_toStartOf="@+id/locIcon"
-                app:layout_constraintTop_toTopOf="@+id/spinner_notis" />
-
-            <Button
-                android:id="@+id/colorIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/color_button"
-                app:layout_constraintBottom_toBottomOf="@+id/spinner_color"
-                app:layout_constraintStart_toStartOf="@+id/notIcon"
-                app:layout_constraintTop_toTopOf="@+id/spinner_color" />
-
-            <Spinner
-                android:id="@+id/spinner_notis"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                app:backgroundTint="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_repeat"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/location"
-                app:layout_constraintTop_toBottomOf="@+id/divider17" />
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/des"
-                app:layout_constraintStart_toStartOf="@+id/notIcon"
-                app:layout_constraintTop_toTopOf="@+id/des"
-                app:srcCompat="@drawable/ic_baseline_description_24"
-                tools:ignore="VectorDrawableCompat" />
-
-            <TextView
-                android:id="@+id/createdText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/fail" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="731dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="30dp">
+
+                <ImageView
+                    android:id="@+id/delete4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginRight="15dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/trash_icon"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <DatePicker
+                    android:id="@+id/datePickerEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="false"
+                    android:background="#FFFFFF"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="calendar"
+                    android:elevation="5dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.501"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/spinner_repeat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginRight="35dp"
+                    app:backgroundTint="@color/White"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/dateEnd"
+                    app:layout_constraintTop_toBottomOf="@+id/dateEnd" />
+
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/sign_in_button"
+                    android:text="save"
+                    android:textAllCaps="false"
+                    android:textColor="#0C0000"
+                    app:layout_constraintEnd_toEndOf="@+id/des"
+                    app:layout_constraintStart_toStartOf="@+id/des"
+                    app:layout_constraintTop_toBottomOf="@+id/des" />
+
+                <EditText
+                    android:id="@+id/des"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/transparent"
+                    android:drawablePadding="10dp"
+                    android:hint="Add Desription"
+                    android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                    android:selectAllOnFocus="true"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/lightHint"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/White"
+                    app:layout_constraintEnd_toEndOf="@+id/spinner_notis"
+                    app:layout_constraintStart_toStartOf="@+id/spinner_notis"
+                    app:layout_constraintTop_toBottomOf="@+id/divdes" />
+
+                <View
+                    android:id="@+id/divdes"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/BackgroundDark"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_notis" />
+
+                <View
+                    android:id="@+id/divnot"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/BackgroundDark"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/location" />
+
+                <EditText
+                    android:id="@+id/location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/transparent"
+                    android:drawablePadding="10dp"
+                    android:hint="Location"
+                    android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                    android:selectAllOnFocus="true"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/lightHint"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/White"
+                    app:layout_constraintEnd_toEndOf="@+id/spinner_repeat"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/spinner_repeat"
+                    app:layout_constraintTop_toBottomOf="@+id/divider14" />
+
+                <View
+                    android:id="@+id/divider14"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/BackgroundDark"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_repeat" />
+
+                <TextView
+                    android:id="@+id/timeEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="13.00"
+                    android:textColor="@color/White"
+                    app:layout_constraintEnd_toEndOf="@+id/timeStart"
+                    app:layout_constraintTop_toTopOf="@+id/dateEnd" />
+
+                <TextView
+                    android:id="@+id/timeStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12.00"
+                    android:textColor="@color/White"
+                    app:layout_constraintEnd_toEndOf="@+id/allday"
+                    app:layout_constraintTop_toTopOf="@+id/dateStart" />
+
+                <TextView
+                    android:id="@+id/dateEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Mon. 13. Jul. 2020"
+                    android:textColor="@color/White"
+                    app:layout_constraintStart_toStartOf="@+id/textView59"
+                    app:layout_constraintTop_toBottomOf="@+id/dateStart" />
+
+                <TextView
+                    android:id="@+id/dateStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Mon. 13. Jul. 2020"
+                    android:textColor="@color/White"
+                    app:layout_constraintStart_toStartOf="@+id/textView59"
+                    app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+                <View
+                    android:id="@+id/divloc"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="100dp"
+                    android:background="@color/BackgroundDark"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/eventTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawablePadding="10dp"
+                    android:hint="Title"
+                    android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                    android:selectAllOnFocus="true"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/lightHint"
+                    android:textSize="24sp"
+                    app:backgroundTint="@color/White"
+                    app:layout_constraintBottom_toTopOf="@+id/divloc"
+                    app:layout_constraintEnd_toEndOf="@+id/timeStart"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/textView59"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <DatePicker
+                    android:id="@+id/datePickerStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="false"
+                    android:background="#FFFFFF"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="calendar"
+                    android:elevation="5dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.501"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/delete"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginRight="15dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/trash_icon"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <Switch
+                    android:id="@+id/allday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="35dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView59"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView59" />
+
+                <TextView
+                    android:id="@+id/textView59"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="20dp"
+                    android:text="All day"
+                    android:textColor="@color/White"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divloc" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/time_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView59"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView59" />
+
+                <ImageView
+                    android:id="@+id/reaIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:src="@drawable/repeat_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinner_repeat"
+                    app:layout_constraintStart_toStartOf="@+id/imageView5"
+                    app:layout_constraintTop_toTopOf="@+id/spinner_repeat" />
+
+                <ImageView
+                    android:id="@+id/locIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/location_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/location"
+                    app:layout_constraintStart_toStartOf="@+id/reaIcon"
+                    app:layout_constraintTop_toTopOf="@+id/location" />
+
+                <ImageView
+                    android:id="@+id/notIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:src="@drawable/notis_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinner_notis"
+                    app:layout_constraintStart_toStartOf="@+id/locIcon"
+                    app:layout_constraintTop_toTopOf="@+id/spinner_notis" />
+
+                <Spinner
+                    android:id="@+id/spinner_notis"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:backgroundTint="@color/White"
+                    app:layout_constraintEnd_toEndOf="@+id/spinner_repeat"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/location"
+                    app:layout_constraintTop_toBottomOf="@+id/divnot" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/des"
+                    app:layout_constraintStart_toStartOf="@+id/notIcon"
+                    app:layout_constraintTop_toTopOf="@+id/des"
+                    app:srcCompat="@drawable/ic_baseline_description_24"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <TextView
+                    android:id="@+id/createdText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

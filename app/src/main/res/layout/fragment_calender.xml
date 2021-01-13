@@ -120,8 +120,35 @@
             android:id="@+id/option1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:fab_color="@color/social"
             app:fab_icon="@drawable/ic_plus_white_24dp"
-            app:label_text="Create event"
+            app:label_text="Social event"
+            app:label_textColor="@android:color/white"
+            app:label_textSize="@dimen/text_size"
+            app:label_backgroundColor="@color/social"
+            app:label_position="right"
+            app:label_translationXPx="100"/>
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="@color/booking"
+            app:fab_icon="@drawable/ic_plus_white_24dp"
+            app:label_text="Book kitchen"
+            app:label_textColor="@android:color/white"
+            app:label_textSize="@dimen/text_size"
+            app:label_backgroundColor="@color/booking"
+            app:label_position="right"
+            app:label_translationXPx="100"/>
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/option3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="@color/meeting"
+            app:fab_icon="@drawable/ic_plus_white_24dp"
+            app:label_text="Kitchen meeting"
             app:label_textColor="@android:color/white"
             app:label_textSize="@dimen/text_size"
             app:label_backgroundColor="@color/meeting"
@@ -129,7 +156,20 @@
             app:label_translationXPx="100"/>
 
         <com.nambimobile.widgets.efab.FabOption
-            android:id="@+id/option2"
+            android:id="@+id/option4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="@color/cleaning"
+            app:fab_icon="@drawable/ic_plus_white_24dp"
+            app:label_text="Common cleaning"
+            app:label_textColor="@android:color/white"
+            app:label_textSize="@dimen/text_size"
+            app:label_backgroundColor="@color/cleaning"
+            app:label_position="right"
+            app:label_translationXPx="100"/>
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/option5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/ic_baseline_help_24"
@@ -141,7 +181,7 @@
             app:label_translationXPx="100"/>
 
         <com.nambimobile.widgets.efab.FabOption
-            android:id="@+id/option3"
+            android:id="@+id/option6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/filter_icon"

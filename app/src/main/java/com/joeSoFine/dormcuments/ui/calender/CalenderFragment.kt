@@ -24,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
+import com.joeSoFine.dormcuments.ui.cleaning.CleaningDetailsFragment
 import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.fragment_rules.*
 import java.time.LocalDate
@@ -107,12 +108,29 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     override fun onClick(p0: View?) {
+        val bundle = Bundle()
+        val fragment2 = CreateEventFragment()
+        fragment2.arguments = bundle
 
         when(p0?.id){
-            R.id.option1 -> { requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, CreateEventFragment()).addToBackStack(null).commit()}
-            R.id.option2 -> { UITools.onHelpedClicked(requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)}
-            R.id.option3 -> { }
-            // so on and so forth...
+            R.id.option1 -> {
+                bundle.putString("type", "Social event")
+                fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
+            }
+            R.id.option2 -> {
+                bundle.putString("type", "Book kitchen")
+                fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
+            }
+            R.id.option3 -> {
+                bundle.putString("type", "Meeting")
+                fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
+            }
+            R.id.option4 -> {
+                bundle.putString("type", "Cleaning")
+                fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
+            }
+            R.id.option5 -> { UITools.onHelpedClicked(requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)}
+            R.id.option5 -> {}
         }
 
         if (p0 === week || p0 === month || p0 === year) {

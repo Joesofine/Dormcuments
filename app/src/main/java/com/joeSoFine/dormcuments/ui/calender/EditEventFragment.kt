@@ -47,17 +47,17 @@ class EditEventFragment: Fragment() {
     ): View? {
         SmartTools.setUpOnBackPressed(requireActivity())
         val root = inflater.inflate(R.layout.fragment_create_event, container, false)
-        val spinner_color = root.findViewById<Spinner>(R.id.spinner_color)
         val spinner_repeat = root.findViewById<Spinner>(R.id.spinner_repeat)
         val spinner_notis = root.findViewById<Spinner>(R.id.spinner_notis)
         val allday = root.findViewById<Switch>(R.id.allday)
-        val colorIcon = root.findViewById<Button>(R.id.colorIcon)
         val datePickerStart = root.findViewById<DatePicker>(R.id.datePickerStart)
         val datePickerEnd = root.findViewById<DatePicker>(R.id.datePickerEnd)
         val today = Calendar.getInstance()
         val bundle = this.arguments
         eventid = bundle?.getString("id").toString()
         auth = Firebase.auth
+        var color = ""
+
 
         root.findViewById<ImageView>(R.id.delete4).visibility = View.VISIBLE
 
@@ -69,7 +69,7 @@ class EditEventFragment: Fragment() {
 
                         all = p0.child(eventid).child("allDay").getValue().toString()
                         var created = p0.child(eventid).child("createdBy").getValue().toString()
-                        var color = p0.child(eventid).child("color").getValue().toString()
+                        color = p0.child(eventid).child("color").getValue().toString()
                         var dateEnd: String = p0.child(eventid).child("dateEnd").getValue().toString()
                         var dateStart = p0.child(eventid).child("dateStart").getValue().toString()
                         var des = p0.child(eventid).child("des").getValue().toString()
@@ -85,7 +85,6 @@ class EditEventFragment: Fragment() {
                         choosenDateEnd = dateEnd
                         choosenDateStart = dateStart
 
-                        spinner_color.setSelection((spinner_color.adapter as ArrayAdapter<String>).getPosition(color))
                         spinner_repeat.setSelection((spinner_repeat.adapter as ArrayAdapter<String>).getPosition(doesRepeat))
                         spinner_notis.setSelection((spinner_notis.adapter as ArrayAdapter<String>).getPosition(notification))
                         root.findViewById<TextView>(R.id.dateEnd).setText(choosenDateEnd)
@@ -144,7 +143,7 @@ class EditEventFragment: Fragment() {
             val timStart = timeStart.text.toString()
             val timEnd = timeEnd.text.toString()
             val reapet = spinner_repeat.selectedItem.toString()
-            val col = spinner_color.selectedItem.toString()
+            val col = color
             val not = spinner_notis.selectedItem.toString()
             val created = createdText.text.toString()
 
@@ -184,26 +183,6 @@ class EditEventFragment: Fragment() {
         val myAdapterNoti = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_notification))
         myAdapterNoti.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         root.findViewById<Spinner>(R.id.spinner_notis).adapter = myAdapterNoti
-
-        val myAdapterCol = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_colors))
-        myAdapterCol.setDropDownViewResource(R.layout.spinner_layout_dropdown)
-        spinner_color.adapter = myAdapterCol
-
-        spinner_color.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (spinner_color.selectedItem.toString() == "Event type"){
-                    colorIcon.background = resources.getDrawable(R.drawable.color_button)
-                }
-                if (spinner_color.selectedItem.toString() == "Book kitchen") {
-                    colorIcon.background = resources.getDrawable(R.drawable.color_button_red)
-                }
-                if (spinner_color.selectedItem.toString() == "Social event"){
-                    colorIcon.background = resources.getDrawable(R.drawable.color_button_blue)
-                }
-            }
-        }
-
 
         datePickerStart.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH))
         { view, year, month, day ->

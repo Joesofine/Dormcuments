@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.SmartTools
+import com.joeSoFine.dormcuments.UITools
 import kotlinx.android.synthetic.main.fragment_create_event.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -45,11 +47,11 @@ class CreateEventFragment : Fragment() {
     ): View? {
         SmartTools.setUpOnBackPressed(requireActivity())
         val root = inflater.inflate(R.layout.fragment_create_event, container, false)
-        val spinner_color = root.findViewById<Spinner>(R.id.spinner_color)
         val allday = root.findViewById<Switch>(R.id.allday)
-        val colorIcon = root.findViewById<Button>(R.id.colorIcon)
         val datePickerStart = root.findViewById<DatePicker>(R.id.datePickerStart)
         val datePickerEnd = root.findViewById<DatePicker>(R.id.datePickerEnd)
+        val succes = root.findViewById<LottieAnimationView>(R.id.succes)
+        val fail = root.findViewById<LottieAnimationView>(R.id.fail)
         val today = Calendar.getInstance()
         val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE. dd. MMM. yyyy", Locale.ENGLISH)
         Sdate = LocalDate.now()
@@ -59,6 +61,8 @@ class CreateEventFragment : Fragment() {
         root.findViewById<TextView>(R.id.dateStart).text = formattet
         root.findViewById<TextView>(R.id.dateEnd).text = formattet
         auth = Firebase.auth
+        val bundle = this.arguments
+
 
         listenerOnChange(allday,root)
 
@@ -96,7 +100,7 @@ class CreateEventFragment : Fragment() {
             val timStart = timeStart.text.toString()
             val timEnd = timeEnd.text.toString()
             val reapet = spinner_repeat.selectedItem.toString()
-            val col = spinner_color.selectedItem.toString()
+            val col = bundle?.getString("type")
             val not = spinner_notis.selectedItem.toString()
 
 
@@ -113,7 +117,7 @@ class CreateEventFragment : Fragment() {
                             var room: String = p0.child(userid).child("number").getValue() as String
                             var created = "$name, $room"
 
-                            createEvent(title, datStart, datEnd, timStart, timEnd, desc, locat, col, all, not, reapet, created)
+                            createEvent(title, datStart, datEnd, timStart, timEnd, desc, locat, col!!, all, not, reapet, created)
                         }
 
                         override fun onCancelled(p0: DatabaseError) {
@@ -134,24 +138,6 @@ class CreateEventFragment : Fragment() {
         myAdapterNoti.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         root.findViewById<Spinner>(R.id.spinner_notis).adapter = myAdapterNoti
 
-        val myAdapterCol = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_colors))
-        myAdapterCol.setDropDownViewResource(R.layout.spinner_layout_dropdown)
-        spinner_color.adapter = myAdapterCol
-
-        spinner_color.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (spinner_color.selectedItem.toString() == "Event type"){
-                    colorIcon.background = resources.getDrawable(R.drawable.color_button)
-                }
-                if (spinner_color.selectedItem.toString() == "Book kitchen") {
-                    colorIcon.background = resources.getDrawable(R.drawable.color_button_red)
-                }
-                if (spinner_color.selectedItem.toString() == "Social event"){
-                    colorIcon.background = resources.getDrawable(R.drawable.color_button_blue)
-                }
-            }
-        }
 
 
         datePickerStart.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH))
@@ -272,14 +258,10 @@ class CreateEventFragment : Fragment() {
 
                 database.child(eventid).setValue(event)
                     .addOnSuccessListener {
-                        Toast.makeText(context, "Event has been created", Toast.LENGTH_SHORT).show()
-                        requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CalenderFragment()).addToBackStack(null).commit()
-
-
+                        UITools.playLotiieOnce(succes, requireFragmentManager(), "pop")
                     }
                     .addOnFailureListener {
-                        // Write failed
-                        Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                        UITools.playLotiieOnce(succes, requireFragmentManager(), "noPop")
                     }
             }
         }
