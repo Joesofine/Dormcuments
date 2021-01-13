@@ -29,29 +29,27 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
 import java.time.temporal.WeekFields
 import java.util.*
+import kotlin.collections.ArrayList
 
 object databaseService {
     var database = FirebaseDatabase.getInstance()
     var c = 0
     private var auth = Firebase.auth
+    var bool = false
+
 
     fun generateID(ref: String): String? {
         val id = database.getReference(ref).push().key
         return id
     }
 
-    fun saveCleaningToDatabase(ref: String, id: String, clean: Cleaning, context: Context, frag: Fragment, fragmentManager: FragmentManager){
+    fun saveCleaningToDatabase(ref: String, id: String, clean: Cleaning, succes: LottieAnimationView, fail: LottieAnimationView, fragmentManager: FragmentManager) {
         database.getReference(ref).child(id).setValue(clean)
             .addOnSuccessListener {
-                Toast.makeText(context, "Created", Toast.LENGTH_SHORT).show()
-                fragmentManager.beginTransaction().replace(
-                    R.id.nav_host_fragment,
-                    frag
-                ).addToBackStack(null).commit()
+                UITools.playLotiieOnce(succes, fragmentManager, "pop")
             }
             .addOnFailureListener {
-                // Write failed
-                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                UITools.playLotiieOnce(fail, fragmentManager, "noPop")
             }
     }
 
@@ -303,9 +301,7 @@ object databaseService {
                         snapshot.child("unform").value.toString(),
                         myContainer,
                         layoutInflater,
-                        fragmentManager,
-                        context,
-                        ref
+                        fragmentManager
                     )
                 }
                 else if (ref.equals("Users")){
@@ -495,4 +491,30 @@ object databaseService {
         }
         database.getReference(ref).addValueEventListener(getdata)
     }
+
+    fun iniSpinGetArr(root: View, context: Context) {
+        var getdata = object : ValueEventListener {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onDataChange(p0: DataSnapshot) {
+                var spinArr = arrayListOf<String>()
+                spinArr.add("None")
+
+                for (i in p0.children){
+                    var name = i.child("fname").getValue().toString().split(" ")
+                    var room = i.child("number").getValue().toString()
+                    var firtsName = name[0]
+
+                    spinArr.add("$firtsName - $room")
+                }
+                UITools.iniSpinners(root, context, spinArr)
+
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+            }
+        }
+
+        database.getReference("Users").addValueEventListener(getdata)
+    }
+
 }

@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningDetailsFragment
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
@@ -39,13 +40,10 @@ object UICleaning {
         }
     }
 
-    fun onCleaningSavedClick(id: String, ref: String, spinner_c1: Spinner, spinner_c2: Spinner, date2: EditText, cleaning: Cleaning, context: Context, fragmentManager: FragmentManager) {
+    fun onCleaningSavedClick(id: String, ref: String, spinner_c1: Spinner, spinner_c2: Spinner, date2: EditText, cleaning: Cleaning, context: Context, fragmentManager: FragmentManager, succes: LottieAnimationView, fail: LottieAnimationView) {
         if (validateCleaningInput(spinner_c1, spinner_c2, date2, context)) {
-            if (id != null) {
-                databaseService.saveCleaningToDatabase(ref, id, cleaning, context, CleaningFragment(), fragmentManager)
-            }
+            if (id != null) { databaseService.saveCleaningToDatabase(ref, id, cleaning, succes, fail, fragmentManager) }
         }
-
     }
 
     fun validateCleaningInput(spinner_c1: Spinner, spinner_c2: Spinner, date2: EditText, context: Context): Boolean {
@@ -131,7 +129,7 @@ object UICleaning {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createCleaningItem(c1: String, c2: String, date: String, cleaningid: String, unform: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, ref: String){
+    fun createCleaningItem(c1: String, c2: String, date: String, cleaningid: String, unform: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager){
 
         val ExpandableCardview: View = layoutInflater.inflate(R.layout.list_element_cleaning_food, null, false)
 
@@ -146,20 +144,23 @@ object UICleaning {
         var eventdate = unform.split("/")
         var local = LocalDate.of(eventdate[2].toInt(), eventdate[1].toInt()+1, eventdate[0].toInt())
 
+        var c1Sub = c1.substring(c1.length-2,c1.length)
+        var c2Sub = c2.substring(c2.length-2,c2.length)
+
         if (c1.equals("None") || c2.equals("None")) {
             if (c1.equals("None") && c2.equals("None")) {
                 w1.setText("NA")
                 w2.setText("NA")
             } else if (c1.equals("None")) {
                 w1.setText("NA")
-                w2.setText(c2.substring(1, 3))
+                w2.setText(c2Sub)
             } else if (c2.equals("None")){
-                w1.setText(c1.substring(1, 3))
+                w1.setText(c1Sub)
                 w2.setText("NA")
             }
         } else {
-            w1.setText(c1.substring(1, 3))
-            w2.setText(c2.substring(1, 3))
+            w1.setText(c1Sub)
+            w2.setText(c2Sub)
         }
         datefield.setText(date)
         un.text = unform

@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
 import com.joeSoFine.dormcuments.SmartTools
+import com.joeSoFine.dormcuments.UITools
+import com.joeSoFine.dormcuments.databaseService
 import kotlinx.android.synthetic.main.fragment_create_foodclub.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -22,6 +24,7 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
     var database = FirebaseDatabase.getInstance().getReference("Foodclub")
     var choosenDate = ""
     var unform = ""
+    val ref = "Foodclub"
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
@@ -33,30 +36,9 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
 
-        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH))
+        unform = UITools.setUpDatepicker(root)
 
-        { view, year, month, day ->
-            val local = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
-            //val month = month + 1
-            val Formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM", Locale.ENGLISH)
-            val msg = local.format(Formatter)
-            unform = "$day/$month/$year"
-            root.findViewById<EditText>(R.id.date2).setText(msg)
-            choosenDate = msg
-            datePicker.visibility = View.GONE
-        }
-
-        root.findViewById<EditText>(R.id.date2).setOnTouchListener { v, event ->
-            if (MotionEvent.ACTION_UP == event.action) {
-                datePicker.visibility = View.VISIBLE
-            }
-            true
-        }
-
-        val myAdapter = ArrayAdapter(requireContext(), R.layout.spinner_layout, resources.getStringArray(R.array.spinner_cooks))
-        myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
-        root.findViewById<Spinner>(R.id.spinner_c1).adapter = myAdapter
-        root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
+        databaseService.iniSpinGetArr(root,requireContext())
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
             val din = dinner.text.toString()

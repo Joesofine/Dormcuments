@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
@@ -39,7 +40,10 @@ class EditCleaningFragment : Fragment() {
         val note = root.findViewById<EditText>(R.id.note)
         val stats = root.findViewById<TextView>(R.id.stats)
         val unf = root.findViewById<TextView>(R.id.unf)
+        val succes = root.findViewById<LottieAnimationView>(R.id.succes)
+        val fail = root.findViewById<LottieAnimationView>(R.id.fail)
 
+        databaseService.iniSpinGetArr(root,requireContext())
         database.addValueEventListener(databaseService.setEventListener(
             root,
             cleaningid!!,
@@ -54,7 +58,6 @@ class EditCleaningFragment : Fragment() {
 
         unform = unf.text.toString()
         unform = UITools.setUpDatepicker(root)
-        UITools.iniSpinners(root,requireContext(), resources.getStringArray(R.array.spinner_cooks))
         UICleaning.onTaskClicked(root, root.findViewById(R.id.switchH))
         UITools.onDeleteClicked(root, requireContext(), cleaningid, ref, requireFragmentManager())
 
@@ -76,7 +79,8 @@ class EditCleaningFragment : Fragment() {
                 date2,
                 cleaning,
                 requireContext(),
-                requireFragmentManager())
+                requireFragmentManager(),
+                succes, fail)
         }
 
 

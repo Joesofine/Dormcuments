@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UICleaning
 import com.joeSoFine.dormcuments.databaseService
@@ -31,10 +32,13 @@ class CreateCleaningFragment() : Fragment() {
         val date2 = root.findViewById<EditText>(R.id.date2)
         val task = root.findViewById<EditText>(R.id.task)
         val note = root.findViewById<EditText>(R.id.note)
+        val succes = root.findViewById<LottieAnimationView>(R.id.succes)
+        val fail = root.findViewById<LottieAnimationView>(R.id.fail)
+
 
         UICleaning.switchIni(root, task)
         unform = UITools.setUpDatepicker(root)
-        UITools.iniSpinners(root,requireContext(),resources.getStringArray(R.array.spinner_cooks))
+        databaseService.iniSpinGetArr(root,requireContext())
         UICleaning.onTaskClicked(root, root.findViewById(R.id.switchH))
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
@@ -55,7 +59,10 @@ class CreateCleaningFragment() : Fragment() {
                 date2,
                 cleaning,
                 requireContext(),
-                requireFragmentManager())
+                requireFragmentManager(),
+                succes,
+                fail
+            )
         }
 
 

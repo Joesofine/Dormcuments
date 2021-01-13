@@ -56,15 +56,20 @@ class CleaningDetailsFragment : Fragment() {
                     var cleaningid = bundle.getString("id")
                     if (cleaningid != null) {
 
-                        var w1 = p0.child(cleaningid).child("c1").getValue().toString().substring(1,3)
-                        var w2 = p0.child(cleaningid).child("c2").getValue().toString().substring(1,3)
+                        var chef1 = p0.child(cleaningid).child("c1").getValue().toString()
+                        var chef2 = p0.child(cleaningid).child("c2").getValue().toString()
                         var status = p0.child(cleaningid).child("checkedBy").getValue().toString()
                         var extras = p0.child(cleaningid).child("task").getValue().toString()
 
-                        if (w1.equals("on")){ w1 = "NA" }
-                        if (w2.equals("on")){ w2 = "NA" }
+                        if (chef1.equals("None")){
+                            chef1 = "NA"
+                        }
+                        if (chef2.equals("None")) {
+                            chef2 = "NA"
+                        }
 
-                        root.findViewById<TextView>(R.id.chefs).text = "$w1 , $w2"
+                        root.findViewById<TextView>(R.id.chefs).text = chef1
+                        root.findViewById<TextView>(R.id.chefs2).text = chef2
                         root.findViewById<TextView>(R.id.date).text = p0.child(cleaningid).child("date").getValue().toString()
                         root.findViewById<TextView>(R.id.task).text = p0.child(cleaningid).child("task").getValue().toString()
                         root.findViewById<TextView>(R.id.note).text = p0.child(cleaningid).child("note").getValue().toString()

@@ -65,15 +65,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp"
                 android:background="@color/BackgroundDark"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/chefs2" />
 
             <View
                 android:id="@+id/divider5"
@@ -94,13 +92,12 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/cleaner_white"
                 android:drawablePadding="10dp"
                 android:text="Cleaners"
                 android:textColor="@color/White"
                 app:layout_constraintStart_toStartOf="@+id/divider5"
-                app:layout_constraintTop_toBottomOf="@+id/divider5" />
+                app:layout_constraintTop_toTopOf="@+id/chefs" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -168,13 +165,25 @@
 
             <TextView
                 android:id="@+id/chefs"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="01,02"
                 android:textColor="@color/White"
-                app:layout_constraintEnd_toEndOf="@+id/date"
-                app:layout_constraintStart_toStartOf="@+id/date"
-                app:layout_constraintTop_toTopOf="@+id/textView10" />
+                app:layout_constraintEnd_toEndOf="@+id/divider5"
+                app:layout_constraintStart_toStartOf="@+id/textView74"
+                app:layout_constraintTop_toBottomOf="@+id/divider5" />
+
+            <TextView
+                android:id="@+id/chefs2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="01,02"
+                android:textColor="@color/White"
+                app:layout_constraintEnd_toEndOf="@+id/divider5"
+                app:layout_constraintStart_toStartOf="@+id/chefs"
+                app:layout_constraintTop_toBottomOf="@+id/chefs" />
 
             <TextView
                 android:id="@+id/diets"
@@ -870,6 +879,17 @@
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/threedots" />
+
+            <TextView
+                android:id="@+id/textView74"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="."
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/date"
+                app:layout_constraintStart_toStartOf="@+id/date"
+                tools:layout_editor_absoluteY="73dp" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

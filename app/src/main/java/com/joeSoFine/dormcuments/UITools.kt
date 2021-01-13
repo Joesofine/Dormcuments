@@ -1,33 +1,25 @@
 package com.joeSoFine.dormcuments
 
 import FoodDetailsFragment
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
-import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import com.joeSoFine.dormcuments.ui.calender.EditEventFragment
-import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
-import com.joeSoFine.dormcuments.ui.cleaning.CleaningDetailsFragment
-import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
-import com.joeSoFine.dormcuments.ui.meeting.MeetingFragment
 import com.joeSoFine.dormcuments.ui.meeting.Topic
 import com.joeSoFine.dormcuments.ui.shopping.Item
 import java.time.LocalDate
@@ -37,7 +29,6 @@ import java.util.*
 object UITools {
     var str = ""
     var bool = false
-
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -68,29 +59,29 @@ object UITools {
         return "${datePicker.dayOfMonth}/${datePicker.month}/${datePicker.year}"
     }
 
-    fun iniSpinners(root: View, context: Context, arr: Array<String>){
+    fun iniSpinners(root: View, context: Context, arr: ArrayList<String>){
         val myAdapter = ArrayAdapter(context, R.layout.spinner_layout, arr)
         myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         root.findViewById<Spinner>(R.id.spinner_c1).adapter = myAdapter
         root.findViewById<Spinner>(R.id.spinner_c2).adapter = myAdapter
     }
 
-    fun onDeleteClicked(root: View, context: Context, id:String, ref: String,  fragmentManager: FragmentManager){
+    fun onDeleteClicked(root: View, context: Context, id: String, ref: String, fragmentManager: FragmentManager){
         root.findViewById<ImageView>(R.id.delete).setOnClickListener(){
         val builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.dialogTitle)
         builder.setMessage(R.string.dialogMessage)
         builder.setIcon(R.drawable.ic_baseline_warning_24)
 
-        builder.setPositiveButton("Continue"){dialogInterface, which ->
+        builder.setPositiveButton("Continue"){ dialogInterface, which ->
             if (id != null) {
                 databaseService.delteChildFromDatabase(id, ref)
-                Toast.makeText(context,"Deleted",Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Deleted", Toast.LENGTH_LONG).show()
                 fragmentManager.popBackStack()
                 fragmentManager.popBackStack()
             }
         }
-        builder.setNeutralButton("Cancel"){dialogInterface , which ->
+        builder.setNeutralButton("Cancel"){ dialogInterface, which ->
         }
 
         val alertDialog: AlertDialog = builder.create()
@@ -105,7 +96,7 @@ object UITools {
         builder.setMessage(dialogMsg)
         builder.setIcon(R.drawable.help_dialog_icon_foreground)
 
-        builder.setPositiveButton("Continue"){dialogInterface, which ->
+        builder.setPositiveButton("Continue"){ dialogInterface, which ->
         }
 
         val alertDialog: AlertDialog = builder.create()
@@ -132,7 +123,18 @@ object UITools {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createClubItem(c1: String, c2: String, date: String, clubid: String, unform: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, ref: String){
+    fun createClubItem(
+        c1: String,
+        c2: String,
+        date: String,
+        clubid: String,
+        unform: String,
+        myContainer: LinearLayout,
+        layoutInflater: LayoutInflater,
+        fragmentManager: FragmentManager,
+        context: Context,
+        ref: String
+    ){
 
         var ExpandableCardview: View = layoutInflater.inflate(R.layout.list_element_cleaning_food, null, false)
         var show: ImageView = ExpandableCardview.findViewById(R.id.show)
@@ -179,7 +181,7 @@ object UITools {
         } else {
             for (i in 0..myContainer.childCount - 1) {
                 val ufd = myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
-                val elementDate = LocalDate.of(ufd[2].toInt(),ufd[1].toInt() + 1,ufd[0].toInt())
+                val elementDate = LocalDate.of(ufd[2].toInt(), ufd[1].toInt() + 1, ufd[0].toInt())
 
                 if (elementDate.isAfter(local) || elementDate.isEqual(local) ) {
                     myContainer.addView(ExpandableCardview, i)
@@ -193,7 +195,7 @@ object UITools {
                     } else {
                         val k = i + 1
                         val ufdK = myContainer.getChildAt(k).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
-                        val elementDateK = LocalDate.of(ufdK[2].toInt(),ufdK[1].toInt() + 1,ufdK[0].toInt())
+                        val elementDateK = LocalDate.of(ufdK[2].toInt(), ufdK[1].toInt() + 1, ufdK[0].toInt())
 
                         if (local.isBefore(elementDateK) || local.isEqual(elementDateK)) {
                             myContainer.addView(ExpandableCardview, k)
@@ -260,7 +262,19 @@ object UITools {
     }
 
 
-    fun createResident(fullname: String, rn: String, userId: String, bdate: String, sfrom: String, food: String, fact: String, url: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, context: Context) {
+    fun createResident(
+        fullname: String,
+        rn: String,
+        userId: String,
+        bdate: String,
+        sfrom: String,
+        food: String,
+        fact: String,
+        url: String,
+        myContainer: LinearLayout,
+        layoutInflater: LayoutInflater,
+        context: Context
+    ) {
         val ExpandableCardview: View = layoutInflater.inflate(R.layout.list_element_resident, null, false)
 
         var sumLayout: ConstraintLayout = ExpandableCardview.findViewById(R.id.sumLayout)
@@ -350,7 +364,15 @@ object UITools {
         }
     }
 
-    fun createTopic(name: String, des: String, topicId: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, ref: String, context: Context){
+    fun createTopic(
+        name: String,
+        des: String,
+        topicId: String,
+        myContainer: LinearLayout,
+        layoutInflater: LayoutInflater,
+        ref: String,
+        context: Context
+    ){
 
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_meeting, null, false)
@@ -382,9 +404,27 @@ object UITools {
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("InflateParams", "UseSwitchCompatOrMaterialCode", "SetTextI18n")
     fun createEventView(
-        title: String, dateStart: String, unformattedDate: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
-        allDay: String, notification: String, doesRepeat: String, createdBy: String,
-        eventid: String, par: String, color: String, myContainer: LinearLayout, arrString: String, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, ref: String, context: Context
+        title: String,
+        dateStart: String,
+        unformattedDate: String,
+        dateEnd: String,
+        timeStart: String,
+        timeEnd: String,
+        des: String,
+        location: String,
+        allDay: String,
+        notification: String,
+        doesRepeat: String,
+        createdBy: String,
+        eventid: String,
+        par: String,
+        color: String,
+        myContainer: LinearLayout,
+        arrString: String,
+        layoutInflater: LayoutInflater,
+        fragmentManager: FragmentManager,
+        ref: String,
+        context: Context
     ){
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_calendar, null, false)
@@ -543,7 +583,8 @@ object UITools {
     }
 
     fun expandList(
-        sumLayout: ConstraintLayout, expand: ImageView) {
+        sumLayout: ConstraintLayout, expand: ImageView
+    ) {
         if (sumLayout.visibility == View.GONE) {
             sumLayout.visibility = View.VISIBLE
             expand.rotation = 90f
@@ -625,7 +666,15 @@ object UITools {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun eventDateCall(i: DataSnapshot, arrString: String, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, ref: String){
+    fun eventDateCall(
+        i: DataSnapshot,
+        arrString: String,
+        myContainer: LinearLayout,
+        layoutInflater: LayoutInflater,
+        fragmentManager: FragmentManager,
+        context: Context,
+        ref: String
+    ){
         var dateUn: String = i.child("unformattedDate").value as String
         var title: String = i.child("title").value as String
         var dateStart: String = i.child("dateStart").value as String
@@ -663,7 +712,7 @@ object UITools {
         )
     }
 
-    fun addItemDialog (context: Context, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, ref: String) {
+    fun addItemDialog(context: Context, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, ref: String) {
         val layout = LinearLayout(context)
         layout.orientation = LinearLayout.VERTICAL
 
@@ -719,5 +768,20 @@ object UITools {
         layoutParams.gravity = Gravity.CENTER
 
         positive.layoutParams = layoutParams
+    }
+
+    fun playLotiieOnce(lottie: LottieAnimationView, fragmentManager: FragmentManager, pop: String){
+        lottie.visibility = View.VISIBLE
+        lottie.playAnimation()
+
+        lottie.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator?) {}
+            override fun onAnimationEnd(animation: Animator?) {
+                if (pop.equals("pop")){ fragmentManager.popBackStack()}
+                lottie.visibility = View.GONE
+            }
+            override fun onAnimationCancel(animation: Animator?) {}
+            override fun onAnimationRepeat(animation: Animator?) {}
+        })
     }
 }

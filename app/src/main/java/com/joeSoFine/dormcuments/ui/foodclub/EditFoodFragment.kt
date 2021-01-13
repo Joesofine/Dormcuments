@@ -79,7 +79,7 @@ class EditFoodFragment : Fragment() {
 
         unform = UITools.setUpDatepicker(root)
 
-        UITools.iniSpinners(root,requireContext(), resources.getStringArray(R.array.spinner_cooks))
+        databaseService.iniSpinGetArr(root,requireContext())
         UITools.onDeleteClicked(root, requireContext(), clubid!!, ref, requireFragmentManager())
 
 
