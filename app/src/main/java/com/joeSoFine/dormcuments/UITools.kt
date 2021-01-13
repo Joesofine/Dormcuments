@@ -286,7 +286,14 @@ object UITools {
             if (fullname.contains(" ")) {
                 val name = fullname.split(" ")
                 resName.text = name[0]
-                resLast.text = name[1]
+
+                var last = ""
+                for (i in 1..name.size-1){
+                    if (last.isEmpty()){ last = name[i]}
+                    else { last = "$last ${name[i]}"}
+                }
+
+                resLast.text = last
             } else {
                 resName.text = fullname
                 resLast.text = ""
@@ -311,8 +318,6 @@ object UITools {
             }
 
             titleLayout.setOnClickListener { expandList(sumLayout, expand) }
-
-
             sortResidentsLowToHigh(myContainer, ExpandableCardview, rn.toInt())
         }
 
