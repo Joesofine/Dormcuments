@@ -56,8 +56,7 @@ class EditCleaningFragment : Fragment() {
             unf
         ))
 
-        unform = unf.text.toString()
-        unform = UITools.setUpDatepicker(root)
+        UITools.setUpDatepicker(root, unf)
         UICleaning.onTaskClicked(root, root.findViewById(R.id.switchH))
         UITools.onDeleteClicked(root, requireContext(), cleaningid, ref, requireFragmentManager())
 

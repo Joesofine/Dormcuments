@@ -20,7 +20,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class CreateFoodclubFragment : Fragment() , View.OnClickListener{
+class CreateFoodclubFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Foodclub")
     var choosenDate = ""
     var unform = ""
@@ -32,12 +32,10 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_edit_food, container, false)
-        val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
-        val today = Calendar.getInstance()
+        val root = inflater.inflate(R.layout.fragment_create_foodclub, container, false)
+        val unf = root.findViewById<TextView>(R.id.unf)
 
-        unform = UITools.setUpDatepicker(root)
-
+        UITools.setUpDatepicker(root, unf)
         databaseService.iniSpinGetArr(root,requireContext())
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
@@ -46,13 +44,12 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
 
             if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
                     Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show()
-            } else if (choosenDate == "") {
+            } else if (unf.text.toString() == "") {
                     date2.error = "Please choose a date"
             } else {
 
                 val clubid = database.push().key
-                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, "", "", unform)
-
+                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), date2.text.toString(), din, not, "", "", unf.text.toString())
                 if (clubid != null) {
 
                     database.child(clubid).setValue(club)
@@ -71,8 +68,4 @@ class CreateFoodclubFragment : Fragment() , View.OnClickListener{
 
         return root
     }
-
-    override fun onClick(p0: View?) {
-    }
-
 }

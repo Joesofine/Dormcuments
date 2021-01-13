@@ -43,27 +43,30 @@ class EditFoodFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_edit_food, container, false)
+        val root = inflater.inflate(R.layout.fragment_create_foodclub, container, false)
+        val unf = root.findViewById<TextView>(R.id.unf)
+
         val bundle = this.arguments
         var clubid = bundle?.getString("id")
 
+        databaseService.iniSpinGetArr(root,requireContext())
         root.findViewById<ImageView>(R.id.delete).visibility = View.VISIBLE
 
         getdata = object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 if (clubid != null) {
-                    var w1 = p0.child(clubid).child("c1").getValue().toString()
-                    var w2 = p0.child(clubid).child("c2").getValue().toString()
+                    var c1 = p0.child(clubid).child("c1").getValue().toString()
+                    var c2 = p0.child(clubid).child("c2").getValue().toString()
                     var date: String = p0.child(clubid).child("date").getValue().toString()
                     var dinner = p0.child(clubid).child("dinner").getValue().toString()
                     var note = p0.child(clubid).child("note").getValue().toString()
                     var par = p0.child(clubid).child("participants").getValue().toString()
                     var diet = p0.child(clubid).child("diets").getValue().toString()
-                    unform = p0.child(clubid).child("unform").getValue().toString()
+                    unf.text = p0.child(clubid).child("unform").getValue().toString()
 
                     choosenDate = date
-                    root.findViewById<Spinner>(R.id.spinner_c1).setSelection(( root.findViewById<Spinner>(R.id.spinner_c1).adapter as ArrayAdapter<String>).getPosition(w1))
-                    root.findViewById<Spinner>(R.id.spinner_c2).setSelection(( root.findViewById<Spinner>(R.id.spinner_c2).adapter as ArrayAdapter<String>).getPosition(w2))
+                    root.findViewById<Spinner>(R.id.spinner_c1).setSelection(( root.findViewById<Spinner>(R.id.spinner_c1).adapter as ArrayAdapter<String>).getPosition(c1))
+                    root.findViewById<Spinner>(R.id.spinner_c2).setSelection(( root.findViewById<Spinner>(R.id.spinner_c2).adapter as ArrayAdapter<String>).getPosition(c2))
                     root.findViewById<EditText>(R.id.date2).setText(choosenDate)
                     root.findViewById<EditText>(R.id.dinner).setText(dinner)
                     root.findViewById<EditText>(R.id.note).setText(note)
@@ -77,9 +80,7 @@ class EditFoodFragment : Fragment() {
         database.addValueEventListener(getdata)
         database.addListenerForSingleValueEvent(getdata)
 
-        unform = UITools.setUpDatepicker(root)
-
-        databaseService.iniSpinGetArr(root,requireContext())
+        UITools.setUpDatepicker(root, unf)
         UITools.onDeleteClicked(root, requireContext(), clubid!!, ref, requireFragmentManager())
 
 
@@ -91,13 +92,12 @@ class EditFoodFragment : Fragment() {
 
             if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
                 Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show()
-            } else if (choosenDate == "") {
+            } else if (unf.text.toString() == "") {
                 date2.error = "Please choose a date"
             } else {
 
                 var clubid = bundle?.getString("id")
-                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), choosenDate, din, not, part, diet, unform)
-
+                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), date2.text.toString(), din, not, part, diet, unf.text.toString())
 
                 if (clubid != null) {
 

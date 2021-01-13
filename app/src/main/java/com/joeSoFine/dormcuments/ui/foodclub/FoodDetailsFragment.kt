@@ -33,16 +33,13 @@ class FoodDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        SmartTools.setUpOnBackPressed(requireActivity())
-
         val root = inflater.inflate(R.layout.fragment_food_details, container, false)
         val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
         val bundle = this.arguments
         val checked = root.findViewById<Switch>(R.id.switchJoin)
-        var ch1 = ""
-        var ch2 = ""
         auth = Firebase.auth
-        var chefs = "".split("")
+        var chefs_1 = ""
+        var chefs_2 = ""
         var diet_db = ""
 
 
@@ -54,49 +51,18 @@ class FoodDetailsFragment : Fragment() {
                     var clubid = bundle.getString("id")
                     if (clubid != null) {
 
-                        var w1 = p0.child(clubid).child("c1").getValue().toString().substring(1,3)
-                        var w2 = p0.child(clubid).child("c2").getValue().toString().substring(1,3)
+                        var chef1 = p0.child(clubid).child("c1").getValue().toString()
+                        var chef2 = p0.child(clubid).child("c2").getValue().toString()
                         var par = p0.child(clubid).child("participants").getValue().toString()
 
-                        if(w1.equals("on") || w2.equals("on")){
-                            if(w1.equals("on") && w2.equals("on")){
-                                w1 = "NA"
-                                w2 = "NA"
-                                root.findViewById<TextView>(R.id.parti).text = par
-
-                            } else if (w1.equals("on")){
-                                w1 = "NA"
-                                ch2 = p0.child(clubid).child("c2").getValue().toString()
-                                if (par.isEmpty()){
-                                    root.findViewById<TextView>(R.id.parti).text = "$ch2"
-                                } else {
-                                    root.findViewById<TextView>(R.id.parti).text = "$ch2, $par"
-                                }
-                            } else  if (w2.equals("on")){
-                                w2 = "NA"
-                                ch1 = p0.child(clubid).child("c2").getValue().toString()
-                                if (par.isEmpty()){
-                                    root.findViewById<TextView>(R.id.parti).text = "$ch1"
-                                } else {
-                                    root.findViewById<TextView>(R.id.parti).text = "$ch1, $par"
-                                }
-                            }
-                        } else {
-                            ch1 = p0.child(clubid).child("c1").getValue().toString()
-                            ch2 = p0.child(clubid).child("c2").getValue().toString()
-                            if (par.isEmpty()){
-                                root.findViewById<TextView>(R.id.parti).text = "$ch1, $ch2"
-                            } else {
-                                root.findViewById<TextView>(R.id.parti).text = "$ch1, $ch2, $par"
-                            }
-                        }
-
-
-                        root.findViewById<TextView>(R.id.chefs).text = "$w1, $w2"
+                        root.findViewById<TextView>(R.id.parti).text = setPartiWithChefs(chef1, chef2, root, par)
+                        root.findViewById<TextView>(R.id.chefs).text = chef1
+                        root.findViewById<TextView>(R.id.chefs2).text = chef2
                         root.findViewById<TextView>(R.id.date).text = p0.child(clubid).child("date").getValue().toString()
                         root.findViewById<TextView>(R.id.dinner).text = p0.child(clubid).child("dinner").getValue().toString()
                         root.findViewById<TextView>(R.id.note).text = p0.child(clubid).child("note").getValue().toString()
-                        chefs = root.findViewById<TextView>(R.id.chefs).text.toString().split(", ")
+                        chefs_1 = root.findViewById<TextView>(R.id.chefs).text.toString()
+                        chefs_2 = root.findViewById<TextView>(R.id.chefs2).text.toString()
                         diet_db = p0.child(clubid).child("diets").getValue().toString()
 
                         setId(clubid)
@@ -117,25 +83,31 @@ class FoodDetailsFragment : Fragment() {
                 var clubid = bundle?.getString("id")
                 val userid = auth.currentUser?.uid
                 if (userid != null) {
+                    var nameArr = p0.child(userid).child("fname").getValue().toString().split(" ")
                     var roomnumber = p0.child(userid).child("number").getValue().toString()
                     var diet = p0.child(userid).child("diet").getValue().toString()
+                    var identity = "${nameArr[0]} - $roomnumber"
 
-                    for (i in p0.children){
-                        var nb = i.child("number").getValue().toString().substring(1,3)
-                        if (nb.equals(chefs[0])) {
+                    for (i in p0.children) {
+                        var nb = i.child("number").getValue().toString()
+                        var nameArrRes = i.child("fname").getValue().toString().split(" ")
+                        var ChefIdentity = "${nameArrRes[0]} - $nb"
+
+
+                        if ((chefs_1).equals(ChefIdentity)) {
                             chf1Diet = i.child("diet").getValue().toString()
                             break
-                        } else if (nb.equals(chefs[1])) {
+
+                        } else if ((chefs_2).equals(ChefIdentity)) {
                             chf2Diet = i.child("diet").getValue().toString()
                             break
                         }
                     }
 
-
-                    setChefDiets(chf1Diet,chf2Diet, diet_db)
-                    setSwitchStatus(checked,roomnumber)
+                    setChefDiets(chf1Diet, chf2Diet, diet_db)
+                    setSwitchStatus(checked, identity)
                     if (clubid != null) {
-                        listenerOnChange(checked,roomnumber, diet, chf1Diet, chf2Diet, clubid)
+                        listenerOnChange(checked,roomnumber, diet, chf1Diet, chf2Diet, clubid, identity)
                     }
 
 
@@ -165,37 +137,37 @@ class FoodDetailsFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun listenerOnChange(switch: Switch, rn: String, diet: String, ch1Diet: String, ch2Diet: String, clubid: String){
+    private fun listenerOnChange(switch: Switch, rn: String, diet: String, ch1Diet: String, ch2Diet: String, clubid: String, identiti: String){
         switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
-            val chefs = chefs.text.toString().split(", ")
-            val room = rn.substring(1,3)
+            val chefs_1 = chefs.text.toString()
+            val chefs_2 = chefs2.text.toString()
             var parti_string: String
             var diet_string: String
             if (isChecked) {
-                if (chefs[0].contains(room) || chefs[1].contains(room)){
+                if (chefs_1.contains(identiti) || chefs_2.contains(identiti)){
                     switch.isChecked = true
                 } else {
-                    parti_string = checkIfTextviewIsEmpty(parti, rn)
+                    parti_string = checkIfTextviewIsEmpty(parti, identiti)
                     diet_string = checkIfTextviewIsEmpty(diets, diet)
 
-                    parseToDatabase(clubid,diet_string, parti_string, ch1Diet, ch2Diet, chefs[0], chefs[1])
+                    parseToDatabase(clubid,diet_string, parti_string, ch1Diet, ch2Diet, chefs_1, chefs_2)
                 }
 
             } else {
-                if (chefs[0].contains(room) || chefs[1].contains(room)) {
+                if (chefs_1.contains(identiti) || chefs_2.contains(identiti)){
                     switch.isChecked = true
                 } else {
-                    parti_string = removeFromDatabaseAndTextview(parti, rn)
+                    parti_string = removeFromDatabaseAndTextview(parti, identiti)
                     diet_string = removeFromDatabaseAndTextview(diets, diet)
 
-                    parseToDatabase(clubid,diet_string, parti_string, ch1Diet, ch2Diet, chefs[0], chefs[1])
+                    parseToDatabase(clubid,diet_string, parti_string, ch1Diet, ch2Diet, chefs_1, chefs_2)
                 }
             }
         }
     }
 
-    fun setSwitchStatus(switch: Switch, rn: String){
-        if ( parti.text.toString().contains(rn)){ switch.isChecked = true}
+    fun setSwitchStatus(switch: Switch, identiti: String){
+        if ( parti.text.toString().contains(identiti)){ switch.isChecked = true}
     }
 
     fun setChefDiets(ch1Diet: String, ch2Diet: String, diet_db: String){
@@ -238,10 +210,10 @@ class FoodDetailsFragment : Fragment() {
     fun removeChefFromParticipants (chef:String, st: String): String {
         var string = st
         if (!chef.contains("NA")) {
-            if (string.contains("9$chef,")) {
-                string = string.replace("9$chef, ", "")
+            if (string.contains("$chef,")) {
+                string = string.replace("$chef, ", "")
             } else {
-                string = string.replace("9$chef", "")
+                string = string.replace("$chef", "")
             }
         }
         return string
@@ -287,4 +259,39 @@ class FoodDetailsFragment : Fragment() {
         pushToDatabase(clubid, "participants", string_parti)
         pushToDatabase(clubid, "diets", string_diet)
     }
+
+    fun setPartiWithChefs(chef1: String, chef2: String, root: View, par: String): String {
+        var st: String
+
+        val chefInfo1 = checkIfChefIsNull(chef1)
+        val chefInfo2 = checkIfChefIsNull(chef2)
+
+        var str = "${chefInfo1[0]}${chefInfo2[0]}$par"
+        var participant = str.split(",")
+        val stri = participant[participant.size - 1]
+        if (stri.equals(" ")) {
+            st = str.substring(0, str.length - 2)
+        } else {
+            st = str
+        }
+
+        root.findViewById<TextView>(R.id.chefs).text = chefInfo1[1]
+        root.findViewById<TextView>(R.id.chefs2).text = chefInfo2[1]
+
+        return st
+    }
+
+    fun checkIfChefIsNull(chef: String): ArrayList<String> {
+        var str = arrayListOf<String>()
+
+        if (chef.equals("None")) {
+            str.add("")
+            str.add(chef)
+        } else {
+            str.add("$chef, ")
+            str.add(chef)
+        }
+        return str
+    }
+
 }

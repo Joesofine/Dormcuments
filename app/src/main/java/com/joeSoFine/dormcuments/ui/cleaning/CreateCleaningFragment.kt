@@ -34,10 +34,11 @@ class CreateCleaningFragment() : Fragment() {
         val note = root.findViewById<EditText>(R.id.note)
         val succes = root.findViewById<LottieAnimationView>(R.id.succes)
         val fail = root.findViewById<LottieAnimationView>(R.id.fail)
+        val unf = root.findViewById<TextView>(R.id.unf)
 
 
         UICleaning.switchIni(root, task)
-        unform = UITools.setUpDatepicker(root)
+        UITools.setUpDatepicker(root, unf)
         databaseService.iniSpinGetArr(root,requireContext())
         UICleaning.onTaskClicked(root, root.findViewById(R.id.switchH))
 
@@ -49,7 +50,7 @@ class CreateCleaningFragment() : Fragment() {
             task.text.toString(),
             note.text.toString(),
             "Unchecked",
-            unform
+            unf.text.toString()
         )
             UICleaning.onCleaningSavedClick(
                 databaseService.generateID(ref)!!,

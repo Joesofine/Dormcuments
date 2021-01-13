@@ -144,24 +144,9 @@ object UICleaning {
         var eventdate = unform.split("/")
         var local = LocalDate.of(eventdate[2].toInt(), eventdate[1].toInt()+1, eventdate[0].toInt())
 
-        var c1Sub = c1.substring(c1.length-2,c1.length)
-        var c2Sub = c2.substring(c2.length-2,c2.length)
+        UITools.setC(c1, w1)
+        UITools.setC(c2, w2)
 
-        if (c1.equals("None") || c2.equals("None")) {
-            if (c1.equals("None") && c2.equals("None")) {
-                w1.setText("NA")
-                w2.setText("NA")
-            } else if (c1.equals("None")) {
-                w1.setText("NA")
-                w2.setText(c2Sub)
-            } else if (c2.equals("None")){
-                w1.setText(c1Sub)
-                w2.setText("NA")
-            }
-        } else {
-            w1.setText(c1Sub)
-            w2.setText(c2Sub)
-        }
         datefield.setText(date)
         un.text = unform
         id.text = cleaningid

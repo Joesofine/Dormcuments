@@ -32,7 +32,7 @@ object UITools {
 
     @SuppressLint("ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
-    fun setUpDatepicker(root: View): String {
+    fun setUpDatepicker(root: View, unf: TextView) {
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
 
@@ -45,7 +45,9 @@ object UITools {
             val local = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
             val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM", Locale.ENGLISH)
             val msg = local.format(formatter)
+            val unform = "${datePicker.dayOfMonth}/${datePicker.month}/${datePicker.year}"
             root.findViewById<EditText>(R.id.date2).setText(msg)
+            unf.text = unform
             datePicker.visibility = View.GONE
         }
 
@@ -55,8 +57,6 @@ object UITools {
             }
             true
         }
-
-        return "${datePicker.dayOfMonth}/${datePicker.month}/${datePicker.year}"
     }
 
     fun iniSpinners(root: View, context: Context, arr: ArrayList<String>){
@@ -147,21 +147,10 @@ object UITools {
         var eventdate = unform.split("/")
         var local = LocalDate.of(eventdate[2].toInt(), eventdate[1].toInt() + 1, eventdate[0].toInt())
 
-        if (c1.equals("None") || c2.equals("None")) {
-            if (c1.equals("None") && c2.equals("None")) {
-                w1.setText("NA")
-                w2.setText("NA")
-            } else if (c1.equals("None")) {
-                w1.setText("NA")
-                w2.setText(c2.substring(1, 3))
-            } else if (c2.equals("None")){
-                w1.setText(c1.substring(1, 3))
-                w2.setText("NA")
-            }
-        } else {
-            w1.setText(c1.substring(1, 3))
-            w2.setText(c2.substring(1, 3))
-        }
+        setC(c1,w1)
+        setC(c2,w2)
+
+
         datefield.setText(date)
         un.text = unform
         id.text = clubid
@@ -784,4 +773,15 @@ object UITools {
             override fun onAnimationRepeat(animation: Animator?) {}
         })
     }
+
+    fun setC(c: String, w: TextView) {
+        var cSub = c.substring(c.length - 2, c.length)
+
+        if (c.equals("None")) {
+            w.setText("NA")
+        } else {
+            w.setText(cSub)
+        }
+    }
+
 }
