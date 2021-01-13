@@ -131,7 +131,7 @@
             android:id="@+id/option1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_icon="@drawable/ic_baseline_add_shopping_cart_24"
+            app:fab_icon="@drawable/ic_plus_white_24dp"
             app:label_text="Create foodclub"
             app:label_textColor="@android:color/white"
             app:label_textSize="@dimen/text_size"

@@ -22,26 +22,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Whoops this week seems empty"
+        android:text="Whoops here seems empty"
         android:textColor="@color/White"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scrollView8" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="40dp"
-        android:clickable="true"
-        app:backgroundTint="@color/LighterDarkBlue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        tools:ignore="VectorDrawableCompat" />
 
     <LinearLayout
         android:id="@+id/linearLayout10"
@@ -95,103 +81,6 @@
             android:layout_marginTop="0dp"
             android:gravity="right"
             android:orientation="horizontal">
-            <!--
-                       <Button
-                           android:id="@+id/jan"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="januar"
-                           android:textColor="#F8000000" />
-
-                       <Button
-                           android:id="@+id/feb"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="february"
-                           android:textColor="#F8090909" />
-
-                       <Button
-                           android:id="@+id/mar"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="March"
-                           android:textColor="#F8090909" />
-
-                       <Button
-                           android:id="@+id/apr"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="april"
-                           android:textColor="#F8000000" />
-
-                       <Button
-                           android:id="@+id/may"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="may"
-                           android:textColor="#F8090909" />
-
-                       <Button
-                           android:id="@+id/jun"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="june"
-                           android:textColor="#F8090909" />
-
-                       <Button
-                           android:id="@+id/jul"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="july"
-                           android:textColor="#F8000000" />
-
-                       <Button
-                           android:id="@+id/aug"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="august"
-                           android:textColor="#F8090909" />
-
-                       <Button
-                           android:id="@+id/sep"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="september"
-                           android:textColor="#F8090909" />
-
-                       <Button
-                           android:id="@+id/oct"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="october"
-                           android:textColor="#F8000000" />
-
-                       <Button
-                           android:id="@+id/nov"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="november"
-                           android:textColor="#F8090909" />
-
-                       <Button
-                           android:id="@+id/dec"
-                           android:layout_width="100dp"
-                           android:layout_height="50dp"
-                           android:background="@color/ButtonLight"
-                           android:text="december"
-                           android:textColor="#F8090909" />
-                       -->
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -211,6 +100,59 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
+
+    <com.nambimobile.widgets.efab.ExpandableFabLayout
+        android:id="@+id/fab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.nambimobile.widgets.efab.Overlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.nambimobile.widgets.efab.ExpandableFab
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/ui_margin_medium" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_plus_white_24dp"
+            app:label_text="Create event"
+            app:label_textColor="@android:color/white"
+            app:label_textSize="@dimen/text_size"
+            app:label_backgroundColor="@color/meeting"
+            app:label_position="right"
+            app:label_translationXPx="100"/>
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/ic_baseline_help_24"
+            app:label_text="Help"
+            app:label_textColor="@android:color/white"
+            app:label_textSize="@dimen/text_size"
+            app:label_backgroundColor="@color/meeting"
+            app:label_position="right"
+            app:label_translationXPx="100"/>
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/option3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/filter_icon"
+            app:label_text="Filters"
+            app:label_textColor="@android:color/white"
+            app:label_textSize="@dimen/text_size"
+            app:label_backgroundColor="@color/meeting"
+            app:label_position="right"
+            app:label_translationXPx="100"/>
+
+    </com.nambimobile.widgets.efab.ExpandableFabLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

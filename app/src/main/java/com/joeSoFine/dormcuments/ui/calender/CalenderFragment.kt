@@ -24,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
+import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.fragment_rules.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -95,19 +96,24 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
         buttonPressed(week, weeks, "weeks",targetWidth - 120, current_week - 1)
 
-        root.findViewById<FloatingActionButton>(R.id.add).setOnClickListener {
-            requireFragmentManager().beginTransaction().add(
-                R.id.nav_host_fragment,
-                CreateEventFragment()
-            ).addToBackStack(null).commit()
-        }
-
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
+        expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     override fun onClick(p0: View?) {
+
+        when(p0?.id){
+            R.id.option1 -> { requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, CreateEventFragment()).addToBackStack(null).commit()}
+            R.id.option2 -> { UITools.onHelpedClicked(requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)}
+            R.id.option3 -> { }
+            // so on and so forth...
+        }
 
         if (p0 === week || p0 === month || p0 === year) {
             if (p0 === week) {

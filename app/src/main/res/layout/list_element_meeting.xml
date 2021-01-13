@@ -14,25 +14,20 @@
 
         <View
             android:id="@+id/div"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
             android:background="@color/BackgroundDark"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/expand"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/meetingItem" />
 
         <TextView
             android:id="@+id/meetingItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:text="Element"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +39,6 @@
             android:layout_width="20dp"
             android:layout_height="21dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/meetingItem"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +52,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -74,11 +69,9 @@
             android:id="@+id/delete"
             android:layout_width="20dp"
             android:layout_height="21dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@+id/sum"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/divider4"
             app:layout_constraintTop_toTopOf="@+id/sum"
             app:srcCompat="@drawable/ic_baseline_close_24"
             tools:ignore="VectorDrawableCompat" />
@@ -101,16 +94,13 @@
 
         <TextView
             android:id="@+id/sum"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginEnd="10dp"
             android:text="Summary"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/delete"
+            app:layout_constraintEnd_toStartOf="@+id/delete"
+            app:layout_constraintStart_toStartOf="@+id/divider4"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
