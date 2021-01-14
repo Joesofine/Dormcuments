@@ -170,7 +170,7 @@ class profileFragment : Fragment() {
                 city_edit.visibility = View.VISIBLE
                 country_edit.visibility = View.VISIBLE
             } else {
-                city_signup.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
+                //city_signup.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.edit_pen_icon_white, 0)
                 city_signup.background.mutate().setColorFilter(resources.getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
             }
         }

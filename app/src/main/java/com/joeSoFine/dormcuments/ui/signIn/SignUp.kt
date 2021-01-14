@@ -32,7 +32,6 @@ class SignUp : AppCompatActivity() {
         auth = Firebase.auth
 
         val datePicker = findViewById<DatePicker>(R.id.datePicker)
-
         val today = Calendar.getInstance()
 
         datePicker.init(2000, today.get(Calendar.MONTH),
@@ -41,33 +40,19 @@ class SignUp : AppCompatActivity() {
         { view, year, month, day ->
             val month = month + 1
             val msg = "$day/$month/$year"
-            date.setText(msg)
-            date.setTextColor(resources.getColor(R.color.White))
+            date.editText?.setText(msg)
+            date.editText?.setTextColor(resources.getColor(R.color.White))
         }
 
 
-        date.setOnFocusChangeListener { view, hasFocus ->
+        date.editText?.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus){
-                datePicker.visibility = View.VISIBLE
-                close.visibility = View.VISIBLE
-                date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon_tint, 0, 0, 0)
-                date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
+                dateLayout.visibility = View.VISIBLE
             } else {
-                datePicker.visibility = View.GONE
-                close.visibility = View.GONE
-                date.setCompoundDrawablesWithIntrinsicBounds(R.drawable.birthday_icon_white, 0, 0, 0)
-                date.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                dateLayout.visibility = View.GONE
             }
         }
 
-        setIconsTint(name_signup, R.drawable.name_icon_white, R.drawable.name_icon_tint)
-        setIconsTint(city_signup, R.drawable.city_icon_white, R.drawable.city_icon_tint)
-        setIconsTint(country_signup, R.drawable.county_icon_white, R.drawable.county_icon_tint)
-        setIconsTint(diet, R.drawable.diet_icon_white, R.drawable.diet_icon_tint)
-        setIconsTint(funfact, R.drawable.fun_icon_white, R.drawable.fun_icon_tint)
-        setIconsTint(email, R.drawable.email_icon_white, R.drawable.email_icon_tint)
-        setIconsTint(cho_password, R.drawable.password_icon_white, R.drawable.password_icon_tint)
-        setIconsTint(reap_password, R.drawable.password_icon_white, R.drawable.password_icon_tint)
 
 
         val myAdapter = ArrayAdapter(applicationContext, R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
@@ -80,17 +65,17 @@ class SignUp : AppCompatActivity() {
         }
 
         save.setOnClickListener(View.OnClickListener {
-            val fname = name_signup.text.toString()
+            val fname = name_signup.editText?.text.toString()
             val number = room_spinner.selectedItem.toString()
-            val bdate = date.text.toString()
-            val city = city_signup.text.toString()
-            val country = country_signup.text.toString()
+            val bdate = date.editText?.text.toString()
+            val city = city_signup.editText?.text.toString()
+            val country = country_signup.editText?.text.toString()
             val from = "$city, $country"
-            val diet = diet.text.toString()
-            val fact = funfact.text.toString()
+            val diet = diet.editText?.text.toString()
+            val fact = funfact.editText?.text.toString()
             val Uemail = email.text.toString().toLowerCase().replace(" ", "")
-            val chopass = cho_password.text.toString()
-            val reapass = reap_password.text.toString()
+            val chopass = cho_password.editText?.text.toString()
+            val reapass = reap_password.editText?.text.toString()
 
             if (fname.isEmpty()) {
                 name_signup.error = "Please write a name"
@@ -182,7 +167,7 @@ class SignUp : AppCompatActivity() {
             email.error = null
         }
 
-        val password = cho_password.text.toString()
+        val password = cho_password.editText?.text.toString()
         if (TextUtils.isEmpty(password)) {
             cho_password.error = "Required."
             valid = false
@@ -193,10 +178,7 @@ class SignUp : AppCompatActivity() {
         return valid
     }
 
-
-
     companion object {
             private const val TAG = "EmailPassword"
-            private const val RC_MULTI_FACTOR = 9005
         }
 }

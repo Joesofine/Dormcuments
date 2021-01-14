@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient"
-    tools:context=".ui.sign_in.SigUp_picture">
+    android:background="@drawable/background_gradient">
 
     <ImageView
         android:id="@+id/downloaded_picture"
@@ -28,26 +27,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="150dp"
-        android:background="@drawable/sign_in_button"
-        android:drawableStart="@drawable/ic_image_black_24dp"
-        android:drawableLeft="@drawable/ic_image_black_24dp"
+        android:backgroundTint="@color/White"
+
         android:drawablePadding="5dp"
         android:padding="10dp"
         android:text="Choose Picture"
         android:textAllCaps="false"
         android:textStyle="bold"
+        android:textColor="@color/Black"
+        app:icon="@drawable/ic_image_black_24dp"
+        app:iconTint = "@color/Black"
+        style="@style/Widget.MaterialComponents.Button.Icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="320dp"
         android:layout_height="41dp"
-        android:background="@drawable/sign_in_button"
+        android:backgroundTint="@color/White"
         android:text="Save"
-        android:textAllCaps="false"
         android:textColor="#0C0000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/choosePic"

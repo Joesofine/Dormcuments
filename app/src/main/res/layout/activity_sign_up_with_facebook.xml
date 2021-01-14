@@ -86,8 +86,8 @@
                 android:textColorHint="@color/lightHint"
                 app:boxStrokeColor="@color/Slider"
                 app:endIconTint="@color/lightHint"
-                app:hintTextColor="@color/Slider"
                 app:errorEnabled="true"
+                app:hintTextColor="@color/Slider"
                 app:layout_constraintBottom_toTopOf="@+id/signIpButton"
                 app:layout_constraintEnd_toEndOf="@+id/room_spinner"
                 app:layout_constraintStart_toEndOf="@+id/textView76"
@@ -123,10 +123,10 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="10dp"
                 android:hint="City of origin"
-                app:errorEnabled="true"
-            android:textColorHint="@color/lightHint"
+                android:textColorHint="@color/lightHint"
                 app:boxStrokeColor="@color/Slider"
                 app:endIconTint="@color/lightHint"
+                app:errorEnabled="true"
                 app:hintTextColor="@color/Slider"
                 app:layout_constraintBottom_toTopOf="@+id/signIpButton"
                 app:layout_constraintEnd_toStartOf="@+id/textView76"
@@ -144,8 +144,8 @@
 
 
             <Spinner
-                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:id="@+id/room_spinner"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="320dp"
                 android:layout_height="45dp"
                 android:layout_centerHorizontal="false"
