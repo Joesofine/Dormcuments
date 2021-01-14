@@ -784,6 +784,18 @@ object UITools {
         })
     }
 
+    fun playLotiieOnceNoPop(lottie: LottieAnimationView){
+        lottie.visibility = View.VISIBLE
+        lottie.playAnimation()
+
+        lottie.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator?) {}
+            override fun onAnimationEnd(animation: Animator?) {lottie.visibility = View.GONE }
+            override fun onAnimationCancel(animation: Animator?) {}
+            override fun onAnimationRepeat(animation: Animator?) {}
+        })
+    }
+
     fun setC(c: String, w: TextView) {
         var cSub = c.substring(c.length - 2, c.length)
 

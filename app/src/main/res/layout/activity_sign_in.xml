@@ -7,199 +7,235 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient">
 
-    <Button
-        android:id="@+id/SignUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="5dp"
-        android:background="#00FFFFFF"
-        android:elevation="10dp"
-        android:text="Don't have a acoount? Make one!"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:textIsSelectable="false"
-        android:textSize="12sp"
-        android:textStyle="normal|italic"
-        app:layout_constraintEnd_toEndOf="@+id/loginButton"
-        app:layout_constraintHorizontal_bias="0.548"
-        app:layout_constraintStart_toStartOf="@+id/loginButton"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
-
-    <View
-        android:id="@+id/divider11"
-        android:layout_height="1dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/White"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintEnd_toStartOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView3"
-        android:layout_width="0dp" />
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/loginButton"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/signIpButton"
-        app:layout_constraintStart_toStartOf="@+id/signIpButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:drawableLeft="@drawable/password_icon_white"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:hint="@string/prompt_password"
-        android:inputType="textPassword"
-        android:text="041295ww"
-        android:textColor="@color/White"
-        android:textColorHint="@color/lightHint"
-        android:textSize="14sp"
-        app:backgroundTint="@color/White"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
 
-    <EditText
-        android:id="@+id/mail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="5dp"
-        android:drawableLeft="@drawable/email_icon_white"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:hint="@string/prompt_email"
-        android:inputType="textEmailAddress"
-        android:text="zainamail@hotmail.com"
-        android:textColor="@color/White"
-        android:textColorHint="@color/lightHint"
-        android:textSize="14sp"
-        app:backgroundTint="@color/White"
-        app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ScrollView
+            android:id="@+id/scrollView6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/signIpButton"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/button_shadow"
-        android:elevation="10dp"
-        android:text="Sign In"
-        android:textAllCaps="false"
-        android:textStyle="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/ForgotPasswordBotton"
-        android:layout_width="104dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="5dp"
-        android:background="#00FFFFFF"
-        android:elevation="10dp"
-        android:text="Forgot Password?"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:textIsSelectable="false"
-        android:textSize="12sp"
-        android:textStyle="normal|italic"
-        app:layout_constraintEnd_toEndOf="@+id/signIpButton"
-        app:layout_constraintStart_toStartOf="@+id/signIpButton"
-        app:layout_constraintTop_toBottomOf="@+id/signIpButton" />
+                <Button
+                    android:id="@+id/SignUpButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:text="Don't have a acoount? Make one!"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:textSize="12sp"
+                    android:textStyle="normal|italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/loginButton"
+                    app:layout_constraintStart_toStartOf="@+id/loginButton" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="170dp"
-        app:layout_constraintBottom_toTopOf="@+id/mail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hapi" />
+                <View
+                    android:id="@+id/divider11"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/White"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                    app:layout_constraintEnd_toStartOf="@+id/textView3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView3" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="18dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="20dp"
-        android:text="Or"
-        android:textColor="#FDFDFD"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ForgotPasswordBotton" />
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/loginButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/SignUpButton"
+                    app:layout_constraintEnd_toEndOf="@+id/password"
+                    app:layout_constraintStart_toStartOf="@+id/password" />
 
-    <View
-        android:id="@+id/divider10"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:background="@color/White"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
 
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/mail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/prompt_password"
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/list"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/threedots" />
+                    android:textColorHint="@color/lightHint"
+                    app:boxStrokeColor="@color/Slider"
+                    app:endIconMode="password_toggle"
+                    app:endIconTint="@color/lightHint"
+                    app:hintTextColor="@color/Slider"
+                    app:layout_constraintBottom_toTopOf="@+id/signIpButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:inputType="textPassword"
+                        android:text="12345678"
+                        android:textColor="@color/White" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mail"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+
+                    android:hint="@string/prompt_email"
+                    android:textColorHint="@color/lightHint"
+
+                    app:boxStrokeColor="@color/Slider"
+                    app:endIconTint="@color/lightHint"
+                    app:hintTextColor="@color/Slider"
+                    app:layout_constraintBottom_toTopOf="@+id/password"
+                    app:layout_constraintEnd_toEndOf="@+id/password"
+                    app:layout_constraintStart_toStartOf="@+id/password">
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:inputType="textEmailAddress"
+                        android:text="zainamail@hotmail.com"
+                        android:textColor="@color/White" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <Button
+                    android:id="@+id/signIpButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/White"
+                    android:text="Sign In"
+                    android:textColor="@color/Black"
+                    app:layout_constraintBottom_toTopOf="@+id/ForgotPasswordBotton"
+                    app:layout_constraintEnd_toEndOf="@+id/password"
+                    app:layout_constraintStart_toStartOf="@+id/password" />
+
+                <Button
+                    android:id="@+id/ForgotPasswordBotton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Forgot Password?"
+                    android:textAllCaps="false"
+                    android:textColor="@color/White"
+                    android:textIsSelectable="false"
+                    android:textSize="12sp"
+                    android:textStyle="normal|italic"
+                    app:layout_constraintBottom_toTopOf="@+id/textView3"
+                    app:layout_constraintEnd_toEndOf="@+id/signIpButton"
+                    app:layout_constraintStart_toStartOf="@+id/signIpButton" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginEnd="70dp"
+                    android:layout_marginBottom="70dp"
+                    app:layout_constraintBottom_toTopOf="@+id/mail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/hapi" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="18dp"
+                    android:layout_height="24dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Or"
+                    android:textColor="#FDFDFD"
+                    app:layout_constraintBottom_toTopOf="@+id/loginButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/divider10"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="80dp"
+                    android:background="@color/White"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView3"
+                    app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="411dp"
+                    android:text="TextView"
+                    android:textColor="#FFFFFF"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/threedots" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/succes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/succes" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/fail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/fail" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
