@@ -19,12 +19,7 @@ import com.google.firebase.database.ValueEventListener
 import com.joeSoFine.dormcuments.SmartTools
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
-import kotlinx.android.synthetic.main.fragment_edit_food.*
-import kotlinx.android.synthetic.main.fragment_edit_food.date2
-import kotlinx.android.synthetic.main.fragment_edit_food.dinner
-import kotlinx.android.synthetic.main.fragment_edit_food.note
-import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c1
-import kotlinx.android.synthetic.main.fragment_edit_food.spinner_c2
+import kotlinx.android.synthetic.main.fragment_create_foodclub.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*

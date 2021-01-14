@@ -29,7 +29,7 @@
                     android:id="@+id/parti"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="Hejjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
                     android:textColor="@color/White"
                     app:layout_constraintEnd_toEndOf="@+id/divider9"
                     app:layout_constraintStart_toStartOf="@+id/note"
@@ -254,11 +254,12 @@
 
                 <ImageView
                     android:id="@+id/edit"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_button"
+                    android:padding="5dp"
                     android:src="@drawable/edit_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -273,16 +274,18 @@
                     android:textColor="@color/White"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/divider9"
+                    app:layout_constraintEnd_toEndOf="@+id/divider12"
+                    app:layout_constraintStart_toStartOf="@+id/divider12"
                     app:layout_constraintTop_toBottomOf="@+id/divider12" />
 
                 <Switch
                     android:id="@+id/switchJoin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView71"
-                    app:layout_constraintEnd_toEndOf="@+id/divider9"
-                    app:layout_constraintTop_toTopOf="@+id/textView71" />
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView71"
+                    app:layout_constraintStart_toStartOf="@+id/textView71"
+                    app:layout_constraintTop_toBottomOf="@+id/textView71" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/animation_view"
@@ -304,7 +307,20 @@
                     android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="@+id/date"
                     app:layout_constraintStart_toStartOf="@+id/date"
-                    tools:layout_editor_absoluteY="79dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/date" />
+
+                <TextView
+                    android:id="@+id/parNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="TextView"
+                    android:textColor="@color/White"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/checkText"
+                    app:layout_constraintStart_toStartOf="@+id/checkText"
+                    app:layout_constraintTop_toBottomOf="@+id/checkText" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

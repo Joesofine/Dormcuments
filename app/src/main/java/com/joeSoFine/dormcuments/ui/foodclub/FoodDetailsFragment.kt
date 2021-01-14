@@ -107,7 +107,7 @@ class FoodDetailsFragment : Fragment() {
                     setChefDiets(chf1Diet, chf2Diet, diet_db)
                     setSwitchStatus(checked, identity)
                     if (clubid != null) {
-                        listenerOnChange(checked,roomnumber, diet, chf1Diet, chf2Diet, clubid, identity)
+                        listenerOnChange(checked,roomnumber, diet, chf1Diet, chf2Diet, clubid, identity, root.findViewById(R.id.parNum))
                     }
 
 
@@ -137,7 +137,7 @@ class FoodDetailsFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun listenerOnChange(switch: Switch, rn: String, diet: String, ch1Diet: String, ch2Diet: String, clubid: String, identiti: String){
+    private fun listenerOnChange(switch: Switch, rn: String, diet: String, ch1Diet: String, ch2Diet: String, clubid: String, identiti: String, parView: TextView){
         switch.setOnCheckedChangeListener { compoundButton: CompoundButton, isChecked: Boolean ->
             val chefs_1 = chefs.text.toString()
             val chefs_2 = chefs2.text.toString()
@@ -149,6 +149,9 @@ class FoodDetailsFragment : Fragment() {
                 } else {
                     parti_string = checkIfTextviewIsEmpty(parti, identiti)
                     diet_string = checkIfTextviewIsEmpty(diets, diet)
+
+                    var parNum = parti_string.split(",")
+                    parView.text = parNum.size.toString()
 
                     parseToDatabase(clubid,diet_string, parti_string, ch1Diet, ch2Diet, chefs_1, chefs_2)
                 }
@@ -275,8 +278,11 @@ class FoodDetailsFragment : Fragment() {
             st = str
         }
 
+        var parNum = st.split(",")
+
         root.findViewById<TextView>(R.id.chefs).text = chefInfo1[1]
         root.findViewById<TextView>(R.id.chefs2).text = chefInfo2[1]
+        root.findViewById<TextView>(R.id.parNum).text = parNum.size.toString()
 
         return st
     }

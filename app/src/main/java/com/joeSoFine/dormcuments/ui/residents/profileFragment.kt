@@ -44,7 +44,6 @@ import com.joeSoFine.dormcuments.ui.signIn.User
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.city_signup
 import kotlinx.android.synthetic.main.activity_sign_up2.*
-import kotlinx.android.synthetic.main.fragment_edit_food.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.util.*
 
