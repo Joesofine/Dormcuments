@@ -2,7 +2,6 @@ package com.joeSoFine.dormcuments.ui.signIn
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,7 +15,6 @@ import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -74,13 +72,13 @@ class SignIn : AppCompatActivity() {
         SignUpButton.setOnClickListener(View.OnClickListener {
             val intent = Intent(applicationContext, SignUp::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         })
 
         ForgotPasswordBotton.setOnClickListener(View.OnClickListener {
             val intent = Intent(applicationContext, ForgottenPassword::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         })
 
 
@@ -124,7 +122,7 @@ class SignIn : AppCompatActivity() {
                                                 .addOnSuccessListener {
                                                     val intent = Intent(applicationContext, SignUpWithFacebookFragment::class.java)
                                                     startActivity(intent)
-                                                    overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+                                                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                                                     animation_view.visibility = View.GONE
 
                                                 }
@@ -164,11 +162,6 @@ class SignIn : AppCompatActivity() {
                             animation_view.visibility = View.GONE
                         }
 
-                        Toast.makeText(
-                            applicationContext,
-                            "Facebook are still only avablable for developers",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
 
@@ -220,7 +213,7 @@ class SignIn : AppCompatActivity() {
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
                     animation_view.visibility = View.GONE
                     val user = auth.currentUser

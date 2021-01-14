@@ -547,6 +547,7 @@ object databaseService {
                     var roomnumber = p0.child(userid).child("number").getValue().toString()
                     if (roomnumber.isEmpty()) {
                         val intent = Intent(applicationContext, SignUpWithFacebookFragment::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         applicationContext.startActivity(intent)
 
                     } else {

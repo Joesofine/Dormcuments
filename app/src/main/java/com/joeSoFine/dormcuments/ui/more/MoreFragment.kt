@@ -51,22 +51,22 @@ class MoreFragment : Fragment(),View.OnClickListener  {
         if (p0 === cleaning_button || p0 === residents_button || p0 === meeting_button || p0 === rules_button || p0 === profile_button || p0 === inventory_button ) {
             when {
                 p0 === cleaning_button -> {
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CleaningFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, CleaningFragment()).addToBackStack(null).commit()
                 }
                 p0 === rules_button -> {
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, RulesFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, RulesFragment()).addToBackStack(null).commit()
                 }
                 p0 === residents_button -> {
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, ResidentFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, ResidentFragment()).addToBackStack(null).commit()
                 }
                 p0 === meeting_button -> {
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, MeetingFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, MeetingFragment()).addToBackStack(null).commit()
                 }
                 p0 === profile_button -> {
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, profileFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, profileFragment()).addToBackStack(null).commit()
                 }
                 p0 === inventory_button -> {
-                    requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, SummaryMenuFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, SummaryMenuFragment()).addToBackStack(null).commit()
                 }
             }
         }

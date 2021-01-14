@@ -157,7 +157,7 @@ object UICleaning {
             bundle.putString("id", cleaningid)
             val fragment2 = CleaningDetailsFragment()
             fragment2.arguments = bundle
-            fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
+            fragmentManager?.beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
         }
         if (myContainer.childCount == 0) {
             myContainer.addView(ExpandableCardview)

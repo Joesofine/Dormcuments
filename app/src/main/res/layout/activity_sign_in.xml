@@ -58,8 +58,8 @@
                     android:paddingBottom="10dp"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@+id/SignUpButton"
-                    app:layout_constraintEnd_toEndOf="@+id/password"
-                    app:layout_constraintStart_toStartOf="@+id/password" />
+                    app:layout_constraintEnd_toEndOf="@+id/signIpButton"
+                    app:layout_constraintStart_toStartOf="@+id/signIpButton" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/password"
@@ -77,6 +77,7 @@
                     app:endIconMode="password_toggle"
                     app:endIconTint="@color/lightHint"
                     app:hintTextColor="@color/Slider"
+                    app:shapeAppearance="@style/Rounded"
                     app:layout_constraintBottom_toTopOf="@+id/signIpButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -88,7 +89,6 @@
                         android:inputType="textPassword"
                         android:text="12345678"
                         android:textColor="@color/White" />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -104,6 +104,7 @@
                     app:boxStrokeColor="@color/Slider"
                     app:endIconTint="@color/lightHint"
                     app:hintTextColor="@color/Slider"
+                    app:shapeAppearance="@style/Rounded"
                     app:layout_constraintBottom_toTopOf="@+id/password"
                     app:layout_constraintEnd_toEndOf="@+id/password"
                     app:layout_constraintStart_toStartOf="@+id/password">
@@ -124,6 +125,8 @@
                     android:id="@+id/signIpButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:backgroundTint="@color/White"
                     android:text="Sign In"
                     android:textColor="@color/Black"
@@ -217,8 +220,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
+                    app:lottie_autoPlay="false"
+                    app:lottie_loop="false"
                     app:lottie_rawRes="@raw/succes" />
 
                 <com.airbnb.lottie.LottieAnimationView
@@ -230,8 +233,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
+                    app:lottie_autoPlay="false"
+                    app:lottie_loop="false"
                     app:lottie_rawRes="@raw/fail" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

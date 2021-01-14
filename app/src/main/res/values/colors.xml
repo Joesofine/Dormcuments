@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="mtrl_textinput_default_box_stroke_color">#80FFFFFF</color>
+
     <color name="BackgroundDark">#06658D</color>
     <color name="White">#FFFFFF</color>
     <color name="BackgroundLight">#C5EEFF</color>

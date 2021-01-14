@@ -10,6 +10,8 @@ import com.joeSoFine.dormcuments.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.joeSoFine.dormcuments.UITools
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.forgot_password_activity.*
 
 class ForgottenPassword : AppCompatActivity() {
@@ -22,52 +24,41 @@ class ForgottenPassword : AppCompatActivity() {
 
 
         send.setOnClickListener(View.OnClickListener {
-            //sendEmailVerification()
-
-            val emailAddress = auth.currentUser?.email
-
-            if (emailAddress != null) {
-                Firebase.auth.sendPasswordResetEmail(emailAddress)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-
-                            Toast.makeText(applicationContext, "Email Send", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(applicationContext, SignIn::class.java)
-                            startActivity(intent)
-                            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-                        }
+            val emailAddress = email2.editText?.text.toString()
+            Firebase.auth.sendPasswordResetEmail(emailAddress)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        sendEmailVerification(emailAddress)
+                        Toast.makeText(applicationContext, "Email Send", Toast.LENGTH_SHORT).show()
                     }
-            }
+                }
+
 
         })
     }
 
-    private fun sendEmailVerification() {
+    private fun sendEmailVerification(emailAddress: String) {
         // Disable button
         send.isEnabled = false
 
-        // Send verification email
-        // [START send_email_verification]
-        val user = auth.currentUser!!
-        user.sendEmailVerification()
+        auth.sendPasswordResetEmail(emailAddress)
             .addOnCompleteListener(this) { task ->
                 // [START_EXCLUDE]
                 // Re-enable button
                 send.isEnabled = true
 
                 if (task.isSuccessful) {
+                    UITools.playLotiieOnceNoPop(succes2)
                     Toast.makeText(baseContext,
-                        "Verification email sent to ${user.email} ",
+                        "Verification email sent to ${emailAddress} ",
                         Toast.LENGTH_SHORT).show()
                 } else {
-                    Log.e(TAG, "sendEmailVerification", task.exception)
+                    UITools.playLotiieOnceNoPop(fail2)
                     Toast.makeText(baseContext,
                         "Failed to send verification email.",
                         Toast.LENGTH_SHORT).show()
                 }
-                // [END_EXCLUDE]
             }
-        // [END send_email_verification]
     }
     companion object {
         private const val TAG = "EmailPassword"

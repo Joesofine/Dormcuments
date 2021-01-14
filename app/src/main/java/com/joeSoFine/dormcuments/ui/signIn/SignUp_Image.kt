@@ -11,12 +11,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -85,7 +83,7 @@ class SignUp_Image : AppCompatActivity() {
 
                                     val intent = Intent(applicationContext, SignIn::class.java)
                                     startActivity(intent)
-                                    overridePendingTransition(R.anim.fadein, R.anim.fadeout)
+                                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                                 }
                                 .addOnFailureListener {
                                     // Write failed

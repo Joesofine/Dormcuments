@@ -30,6 +30,11 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="Rounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
     <style name="MyDialogStyle"  parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:buttonBarButtonStyle">@style/MyButtonsStyle</item>
         <item name="android:colorBackground">@color/VeryDarkBlueTopBar</item>
@@ -39,12 +44,6 @@
     <style name="MyButtonsStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/White</item>
         <item name="android:colorBackground">@color/VeryDarkBlueTopBar</item>
-    </style>
-
-    <style name="MyEditText" parent="Theme.MaterialComponents">
-        <item name="android:textColor">@color/White</item>
-        <item name="hintTextColor">@color/social</item>
-        <item name="android:textSize">14sp</item>
     </style>
 
 

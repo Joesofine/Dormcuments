@@ -1,10 +1,8 @@
 package com.joeSoFine.dormcuments.ui.signIn
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -19,8 +17,7 @@ import com.joeSoFine.dormcuments.MainActivity
 import com.joeSoFine.dormcuments.MainViewModel
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.databaseService
-import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_up_with_facebook.*
 
 
 class SignUpWithFacebookFragment: AppCompatActivity() {
@@ -49,60 +46,34 @@ class SignUpWithFacebookFragment: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_with_facebook)
         auth = Firebase.auth
-        ViewModelProvider(this).get(MainViewModel::class.java)
-
-        setIconsTint(city_signup, R.drawable.city_icon_white, R.drawable.city_icon_tint)
-        setIconsTint(country_signup, R.drawable.county_icon_white, R.drawable.county_icon_tint)
-        setIconsTint(diet, R.drawable.diet_icon_white, R.drawable.diet_icon_tint)
-        setIconsTint(funfact, R.drawable.fun_icon_white, R.drawable.fun_icon_tint)
 
         val myAdapter = ArrayAdapter(applicationContext, R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
         myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
         room_spinner.adapter = myAdapter
-
+        
         save.setOnClickListener(View.OnClickListener {
             val number = room_spinner.selectedItem.toString()
-            val city = city_signup.text.toString()
-            val country = country_signup.text.toString()
-            val from = "$city, $country"
-            val diet = diet.text.toString()
-            val fact = funfact.text.toString()
+            val cityString = city.editText?.text.toString()
+            val countryString = country.editText?.text.toString()
+            val from = "$cityString, $countryString"
+            val diets = diet_fb.editText?.text.toString()
+            val fact = funfact.editText?.text.toString()
 
 
             if (number == "Roomnumber") {
                 Toast.makeText(applicationContext, "Please choose roomnumber", Toast.LENGTH_SHORT)
                     .show()
-            } else if (city.isEmpty()) {
-                city_signup.error = "Please let us know where you are from"
-            } else if (country.isEmpty()) {
-                country_signup.error = "Please let us know where you are from"
+            } else if (cityString.isEmpty()) {
+                city.error  = "Please let us know where you are from"
+            } else if (countryString.isEmpty()) {
+                country.error = "Please let us know where you are from"
             } else {
-                createFbAccount(number, from, diet, fact)
+                createFbAccount(number, from, diets, fact)
             }
         })
     }
 
-
-    private fun setIconsTint(edit: EditText, noTint: Int, tint: Int) {
-        edit.setOnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) {
-                edit.setCompoundDrawablesWithIntrinsicBounds(tint, 0, 0, 0)
-                edit.getBackground().mutate().setColorFilter(
-                    getResources().getColor(android.R.color.holo_blue_dark),
-                    PorterDuff.Mode.SRC_ATOP
-                )
-            } else {
-                edit.setCompoundDrawablesWithIntrinsicBounds(noTint, 0, 0, 0)
-                edit.getBackground().mutate().setColorFilter(
-                    getResources().getColor(android.R.color.white),
-                    PorterDuff.Mode.SRC_ATOP
-                )
-            }
-        }
-    }
-
     private fun createFbAccount(number: String, from: String, diet: String, fact: String) {
-
         val userId = auth.currentUser?.uid
         if (userId != null) {
             database.child(userId).child("number").setValue(number)
@@ -112,18 +83,8 @@ class SignUpWithFacebookFragment: AppCompatActivity() {
 
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.fadein, R.anim.fadeout)
-
-            Toast.makeText(applicationContext, "Succes", Toast.LENGTH_SHORT).show()
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             bool = true
         }
     }
-
-    companion object {
-        private const val TAG = "EmailPassword"
-        private const val RC_MULTI_FACTOR = 9005
-    }
-
-
-
 }
