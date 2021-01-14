@@ -3,11 +3,11 @@
     <string name="example"><u>Pick Date</u></string>
     <string name="title_calender">Calendar</string>
     <string name="title_shopping">Shopping</string>
-    <string name="title_doc">Kitchen documents</string>
+    <string name="title_doc">Documents</string>
     <string name="title_foodclub">Foodclub</string>
     <string name="title_more">More</string>
     <string name="title_meeting">Meetings</string>
-    <string name="title_cleaning">Kitchen Cleaning</string>
+    <string name="title_cleaning">Cleanings</string>
     <string name="title_rules">Rules</string>
     <string name="title_profile">My Profile</string>
     <string name="title_inventory">Inventory Shopping</string>

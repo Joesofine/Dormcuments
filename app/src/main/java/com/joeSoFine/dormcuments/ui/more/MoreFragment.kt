@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.joeSoFine.dormapp.ui.rules.RulesFragment
 import com.joeSoFine.dormcuments.R
@@ -28,12 +29,12 @@ class MoreFragment : Fragment(),View.OnClickListener  {
         val root = inflater.inflate(R.layout.fragment_more, container, false)
         SmartTools.setUpOnBackPressed(requireActivity())
 
-        val rules_button = root.findViewById(R.id.rules_button) as Button;
-        val residents_button = root.findViewById(R.id.residents_button) as Button;
-        val cleaning_button = root.findViewById(R.id.cleaning_button) as Button;
-        val meeting_button = root.findViewById(R.id.meeting_button) as Button;
-        val profile_button = root.findViewById(R.id.profile_button) as Button;
-        val inventory_button = root.findViewById(R.id.inventory_button) as Button;
+        val rules_button = root.findViewById<ConstraintLayout>(R.id.rules_button)
+        val residents_button = root.findViewById<ConstraintLayout>(R.id.residents_button)
+        val cleaning_button = root.findViewById<ConstraintLayout>(R.id.cleaning_button)
+        val meeting_button = root.findViewById<ConstraintLayout>(R.id.meeting_button)
+        val profile_button = root.findViewById<ConstraintLayout>(R.id.profile_button)
+        val inventory_button = root.findViewById<ConstraintLayout>(R.id.inventory_button)
 
         rules_button.setOnClickListener(this)
         residents_button.setOnClickListener(this)

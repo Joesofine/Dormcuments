@@ -3,115 +3,202 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="10dp"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
-    <Button
-        android:id="@+id/inventory_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/more_button"
-        android:drawableBottom="@drawable/icon_document"
-        android:drawablePadding="0dp"
-        android:elevation="10dp"
-        android:paddingHorizontal="5dp"
-        android:paddingBottom="5dp"
-
-        android:text="@string/title_doc"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/residents_button"
-        app:layout_constraintTop_toBottomOf="@+id/residents_button" />
-
-    <Button
-        android:id="@+id/profile_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:background="@drawable/more_button"
-        android:drawableBottom="@drawable/profile_cloud"
-        android:drawablePadding="0dp"
-        android:elevation="10dp"
-        android:paddingHorizontal="5dp"
-        android:paddingBottom="5dp"
-        android:text="@string/title_profile"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/rules_button"
-        app:layout_constraintTop_toTopOf="@+id/inventory_button" />
-
-    <Button
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/residents_button"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="@drawable/more_button"
-        android:drawableBottom="@drawable/residents_icon"
-        android:drawablePadding="0dp"
-        android:elevation="10dp"
-        android:paddingBottom="5dp"
-        android:text="Residents"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rules_button"
         app:layout_constraintStart_toStartOf="@+id/meeting_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/meeting_button">
 
-    <Button
+        <TextView
+            android:id="@+id/textView757"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Residents"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imageView532"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView532"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/residents_icon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/meeting_button"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginBottom="30dp"
         android:background="@drawable/more_button"
-        android:drawableBottom="@drawable/day_view"
-        android:drawablePadding="0dp"
-        android:elevation="10dp"
-        android:paddingBottom="5dp"
-        android:text="@string/title_meeting"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/residents_button"
         app:layout_constraintEnd_toStartOf="@+id/cleaning_button"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/cleaning_button"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:background="@drawable/more_button"
-        android:drawableBottom="@drawable/cleaning_icon"
-        android:drawablePadding="0dp"
-        android:elevation="10dp"
-        android:paddingHorizontal="5dp"
-        android:paddingBottom="5dp"
-        android:text="@string/title_cleaning"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/meeting_button"
-        app:layout_constraintTop_toTopOf="@+id/meeting_button" />
+        <TextView
+            android:id="@+id/textView77"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_meeting"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/day_view" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rules_button"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="@drawable/more_button"
-        android:drawableBottom="@drawable/cloud_icon_rules"
-        android:drawablePadding="0dp"
-        android:elevation="10dp"
-        android:paddingBottom="5dp"
-        android:text="@string/title_rules"
-        android:textAllCaps="false"
-        android:textColor="@color/White"
-        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/residents_button"
+        app:layout_constraintTop_toBottomOf="@+id/residents_button">
+
+        <TextView
+            android:id="@+id/textView75717"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_doc"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imageView53271"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView53271"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/icon_document" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inventory_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/more_button"
         app:layout_constraintEnd_toEndOf="@+id/cleaning_button"
-        app:layout_constraintTop_toTopOf="@+id/residents_button" />
+        app:layout_constraintTop_toTopOf="@+id/residents_button">
+
+        <TextView
+            android:id="@+id/textView7571311"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_rules"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imageView532113"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView532113"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/cloud_icon_rules" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cleaning_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/more_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/meeting_button"
+        app:layout_constraintTop_toTopOf="@+id/meeting_button">
+
+        <TextView
+            android:id="@+id/textView771"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_cleaning"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imageView212"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView212"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/cleaning_icon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/more_button"
+        app:layout_constraintEnd_toEndOf="@+id/inventory_button"
+        app:layout_constraintTop_toTopOf="@+id/rules_button">
+
+        <TextView
+            android:id="@+id/textView7571"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_profile"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imageView5321"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView5321"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/profile_cloud" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

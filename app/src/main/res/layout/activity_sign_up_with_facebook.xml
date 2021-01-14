@@ -144,6 +144,7 @@
 
 
             <Spinner
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:id="@+id/room_spinner"
                 android:layout_width="320dp"
                 android:layout_height="45dp"
