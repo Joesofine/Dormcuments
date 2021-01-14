@@ -17,10 +17,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.*
 import com.joeSoFine.dormcuments.ui.residents.profileFragment
 import com.nambimobile.widgets.efab.ExpandableFabLayout
@@ -50,6 +52,8 @@ class FoodclubFragment : Fragment(), View.OnClickListener {
         val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
         expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
 
+        var userid = Firebase.auth.currentUser!!.uid
+        databaseService.getUserName(userid, view.findViewById(R.id.toolbar))
         UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleFoodclub, R.string.helpDialogMsgFoodclub)
     }
 

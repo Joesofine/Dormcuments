@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.ExampleStateAdapter
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UITools
@@ -33,7 +35,8 @@ class ShopViewpagerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        var userid = Firebase.auth.currentUser!!.uid
+        databaseService.getUserName(userid, view.findViewById(R.id.toolbar))
         UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)
     }
 

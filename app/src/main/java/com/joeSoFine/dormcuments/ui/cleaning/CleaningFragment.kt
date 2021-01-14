@@ -51,7 +51,6 @@ class CleaningFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.option1 -> { requireFragmentManager().beginTransaction().add(R.id.nav_host_fragment, CreateCleaningFragment()).addToBackStack(null).commit() }
-            R.id.option2 -> { UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleCleaning, R.string.helpDialogMsgCleaning)}
         }
     }
 

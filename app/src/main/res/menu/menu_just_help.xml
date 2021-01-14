@@ -4,7 +4,7 @@
     <item
         android:id="@+id/info"
         android:title="Help"
-        android:icon="@drawable/ic_baseline_help_30"
+        android:icon="@drawable/ic_baseline_help_24"
         app:showAsAction="ifRoom"
         >
     </item>
