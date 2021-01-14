@@ -31,11 +31,12 @@ class ResidentFragment : Fragment() {
         var residentLayout = root.findViewById<LinearLayout>(R.id.residentLayout)
 
         databaseService.setFoodChildListener(lottie, residentLayout, layoutInflater, requireFragmentManager(), requireContext(), ref)
-
-        root.findViewById<ImageView>(R.id.helpButton).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleResident, R.string.helpDialogMsgResident)
-        }
-
+        //UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleResident, R.string.helpDialogMsgResident)
         return root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleResident, R.string.helpDialogMsgResident)
+    }
+
 }

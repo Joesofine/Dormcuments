@@ -4,10 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.media.ThumbnailUtils
 import android.net.Uri
@@ -17,12 +15,13 @@ import android.provider.MediaStore
 import android.text.method.PasswordTransformationMethod
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
@@ -42,15 +41,11 @@ import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.ui.signIn.SignIn
 import com.joeSoFine.dormcuments.ui.signIn.User
-import com.nambimobile.widgets.efab.ExpandableFab
-import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.city_signup
 import kotlinx.android.synthetic.main.activity_sign_up2.*
 import kotlinx.android.synthetic.main.fragment_edit_food.*
 import kotlinx.android.synthetic.main.fragment_profile.*
-import java.io.ByteArrayOutputStream
-import java.lang.reflect.Array.set
 import java.util.*
 
 
@@ -88,14 +83,6 @@ class profileFragment : Fragment() {
         val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
 
         val userid = auth.currentUser?.uid
-
-        if (auth.currentUser != null) {
-            for (userInfo in auth.currentUser!!.getProviderData()) {
-                if (userInfo.getProviderId().equals("facebook.com")) {
-                    root.findViewById<Button>(R.id.resetPassword).visibility = View.GONE
-                }
-            }
-        }
 
         editImage.setOnClickListener() {
 
@@ -208,175 +195,54 @@ class profileFragment : Fragment() {
             close.visibility = View.GONE
         }
 
-        root.findViewById<Button>(R.id.resetPassword).setOnClickListener(){
-            val user = auth.currentUser
-            var newPassword = ""
-            var oldPassword = ""
-            val alert = AlertDialog.Builder(context)
-            getTagetSize()
-
-            val layout = LinearLayout(context)
-            layout.orientation = LinearLayout.VERTICAL
-
-            val title = TextView(context)
-            title.text = "Reset Password"
-            title.textSize = 18F
-            val width = (targetWidth - title.width - 550) / 2
-            title.setPadding(width, 0, 0, 0)
-            title.setTextColor(R.color.Black)
-            layout.addView(title)
-
-            val edittextOld = EditText(context)
-            edittextOld.hint = "Old Password"
-            edittextOld.setTransformationMethod(PasswordTransformationMethod.getInstance())
-            layout.addView(edittextOld)
-
-            val edittextNew = EditText(context)
-            edittextNew.hint = "New Password"
-            edittextNew.setTransformationMethod(PasswordTransformationMethod.getInstance())
-            layout.addView(edittextNew)
-
-            alert.setView(layout)
-
-            alert.setPositiveButton("Save Password") { dialog, whichButton ->
-                newPassword = edittextNew.text.toString()
-                oldPassword = edittextOld.text.toString()
-
-                val credential = EmailAuthProvider
-                    .getCredential(user?.email.toString(), oldPassword)
-
-                user?.reauthenticate(credential)
-                    ?.addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-
-                            if (newPassword != "") {
-                                user.updatePassword(newPassword)
-                                    .addOnCompleteListener { task ->
-                                        if (task.isSuccessful) { Toast.makeText(context, "Password is changed", Toast.LENGTH_SHORT).show()
-                                        } else {
-                                            Toast.makeText(context, "Password couldn't be changed", Toast.LENGTH_SHORT).show()
-                                        }
-                                    }
-                             }else {
-                                Toast.makeText(context, "New password is null", Toast.LENGTH_SHORT).show()
-                            }
-                        } else
-                            Toast.makeText(context, "Old password is wrong", Toast.LENGTH_SHORT).show()
-                    }
-            }
-
-            alert.setNeutralButton("Cancel") { dialog, whichButton -> }
-            alert.show()
-        }
-
-        root.findViewById<Button>(R.id.signout).setOnClickListener(){
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle(R.string.dialogTitleSignOut)
-            builder.setMessage(R.string.dialogMessageSignOut)
-            builder.setIcon(R.drawable.ic_baseline_warning_24)
-
-            builder.setPositiveButton("Continue"){ dialogInterface, which ->
-                signOut()
-                Toast.makeText(context, "You are now signed out", Toast.LENGTH_SHORT).show()
-                val intent = Intent(context, SignIn::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(intent)
-                }
-            builder.setNeutralButton("Cancel"){ dialogInterface, which ->
-            }
-
-            val alertDialog: AlertDialog = builder.create()
-            alertDialog.setCancelable(false)
-            alertDialog.show()
-        }
-
-        root.findViewById<Button>(R.id.delete).setOnClickListener(){
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle(R.string.dialogTitleDelete)
-            builder.setMessage(R.string.dialogMessageDelete)
-            builder.setIcon(R.drawable.ic_baseline_warning_24)
-
-            builder.setPositiveButton("Continue"){ dialogInterface, which ->
-
-                auth.currentUser?.delete()?.addOnSuccessListener {
-                    if (userid != null) {
-                        databaseService.delteChildFromDatabase(userid, ref)
-                        Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(context, SignIn::class.java)
-                        startActivity(intent)
-                    }
-                }?.addOnFailureListener{
-                    Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-                }
-            }
-            builder.setNeutralButton("Cancel"){ dialogInterface, which ->
-            }
-
-            val alertDialog: AlertDialog = builder.create()
-            alertDialog.setCancelable(false)
-            alertDialog.show()
-        }
 
         root.findViewById<Button>(R.id.save).setOnClickListener(){
-            var storageRef = Firebase.storage.reference
-            val fname = name_signup.text.toString()
-            val number = room_spinner.selectedItem.toString()
-            val bdate = date.text.toString()
-            val city = city_edit.text.toString()
-            val country = country_edit.text.toString()
-            val from = "$city, $country"
-            val diet = diet.text.toString()
-            val fact = funfact.text.toString()
-
-            if (fname.isEmpty()) {
-                name_signup.error = "Please write a name"
-            } else if (number == "Roomnumber") {
-                Toast.makeText(requireContext(), "Please choose roomnumber", Toast.LENGTH_SHORT).show()
-            } else if (bdate.isEmpty()) {
-                date.error = "Please choose birthday"
-            } else if (city.isEmpty()) {
-                city_signup.error = "Please let us know where you are from"
-            } else if (country.isEmpty()) {
-                country_signup.error = "Please let us know where you are from"
-            } else {
-                val user = User(fname, number, bdate, from, diet, fact, url)
-                if (userid != null) {
-                    if (imageUri != "".toUri()) {
-                        var file = imageUri
-                        val imagesRef = storageRef.child("images/${file.lastPathSegment}")
-
-                        var uploadTask = imagesRef.putFile(file)
-                        uploadTask.addOnFailureListener {
-                            Toast.makeText(context, "FAILED", Toast.LENGTH_SHORT).show()
-                        }.addOnSuccessListener { taskSnapshot ->
-                            imagesRef.downloadUrl.addOnSuccessListener { uri ->
-                                user.url = uri.toString()
-
-                                    database.child(userid).setValue(user)
-                                     .addOnSuccessListener {
-                                           Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
-                                           getFragmentManager()?.popBackStack()
-                                        }
-                                        .addOnFailureListener {
-                                           // Write failed
-                                             Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
-                                         }
-                            }
-                        }
-                    } else {
-                        database.child(userid).setValue(user).addOnSuccessListener {
-                            Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
-                            getFragmentManager()?.popBackStack()
-                        }
-                        .addOnFailureListener {
-                            // Write failed
-                            Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
+            if (userid != null) {
+                saveChanges(userid, root)
             }
         }
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var userid = auth.currentUser!!.uid
+
+        var toolbar = view.findViewById(R.id.toolbar) as Toolbar
+        toolbar.inflateMenu(R.menu.actionbar_profile_)
+
+        if (auth.currentUser != null) {
+            for (userInfo in auth.currentUser!!.getProviderData()) {
+                if (userInfo.getProviderId().equals("facebook.com")) {
+                    val item: MenuItem = toolbar.menu.findItem(R.id.reset)
+                    item.isVisible = false
+                }
+            }
+        }
+
+        databaseService.getUserName(userid, toolbar)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.info -> {
+                    UITools.onHelpedClicked(requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)
+                    true
+                }
+                R.id.reset -> {
+                    resetPassword()
+                    true
+                }
+                R.id.delete -> {
+                    deleteAccount(userid)
+                    true
+                }
+                R.id.out -> {
+                    signOutAlert()
+                    true
+                }
+                else -> {
+                    super.onOptionsItemSelected(it)
+                }
+            }
+        }
     }
 
     private fun signOut() {
@@ -467,6 +333,178 @@ class profileFragment : Fragment() {
         } else {
             requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_REQUEST_CODE)
         }
+    }
+
+
+
+    @SuppressLint("ResourceAsColor")
+    fun resetPassword(){
+        val user = auth.currentUser
+        var newPassword = ""
+        var oldPassword = ""
+        val alert = AlertDialog.Builder(context)
+        getTagetSize()
+
+        val layout = LinearLayout(context)
+        layout.orientation = LinearLayout.VERTICAL
+
+        val title = TextView(context)
+        title.text = "Reset Password"
+        title.textSize = 18F
+        val width = (targetWidth - title.width - 550) / 2
+        title.setPadding(width, 0, 0, 0)
+        title.setTextColor(R.color.Black)
+        layout.addView(title)
+
+        val edittextOld = EditText(context)
+        edittextOld.hint = "Old Password"
+        edittextOld.setTransformationMethod(PasswordTransformationMethod.getInstance())
+        layout.addView(edittextOld)
+
+        val edittextNew = EditText(context)
+        edittextNew.hint = "New Password"
+        edittextNew.setTransformationMethod(PasswordTransformationMethod.getInstance())
+        layout.addView(edittextNew)
+
+        alert.setView(layout)
+
+        alert.setPositiveButton("Save Password") { dialog, whichButton ->
+            newPassword = edittextNew.text.toString()
+            oldPassword = edittextOld.text.toString()
+
+            val credential = EmailAuthProvider
+                .getCredential(user?.email.toString(), oldPassword)
+
+            user?.reauthenticate(credential)
+                ?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+
+                        if (newPassword != "") {
+                            user.updatePassword(newPassword)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) { Toast.makeText(context, "Password is changed", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, "Password couldn't be changed", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                        }else {
+                            Toast.makeText(context, "New password is null", Toast.LENGTH_SHORT).show()
+                        }
+                    } else
+                        Toast.makeText(context, "Old password is wrong", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+        alert.setNeutralButton("Cancel") { dialog, whichButton -> }
+        alert.show()
+
+    }
+
+    fun signOutAlert(){
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(R.string.dialogTitleSignOut)
+        builder.setMessage(R.string.dialogMessageSignOut)
+        builder.setIcon(R.drawable.ic_baseline_warning_24)
+
+        builder.setPositiveButton("Continue"){ dialogInterface, which ->
+            signOut()
+            Toast.makeText(context, "You are now signed out", Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, SignIn::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+        }
+        builder.setNeutralButton("Cancel"){ dialogInterface, which ->
+        }
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    fun deleteAccount(userid: String) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(R.string.dialogTitleDelete)
+        builder.setMessage(R.string.dialogMessageDelete)
+        builder.setIcon(R.drawable.ic_baseline_warning_24)
+
+        builder.setPositiveButton("Continue"){ dialogInterface, which ->
+
+            auth.currentUser?.delete()?.addOnSuccessListener {
+                databaseService.delteChildFromDatabase(userid, ref)
+                Toast.makeText(context, "Account deleted", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, SignIn::class.java)
+                startActivity(intent)
+            }?.addOnFailureListener{
+                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+            }
+        }
+        builder.setNeutralButton("Cancel"){ dialogInterface, which ->
+        }
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+    fun saveChanges(userid: String, root: View){
+        var storageRef = Firebase.storage.reference
+        val fname = root.findViewById<EditText>(R.id.name_signup).text.toString()
+        val number = root.findViewById<Spinner>(R.id.room_spinner).selectedItem.toString()
+        val bdate = root.findViewById<EditText>(R.id.date).text.toString()
+        val city = city_edit.text.toString()
+        val country = country_edit.text.toString()
+        val from = "$city, $country"
+        val diet = root.findViewById<EditText>(R.id.diet).text.toString()
+        val fact = root.findViewById<EditText>(R.id.funfact).text.toString()
+
+        if (fname.isEmpty()) {
+            root.findViewById<EditText>(R.id.name_signup).error = "Please write a name"
+        } else if (number == "Roomnumber") {
+            Toast.makeText(requireContext(), "Please choose roomnumber", Toast.LENGTH_SHORT).show()
+        } else if (bdate.isEmpty()) {
+            root.findViewById<EditText>(R.id.date).error = "Please choose birthday"
+        } else if (city.isEmpty()) {
+            city_signup.error = "Please let us know where you are from"
+        } else if (country.isEmpty()) {
+            country_signup.error = "Please let us know where you are from"
+        } else {
+            val user = User(fname, number, bdate, from, diet, fact, url)
+            if (userid != null) {
+                if (imageUri != "".toUri()) {
+                    var file = imageUri
+                    val imagesRef = storageRef.child("images/${file.lastPathSegment}")
+
+                    var uploadTask = imagesRef.putFile(file)
+                    uploadTask.addOnFailureListener {
+                        Toast.makeText(context, "FAILED", Toast.LENGTH_SHORT).show()
+                    }.addOnSuccessListener { taskSnapshot ->
+                        imagesRef.downloadUrl.addOnSuccessListener { uri ->
+                            user.url = uri.toString()
+
+                            database.child(userid).setValue(user)
+                                .addOnSuccessListener {
+                                    Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
+                                    getFragmentManager()?.popBackStack()
+                                }
+                                .addOnFailureListener {
+                                    // Write failed
+                                    Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
+                                }
+                        }
+                    }
+                } else {
+                    database.child(userid).setValue(user).addOnSuccessListener {
+                        Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
+                        getFragmentManager()?.popBackStack()
+                    }
+                        .addOnFailureListener {
+                            // Write failed
+                            Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+        }
+
     }
 
 

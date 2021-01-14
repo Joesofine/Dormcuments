@@ -55,14 +55,11 @@ class  RulesFragment : Fragment() {
                 }
             }
         }
-
-        root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleRules, R.string.helpDialogMsgRules)
-        }
-
-
-
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleRules, R.string.helpDialogMsgRules)
     }
 
 

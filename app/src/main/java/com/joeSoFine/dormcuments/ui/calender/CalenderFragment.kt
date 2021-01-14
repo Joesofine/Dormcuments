@@ -9,30 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
-import com.joeSoFine.dormcuments.ui.cleaning.CleaningDetailsFragment
 import com.nambimobile.widgets.efab.ExpandableFabLayout
-import kotlinx.android.synthetic.main.fragment_rules.*
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.TemporalField
-import java.time.temporal.WeekFields
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class CalenderFragment : Fragment(),View.OnClickListener {
     var database = FirebaseDatabase.getInstance().getReference("Events")
@@ -56,7 +48,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private var current_year: Int = 0
     val refE = "Events"
     val refU = "Users"
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
@@ -95,15 +86,37 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         makeMonthArr(current_month)
         makeYearArr(current_year)
 
-        buttonPressed(week, weeks, "weeks",targetWidth - 120, current_week - 1)
+        buttonPressed(week, weeks, "weeks", targetWidth - 120, current_week - 1)
 
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var userid = auth.currentUser!!.uid
         val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
         expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
+
+        var toolbar = view.findViewById(R.id.toolbar) as Toolbar
+        toolbar.inflateMenu(R.menu.actionbar_calendar)
+        databaseService.getUserName(userid, toolbar)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.info -> {
+                    UITools.onHelpedClicked(requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)
+                    true
+                }
+                R.id.filter -> {
+                    // do something
+                    true
+                }
+                else -> {
+                    super.onOptionsItemSelected(it)
+                }
+            }
+        }
     }
+
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
@@ -129,19 +142,17 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 bundle.putString("type", "Cleaning")
                 fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
             }
-            R.id.option5 -> { UITools.onHelpedClicked(requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)}
-            R.id.option5 -> {}
         }
 
         if (p0 === week || p0 === month || p0 === year) {
             if (p0 === week) {
-                buttonPressed(week, weeks, "weeks",targetWidth - 120, current_week - 1)
+                buttonPressed(week, weeks, "weeks", targetWidth - 120, current_week - 1)
 
             } else if (p0 === month) {
                 buttonPressed(month, months, "months", targetWidth - 40, current_month)
 
             } else if (p0 === year) {
-                buttonPressed(year, years, "years",targetWidth * 3 / years.size, current_year - (current_year - 1) )
+                buttonPressed(year, years, "years", targetWidth * 3 / years.size, current_year - (current_year - 1))
             }
         }
     }
@@ -218,13 +229,52 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
                 if (arr.equals(weeks)) {
                     var weekNumber = element.replace("U", "").toInt()
-                    databaseService.getSortedEvents(0, weekNumber, "weeks", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
+                    databaseService.getSortedEvents(
+                        0,
+                        weekNumber,
+                        "weeks",
+                        lottie,
+                        current_year,
+                        myContainer,
+                        layoutInflater,
+                        requireFragmentManager(),
+                        requireContext(),
+                        refE,
+                        refU,
+                        whoops
+                    )
 
                 } else if (arr.equals(months)) {
-                    databaseService.getSortedEvents(1, months.indexOf(element) + 1, "months", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
+                    databaseService.getSortedEvents(
+                        1,
+                        months.indexOf(element) + 1,
+                        "months",
+                        lottie,
+                        current_year,
+                        myContainer,
+                        layoutInflater,
+                        requireFragmentManager(),
+                        requireContext(),
+                        refE,
+                        refU,
+                        whoops
+                    )
 
                 } else if (arr.equals(years)) {
-                    databaseService.getSortedEvents(0, element.toInt(), "years", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
+                    databaseService.getSortedEvents(
+                        0,
+                        element.toInt(),
+                        "years",
+                        lottie,
+                        current_year,
+                        myContainer,
+                        layoutInflater,
+                        requireFragmentManager(),
+                        requireContext(),
+                        refE,
+                        refU,
+                        whoops
+                    )
                 }
             }
         }
@@ -269,7 +319,20 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                         v1.isFocusable = true
                         v1.isFocusableInTouchMode = true
                         v1.requestFocus()
-                        databaseService.getSortedEvents(0, current + 1, "weeks", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
+                        databaseService.getSortedEvents(
+                            0,
+                            current + 1,
+                            "weeks",
+                            lottie,
+                            current_year,
+                            myContainer,
+                            layoutInflater,
+                            requireFragmentManager(),
+                            requireContext(),
+                            refE,
+                            refU,
+                            whoops
+                        )
                     }
 
                 }
@@ -290,13 +353,52 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 v.requestFocus()
 
                 if (arrString == "weeks") {
-                    databaseService.getSortedEvents(0, current + 1, "weeks", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
+                    databaseService.getSortedEvents(
+                        0,
+                        current + 1,
+                        "weeks",
+                        lottie,
+                        current_year,
+                        myContainer,
+                        layoutInflater,
+                        requireFragmentManager(),
+                        requireContext(),
+                        refE,
+                        refU,
+                        whoops
+                    )
 
                 } else if (arrString == "months") {
-                    databaseService.getSortedEvents(1, current + 1, "months", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU,  whoops)
+                    databaseService.getSortedEvents(
+                        1,
+                        current + 1,
+                        "months",
+                        lottie,
+                        current_year,
+                        myContainer,
+                        layoutInflater,
+                        requireFragmentManager(),
+                        requireContext(),
+                        refE,
+                        refU,
+                        whoops
+                    )
 
                 } else if (arrString == "years") {
-                    databaseService.getSortedEvents(0, current + current_year - 1, "years", lottie, current_year, myContainer, layoutInflater, requireFragmentManager(), requireContext(), refE, refU, whoops)
+                    databaseService.getSortedEvents(
+                        0,
+                        current + current_year - 1,
+                        "years",
+                        lottie,
+                        current_year,
+                        myContainer,
+                        layoutInflater,
+                        requireFragmentManager(),
+                        requireContext(),
+                        refE,
+                        refU,
+                        whoops
+                    )
                 }
 
             }

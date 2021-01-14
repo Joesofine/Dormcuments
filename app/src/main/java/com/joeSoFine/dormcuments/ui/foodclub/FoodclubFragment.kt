@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -48,12 +49,13 @@ class FoodclubFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
         expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
+
+        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleFoodclub, R.string.helpDialogMsgFoodclub)
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.option1 -> { requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CreateFoodclubFragment()).addToBackStack(null).commit()}
-            R.id.option2 -> { UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleFoodclub, R.string.helpDialogMsgFoodclub)}
             // so on and so forth...
         }
     }

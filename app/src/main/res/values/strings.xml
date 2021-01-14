@@ -84,7 +84,7 @@
     <string name="helpDialogTitleResident">Welcome to residents</string>
     <string name="helpDialogTitleMeetings">Welcome to meeting agendas</string>
     <string name="helpDialogTitleInventory">Welcome to inventory shopping</string>
-    <string name="helpDialogTitleGrocery">Welcome to grocery shopping</string>
+    <string name="helpDialogTitleGrocery">Welcome to shopping</string>
     <string name="helpDialogTitleSum">Welcome to kitchen documents</string>
 
     <string name="helpDialogMsgCleaning">On this page you can get an overview of all the planned cleanings as well as create new ones or edit the existings ones.
@@ -98,8 +98,8 @@
  This page is not done, and will be exteended with summary of the meetings as well as overview of pcomming meetings and participants.</string>
     <string name="helpDialogMsgInventory">On this page you can get an overview of all the grocery what needs to be bought. Here you can add items to the list just click the + button.
  Click the X to remove an item.</string>
-    <string name="helpDialogMsgGrocery">On this page you can get an overview of all the grocery what needs to be bought.
-Here you can add items to the list just click the + button.
+    <string name="helpDialogMsgGrocery">On this page you can get an overview of all the shopping that needs to be done, both grocceries and inventory. Change between the two by swiping the page.
+Here you can add items to the list just click the button in the center of the bottom.
 Click the X to remove an item.</string>
     <string name="helpDialogMsgSum">On this page you can get an overview of all the kitchen documents. Most importantly, you will have easy acces to the meeting agendas. just click on a file in the list.</string>
 

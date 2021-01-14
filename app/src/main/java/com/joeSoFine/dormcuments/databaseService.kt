@@ -8,28 +8,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.Fragment
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
-import com.joeSoFine.dormcuments.ui.foodclub.Foodclub
 import com.joeSoFine.dormcuments.ui.meeting.MeetingFragment
 import com.joeSoFine.dormcuments.ui.meeting.Topic
 import com.joeSoFine.dormcuments.ui.shopping.Item
 import com.joeSoFine.dormcuments.ui.signIn.SignUpWithFacebookFragment
-import kotlinx.android.synthetic.main.fragment_add_topic.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalField
 import java.time.temporal.WeekFields
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 object databaseService {
     var database = FirebaseDatabase.getInstance()
@@ -43,7 +39,14 @@ object databaseService {
         return id
     }
 
-    fun saveCleaningToDatabase(ref: String, id: String, clean: Cleaning, succes: LottieAnimationView, fail: LottieAnimationView, fragmentManager: FragmentManager) {
+    fun saveCleaningToDatabase(
+        ref: String,
+        id: String,
+        clean: Cleaning,
+        succes: LottieAnimationView,
+        fail: LottieAnimationView,
+        fragmentManager: FragmentManager
+    ) {
         database.getReference(ref).child(id).setValue(clean)
             .addOnSuccessListener {
                 UITools.playLotiieOnce(succes, fragmentManager, "pop")
@@ -108,11 +111,17 @@ object databaseService {
         dName.removeValue()
     }
 
-    fun setShopChildListener(progressBar: LottieAnimationView, myContainer: LinearLayout, layoutInflater: LayoutInflater, context: Context, ref: String){
+    fun setShopChildListener(
+        progressBar: LottieAnimationView,
+        myContainer: LinearLayout,
+        layoutInflater: LayoutInflater,
+        context: Context,
+        ref: String
+    ){
         var childListener = object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 progressBar.visibility = View.VISIBLE
-                UITools.createShopItem(snapshot.child("name").value.toString(),snapshot.key.toString(),myContainer,layoutInflater, context, ref)
+                UITools.createShopItem(snapshot.child("name").value.toString(), snapshot.key.toString(), myContainer, layoutInflater, context, ref)
                 progressBar.visibility = View.GONE
             }
 
@@ -151,7 +160,20 @@ object databaseService {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getSortedEvents(DateIndex: Int, relevantDatePart: Int, arrString: String, progressBar: LottieAnimationView, current_year: Int, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, refE: String, refU: String, whoops: TextView) {
+    fun getSortedEvents(
+        DateIndex: Int,
+        relevantDatePart: Int,
+        arrString: String,
+        progressBar: LottieAnimationView,
+        current_year: Int,
+        myContainer: LinearLayout,
+        layoutInflater: LayoutInflater,
+        fragmentManager: FragmentManager,
+        context: Context,
+        refE: String,
+        refU: String,
+        whoops: TextView
+    ) {
         var childListener = object : ChildEventListener {
             override fun onChildAdded(i: DataSnapshot, previousChildName: String?) {
                     var dateUn: String = i.child("unformattedDate").value as String
@@ -241,9 +263,33 @@ object databaseService {
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.reap).text = doesRepeat
                         }
 
-                        UITools.setVisiblityEvent(snapshot.child("location").value.toString(), "",  myContainer.getChildAt(i).findViewById<TextView>(R.id.loctext),  myContainer.getChildAt(i).findViewById<View>(R.id.divloc), myContainer.getChildAt(i).findViewById<ImageView>(R.id.locIcon))
-                        UITools.setVisiblityEvent(snapshot.child("notification").value.toString(), "No notification",  myContainer.getChildAt(i).findViewById<TextView>(R.id.notTekst),  myContainer.getChildAt(i).findViewById<View>(R.id.divnot),  myContainer.getChildAt(i).findViewById<ImageView>(R.id.notIcon))
-                        UITools.setVisiblityEvent(snapshot.child("des").value.toString(), "",  myContainer.getChildAt(i).findViewById<TextView>(R.id.des),  myContainer.getChildAt(i).findViewById<View>(R.id.divdes),  myContainer.getChildAt(i).findViewById<ImageView>(R.id.desCon))
+                        UITools.setVisiblityEvent(
+                            snapshot.child("location").value.toString(),
+                            "",
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.loctext),
+                            myContainer.getChildAt(
+                                i
+                            ).findViewById<View>(R.id.divloc),
+                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.locIcon)
+                        )
+                        UITools.setVisiblityEvent(
+                            snapshot.child("notification").value.toString(),
+                            "No notification",
+                            myContainer.getChildAt(i).findViewById<TextView>(
+                                R.id.notTekst
+                            ),
+                            myContainer.getChildAt(i).findViewById<View>(R.id.divnot),
+                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.notIcon)
+                        )
+                        UITools.setVisiblityEvent(
+                            snapshot.child("des").value.toString(),
+                            "",
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.des),
+                            myContainer.getChildAt(
+                                i
+                            ).findViewById<View>(R.id.divdes),
+                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.desCon)
+                        )
 
                         if (snapshot.child("des").value.toString().equals("") && snapshot.child("location").value.toString().equals("")){
                             myContainer.getChildAt(i).findViewById<View>(R.id.divdes4).visibility = View.GONE
@@ -274,7 +320,14 @@ object databaseService {
         database.getReference(refE).addChildEventListener(childListener)
     }
 
-        fun setFoodChildListener(progressBar: LottieAnimationView, myContainer: LinearLayout, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, ref: String) {
+        fun setFoodChildListener(
+            progressBar: LottieAnimationView,
+            myContainer: LinearLayout,
+            layoutInflater: LayoutInflater,
+            fragmentManager: FragmentManager,
+            context: Context,
+            ref: String
+        ) {
         var childListener = object : ChildEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -316,10 +369,12 @@ object databaseService {
                         snapshot.child("url").value.toString(),
                         myContainer,
                         layoutInflater,
-                        context)
+                        context
+                    )
                 }
                 else if (ref.equals("Agenda")){
-                    UITools.createTopic(snapshot.child("name").value.toString(),
+                    UITools.createTopic(
+                        snapshot.child("name").value.toString(),
                         snapshot.child("summary").value.toString(),
                         snapshot.key.toString(),
                         myContainer,
@@ -349,9 +404,17 @@ object databaseService {
 
                             var bdate = snapshot.child("bdate").value.toString()
                             val birthday = bdate.split("/")
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.age).text = UITools.getAge(birthday[2].toInt() ,birthday[1].toInt() ,birthday[0].toInt())
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.age).text = UITools.getAge(
+                                birthday[2].toInt(),
+                                birthday[1].toInt(),
+                                birthday[0].toInt()
+                            )
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.birthday).text = bdate
-                            context?.let { Glide.with(it).load(snapshot.child("url").value.toString()).into(myContainer.getChildAt(i).findViewById<ImageView>(R.id.userImage)) }
+                            context?.let { Glide.with(it).load(snapshot.child("url").value.toString()).into(
+                                myContainer.getChildAt(i).findViewById<ImageView>(
+                                    R.id.userImage
+                                )
+                            ) }
 
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.resRn).text = snapshot.child("number").value.toString()
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.from).text = snapshot.child("from").value.toString()
@@ -401,7 +464,15 @@ object databaseService {
             database.getReference(ref).addChildEventListener(childListener)
     }
 
-    fun setSwitchAndEditForCurrentUser(switch: Switch, parti: TextView, editIV: ImageView, createdTV: TextView, eventid: String, ref: String, context: Context){
+    fun setSwitchAndEditForCurrentUser(
+        switch: Switch,
+        parti: TextView,
+        editIV: ImageView,
+        createdTV: TextView,
+        eventid: String,
+        ref: String,
+        context: Context
+    ){
          val getdata = object : ValueEventListener {
             val userid = auth.currentUser?.uid.toString()
 
@@ -515,6 +586,22 @@ object databaseService {
         }
 
         database.getReference("Users").addValueEventListener(getdata)
+    }
+
+    fun getUserName(id: String, toolbar: Toolbar){
+        var getdata = object : ValueEventListener {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onDataChange(p0: DataSnapshot) {
+
+                var name = p0.child(id).child("fname").getValue().toString().split(" ")
+                var firstName = name[0]
+                toolbar.title = "Hello $firstName"
+                }
+            override fun onCancelled(error: DatabaseError) {}
+
+        }
+        database.getReference("Users").addValueEventListener(getdata)
+
     }
 
 }

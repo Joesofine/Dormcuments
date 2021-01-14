@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UITools
+import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -27,12 +28,6 @@ class SummaryMenuFragment : Fragment() {
         val list = root.findViewById<ListView>(R.id.list)
         val myWebView: WebView = root.findViewById(R.id.webs)
         val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
-
-
-        root.findViewById<ImageView>(R.id.question).setOnClickListener{
-            UITools.onHelpedClicked(requireContext(),R.string.helpDialogTitleSum, R.string.helpDialogMsgSum)
-        }
-
 
         GlobalScope.launch(Dispatchers.IO) {
             val id = "12bpMAMO1x-nCekFFzxG2ZaIhHsM_rp5hPaMOIF7lzgw"
@@ -66,12 +61,11 @@ class SummaryMenuFragment : Fragment() {
             })
 
         }
-
-
-
-
-
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleSum, R.string.helpDialogMsgSum)
     }
 
 

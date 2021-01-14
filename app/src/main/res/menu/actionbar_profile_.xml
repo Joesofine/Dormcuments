@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/info"
+        android:title="Info"
+        android:icon="@drawable/ic_baseline_help_30"
+        app:showAsAction="collapseActionView"
+        >
+    </item>
+    <item
+        android:id="@+id/reset"
+        android:title="Reset Password"
+        android:icon="@drawable/ic_baseline_help_30"
+        app:showAsAction="collapseActionView"
+        >
+    </item>
+    <item
+        android:id="@+id/out"
+        android:title="Sign out"
+        android:icon="@drawable/ic_baseline_help_30"
+        app:showAsAction="collapseActionView"
+        >
+    </item>
+
+    <item
+        android:id="@+id/delete"
+        android:title="Delete Account"
+        android:icon="@drawable/ic_baseline_help_30"
+        app:showAsAction="collapseActionView"
+        >
+    </item>
+
+
+</menu>

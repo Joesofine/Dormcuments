@@ -7,6 +7,26 @@
     android:background="@drawable/background_gradient"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/MyToolbarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,18 +53,6 @@
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/threedots" />
-
-                <Button
-                    android:id="@+id/delete"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginBottom="40dp"
-                    android:background="@color/LighterDarkBlue"
-                    android:text="Delete Account"
-                    android:textAllCaps="false"
-                    app:layout_constraintBottom_toTopOf="@+id/save"
-                    app:layout_constraintEnd_toEndOf="@+id/funfact"
-                    app:layout_constraintStart_toStartOf="@+id/funfact" />
 
                 <EditText
                     android:id="@+id/city_edit"
@@ -203,7 +211,7 @@
                     android:id="@+id/funfact"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="50dp"
                     android:drawableRight="@drawable/edit_pen_icon_white"
                     android:drawablePadding="10dp"
                     android:hint="Funfact"
@@ -214,7 +222,7 @@
                     android:textColorHint="@color/lightHint"
                     android:textSize="14sp"
                     app:backgroundTint="@color/White"
-                    app:layout_constraintBottom_toTopOf="@+id/resetPassword"
+                    app:layout_constraintBottom_toTopOf="@+id/save"
                     app:layout_constraintEnd_toEndOf="@+id/diet"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/diet" />
@@ -242,39 +250,15 @@
                 <Button
                     android:id="@+id/save"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/sign_in_button"
                     android:text="Save Changes"
                     android:textAllCaps="false"
                     android:textColor="#0C0000"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/signout"
-                    app:layout_constraintStart_toStartOf="@+id/signout" />
-
-                <Button
-                    android:id="@+id/resetPassword"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/LighterDarkBlue"
-                    android:text="Reset password"
-                    android:textAllCaps="false"
-                    app:layout_constraintBottom_toTopOf="@+id/signout"
-                    app:layout_constraintEnd_toEndOf="@+id/funfact"
-                    app:layout_constraintStart_toStartOf="@+id/funfact" />
-
-                <Button
-                    android:id="@+id/signout"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/LighterDarkBlue"
-                    android:text="Sign Out"
-                    android:textAllCaps="false"
-                    app:layout_constraintBottom_toTopOf="@+id/delete"
-                    app:layout_constraintEnd_toEndOf="@+id/funfact"
-                    app:layout_constraintStart_toStartOf="@+id/funfact" />
+                    app:layout_constraintEnd_toEndOf="@+id/diet"
+                    app:layout_constraintStart_toStartOf="@+id/diet" />
 
                 <ImageView
                     android:id="@+id/editImageButton"

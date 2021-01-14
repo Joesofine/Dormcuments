@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
 import androidx.fragment.app.Fragment
@@ -38,6 +39,8 @@ class MeetingFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
         expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
+
+        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleFoodclub, R.string.helpDialogMsgFoodclub)
     }
 
     override fun onClick(v: View?) {

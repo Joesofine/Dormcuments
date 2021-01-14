@@ -14,6 +14,7 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
@@ -790,6 +791,22 @@ object UITools {
             w.setText("NA")
         } else {
             w.setText(cSub)
+        }
+    }
+
+    fun setUpBasicToolbar(view: View, context: Context, title: Int, msg: Int){
+        var toolbar = view.findViewById(R.id.toolbar) as Toolbar
+        toolbar.inflateMenu(R.menu.menu_just_help)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.info -> {
+                    onHelpedClicked(context, title, msg)
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
         }
     }
 

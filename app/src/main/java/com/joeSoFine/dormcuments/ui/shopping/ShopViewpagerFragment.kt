@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.joeSoFine.dormcuments.ExampleStateAdapter
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.UITools
+import com.joeSoFine.dormcuments.databaseService
+import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
 class ShopViewpagerFragment : Fragment() {
@@ -26,6 +30,11 @@ class ShopViewpagerFragment : Fragment() {
 
         initViewPager2WithFragments(root)
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)
     }
 
 

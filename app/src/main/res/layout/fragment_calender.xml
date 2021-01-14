@@ -5,10 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/MyToolbarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         app:layout_constraintBottom_toBottomOf="@+id/list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +55,7 @@
         android:layout_height="wrap_content"
         android:background="@color/ButtonDarkDark"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <Button
             android:id="@+id/weekID"
@@ -165,30 +185,6 @@
             app:label_textColor="@android:color/white"
             app:label_textSize="@dimen/text_size"
             app:label_backgroundColor="@color/cleaning"
-            app:label_position="right"
-            app:label_translationXPx="100"/>
-
-        <com.nambimobile.widgets.efab.FabOption
-            android:id="@+id/option5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/ic_baseline_help_24"
-            app:label_text="Help"
-            app:label_textColor="@android:color/white"
-            app:label_textSize="@dimen/text_size"
-            app:label_backgroundColor="@color/meeting"
-            app:label_position="right"
-            app:label_translationXPx="100"/>
-
-        <com.nambimobile.widgets.efab.FabOption
-            android:id="@+id/option6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@drawable/filter_icon"
-            app:label_text="Filters"
-            app:label_textColor="@android:color/white"
-            app:label_textSize="@dimen/text_size"
-            app:label_backgroundColor="@color/meeting"
             app:label_position="right"
             app:label_translationXPx="100"/>
 

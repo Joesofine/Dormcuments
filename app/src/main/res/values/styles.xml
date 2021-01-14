@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -6,7 +6,28 @@
         <item name="colorPrimary">@color/VeryDarkBlueTopBar</item>
         <item name="colorPrimaryDark">@color/VeryDarkBlueTopBar</item>
         <item name="colorAccent">@color/Slider</item>
-        <item name="android:navigationBarColor">@color/VeryDarkBlueTopBar</item>
+        <item name="android:navigationBarColor">@color/Black</item>
+        <item name="android:statusBarColor">@color/Black</item>
+        <item name="toolbarStyle">@style/MyToolbar</item>
+    </style>
+
+    <style name="MyToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/VeryDarkBlueTopBar</item>
+        <item name="android:elevation" tools:ignore="NewApi">10dp</item>
+        <item name="titleTextAppearance">@style/TitleStyle</item>
+    </style>
+
+    <style name="MyToolbarTheme">
+        <item name="colorControlNormal">@color/White</item>
+    </style>
+
+    <style name="TitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/White</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="MyDialogStyle"  parent="Theme.AppCompat.Light.NoActionBar">
@@ -19,6 +40,7 @@
         <item name="android:textColor">@color/White</item>
         <item name="android:colorBackground">@color/VeryDarkBlueTopBar</item>
     </style>
+
 
     <!-- This style is for the splash screen -->
     <style name="AppTheme.NoActionBar">
