@@ -39,8 +39,8 @@ class CreateFoodclubFragment : Fragment() {
         databaseService.iniSpinGetArr(root,requireContext())
 
         root.findViewById<Button>(R.id.save).setOnClickListener {
-            val din = dinner.text.toString()
-            val not = note.text.toString()
+            val din = dinner.editText?.text.toString()
+            val not = note.editText?.text.toString()
 
             if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
                     Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show()
@@ -49,7 +49,7 @@ class CreateFoodclubFragment : Fragment() {
             } else {
 
                 val clubid = database.push().key
-                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), date2.text.toString(), din, not, "", "", unf.text.toString())
+                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), date2.editText?.text.toString(), din, not, "", "", unf.text.toString())
                 if (clubid != null) {
 
                     database.child(clubid).setValue(club)

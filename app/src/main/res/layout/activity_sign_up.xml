@@ -43,7 +43,6 @@
                     android:inputType="none"
                     android:selectAllOnFocus="true"
                     android:textColor="@color/White" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

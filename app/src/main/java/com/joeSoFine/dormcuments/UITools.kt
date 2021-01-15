@@ -19,10 +19,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.database.DataSnapshot
 import com.joeSoFine.dormcuments.ui.calender.EditEventFragment
 import com.joeSoFine.dormcuments.ui.meeting.Topic
 import com.joeSoFine.dormcuments.ui.shopping.Item
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -37,7 +40,6 @@ object UITools {
         val datePicker = root.findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
 
-
         datePicker.init(
             today.get(Calendar.YEAR),
             today.get(Calendar.MONTH),
@@ -47,16 +49,18 @@ object UITools {
             val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM", Locale.ENGLISH)
             val msg = local.format(formatter)
             val unform = "${datePicker.dayOfMonth}/${datePicker.month}/${datePicker.year}"
-            root.findViewById<EditText>(R.id.date2).setText(msg)
+            root.findViewById<TextInputLayout>(R.id.date2).editText?.setText(msg)
             unf.text = unform
             datePicker.visibility = View.GONE
         }
 
-        root.findViewById<EditText>(R.id.date2).setOnTouchListener { v, event ->
-            if (ACTION_UP == event.action) {
+
+        root.findViewById<TextInputLayout>(R.id.date2).editText?.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus){
                 datePicker.visibility = View.VISIBLE
+            } else {
+                datePicker.visibility = View.GONE
             }
-            true
         }
     }
 

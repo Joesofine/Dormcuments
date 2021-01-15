@@ -60,8 +60,7 @@ class SignUp : AppCompatActivity() {
         room_spinner.adapter = myAdapter
 
         close.setOnClickListener(){
-            datePicker.visibility = View.GONE
-            close.visibility = View.GONE
+            dateLayout.visibility = View.GONE
         }
 
         save.setOnClickListener(View.OnClickListener {

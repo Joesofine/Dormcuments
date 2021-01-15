@@ -10,12 +10,14 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.textfield.TextInputLayout
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.joeSoFine.dormcuments.UICleaning
 import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.UITools
+import kotlinx.android.synthetic.main.fragment_create_cleaning.*
 
 class EditCleaningFragment : Fragment() {
     var database = FirebaseDatabase.getInstance().getReference("Cleaning")
@@ -35,9 +37,9 @@ class EditCleaningFragment : Fragment() {
         root.findViewById<ImageView>(R.id.delete).visibility = View.VISIBLE
         val spinner_c1 = root.findViewById<Spinner>(R.id.spinner_c1)
         val spinner_c2 = root.findViewById<Spinner>(R.id.spinner_c2)
-        val date2 = root.findViewById<EditText>(R.id.date2)
-        val task = root.findViewById<EditText>(R.id.task)
-        val note = root.findViewById<EditText>(R.id.note)
+        val date2 = root.findViewById<TextInputLayout>(R.id.date2)
+        val task = root.findViewById<TextInputLayout>(R.id.task)
+        val note = root.findViewById<TextInputLayout>(R.id.note)
         val stats = root.findViewById<TextView>(R.id.stats)
         val unf = root.findViewById<TextView>(R.id.unf)
         val succes = root.findViewById<LottieAnimationView>(R.id.succes)
@@ -49,9 +51,9 @@ class EditCleaningFragment : Fragment() {
             cleaningid!!,
             spinner_c1,
             spinner_c2,
-            date2,
-            task,
-            note,
+            date2.editText!!,
+            task.editText!!,
+            note.editText!!,
             stats,
             unf
         ))
@@ -64,9 +66,9 @@ class EditCleaningFragment : Fragment() {
             val cleaning = Cleaning(
                 spinner_c1.selectedItem.toString(),
                 spinner_c2.selectedItem.toString(),
-                date2.text.toString(),
-                task.text.toString(),
-                note.text.toString(),
+                date2.editText?.text.toString(),
+                task.editText?.text.toString(),
+                note.editText?.text.toString(),
                 stats.text.toString(),
                 unf.text.toString()
             )
@@ -75,7 +77,7 @@ class EditCleaningFragment : Fragment() {
                 ref,
                 spinner_c1,
                 spinner_c2,
-                date2,
+                date2.editText!!,
                 cleaning,
                 requireContext(),
                 requireFragmentManager(),

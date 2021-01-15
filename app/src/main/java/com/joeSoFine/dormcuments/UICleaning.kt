@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.textfield.TextInputLayout
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningDetailsFragment
 import com.joeSoFine.dormcuments.ui.cleaning.CleaningFragment
@@ -32,7 +33,7 @@ object UICleaning {
 
     @SuppressLint("ClickableViewAccessibility")
     fun onTaskClicked(root: View, @SuppressLint("UseSwitchCompatOrMaterialCode") switch: Switch){
-        root.findViewById<EditText>(R.id.task).setOnTouchListener { v, event ->
+        root.findViewById<TextInputLayout>(R.id.task).editText?.setOnTouchListener { v, event ->
             if (MotionEvent.ACTION_UP == event.action) {
                 switch.requestFocus()
             }

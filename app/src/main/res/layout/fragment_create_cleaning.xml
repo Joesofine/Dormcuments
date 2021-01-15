@@ -25,6 +25,63 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="30dp">
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/note"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="Comment"
+                    android:imeOptions="actionNext"
+                    android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                    android:textColorHint="@color/lightHint"
+                    app:boxStrokeColor="@color/Slider"
+                    app:endIconTint="@color/lightHint"
+                    app:hintTextColor="@color/Slider"
+                    app:layout_constraintEnd_toEndOf="@+id/date2"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/date2"
+                    app:layout_constraintTop_toBottomOf="@+id/task">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                        android:selectAllOnFocus="true"
+                        android:textColor="@color/White" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/date2"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="30dp"
+                    android:hint="Date"
+                    android:textColorHint="@color/lightHint"
+                    app:boxStrokeColor="@color/Slider"
+                    app:endIconTint="@color/lightHint"
+                    app:errorEnabled="true"
+                    app:hintTextColor="@color/Slider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_c2">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:editable="false"
+                        android:inputType="none"
+                        android:selectAllOnFocus="true"
+                        android:textColor="@color/White" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <TextView
                     android:id="@+id/textView39"
                     android:layout_width="0dp"
@@ -237,7 +294,7 @@
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:focusableInTouchMode="false"
-                    app:layout_constraintEnd_toEndOf="@+id/task"
+                    app:layout_constraintEnd_toEndOf="@+id/note"
                     app:layout_constraintTop_toTopOf="@+id/textView18" />
 
                 <TextView
@@ -305,7 +362,7 @@
                     android:text="D"
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
+                    app:layout_constraintStart_toStartOf="@+id/textView24"
                     app:layout_constraintTop_toTopOf="@+id/textView25" />
 
                 <TextView
@@ -329,7 +386,7 @@
                     android:id="@+id/switchC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/task"
+                    app:layout_constraintEnd_toEndOf="@+id/switchB"
                     app:layout_constraintTop_toTopOf="@+id/textView23" />
 
                 <TextView
@@ -339,7 +396,7 @@
                     android:text="C"
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
+                    app:layout_constraintStart_toStartOf="@+id/textView21"
                     app:layout_constraintTop_toTopOf="@+id/textView23" />
 
                 <TextView
@@ -366,14 +423,14 @@
                     android:text="B"
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
+                    app:layout_constraintStart_toStartOf="@+id/textView19"
                     app:layout_constraintTop_toTopOf="@+id/textView22" />
 
                 <Switch
                     android:id="@+id/switchB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/task"
+                    app:layout_constraintEnd_toEndOf="@+id/switchA"
                     app:layout_constraintTop_toTopOf="@+id/textView22" />
 
                 <DatePicker
@@ -391,70 +448,61 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/spinner_c1" />
 
-                <EditText
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/task"
-                    android:layout_width="320dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:drawableLeft="@drawable/todo_white"
-                    android:drawablePadding="10dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:hint="Ekstra tasks"
+                    android:imeOptions="actionNext"
                     android:inputType="none"
                     android:selectAllOnFocus="true"
-                    android:textColor="@color/White"
                     android:textColorHint="@color/lightHint"
-                    android:textSize="14sp"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                    app:boxStrokeColor="@color/Slider"
+                    app:endIconTint="@color/lightHint"
+                    app:hintTextColor="@color/Slider"
+                    app:layout_constraintEnd_toEndOf="@+id/date2"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/date2"
+                    app:layout_constraintTop_toBottomOf="@+id/date2">
 
-                <EditText
-                    android:id="@+id/note"
-                    android:layout_width="320dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:drawableLeft="@drawable/note_icon_white"
-                    android:drawablePadding="10dp"
-                    android:hint="Note"
-                    android:inputType="textLongMessage|textMultiLine|textCapSentences"
-                    android:selectAllOnFocus="true"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/lightHint"
-                    android:textSize="14sp"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintEnd_toEndOf="@+id/task"
-                    app:layout_constraintHorizontal_bias="0.56"
-                    app:layout_constraintStart_toStartOf="@+id/task"
-                    app:layout_constraintTop_toBottomOf="@+id/task" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                        android:selectAllOnFocus="true"
+                        android:textColor="@color/White" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Spinner
                     android:id="@+id/spinner_c2"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:layout_width="320dp"
+                    android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_centerHorizontal="false"
                     android:layout_centerVertical="true"
                     android:gravity="left"
                     android:padding="0dp"
                     app:backgroundTint="@color/White"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/date2"
+                    app:layout_constraintStart_toStartOf="@+id/date2"
                     app:layout_constraintTop_toBottomOf="@+id/spinner_c1" />
 
                 <Spinner
                     android:id="@+id/spinner_c1"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:layout_width="320dp"
+                    android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_centerHorizontal="false"
                     android:layout_centerVertical="true"
                     android:gravity="left"
                     android:padding="0dp"
                     app:backgroundTint="@color/White"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/date2"
+                    app:layout_constraintStart_toStartOf="@+id/date2"
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
                 <TextView
@@ -474,50 +522,21 @@
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="70dp"
-                    android:background="@drawable/sign_in_button"
+                    android:backgroundTint="@color/White"
                     android:text="Save"
+                    android:textColor="@color/Black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/switchK"
                     app:layout_constraintStart_toStartOf="@+id/textView36"
                     app:layout_constraintTop_toBottomOf="@+id/textView35" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    app:layout_constraintEnd_toEndOf="@+id/spinner_c2"
-                    app:layout_constraintStart_toStartOf="@+id/spinner_c2"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner_c2">
-
-                    <EditText
-                        android:id="@+id/date2"
-                        android:layout_width="320dp"
-                        android:layout_height="40dp"
-                        android:drawableLeft="@drawable/date_icon_white"
-                        android:drawablePadding="10dp"
-                        android:hint="Pick date"
-                        android:inputType="date"
-                        android:selectAllOnFocus="true"
-                        android:textColor="@color/White"
-                        android:textColorHint="@color/lightHint"
-                        android:textSize="14sp"
-                        app:backgroundTint="@color/White"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/textView18"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="50dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
                     android:text="@string/promtA"
                     android:textColor="@color/White"
                     android:textSize="16sp"
@@ -532,7 +551,7 @@
                     android:text="A"
                     android:textColor="@color/White"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/task"
+                    app:layout_constraintStart_toStartOf="@+id/note"
                     app:layout_constraintTop_toTopOf="@+id/textView18" />
 
                 <TextView
