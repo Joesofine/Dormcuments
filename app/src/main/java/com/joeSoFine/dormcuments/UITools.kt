@@ -819,6 +819,10 @@ object UITools {
                     onHelpedClicked(context, title, msg)
                     true
                 }
+                R.id.out -> {
+                    SmartTools.signOut(context)
+                    true
+                }
                 else -> {
                     false
                 }

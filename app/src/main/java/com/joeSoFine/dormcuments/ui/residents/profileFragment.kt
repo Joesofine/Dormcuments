@@ -231,7 +231,7 @@ class profileFragment : Fragment() {
                     true
                 }
                 R.id.out -> {
-                    signOutAlert()
+                    SmartTools.signOut(requireContext())
                     true
                 }
                 else -> {
@@ -241,9 +241,7 @@ class profileFragment : Fragment() {
         }
     }
 
-    private fun signOut() {
-        auth.signOut()
-    }
+
 
     private fun setIconsTint(edit: EditText, noTint: Int, tint: Int){
         edit.setOnFocusChangeListener { view, hasFocus ->
@@ -394,27 +392,6 @@ class profileFragment : Fragment() {
         alert.setNeutralButton("Cancel") { dialog, whichButton -> }
         alert.show()
 
-    }
-
-    fun signOutAlert(){
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(R.string.dialogTitleSignOut)
-        builder.setMessage(R.string.dialogMessageSignOut)
-        builder.setIcon(R.drawable.ic_baseline_warning_24)
-
-        builder.setPositiveButton("Continue"){ dialogInterface, which ->
-            signOut()
-            Toast.makeText(context, "You are now signed out", Toast.LENGTH_SHORT).show()
-            val intent = Intent(context, SignIn::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            startActivity(intent)
-        }
-        builder.setNeutralButton("Cancel"){ dialogInterface, which ->
-        }
-
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
     }
 
     fun deleteAccount(userid: String) {

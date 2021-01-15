@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.SmartTools
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
 import com.nambimobile.widgets.efab.ExpandableFabLayout
@@ -107,6 +108,10 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 }
                 R.id.filter -> {
                     // do something
+                    true
+                }
+                R.id.out -> {
+                    SmartTools.signOut(requireContext())
                     true
                 }
                 else -> {

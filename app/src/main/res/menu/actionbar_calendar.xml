@@ -10,9 +10,15 @@
     </item>
     <item
         android:id="@+id/info"
-        android:title="Help"
+        android:title="Info"
         android:icon="@drawable/ic_baseline_help_30"
-        app:showAsAction="ifRoom"
+        app:showAsAction="collapseActionView"
+        >
+    </item>
+    <item
+        android:id="@+id/out"
+        android:title="Sign out"
+        app:showAsAction="collapseActionView"
         >
     </item>
 
