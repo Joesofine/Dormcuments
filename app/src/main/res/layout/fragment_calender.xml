@@ -26,13 +26,16 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.tabs.TabLayout
-        style="@style/Widget.MaterialComponents.TabLayout.Colored"
-        android:background="@color/ButtonDarkDark"
         android:id="@+id/tabLayout"
+        style="@style/Widget.MaterialComponents.TabLayout.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/ButtonDarkDark"
         android:theme="@style/tabText"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:tabIndicatorColor="#FFFFFF"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="bottom"
         app:tabMode="fixed">
 
         <com.google.android.material.tabs.TabItem
@@ -56,15 +59,14 @@
     </com.google.android.material.tabs.TabLayout>
 
     <com.google.android.material.tabs.TabLayout
-        style="@style/Widget.MaterialComponents.TabLayout.Colored"
-        android:background="@color/ButtonDarkDark"
         android:id="@+id/tabLayout_scroll"
+        style="@style/Widget.MaterialComponents.TabLayout.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/ButtonDarkDark"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
-        app:tabContentStart="56dp"
+        app:tabContentStart="0dp"
         app:tabMode="scrollable">
-
 
 
     </com.google.android.material.tabs.TabLayout>
@@ -94,61 +96,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scrollView8" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout10"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/ButtonDarkDark"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
-
-        <Button
-            android:id="@+id/weekID"
-            android:layout_width="137dp"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/VeryDarkBlueTopBar"
-            android:text="Week"
-            android:textColor="@color/LighterDarkBlue" />
-
-        <Button
-            android:id="@+id/month"
-            android:layout_width="137dp"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/VeryDarkBlueTopBar"
-            android:text="Month"
-            android:textColor="@color/LighterDarkBlue" />
-
-        <Button
-            android:id="@+id/year"
-            android:layout_width="137dp"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/VeryDarkBlueTopBar"
-            android:text="Year"
-            android:textColor="@color/LighterDarkBlue" />
-
-    </LinearLayout>
-
-    <HorizontalScrollView
-        android:id="@+id/scroll"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:verticalScrollbarPosition="right"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout">
-
-        <LinearLayout
-            android:id="@+id/sliderLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginTop="0dp"
-            android:gravity="right"
-            android:orientation="horizontal"></LinearLayout>
-    </HorizontalScrollView>
 
     <ScrollView
         android:id="@+id/scrollView8"

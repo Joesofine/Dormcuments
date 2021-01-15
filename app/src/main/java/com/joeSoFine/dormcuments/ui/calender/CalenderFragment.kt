@@ -1,6 +1,7 @@
 package com.joeSoFine.dormcuments.ui.calender
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -10,17 +11,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
@@ -28,7 +23,6 @@ import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.SmartTools
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
-import com.joeSoFine.dormcuments.ui.cleaning.CleaningDetailsFragment
 import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.fragment_calender.*
 import java.util.*
@@ -43,8 +37,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private val months = ArrayList<String>()
     private val weeks = ArrayList<String>()
     private val years = ArrayList<String>()
-    private lateinit var sliderLayout: LinearLayout
-    private lateinit var scroll: HorizontalScrollView
+
     private lateinit var whoops: TextView
     private lateinit var lottie: LottieAnimationView
     lateinit var tabLayout: TabLayout
@@ -59,7 +52,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     var yearWidth = 0
     val refE = "Events"
     val refU = "Users"
-    var tabbed = ""
+    var count = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
@@ -73,8 +66,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         auth = Firebase.auth
 
         myContainer = root.findViewById(R.id.LinScroll)
-        sliderLayout = root.findViewById(R.id.sliderLayout)
-        scroll = root.findViewById(R.id.scroll)
         whoops = root.findViewById(R.id.whoops)
         tabLayout = root.findViewById(R.id.tabLayout)
         scroller= root. findViewById(R.id.tabLayout_scroll)
@@ -97,7 +88,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         iniAlphaTabLayout()
         iniBetaTablayout()
 
-        buttonPressed(weeks, "weeks", current_week - 1)
+        tabLayout.getTabAt(0)?.select()
         return root
     }
 
@@ -116,7 +107,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                     true
                 }
                 R.id.filter -> {
-                    // do something
+                    Toast.makeText(context, "Comming soon!", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.out -> {
@@ -219,108 +210,44 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private fun buttonPressed(arr: ArrayList<String>, arrString: String, current: Int){
         lottie.visibility = View.VISIBLE
         buttonLoop(arr)
-
-
         if (current == 52) {
             var tab = scroller.getTabAt(0)
             tab?.select()
-
-            databaseService.getSortedEvents(
-                0,
-                current + 1,
-                "weeks",
-                lottie,
-                current_year,
-                myContainer,
-                layoutInflater,
-                requireFragmentManager(),
-                requireContext(),
-                refE,
-                refU,
-                whoops
-            )
         } else {
             var current_longYear = current
             if (arr.size == 53) {
                 current_longYear = current + 1
             } else if (arr.size == 3) {
-                current_longYear = current_year - (current)
+                current_longYear = (current_year + 1) - (current)
             }
 
-            var tab = scroller.getTabAt(current_longYear)
-            tab?.select()
-
-            if (arrString == "weeks") {
-                databaseService.getSortedEvents(
-                    0,
-                    current + 1,
-                    "weeks",
-                    lottie,
-                    current_year,
-                    myContainer,
-                    layoutInflater,
-                    requireFragmentManager(),
-                    requireContext(),
-                    refE,
-                    refU,
-                    whoops
-                )
-
-            } else if (arrString == "months") {
-                databaseService.getSortedEvents(
-                    1,
-                    current + 1,
-                    "months",
-                    lottie,
-                    current_year,
-                    myContainer,
-                    layoutInflater,
-                    requireFragmentManager(),
-                    requireContext(),
-                    refE,
-                    refU,
-                    whoops
-                )
-
-            } else if (arrString == "years") {
-                databaseService.getSortedEvents(
-                    0,
-                    current + current_year - 1,
-                    "years",
-                    lottie,
-                    current_year,
-                    myContainer,
-                    layoutInflater,
-                    requireFragmentManager(),
-                    requireContext(),
-                    refE,
-                    refU,
-                    whoops
-                )
-            }
+            //var tab = scroller.getTabAt(2)
+            //tab?.select()
         }
     }
 
     fun iniAlphaTabLayout(){
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                myContainer.removeAllViews()
+                scroller.removeAllTabs()
                 alphaTabSelected(tab!!)
             }
 
 
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onTabReselected(tab: TabLayout.Tab?) {
+                myContainer.removeAllViews()
+                scroller.removeAllTabs()
                 alphaTabSelected(tab!!)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                scroller.removeAllTabs()
+                //scroller.removeAllTabs()
                 myContainer.removeAllViews()
             }
         })
-
     }
 
     fun iniBetaTablayout(){
@@ -329,11 +256,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                myContainer.removeAllViews()
                 onBetaTabSelected(tab!!)
             }
 
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onTabReselected(tab: TabLayout.Tab?) {
+                myContainer.removeAllViews()
                 onBetaTabSelected(tab!!)
             }
 
@@ -345,22 +274,22 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun alphaTabSelected(tab: TabLayout.Tab){
+
         if (tab?.equals(tabLayout.getTabAt(0))!!) {
-            tabbed = "week"
             buttonPressed(weeks, "weeks", current_week - 1)
         } else if (tab?.equals(tabLayout.getTabAt(1))!!) {
-            tabbed = "month"
             buttonPressed(months, "months", current_month)
-
         } else if (tab?.equals(tabLayout.getTabAt(2))!!) {
-            tabbed = "year"
-            buttonPressed(years, "years", current_year - 1)
+            buttonPressed(years, "years", current_year)
         }
+            //var tab = scroller.getTabAt(2)
+            //tab?.select()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun onBetaTabSelected(tab: TabLayout.Tab){
-        if (tabbed.equals("week")) {
+        var tabText = tab.text.toString()
+        if (weeks.contains(tabText)) {
             var weekNumber = tab?.text.toString().replace("U", "").toInt()
             databaseService.getSortedEvents(
                 0,
@@ -376,23 +305,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 refU,
                 whoops
             )
-        } else if (tabbed.equals("month")) {
-            databaseService.getSortedEvents(
-                1,
-                months.indexOf(tab?.text.toString()) + 1,
-                "months",
-                lottie,
-                current_year,
-                myContainer,
-                layoutInflater,
-                requireFragmentManager(),
-                requireContext(),
-                refE,
-                refU,
-                whoops
-            )
 
-        } else if (tabbed.equals("year")) {
+        } else if (years.contains(tabText)) {
             databaseService.getSortedEvents(
                 0,
                 tab?.text.toString().toInt(),
@@ -408,6 +322,21 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 whoops
             )
 
+        } else if (months.contains(tabText)) {
+            databaseService.getSortedEvents(
+                1,
+                months.indexOf(tab?.text.toString()) + 1,
+                "months",
+                lottie,
+                current_year,
+                myContainer,
+                layoutInflater,
+                requireFragmentManager(),
+                requireContext(),
+                refE,
+                refU,
+                whoops
+            )
         }
     }
 }
