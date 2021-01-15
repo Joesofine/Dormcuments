@@ -12,9 +12,15 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
@@ -22,7 +28,9 @@ import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.SmartTools
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
+import com.joeSoFine.dormcuments.ui.cleaning.CleaningDetailsFragment
 import com.nambimobile.widgets.efab.ExpandableFabLayout
+import kotlinx.android.synthetic.main.fragment_calender.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -36,19 +44,22 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private val weeks = ArrayList<String>()
     private val years = ArrayList<String>()
     private lateinit var sliderLayout: LinearLayout
-    private lateinit var week: Button
-    private lateinit var month: Button
-    private lateinit var year: Button
     private lateinit var scroll: HorizontalScrollView
     private lateinit var whoops: TextView
     private lateinit var lottie: LottieAnimationView
+    lateinit var tabLayout: TabLayout
+    lateinit var scroller: TabLayout
     var targetHeight = 0
     var targetWidth = 0
     private var current_week: Int = 0
     private var current_month: Int = 0
     private var current_year: Int = 0
+    var weeksWidth = 0
+    var monthWidth = 0
+    var yearWidth = 0
     val refE = "Events"
     val refU = "Users"
+    var tabbed = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
@@ -58,25 +69,21 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_calender, container, false)
         lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)
+
         auth = Firebase.auth
 
         myContainer = root.findViewById(R.id.LinScroll)
         sliderLayout = root.findViewById(R.id.sliderLayout)
         scroll = root.findViewById(R.id.scroll)
-        week = root.findViewById(R.id.weekID)
-        month = root.findViewById(R.id.month)
-        year = root.findViewById(R.id.year)
         whoops = root.findViewById(R.id.whoops)
+        tabLayout = root.findViewById(R.id.tabLayout)
+        scroller= root. findViewById(R.id.tabLayout_scroll)
 
-        week.setOnClickListener(this)
-        month.setOnClickListener(this)
-        year.setOnClickListener(this)
 
         getTagetSize()
-        week.layoutParams = LinearLayout.LayoutParams(targetWidth, targetHeight)
-        month.layoutParams = LinearLayout.LayoutParams(targetWidth, targetHeight)
-        year.layoutParams = LinearLayout.LayoutParams(targetWidth, targetHeight)
-
+        weeksWidth = targetWidth - 120
+        monthWidth = targetWidth - 40
+        yearWidth = targetWidth * 3
 
         val calendar = Calendar.getInstance()
         current_week = calendar.get(Calendar.WEEK_OF_YEAR)
@@ -84,11 +91,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         current_year = calendar.get(Calendar.YEAR)
 
         makeWeekArr(current_year)
-        makeMonthArr(current_month)
+        makeMonthArr()
         makeYearArr(current_year)
 
-        buttonPressed(week, weeks, "weeks", targetWidth - 120, current_week - 1)
+        iniAlphaTabLayout()
+        iniBetaTablayout()
 
+        buttonPressed(weeks, "weeks", current_week - 1)
         return root
     }
 
@@ -148,21 +157,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 fragmentManager?.beginTransaction()?.add(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
             }
         }
-
-        if (p0 === week || p0 === month || p0 === year) {
-            if (p0 === week) {
-                buttonPressed(week, weeks, "weeks", targetWidth - 120, current_week - 1)
-
-            } else if (p0 === month) {
-                buttonPressed(month, months, "months", targetWidth - 40, current_month)
-
-            } else if (p0 === year) {
-                buttonPressed(year, years, "years", targetWidth * 3 / years.size, current_year - (current_year - 1))
-            }
-        }
     }
 
-    private fun makeMonthArr(current_month: Int){
+    private fun makeMonthArr(){
         months.add("januar")
         months.add("Februar")
         months.add("March")
@@ -198,90 +195,11 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("ResourceAsColor", "UseCompatLoadingForDrawables")
-    private fun buttonLoop(arr: ArrayList<String>, buttonWidth: Int) {
-        sliderLayout.removeAllViews()
+    private fun buttonLoop(arr: ArrayList<String>) {
         for (element in arr) {
-            val button = Button(context)
-
-            button.layoutParams = LinearLayout.LayoutParams(buttonWidth, targetHeight)
-            button.text = element
-            button.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
-            context?.let { ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { button.setTextColor(it) }
-
-            sliderLayout.addView(button)
-
-            button.setOnClickListener {
-                myContainer.removeAllViews()
-                whoops.visibility = View.GONE
-
-                val childCount = sliderLayout.childCount
-
-                for (i in 0..childCount - 1) {
-                    val v: View = sliderLayout.getChildAt(i)
-
-                    if (v is Button) {
-                        val but: Button = v
-                        but.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
-                        context?.let { ContextCompat.getColor(it, R.color.LighterDarkBlue) }
-                            ?.let { but.setTextColor(it) }
-                    }
-                }
-                button.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
-                context?.let { ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
-
-                if (arr.equals(weeks)) {
-                    var weekNumber = element.replace("U", "").toInt()
-                    databaseService.getSortedEvents(
-                        0,
-                        weekNumber,
-                        "weeks",
-                        lottie,
-                        current_year,
-                        myContainer,
-                        layoutInflater,
-                        requireFragmentManager(),
-                        requireContext(),
-                        refE,
-                        refU,
-                        whoops
-                    )
-
-                } else if (arr.equals(months)) {
-                    databaseService.getSortedEvents(
-                        1,
-                        months.indexOf(element) + 1,
-                        "months",
-                        lottie,
-                        current_year,
-                        myContainer,
-                        layoutInflater,
-                        requireFragmentManager(),
-                        requireContext(),
-                        refE,
-                        refU,
-                        whoops
-                    )
-
-                } else if (arr.equals(years)) {
-                    databaseService.getSortedEvents(
-                        0,
-                        element.toInt(),
-                        "years",
-                        lottie,
-                        current_year,
-                        myContainer,
-                        layoutInflater,
-                        requireFragmentManager(),
-                        requireContext(),
-                        refE,
-                        refU,
-                        whoops
-                    )
-                }
-            }
+            var tab: TabLayout.Tab = scroller.newTab()
+            tab.text = element
+            scroller.addTab(tab)
         }
     }
 
@@ -293,120 +211,203 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         var height = displayMetrics.heightPixels
 
         targetWidth = ((width / 3))
-        targetHeight = week.layoutParams.height
+        targetHeight = tabLayout.layoutParams.height
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun buttonPressed(button: Button, arr: ArrayList<String>, arrString: String, width: Int, current: Int){
+    private fun buttonPressed(arr: ArrayList<String>, arrString: String, current: Int){
         lottie.visibility = View.VISIBLE
-        myContainer.removeAllViews()
-        week.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
-        month.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
-        year.background = resources.getDrawable(R.color.VeryDarkBlueTopBar)
+        buttonLoop(arr)
 
-        context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { week.setTextColor(it) }
-        context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { month.setTextColor(it) }
-        context?.let {ContextCompat.getColor(it, R.color.LighterDarkBlue) }?.let { year.setTextColor(it) }
-
-        button.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
-        context?.let {ContextCompat.getColor(it, R.color.White) }?.let { button.setTextColor(it) }
-
-        buttonLoop(arr, width)
 
         if (current == 52) {
-            for (i in 0 until sliderLayout.childCount) {
-                val v1: View = sliderLayout.getChildAt(i)
-                if (v1 is Button) {
-                    if (v1.text.contains("53")) {
-                        v1.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
-                        context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v1.setTextColor(it) }
-                        v1.isFocusable = true
-                        v1.isFocusableInTouchMode = true
-                        v1.requestFocus()
-                        databaseService.getSortedEvents(
-                            0,
-                            current + 1,
-                            "weeks",
-                            lottie,
-                            current_year,
-                            myContainer,
-                            layoutInflater,
-                            requireFragmentManager(),
-                            requireContext(),
-                            refE,
-                            refU,
-                            whoops
-                        )
-                    }
+            var tab = scroller.getTabAt(0)
+            tab?.select()
 
-                }
-            }
-
+            databaseService.getSortedEvents(
+                0,
+                current + 1,
+                "weeks",
+                lottie,
+                current_year,
+                myContainer,
+                layoutInflater,
+                requireFragmentManager(),
+                requireContext(),
+                refE,
+                refU,
+                whoops
+            )
         } else {
             var current_longYear = current
             if (arr.size == 53) {
                 current_longYear = current + 1
+            } else if (arr.size == 3) {
+                current_longYear = current_year - (current)
             }
 
-            val v: View = sliderLayout.getChildAt(current_longYear)
-            if (v is Button) {
-                v.background = resources.getDrawable(R.color.SaturedCrazyDarkBlue)
-                context?.let { ContextCompat.getColor(it, R.color.White) }?.let { v.setTextColor(it) }
-                v.isFocusable = true
-                v.isFocusableInTouchMode = true
-                v.requestFocus()
+            var tab = scroller.getTabAt(current_longYear)
+            tab?.select()
 
-                if (arrString == "weeks") {
-                    databaseService.getSortedEvents(
-                        0,
-                        current + 1,
-                        "weeks",
-                        lottie,
-                        current_year,
-                        myContainer,
-                        layoutInflater,
-                        requireFragmentManager(),
-                        requireContext(),
-                        refE,
-                        refU,
-                        whoops
-                    )
+            if (arrString == "weeks") {
+                databaseService.getSortedEvents(
+                    0,
+                    current + 1,
+                    "weeks",
+                    lottie,
+                    current_year,
+                    myContainer,
+                    layoutInflater,
+                    requireFragmentManager(),
+                    requireContext(),
+                    refE,
+                    refU,
+                    whoops
+                )
 
-                } else if (arrString == "months") {
-                    databaseService.getSortedEvents(
-                        1,
-                        current + 1,
-                        "months",
-                        lottie,
-                        current_year,
-                        myContainer,
-                        layoutInflater,
-                        requireFragmentManager(),
-                        requireContext(),
-                        refE,
-                        refU,
-                        whoops
-                    )
+            } else if (arrString == "months") {
+                databaseService.getSortedEvents(
+                    1,
+                    current + 1,
+                    "months",
+                    lottie,
+                    current_year,
+                    myContainer,
+                    layoutInflater,
+                    requireFragmentManager(),
+                    requireContext(),
+                    refE,
+                    refU,
+                    whoops
+                )
 
-                } else if (arrString == "years") {
-                    databaseService.getSortedEvents(
-                        0,
-                        current + current_year - 1,
-                        "years",
-                        lottie,
-                        current_year,
-                        myContainer,
-                        layoutInflater,
-                        requireFragmentManager(),
-                        requireContext(),
-                        refE,
-                        refU,
-                        whoops
-                    )
-                }
-
+            } else if (arrString == "years") {
+                databaseService.getSortedEvents(
+                    0,
+                    current + current_year - 1,
+                    "years",
+                    lottie,
+                    current_year,
+                    myContainer,
+                    layoutInflater,
+                    requireFragmentManager(),
+                    requireContext(),
+                    refE,
+                    refU,
+                    whoops
+                )
             }
+        }
+    }
+
+    fun iniAlphaTabLayout(){
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                alphaTabSelected(tab!!)
+            }
+
+
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                alphaTabSelected(tab!!)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                scroller.removeAllTabs()
+                myContainer.removeAllViews()
+            }
+        })
+
+    }
+
+    fun iniBetaTablayout(){
+
+        scroller.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                onBetaTabSelected(tab!!)
+            }
+
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                onBetaTabSelected(tab!!)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                myContainer.removeAllViews()
+            }
+        })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun alphaTabSelected(tab: TabLayout.Tab){
+        if (tab?.equals(tabLayout.getTabAt(0))!!) {
+            tabbed = "week"
+            buttonPressed(weeks, "weeks", current_week - 1)
+        } else if (tab?.equals(tabLayout.getTabAt(1))!!) {
+            tabbed = "month"
+            buttonPressed(months, "months", current_month)
+
+        } else if (tab?.equals(tabLayout.getTabAt(2))!!) {
+            tabbed = "year"
+            buttonPressed(years, "years", current_year - 1)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun onBetaTabSelected(tab: TabLayout.Tab){
+        if (tabbed.equals("week")) {
+            var weekNumber = tab?.text.toString().replace("U", "").toInt()
+            databaseService.getSortedEvents(
+                0,
+                weekNumber,
+                "weeks",
+                lottie,
+                current_year,
+                myContainer,
+                layoutInflater,
+                requireFragmentManager(),
+                requireContext(),
+                refE,
+                refU,
+                whoops
+            )
+        } else if (tabbed.equals("month")) {
+            databaseService.getSortedEvents(
+                1,
+                months.indexOf(tab?.text.toString()) + 1,
+                "months",
+                lottie,
+                current_year,
+                myContainer,
+                layoutInflater,
+                requireFragmentManager(),
+                requireContext(),
+                refE,
+                refU,
+                whoops
+            )
+
+        } else if (tabbed.equals("year")) {
+            databaseService.getSortedEvents(
+                0,
+                tab?.text.toString().toInt(),
+                "years",
+                lottie,
+                current_year,
+                myContainer,
+                layoutInflater,
+                requireFragmentManager(),
+                requireContext(),
+                refE,
+                refU,
+                whoops
+            )
+
         }
     }
 }

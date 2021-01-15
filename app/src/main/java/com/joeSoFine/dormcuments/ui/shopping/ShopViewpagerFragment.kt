@@ -53,7 +53,6 @@ class ShopViewpagerFragment : Fragment() {
         // viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
 
         var tablayout: TabLayout = root. findViewById(R.id.tablayout)
-
         TabLayoutMediator(tablayout,viewPager2){tab, position ->
             when (position) {
                 0 -> {
