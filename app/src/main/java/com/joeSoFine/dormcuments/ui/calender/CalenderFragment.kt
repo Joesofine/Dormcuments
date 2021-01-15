@@ -25,6 +25,7 @@ import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
 import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.fragment_calender.*
+import kotlinx.coroutines.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -37,7 +38,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     private val months = ArrayList<String>()
     private val weeks = ArrayList<String>()
     private val years = ArrayList<String>()
-
+    val job = Job()
+    val uiScope = CoroutineScope(Dispatchers.Main + job)
     private lateinit var whoops: TextView
     private lateinit var lottie: LottieAnimationView
     lateinit var tabLayout: TabLayout
@@ -151,7 +153,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     }
 
     private fun makeMonthArr(){
-        months.add("januar")
+        months.add("January")
         months.add("Februar")
         months.add("March")
         months.add("April")
@@ -186,12 +188,19 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
     }
 
-    private fun buttonLoop(arr: ArrayList<String>) {
-        for (element in arr) {
-            var tab: TabLayout.Tab = scroller.newTab()
+    private fun buttonLoop(arr: ArrayList<String>, st:String, current: Int) {
+
+        for ((cnt,element) in arr.withIndex()) {
+            val tab: TabLayout.Tab =  scroller.newTab()
             tab.text = element
+
             scroller.addTab(tab)
+
+
+
         }
+
+
     }
 
     private fun getTagetSize(){
@@ -209,7 +218,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun buttonPressed(arr: ArrayList<String>, arrString: String, current: Int){
         lottie.visibility = View.VISIBLE
-        buttonLoop(arr)
+        buttonLoop(arr,arrString, current)
         if (current == 52) {
             var tab = scroller.getTabAt(0)
             tab?.select()
@@ -221,8 +230,8 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 current_longYear = (current_year + 1) - (current)
             }
 
-            //var tab = scroller.getTabAt(2)
-            //tab?.select()
+            var tab = scroller.getTabAt(current_longYear)
+            tab?.select()
         }
     }
 
@@ -251,19 +260,45 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     }
 
     fun iniBetaTablayout(){
-
+        var id = 0;
         scroller.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 myContainer.removeAllViews()
-                onBetaTabSelected(tab!!)
+                if(tab?.position != 0 || (tab.text.toString() == "January")){
+                    uiScope.launch(Dispatchers.IO) {
+                        if (id == 0){
+                            onBetaTabSelected(tab!!)
+                        } else {
+                            id++
+                        }
+                        withContext(Dispatchers.Main){
+                            myContainer.removeAllViews()
+                        }
+                    }
+                } else {
+                    onBetaTabSelected(tab)
+                }
             }
 
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 myContainer.removeAllViews()
-                onBetaTabSelected(tab!!)
+                if(tab?.position != 0 || (tab.text.toString() == "January")){
+                    uiScope.launch(Dispatchers.IO) {
+                        if (id == 0){
+                            onBetaTabSelected(tab!!)
+                        } else {
+                            id++
+                        }
+                        withContext(Dispatchers.Main){
+                            myContainer.removeAllViews()
+                        }
+                    }
+                } else {
+                    onBetaTabSelected(tab)
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -288,7 +323,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun onBetaTabSelected(tab: TabLayout.Tab){
-        var tabText = tab.text.toString()
+        var tabText = tab?.text.toString()
         if (weeks.contains(tabText)) {
             var weekNumber = tab?.text.toString().replace("U", "").toInt()
             databaseService.getSortedEvents(
@@ -322,7 +357,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 whoops
             )
 
+
         } else if (months.contains(tabText)) {
+
             databaseService.getSortedEvents(
                 1,
                 months.indexOf(tab?.text.toString()) + 1,

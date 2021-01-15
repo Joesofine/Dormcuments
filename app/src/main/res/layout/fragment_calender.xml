@@ -61,6 +61,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout_scroll"
         style="@style/Widget.MaterialComponents.TabLayout.Colored"
+        android:theme="@style/tabText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/ButtonDarkDark"
