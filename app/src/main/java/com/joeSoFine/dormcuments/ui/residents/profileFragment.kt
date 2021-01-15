@@ -41,9 +41,6 @@ import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.ui.signIn.SignIn
 import com.joeSoFine.dormcuments.ui.signIn.User
-import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.activity_sign_up.city_signup
-import kotlinx.android.synthetic.main.activity_sign_up2.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.util.*
 
@@ -455,6 +452,8 @@ class profileFragment : Fragment() {
         val from = "$city, $country"
         val diet = root.findViewById<EditText>(R.id.diet).text.toString()
         val fact = root.findViewById<EditText>(R.id.funfact).text.toString()
+        val succes = root.findViewById<LottieAnimationView>(R.id.succes)
+        val fail = root.findViewById<LottieAnimationView>(R.id.fail)
 
         if (fname.isEmpty()) {
             root.findViewById<EditText>(R.id.name_signup).error = "Please write a name"
@@ -463,9 +462,9 @@ class profileFragment : Fragment() {
         } else if (bdate.isEmpty()) {
             root.findViewById<EditText>(R.id.date).error = "Please choose birthday"
         } else if (city.isEmpty()) {
-            city_signup.error = "Please let us know where you are from"
+            city_edit.error = "Please let us know where you are from"
         } else if (country.isEmpty()) {
-            country_signup.error = "Please let us know where you are from"
+            country_edit.error = "Please let us know where you are from"
         } else {
             val user = User(fname, number, bdate, from, diet, fact, url)
             if (userid != null) {
@@ -482,12 +481,13 @@ class profileFragment : Fragment() {
 
                             database.child(userid).setValue(user)
                                 .addOnSuccessListener {
+                                    UITools.playLotiieOnce(succes, requireFragmentManager(), "pop")
                                     Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
                                     getFragmentManager()?.popBackStack()
                                 }
                                 .addOnFailureListener {
-                                    // Write failed
-                                    Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
+                                    UITools.playLotiieOnceNoPop(fail)
+
                                 }
                         }
                     }
@@ -503,9 +503,7 @@ class profileFragment : Fragment() {
                 }
             }
         }
-
     }
-
 
     companion object {
         //image pick code

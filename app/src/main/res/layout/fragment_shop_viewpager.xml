@@ -30,12 +30,16 @@
         app:layout_constraintTop_toBottomOf="@+id/tablayout" />
 
     <com.google.android.material.tabs.TabLayout
+        style="@style/Widget.MaterialComponents.TabLayout.Colored"
         android:id="@+id/tablayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/background_gradient"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:tabTextColor="@color/White" />
+        app:tabMode="fixed">
+
+    </com.google.android.material.tabs.TabLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
