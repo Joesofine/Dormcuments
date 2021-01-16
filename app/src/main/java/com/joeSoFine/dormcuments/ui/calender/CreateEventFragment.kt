@@ -66,7 +66,7 @@ class CreateEventFragment : Fragment() {
         val bundle = this.arguments
 
         val eventType = bundle?.getString("type")
-        if (!eventType.equals("Social")){
+        if (!eventType.equals("Social event")){
             eventTitle.visibility = View.GONE
             divloc. visibility = View.GONE
         }
@@ -107,7 +107,7 @@ class CreateEventFragment : Fragment() {
                 title = "Kitchen Meeting"
             } else if (eventType.equals("Cleaning")){
                 title = "Common Cleaning"
-            }else if (eventType.equals("Booking")){
+            }else if (eventType.equals("Book kitchen")){
                 title = "B"
             } else {
                 title = eventTitle.text.toString()
@@ -135,7 +135,7 @@ class CreateEventFragment : Fragment() {
                             var name: String = p0.child(userid).child("fname").getValue() as String
                             var room: String = p0.child(userid).child("number").getValue() as String
                             var created = "$name, $room"
-                            if (eventType.equals("Booking")) {
+                            if (eventType.equals("Book kitchen")) {
                                 title = name
                             }
 

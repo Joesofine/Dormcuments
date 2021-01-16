@@ -50,11 +50,20 @@ class EditEventFragment: Fragment() {
         val spinner_repeat = root.findViewById<Spinner>(R.id.spinner_repeat)
         val spinner_notis = root.findViewById<Spinner>(R.id.spinner_notis)
         val allday = root.findViewById<Switch>(R.id.allday)
+        val eventTitle = root.findViewById<EditText>(R.id.eventTitle)
+        val divloc = root.findViewById<View>(R.id.divloc)
         val datePickerStart = root.findViewById<DatePicker>(R.id.datePickerStart)
         val datePickerEnd = root.findViewById<DatePicker>(R.id.datePickerEnd)
         val today = Calendar.getInstance()
         val bundle = this.arguments
         eventid = bundle?.getString("id").toString()
+
+        val eventType = bundle?.getString("type")
+        if (!eventType.equals("Social event")){
+            eventTitle.visibility = View.GONE
+            divloc. visibility = View.GONE
+        }
+
         auth = Firebase.auth
         var color = ""
 
@@ -260,7 +269,7 @@ class EditEventFragment: Fragment() {
             val futureWeeksInYear = calendar.getActualMaximum(Calendar.WEEK_OF_YEAR) - calendar.get(Calendar.WEEK_OF_YEAR)
             val WeeksInNextYear = calendarNext.getActualMaximum(Calendar.WEEK_OF_YEAR)
 
-            for (week in futureWeeksInYear..futureWeeksInYear + WeeksInNextYear) {
+            for (week in futureWeeksInYear..futureWeeksInYear) {
                 count += 7
 
 

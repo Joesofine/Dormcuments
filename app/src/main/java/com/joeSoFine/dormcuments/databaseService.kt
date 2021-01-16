@@ -207,6 +207,7 @@ object databaseService {
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
 
+
                         var eventdate = snapshot.child("umformattedDate").value.toString().split("-")
                         var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
                         var created = snapshot.child("createdBy").value.toString()
@@ -214,83 +215,90 @@ object databaseService {
                         var allDay = snapshot.child("allDay").value.toString()
                         var doesRepeat = snapshot.child("doesRepeat").value.toString()
 
-                        myContainer.getChildAt(i).findViewById<TextView>(R.id.eventTitle).text = snapshot.child("title").value.toString()
-                        myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text = snapshot.child("unformattedDate").value.toString()
-                        myContainer.getChildAt(i).findViewById<TextView>(R.id.by).text = "Created by:\n$created"
-                        myContainer.getChildAt(i).findViewById<TextView>(R.id.parti).text = snapshot.child("participants").value.toString()
+                        if (eventdate.size == 3) {
 
-                        if (color.equals("Social event")){
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShow).setBackgroundResource(R.drawable.blue_round_button)
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShowExand).setBackgroundResource(R.drawable.blue_expand_button)
-                        } else if (color.equals("Book kitchen")){
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShow).setBackgroundResource(R.drawable.red_round_button)
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShowExand).setBackgroundResource(R.drawable.red_expand_button)
-                        } else {
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShow).setBackgroundResource(R.drawable.default_round_button)
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShowExand).setBackgroundResource(R.drawable.default_expand_button)
-                        }
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.eventTitle).text = snapshot.child("title").value.toString()
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text =
+                                snapshot.child("unformattedDate").value.toString()
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.by).text = "Created by:\n$created"
+                            myContainer.getChildAt(i).findViewById<TextView>(R.id.parti).text = snapshot.child("participants").value.toString()
 
-                        val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH)
-                        val dayAndMonthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM", Locale.ENGLISH)
-                        val yearFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.ENGLISH)
+                            if (color.equals("Social event")) {
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShow).setBackgroundResource(R.drawable.blue_round_button)
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShowExand)
+                                    .setBackgroundResource(R.drawable.blue_expand_button)
+                            } else if (color.equals("Book kitchen")) {
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShow).setBackgroundResource(R.drawable.red_round_button)
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShowExand)
+                                    .setBackgroundResource(R.drawable.red_expand_button)
+                            } else {
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShow)
+                                    .setBackgroundResource(R.drawable.default_round_button)
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShowExand)
+                                    .setBackgroundResource(R.drawable.default_expand_button)
+                            }
 
-                        if (arrString.equals("weeks")){
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = local.format(dayOfWeekFormatter)
-                        } else if (arrString.equals("months")){
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = local.format(dayAndMonthFormatter)
-                        } else {
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = local.format(yearFormatter)
-                        }
+                            val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH)
+                            val dayAndMonthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM", Locale.ENGLISH)
+                            val yearFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.ENGLISH)
 
-                        if (allDay.equals("true")) {
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.timeStart2).visibility = View.GONE
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.timeEnd2).visibility = View.GONE
-                        }
-                        else {
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.all).visibility = View.GONE
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.dateStart2).text = snapshot.child("dateStart").value.toString()
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.dateEnd2).text = snapshot.child("dateEnd").value.toString()
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.timeStart2).text = snapshot.child("timeStart").value.toString()
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.timeEnd2).text = snapshot.child("timeEnd").value.toString()
-                        }
+                            if (arrString.equals("weeks")) {
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = local.format(dayOfWeekFormatter)
+                            } else if (arrString.equals("months")) {
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = local.format(dayAndMonthFormatter)
+                            } else {
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = local.format(yearFormatter)
+                            }
 
-                        if (doesRepeat.equals("Does not repeat")){
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.reap).visibility = View.GONE
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.reaIcon).visibility = View.GONE
-                        } else {
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.reap).text = doesRepeat
-                        }
+                            if (allDay.equals("true")) {
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.timeStart2).visibility = View.GONE
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.timeEnd2).visibility = View.GONE
+                            } else {
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.all).visibility = View.GONE
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.dateStart2).text = snapshot.child("dateStart").value.toString()
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.dateEnd2).text = snapshot.child("dateEnd").value.toString()
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.timeStart2).text = snapshot.child("timeStart").value.toString()
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.timeEnd2).text = snapshot.child("timeEnd").value.toString()
+                            }
 
-                        UITools.setVisiblityEvent(
-                            snapshot.child("location").value.toString(),
-                            "",
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.loctext),
-                            myContainer.getChildAt(
-                                i
-                            ).findViewById<View>(R.id.divloc),
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.locIcon)
-                        )
-                        UITools.setVisiblityEvent(
-                            snapshot.child("notification").value.toString(),
-                            "No notification",
-                            myContainer.getChildAt(i).findViewById<TextView>(
-                                R.id.notTekst
-                            ),
-                            myContainer.getChildAt(i).findViewById<View>(R.id.divnot),
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.notIcon)
-                        )
-                        UITools.setVisiblityEvent(
-                            snapshot.child("des").value.toString(),
-                            "",
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.des),
-                            myContainer.getChildAt(
-                                i
-                            ).findViewById<View>(R.id.divdes),
-                            myContainer.getChildAt(i).findViewById<ImageView>(R.id.desCon)
-                        )
+                            if (doesRepeat.equals("Does not repeat")) {
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.reap).visibility = View.GONE
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.reaIcon).visibility = View.GONE
+                            } else {
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.reap).text = doesRepeat
+                            }
 
-                        if (snapshot.child("des").value.toString().equals("") && snapshot.child("location").value.toString().equals("")){
-                            myContainer.getChildAt(i).findViewById<View>(R.id.divdes4).visibility = View.GONE
+                            UITools.setVisiblityEvent(
+                                snapshot.child("location").value.toString(),
+                                "",
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.loctext),
+                                myContainer.getChildAt(
+                                    i
+                                ).findViewById<View>(R.id.divloc),
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.locIcon)
+                            )
+                            UITools.setVisiblityEvent(
+                                snapshot.child("notification").value.toString(),
+                                "No notification",
+                                myContainer.getChildAt(i).findViewById<TextView>(
+                                    R.id.notTekst
+                                ),
+                                myContainer.getChildAt(i).findViewById<View>(R.id.divnot),
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.notIcon)
+                            )
+                            UITools.setVisiblityEvent(
+                                snapshot.child("des").value.toString(),
+                                "",
+                                myContainer.getChildAt(i).findViewById<TextView>(R.id.des),
+                                myContainer.getChildAt(
+                                    i
+                                ).findViewById<View>(R.id.divdes),
+                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.desCon)
+                            )
+
+                            if (snapshot.child("des").value.toString().equals("") && snapshot.child("location").value.toString().equals("")) {
+                                myContainer.getChildAt(i).findViewById<View>(R.id.divdes4).visibility = View.GONE
+                            }
                         }
                     }
                 }
@@ -302,6 +310,7 @@ object databaseService {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == p0.key.toString()) {
                         myContainer.removeView(myContainer.getChildAt(i))
                         Toast.makeText(context, p0.child("title").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
+                        break
                     }
                 }
                 progressBar.visibility = View.GONE
