@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -20,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.SmartTools
+import com.joeSoFine.dormcuments.UITools
+import com.joeSoFine.dormcuments.databaseService
 import kotlinx.android.synthetic.main.fragment_create_event.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -52,6 +55,8 @@ class EditEventFragment: Fragment() {
         val allday = root.findViewById<Switch>(R.id.allday)
         val eventTitle = root.findViewById<EditText>(R.id.eventTitle)
         val divloc = root.findViewById<View>(R.id.divloc)
+        val succes = root.findViewById<LottieAnimationView>(R.id.succes)
+        val fail = root.findViewById<LottieAnimationView>(R.id.fail)
         val datePickerStart = root.findViewById<DatePicker>(R.id.datePickerStart)
         val datePickerEnd = root.findViewById<DatePicker>(R.id.datePickerEnd)
         val today = Calendar.getInstance()
@@ -300,17 +305,14 @@ class EditEventFragment: Fragment() {
 
                     database.child(eventid).setValue(event)
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Event has been created", Toast.LENGTH_SHORT).show()
+                            UITools.playLotiieOnce(succes, requireFragmentManager(), "pop")
                         }
                         .addOnFailureListener {
                             // Write failed
-                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                            UITools.playLotiieOnce(fail, requireFragmentManager(), "noPop")
                         }
                 }
             }
-
-            requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CalenderFragment()).addToBackStack(null).commit()
-
         } else {
             val event = Event(title, datStart, datEnd, timStart, timEnd, desc, locat, col, day, not, reapet, created, par, unformattedDate)
 
@@ -318,10 +320,7 @@ class EditEventFragment: Fragment() {
 
                 database.child(eventid).setValue(event)
                     .addOnSuccessListener {
-                        Toast.makeText(context, "Event has been updated", Toast.LENGTH_SHORT).show()
-                        requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, CalenderFragment()).addToBackStack(null).commit()
-
-
+                        UITools.playLotiieOnce(succes, requireFragmentManager(), "pop")
                     }
                     .addOnFailureListener {
                         // Write failed
@@ -331,10 +330,7 @@ class EditEventFragment: Fragment() {
         }
     }
     private fun deleteEvent(eventid: String){
-        var dName = database.child(eventid)
-
-        dName.removeValue()
-        Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
-        getFragmentManager()?.popBackStack()
+        databaseService.delteChildFromDatabase(eventid, "Events")
+        UITools.playLotiieOnce(succes, requireFragmentManager(), "pop")
     }
 }
