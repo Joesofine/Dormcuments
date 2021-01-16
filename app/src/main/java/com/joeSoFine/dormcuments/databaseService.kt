@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
@@ -181,7 +182,7 @@ object databaseService {
 
                     if (arrString.equals("years")) {
                         if (eventdate[DateIndex].toInt() == relevantDatePart) {
-                            UITools.eventDateCall(i, arrString, myContainer, layoutInflater, fragmentManager, context, refU)
+                            UITools.eventDateCall(i, arrString, myContainer, layoutInflater, fragmentManager, context, refU, refE)
                         }
                     } else {
                         if (eventdate[0].toInt() == current_year) {
@@ -190,11 +191,11 @@ object databaseService {
                                 val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
 
                                 if (local.get(woy) == relevantDatePart) {
-                                    UITools.eventDateCall(i, arrString, myContainer, layoutInflater, fragmentManager, context, refU)
+                                    UITools.eventDateCall(i, arrString, myContainer, layoutInflater, fragmentManager, context, refU, refE)
                                 }
                             } else {
                                 if (eventdate[DateIndex].toInt() == relevantDatePart) {
-                                    UITools.eventDateCall(i, arrString, myContainer, layoutInflater, fragmentManager, context, refU)
+                                    UITools.eventDateCall(i, arrString, myContainer, layoutInflater, fragmentManager, context, refU, refE)
                                 }
                             }
                         }
@@ -206,102 +207,34 @@ object databaseService {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
-                        myContainer.removeView(myContainer.getChildAt(i))
-                        UITools.setWhoops(myContainer, whoops)
+                        var dateUn: String = snapshot.child("unformattedDate").value as String
+                        var eventdate = dateUn.split("-")
 
-                        var eventdate = snapshot.child("umformattedDate").value.toString().split("-")
-                        if (eventdate.size == 3) {
-                        var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
-                        var created = snapshot.child("createdBy").value.toString()
-                        var color = snapshot.child("color").value.toString()
-                        var allDay = snapshot.child("allDay").value.toString()
-                        var doesRepeat = snapshot.child("doesRepeat").value.toString()
-
-
-
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.eventTitle).text = snapshot.child("title").value.toString()
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text =
-                                snapshot.child("unformattedDate").value.toString()
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.by).text = "Created by:\n$created"
-                            myContainer.getChildAt(i).findViewById<TextView>(R.id.parti).text = snapshot.child("participants").value.toString()
-
-                            if (color.equals("Social event")) {
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShow).setBackgroundResource(R.drawable.blue_round_button)
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShowExand)
-                                    .setBackgroundResource(R.drawable.blue_expand_button)
-                            } else if (color.equals("Book kitchen")) {
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShow).setBackgroundResource(R.drawable.red_round_button)
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShowExand)
-                                    .setBackgroundResource(R.drawable.red_expand_button)
-                            } else {
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShow)
-                                    .setBackgroundResource(R.drawable.default_round_button)
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.colorShowExand)
-                                    .setBackgroundResource(R.drawable.default_expand_button)
+                        if (arrString.equals("years")) {
+                            if (eventdate[DateIndex].toInt() == relevantDatePart) {
+                                onEventViewChangedUpdateView(myContainer,i, snapshot, arrString, layoutInflater, fragmentManager, context, refU, refE)
                             }
-
-                            val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH)
-                            val dayAndMonthFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM", Locale.ENGLISH)
-                            val yearFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.ENGLISH)
-
-                            if (arrString.equals("weeks")) {
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = local.format(dayOfWeekFormatter)
-                            } else if (arrString.equals("months")) {
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = local.format(dayAndMonthFormatter)
-                            } else {
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = local.format(yearFormatter)
-                            }
-
-                            if (allDay.equals("true")) {
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.timeStart2).visibility = View.GONE
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.timeEnd2).visibility = View.GONE
-                            } else {
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.all).visibility = View.GONE
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.dateStart2).text = snapshot.child("dateStart").value.toString()
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.dateEnd2).text = snapshot.child("dateEnd").value.toString()
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.timeStart2).text = snapshot.child("timeStart").value.toString()
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.timeEnd2).text = snapshot.child("timeEnd").value.toString()
-                            }
-
-                            if (doesRepeat.equals("Does not repeat")) {
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.reap).visibility = View.GONE
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.reaIcon).visibility = View.GONE
-                            } else {
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.reap).text = doesRepeat
-                            }
-
-                            UITools.setVisiblityEvent(
-                                snapshot.child("location").value.toString(),
-                                "",
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.loctext),
-                                myContainer.getChildAt(
-                                    i
-                                ).findViewById<View>(R.id.divloc),
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.locIcon)
-                            )
-                            UITools.setVisiblityEvent(
-                                snapshot.child("notification").value.toString(),
-                                "No notification",
-                                myContainer.getChildAt(i).findViewById<TextView>(
-                                    R.id.notTekst
-                                ),
-                                myContainer.getChildAt(i).findViewById<View>(R.id.divnot),
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.notIcon)
-                            )
-                            UITools.setVisiblityEvent(
-                                snapshot.child("des").value.toString(),
-                                "",
-                                myContainer.getChildAt(i).findViewById<TextView>(R.id.des),
-                                myContainer.getChildAt(
-                                    i
-                                ).findViewById<View>(R.id.divdes),
-                                myContainer.getChildAt(i).findViewById<ImageView>(R.id.desCon)
-                            )
-
-                            if (snapshot.child("des").value.toString().equals("") && snapshot.child("location").value.toString().equals("")) {
-                                myContainer.getChildAt(i).findViewById<View>(R.id.divdes4).visibility = View.GONE
+                        } else {
+                            if (eventdate[0].toInt() == current_year) {
+                                if (arrString.equals("weeks")) {
+                                    var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
+                                    val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
+                                    if (local.get(woy) == relevantDatePart) {
+                                       onEventViewChangedUpdateView(myContainer,i, snapshot, arrString, layoutInflater, fragmentManager, context, refU, refE)
+                                    } else {
+                                        myContainer.removeView(myContainer.getChildAt(i))
+                                    }
+                                } else {
+                                    if (eventdate[DateIndex].toInt() == relevantDatePart) {
+                                        onEventViewChangedUpdateView(myContainer,i, snapshot, arrString, layoutInflater, fragmentManager, context, refU, refE)
+                                    } else {
+                                        myContainer.removeView(myContainer.getChildAt(i))
+                                    }
+                                }
                             }
                         }
+                        UITools.setWhoops(myContainer, whoops)
+                        break
                     }
                 }
             }
@@ -480,7 +413,8 @@ object databaseService {
         createdTV: TextView,
         eventid: String,
         ref: String,
-        context: Context
+        context: Context,
+        refE: String
     ){
          val getdata = object : ValueEventListener {
             val userid = auth.currentUser?.uid.toString()
@@ -490,7 +424,7 @@ object databaseService {
 
                 UITools.visivlityEditButton(room, editIV, createdTV)
                 UICleaning.setSwitchStatusEvents(switch, room, parti)
-                listenerOnChangeEvents(switch, room, eventid, parti, ref, context)
+                listenerOnChangeEvents(switch, room, eventid, parti, refE, context)
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -515,7 +449,6 @@ object databaseService {
                 st = parti.text.toString()
 
                 database.getReference(ref).child(eventid).child("participants").setValue(st).addOnSuccessListener {
-                    Toast.makeText(context, "succesfully joined event", Toast.LENGTH_SHORT).show()
                 }
                     .addOnFailureListener {}
 
@@ -528,7 +461,6 @@ object databaseService {
                 parti.text = st
 
                 database.getReference(ref).child(eventid).child("participants").setValue(st).addOnSuccessListener {
-                    Toast.makeText(context, "Sign up deleted", Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener { }
 
             }
@@ -539,7 +471,6 @@ object databaseService {
         val topicId = generateID(ref)
         database.getReference(ref).child(topicId!!).setValue(topic)
             .addOnSuccessListener {
-                Toast.makeText(context, "Topic has been added", Toast.LENGTH_SHORT).show()
                 fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, MeetingFragment()).addToBackStack(null).commit()
             }
             .addOnFailureListener {
@@ -585,7 +516,9 @@ object databaseService {
                     var room = i.child("number").getValue().toString()
                     var firtsName = name[0]
 
-                    spinArr.add("$firtsName - $room")
+                    if (!firtsName.equals("null")) {
+                        spinArr.add("$firtsName - $room")
+                    }
                 }
                 UITools.iniSpinners(root, context, spinArr)
 
@@ -612,6 +545,18 @@ object databaseService {
         }
         database.getReference("Users").addValueEventListener(getdata)
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun onEventViewChangedUpdateView(myContainer: LinearLayout, i: Int, snapshot: DataSnapshot, arrString: String, layoutInflater: LayoutInflater, fragmentManager: FragmentManager, context: Context, refU:String, refE: String){
+        myContainer.removeView(myContainer.getChildAt(i))
+        UITools.eventDateCall(snapshot, arrString, myContainer, layoutInflater, fragmentManager, context, refU, refE)
+        for (k in 0..myContainer.childCount - 1) {
+            if (myContainer.getChildAt(k).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
+                UITools.expandListEvent((myContainer.getChildAt(k).findViewById<ConstraintLayout>(R.id.sumLayout)), (myContainer.getChildAt(k).findViewById<ImageButton>(R.id.expand)), (myContainer.getChildAt(k).findViewById<ConstraintLayout>(R.id.colorShow)), (myContainer.getChildAt(k).findViewById<ConstraintLayout>(R.id.colorShowExand)))
+                break
+            }
+        }
     }
 
 }

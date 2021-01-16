@@ -429,7 +429,8 @@ object UITools {
         layoutInflater: LayoutInflater,
         fragmentManager: FragmentManager,
         ref: String,
-        context: Context
+        context: Context,
+        refE: String
     ){
         val ExpandableCardview: View =
             layoutInflater.inflate(R.layout.list_element_calendar, null, false)
@@ -535,7 +536,7 @@ object UITools {
         }
 
         titleLayout.setOnClickListener { expandListEvent(sumLayout, expand, colorView, colorExpand)}
-        databaseService.setSwitchAndEditForCurrentUser(switch, parti, editEvent, by, eventid, ref, context)
+        databaseService.setSwitchAndEditForCurrentUser(switch, parti, editEvent, by, eventid, ref, context, refE)
 
         editEvent.setOnClickListener{
             val bundle = Bundle()
@@ -685,7 +686,8 @@ object UITools {
         layoutInflater: LayoutInflater,
         fragmentManager: FragmentManager,
         context: Context,
-        ref: String
+        ref: String,
+        refE: String
     ){
         var dateUn: String = i.child("unformattedDate").value as String
         var title: String = i.child("title").value as String
@@ -720,7 +722,7 @@ object UITools {
             par,
             color,
             myContainer,
-            arrString, layoutInflater, fragmentManager, ref, context
+            arrString, layoutInflater, fragmentManager, ref, context, refE
         )
     }
 
