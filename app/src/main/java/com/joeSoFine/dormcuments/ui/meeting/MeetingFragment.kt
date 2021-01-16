@@ -35,10 +35,10 @@ class MeetingFragment : Fragment(), View.OnClickListener {
         val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
         expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
 
-        val layoutParams = view.findViewById<Toolbar>(R.id.toolbar).getLayoutParams()
+        val contextView = view.findViewById<View>(R.id.contextView)
 
 
-        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleMeetings, R.string.helpDialogMsgMeetings)
+        UITools.setUpBasicToolbar(view, contextView, requireContext(), R.string.helpDialogTitleMeetings, R.string.helpDialogMsgMeetings)
     }
 
     override fun onClick(v: View?) {

@@ -810,7 +810,7 @@ object UITools {
         }
     }
 
-    fun setUpBasicToolbar(view: View, context: Context, title: Int, msg: Int){
+    fun setUpBasicToolbar(view: View, contextView: View, context: Context, title: Int, msg: Int){
         var toolbar = view.findViewById(R.id.toolbar) as Toolbar
         toolbar.inflateMenu(R.menu.menu_just_help)
         toolbar.setOnMenuItemClickListener {
@@ -820,7 +820,7 @@ object UITools {
                     true
                 }
                 R.id.out -> {
-                    SmartTools.signOut(context)
+                    SmartTools.signOut(context, contextView)
                     true
                 }
                 else -> {

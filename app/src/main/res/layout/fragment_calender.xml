@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contextView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -19,7 +20,7 @@
             android:theme="@style/MyToolbarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            app:layout_constraintTop_toTopOf="parent">
 
 
         </androidx.appcompat.widget.Toolbar>
@@ -61,17 +62,16 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout_scroll"
         style="@style/Widget.MaterialComponents.TabLayout.Colored"
-        android:theme="@style/tabText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/ButtonDarkDark"
+        android:theme="@style/tabText"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         app:tabContentStart="0dp"
         app:tabMode="scrollable">
 
 
     </com.google.android.material.tabs.TabLayout>
-
 
 
     <com.airbnb.lottie.LottieAnimationView
@@ -128,6 +128,7 @@
             android:layout_height="match_parent" />
 
         <com.nambimobile.widgets.efab.ExpandableFab
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"

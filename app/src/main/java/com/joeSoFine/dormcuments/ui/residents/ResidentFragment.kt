@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
+import kotlinx.android.synthetic.main.fragment_calender.*
 import java.util.*
 
 class ResidentFragment : Fragment() {
@@ -36,7 +37,7 @@ class ResidentFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleResident, R.string.helpDialogMsgResident)
+        UITools.setUpBasicToolbar(view, contextView, requireContext(), R.string.helpDialogTitleResident, R.string.helpDialogMsgResident)
     }
 
 }

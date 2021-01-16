@@ -7,7 +7,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.ui.signIn.SignIn
@@ -32,7 +34,7 @@ object SmartTools {
         return Uri.parse(path.toString())
     }
 
-    fun signOut(context: Context){
+    fun signOut(context: Context, contextView: View){
         val builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.dialogTitleSignOut)
         builder.setMessage(R.string.dialogMessageSignOut)
@@ -40,7 +42,8 @@ object SmartTools {
 
         builder.setPositiveButton("Continue"){ dialogInterface, which ->
             Firebase.auth.signOut()
-            Toast.makeText(context, "You are now signed out", Toast.LENGTH_SHORT).show()
+            Snackbar.make(contextView,"You are now signed out.", Snackbar.LENGTH_SHORT)
+                .show()
             val intent = Intent(context, SignIn::class.java)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             context.startActivity(intent)

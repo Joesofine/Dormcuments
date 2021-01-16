@@ -39,7 +39,8 @@ class ShopViewpagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         var userid = Firebase.auth.currentUser!!.uid
         databaseService.getUserName(userid, view.findViewById(R.id.toolbar))
-        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)
+        val contextView = view.findViewById<View>(R.id.contextView)
+        UITools.setUpBasicToolbar(view, contextView, requireContext(), R.string.helpDialogTitleGrocery, R.string.helpDialogMsgGrocery)
     }
 
 

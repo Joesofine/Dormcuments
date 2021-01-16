@@ -202,6 +202,7 @@ class profileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         var userid = auth.currentUser!!.uid
+        val contextView = view.findViewById<View>(R.id.contextView)
 
         var toolbar = view.findViewById(R.id.toolbar) as Toolbar
         toolbar.inflateMenu(R.menu.actionbar_profile_)
@@ -231,7 +232,7 @@ class profileFragment : Fragment() {
                     true
                 }
                 R.id.out -> {
-                    SmartTools.signOut(requireContext())
+                    SmartTools.signOut(requireContext(), contextView)
                     true
                 }
                 else -> {

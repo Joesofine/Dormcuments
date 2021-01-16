@@ -13,6 +13,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -23,9 +25,11 @@ import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.SmartTools
 import com.joeSoFine.dormcuments.UITools
 import com.joeSoFine.dormcuments.databaseService
+import com.nambimobile.widgets.efab.ExpandableFab
 import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.fragment_calender.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.NonCancellable.cancel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -97,8 +101,10 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         var userid = auth.currentUser!!.uid
         val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
+        val fab = view.findViewById<ExpandableFab>(R.id.fab)
         expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
 
+        val contextView = view.findViewById<View>(R.id.contextView)
         var toolbar = view.findViewById(R.id.toolbar) as Toolbar
         toolbar.inflateMenu(R.menu.actionbar_calendar)
         databaseService.getUserName(userid, toolbar)
@@ -109,11 +115,14 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                     true
                 }
                 R.id.filter -> {
-                    Toast.makeText(context, "Comming soon!", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(contextView,"Comming soon! Not yet implemented.", Snackbar.LENGTH_SHORT)
+                        .setAnchorView(fab)
+                        .show()
+                    filterDialog()
                     true
                 }
                 R.id.out -> {
-                    SmartTools.signOut(requireContext())
+                    SmartTools.signOut(requireContext(), contextView)
                     true
                 }
                 else -> {
@@ -323,6 +332,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun onBetaTabSelected(tab: TabLayout.Tab){
+        tab
         var tabText = tab?.text.toString()
         if (weeks.contains(tabText)) {
             var weekNumber = tab?.text.toString().replace("U", "").toInt()
@@ -375,5 +385,25 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 whoops
             )
         }
+    }
+
+    fun filterDialog(){
+        val multiItems = arrayOf("Item 1", "Item 2", "Item 3")
+        val checkedItems = booleanArrayOf(true, false, false, false)
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(" ")
+            .setNeutralButton("Cancel") { dialog, which ->
+                // Respond to neutral button press
+            }
+            .setPositiveButton("Ok") { dialog, which ->
+                // Respond to positive button press
+            }
+            // Single-choice items (initialized with checked item)
+            .setMultiChoiceItems(multiItems, checkedItems) { dialog, which, checked ->
+                // Respond to item chosen
+
+            }
+            .show()
     }
 }

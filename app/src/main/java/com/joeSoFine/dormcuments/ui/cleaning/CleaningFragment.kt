@@ -41,10 +41,11 @@ class CleaningFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val contextView = view.findViewById<View>(R.id.contextView)
         val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
         expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
 
-        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleCleaning, R.string.helpDialogMsgCleaning)
+        UITools.setUpBasicToolbar(view, contextView, requireContext(), R.string.helpDialogTitleCleaning, R.string.helpDialogMsgCleaning)
     }
 
 

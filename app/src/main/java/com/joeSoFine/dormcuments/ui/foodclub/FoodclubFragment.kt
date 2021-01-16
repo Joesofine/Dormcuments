@@ -50,11 +50,12 @@ class FoodclubFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val expandableFabLayout = view.findViewById<ExpandableFabLayout>(R.id.fab_layout)
+        val contextView = view.findViewById<View>(R.id.contextView)
         expandableFabLayout.portraitConfiguration.fabOptions.forEach { it.setOnClickListener(this) }
 
         var userid = Firebase.auth.currentUser!!.uid
         databaseService.getUserName(userid, view.findViewById(R.id.toolbar))
-        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleFoodclub, R.string.helpDialogMsgFoodclub)
+        UITools.setUpBasicToolbar(view, contextView, requireContext(), R.string.helpDialogTitleFoodclub, R.string.helpDialogMsgFoodclub)
     }
 
     override fun onClick(v: View?) {

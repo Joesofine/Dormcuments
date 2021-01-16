@@ -59,7 +59,8 @@ class  RulesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleRules, R.string.helpDialogMsgRules)
+        val contextView = view.findViewById<View>(R.id.contextView)
+        UITools.setUpBasicToolbar(view, contextView, requireContext(), R.string.helpDialogTitleRules, R.string.helpDialogMsgRules)
     }
 
 

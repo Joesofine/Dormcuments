@@ -11,6 +11,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.UITools
 import com.nambimobile.widgets.efab.ExpandableFabLayout
+import kotlinx.android.synthetic.main.fragment_calender.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -65,7 +66,8 @@ class SummaryMenuFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        UITools.setUpBasicToolbar(view, requireContext(), R.string.helpDialogTitleSum, R.string.helpDialogMsgSum)
+        val contextView = view.findViewById<View>(R.id.contextView)
+        UITools.setUpBasicToolbar(view, contextView, requireContext(), R.string.helpDialogTitleSum, R.string.helpDialogMsgSum)
     }
 
 
