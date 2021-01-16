@@ -135,7 +135,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/task" />
+                app:layout_constraintTop_toBottomOf="@+id/extraTask" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -243,7 +243,7 @@
                 android:id="@+id/weeklyTask"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/divider6"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -578,7 +578,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/expandExtra"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView12">
+                app:layout_constraintTop_toBottomOf="@+id/task">
 
                 <TextView
                     android:id="@+id/detailsK"
