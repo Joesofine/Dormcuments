@@ -59,6 +59,7 @@ class ShopViewpagerFragment : Fragment() {
                 0 -> {
                     tab.text = "Grocery"
                     val badge = tab.getOrCreateBadge()
+                    badge.backgroundColor = resources.getColor(R.color.meeting)
                     var getdataU = object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot) {
                             badge.number = p0.childrenCount.toInt()
@@ -67,11 +68,11 @@ class ShopViewpagerFragment : Fragment() {
                     }
 
                     FirebaseDatabase.getInstance().getReference("Shoppinglist").addValueEventListener(getdataU)
-                    badge.number = 6
                 }
                 1 -> {
                     tab.text = "Inventory"
                     val badge = tab.getOrCreateBadge()
+                    badge.backgroundColor = resources.getColor(R.color.meeting)
                     var getdataU = object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot) {
                             badge.number = p0.childrenCount.toInt()
