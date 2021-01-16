@@ -206,7 +206,8 @@ object databaseService {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
-
+                        myContainer.removeView(myContainer.getChildAt(i))
+                        UITools.setWhoops(myContainer, whoops)
 
                         var eventdate = snapshot.child("umformattedDate").value.toString().split("-")
                         if (eventdate.size == 3) {
