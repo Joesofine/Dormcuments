@@ -270,47 +270,12 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 myContainer.removeAllViews()
                 onBetaTabSelected(tab!!)
-                /*
-                if (tab?.position != 0 || (tab.text.toString() == "January")) {
-                    uiScope.launch(Dispatchers.IO) {
-                        if (id == 0) {
-                            onBetaTabSelected(tab!!)
-                        } else {
-                            id++
-                        }
-                        withContext(Dispatchers.Main) {
-                            myContainer.removeAllViews()
-                        }
-                    }
-                } else {
-                    onBetaTabSelected(tab)
-                }
-
-                 */
             }
 
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 myContainer.removeAllViews()
                 onBetaTabSelected(tab!!)
-
-                /*
-                if (tab?.position != 0 || (tab.text.toString() == "January")) {
-                    uiScope.launch(Dispatchers.IO) {
-                        if (id == 0) {
-                            onBetaTabSelected(tab!!)
-                        } else {
-                            id++
-                        }
-                        withContext(Dispatchers.Main) {
-                            myContainer.removeAllViews()
-                        }
-                    }
-                } else {
-                    onBetaTabSelected(tab)
-                }
-
-                 */
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -329,8 +294,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         } else if (tab?.equals(tabLayout.getTabAt(2))!!) {
             buttonPressed(years, "years", current_year)
         }
-            //var tab = scroller.getTabAt(2)
-            //tab?.select()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -391,11 +354,11 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     }
 
     fun filterDialog(){
-        val multiItems = arrayOf("Item 1", "Item 2", "Item 3")
-        val checkedItems = booleanArrayOf(true, false, false, false)
+        val multiItems = arrayOf("Social events", "Meetings", "Cleanings", "Bookings")
+        val checkedItems = booleanArrayOf(true, true, true, true)
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(" ")
+            .setTitle("Choose which events to show")
             .setNeutralButton("Cancel") { dialog, which ->
                 // Respond to neutral button press
             }

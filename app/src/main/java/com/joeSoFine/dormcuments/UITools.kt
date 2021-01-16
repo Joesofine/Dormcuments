@@ -150,68 +150,73 @@ object UITools {
         var id: TextView = ExpandableCardview.findViewById(R.id.idCon)
 
         var eventdate = unform.split("/")
-        var local = LocalDate.of(eventdate[2].toInt(), eventdate[1].toInt() + 1, eventdate[0].toInt())
+        if (eventdate.size == 3) {
 
-        setC(c1,w1)
-        setC(c2,w2)
+            var local = LocalDate.of(eventdate[2].toInt(), eventdate[1].toInt() + 1, eventdate[0].toInt())
 
-
-        datefield.setText(date)
-        un.text = unform
-        id.text = clubid
+            setC(c1, w1)
+            setC(c2, w2)
 
 
-        show.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("id", clubid)
-            val fragment2 = FoodDetailsFragment()
-            fragment2.arguments = bundle
-            fragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()        }
+            datefield.setText(date)
+            un.text = unform
+            id.text = clubid
+
+
+            show.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("id", clubid)
+                val fragment2 = FoodDetailsFragment()
+                fragment2.arguments = bundle
+                fragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out)
+                    .replace(R.id.nav_host_fragment, fragment2)?.addToBackStack(null)?.commit()
+            }
 
 
 
-        if (myContainer.childCount == 0) {
-            myContainer.addView(ExpandableCardview)
-        } else {
-            for (i in 0..myContainer.childCount - 1) {
-                val ufd = myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
-                val elementDate = LocalDate.of(ufd[2].toInt(), ufd[1].toInt() + 1, ufd[0].toInt())
+            if (myContainer.childCount == 0) {
+                myContainer.addView(ExpandableCardview)
+            } else {
+                for (i in 0..myContainer.childCount - 1) {
+                    val ufd = myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
+                    val elementDate = LocalDate.of(ufd[2].toInt(), ufd[1].toInt() + 1, ufd[0].toInt())
 
-                if (elementDate.isAfter(local) || elementDate.isEqual(local) ) {
-                    myContainer.addView(ExpandableCardview, i)
-                    break
-
-                } else if (elementDate.isBefore(local)) {
-                    if (i == myContainer.childCount - 1) {
-                        myContainer.addView(ExpandableCardview)
+                    if (elementDate.isAfter(local) || elementDate.isEqual(local)) {
+                        myContainer.addView(ExpandableCardview, i)
                         break
 
-                    } else {
-                        val k = i + 1
-                        val ufdK = myContainer.getChildAt(k).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
-                        val elementDateK = LocalDate.of(ufdK[2].toInt(), ufdK[1].toInt() + 1, ufdK[0].toInt())
-
-                        if (local.isBefore(elementDateK) || local.isEqual(elementDateK)) {
-                            myContainer.addView(ExpandableCardview, k)
+                    } else if (elementDate.isBefore(local)) {
+                        if (i == myContainer.childCount - 1) {
+                            myContainer.addView(ExpandableCardview)
                             break
 
                         } else {
+                            val k = i + 1
+                            val ufdK = myContainer.getChildAt(k).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
+                            val elementDateK = LocalDate.of(ufdK[2].toInt(), ufdK[1].toInt() + 1, ufdK[0].toInt())
 
-                            for (j in k..myContainer.childCount - 1) {
-                                val ufdJ = myContainer.getChildAt(j).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
-                                val elementDateJ = LocalDate.of(ufdJ[2].toInt(), ufdJ[1].toInt() + 1, ufdJ[0].toInt())
+                            if (local.isBefore(elementDateK) || local.isEqual(elementDateK)) {
+                                myContainer.addView(ExpandableCardview, k)
+                                break
 
-                                if (local.isBefore(elementDateJ)) {
-                                    myContainer.addView(ExpandableCardview, j)
-                                    bool = true
-                                    break
+                            } else {
+
+                                for (j in k..myContainer.childCount - 1) {
+                                    val ufdJ = myContainer.getChildAt(j).findViewById<TextView>(R.id.unformatted).text.toString().split("/")
+                                    val elementDateJ = LocalDate.of(ufdJ[2].toInt(), ufdJ[1].toInt() + 1, ufdJ[0].toInt())
+
+                                    if (local.isBefore(elementDateJ)) {
+                                        myContainer.addView(ExpandableCardview, j)
+                                        bool = true
+                                        break
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                if (bool == true){
-                    break
+                    if (bool == true) {
+                        break
+                    }
                 }
             }
         }
@@ -285,7 +290,9 @@ object UITools {
         var userImg: ImageView = ExpandableCardview.findViewById(R.id.userImage)
         var id: TextView = ExpandableCardview.findViewById(R.id.idCon)
 
-        if (!rn.isEmpty()) {
+        val birthday = bdate.split("/")
+
+        if (!rn.isEmpty() && (birthday.size > 1)) {
             Glide.with(context.applicationContext).load(url).into(userImg)
 
             if (fullname.contains(" ")) {
@@ -304,7 +311,6 @@ object UITools {
                 resLast.text = ""
             }
 
-            val birthday = bdate.split("/")
             room.text = rn
             age.text = getAge(birthday[2].toInt(), birthday[1].toInt(), birthday[0].toInt())
             birth.text = bdate
@@ -458,8 +464,6 @@ object UITools {
         val colorExpand:ConstraintLayout = ExpandableCardview.findViewById(R.id.colorShowExand)
         val id = ExpandableCardview.findViewById<TextView>(R.id.idCon)
 
-
-
         var eventdate = unformattedDate.split("-")
         var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
 
@@ -491,7 +495,8 @@ object UITools {
         val yearFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.ENGLISH)
 
         if (arrString.equals("weeks")){
-            Date.text = local.format(dayOfWeekFormatter)
+            var day = local.format(dayOfWeekFormatter)
+            Date.text = "$day $timeStart"
         } else if (arrString.equals("months")){
             Date.text = local.format(dayAndMonthFormatter)
         } else {

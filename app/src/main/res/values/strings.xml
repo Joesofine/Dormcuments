@@ -124,19 +124,19 @@ Click the X to remove an item.</string>
 
     <string-array name="spinner_notification">
         <item>No notification</item>
-        <item>15 min</item>
-        <item>30 min</item>
-        <item>1 time</item>
-        <item>2 timer</item>
-        <item>24 timer</item>
+        <item>15 min (Coming Soon)</item>
+        <item>30 min (Coming Soon)</item>
+        <item>1 time (Coming Soon)</item>
+        <item>2 timer (Coming Soon)</item>
+        <item>24 timer (Coming Soon)</item>
     </string-array>
 
     <string-array name="spinner_reapets">
         <item>Does not repeat</item>
-        <item>Every day</item>
+        <item>Every day (Coming Soon)</item>
         <item>Every week</item>
-        <item>Every month</item>
-        <item>Every year</item>
+        <item>Every month (Coming Soon)</item>
+        <item>Every year (Coming Soon)</item>
     </string-array>
 
 

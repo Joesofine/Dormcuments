@@ -52,6 +52,8 @@ class CreateEventFragment : Fragment() {
         val datePickerEnd = root.findViewById<DatePicker>(R.id.datePickerEnd)
         val succes = root.findViewById<LottieAnimationView>(R.id.succes)
         val fail = root.findViewById<LottieAnimationView>(R.id.fail)
+        val eventTitle = root.findViewById<EditText>(R.id.eventTitle)
+        val divloc = root.findViewById<View>(R.id.divloc)
         val today = Calendar.getInstance()
         val dayOfWeekFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE. dd. MMM. yyyy", Locale.ENGLISH)
         Sdate = LocalDate.now()
@@ -62,6 +64,13 @@ class CreateEventFragment : Fragment() {
         root.findViewById<TextView>(R.id.dateEnd).text = formattet
         auth = Firebase.auth
         val bundle = this.arguments
+
+        val eventType = bundle?.getString("type")
+        if (!eventType.equals("Social")){
+            eventTitle.visibility = View.GONE
+            divloc. visibility = View.GONE
+        }
+
 
 
         listenerOnChange(allday,root)
@@ -92,7 +101,17 @@ class CreateEventFragment : Fragment() {
             TimePickerDialog(context, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
         }
         root.findViewById<TextView>(R.id.save).setOnClickListener {
-            val title = eventTitle.text.toString()
+            root.findViewById<TextView>(R.id.save).isClickable = false
+            var title: String
+            if (eventType.equals("Meeting")){
+                title = "Kitchen Meeting"
+            } else if (eventType.equals("Cleaning")){
+                title = "Common Cleaning"
+            }else if (eventType.equals("Booking")){
+                title = "B"
+            } else {
+                title = eventTitle.text.toString()
+            }
             val locat = location.text.toString()
             val desc = des.text.toString()
             val datStart = dateStart.text.toString()
@@ -116,6 +135,9 @@ class CreateEventFragment : Fragment() {
                             var name: String = p0.child(userid).child("fname").getValue() as String
                             var room: String = p0.child(userid).child("number").getValue() as String
                             var created = "$name, $room"
+                            if (eventType.equals("Booking")) {
+                                title = name
+                            }
 
                             createEvent(title, datStart, datEnd, timStart, timEnd, desc, locat, col!!, all, not, reapet, created)
                         }
@@ -209,7 +231,7 @@ class CreateEventFragment : Fragment() {
             val futureWeeksInYear = calendar.getActualMaximum(Calendar.WEEK_OF_YEAR) - calendar.get(Calendar.WEEK_OF_YEAR)
             val WeeksInNextYear = calendarNext.getActualMaximum(Calendar.WEEK_OF_YEAR)
 
-            for (week in futureWeeksInYear..futureWeeksInYear + WeeksInNextYear){
+            for (week in futureWeeksInYear..futureWeeksInYear){
                 count += 7
 
 
@@ -239,11 +261,11 @@ class CreateEventFragment : Fragment() {
 
                     database.child(eventid).setValue(event)
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Event has been created", Toast.LENGTH_SHORT).show()
+                            UITools.playLotiieOnce(succes, requireFragmentManager(), "pop")
                         }
                         .addOnFailureListener {
                             // Write failed
-                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                            UITools.playLotiieOnce(fail, requireFragmentManager(), "noPop")
                         }
                 }
             }
@@ -261,7 +283,7 @@ class CreateEventFragment : Fragment() {
                         UITools.playLotiieOnce(succes, requireFragmentManager(), "pop")
                     }
                     .addOnFailureListener {
-                        UITools.playLotiieOnce(succes, requireFragmentManager(), "noPop")
+                        UITools.playLotiieOnce(fail, requireFragmentManager(), "noPop")
                     }
             }
         }
