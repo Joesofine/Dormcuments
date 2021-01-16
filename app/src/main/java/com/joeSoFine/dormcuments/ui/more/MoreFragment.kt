@@ -55,7 +55,7 @@ class MoreFragment : Fragment(),View.OnClickListener  {
                     requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, CleaningFragment()).addToBackStack(null).commit()
                 }
                 p0 === rules_button -> {
-                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, RulesFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, SummaryMenuFragment()).addToBackStack(null).commit()
                 }
                 p0 === residents_button -> {
                     requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, ResidentFragment()).addToBackStack(null).commit()
@@ -67,7 +67,7 @@ class MoreFragment : Fragment(),View.OnClickListener  {
                     requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, profileFragment()).addToBackStack(null).commit()
                 }
                 p0 === inventory_button -> {
-                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, SummaryMenuFragment()).addToBackStack(null).commit()
+                    requireFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out).replace(R.id.nav_host_fragment, RulesFragment()).addToBackStack(null).commit()
                 }
             }
         }
