@@ -209,13 +209,14 @@ object databaseService {
 
 
                         var eventdate = snapshot.child("umformattedDate").value.toString().split("-")
+                        if (eventdate.size == 3) {
                         var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
                         var created = snapshot.child("createdBy").value.toString()
                         var color = snapshot.child("color").value.toString()
                         var allDay = snapshot.child("allDay").value.toString()
                         var doesRepeat = snapshot.child("doesRepeat").value.toString()
 
-                        if (eventdate.size == 3) {
+
 
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.eventTitle).text = snapshot.child("title").value.toString()
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.unformatted).text =

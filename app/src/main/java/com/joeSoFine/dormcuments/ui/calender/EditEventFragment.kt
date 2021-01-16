@@ -68,6 +68,9 @@ class EditEventFragment: Fragment() {
         var color = ""
 
 
+        Sdate = LocalDate.now()
+        Edate = LocalDate.now()
+
         root.findViewById<ImageView>(R.id.delete4).visibility = View.VISIBLE
 
         getdata = object : ValueEventListener {
