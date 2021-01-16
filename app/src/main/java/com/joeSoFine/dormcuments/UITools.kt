@@ -496,7 +496,11 @@ object UITools {
 
         if (arrString.equals("weeks")){
             var day = local.format(dayOfWeekFormatter)
-            Date.text = "$day $timeStart"
+            if (allDay.equals("false")) {
+                Date.text = "$day $timeStart"
+            } else {
+                Date.text = day
+            }
         } else if (arrString.equals("months")){
             Date.text = local.format(dayAndMonthFormatter)
         } else {

@@ -132,11 +132,11 @@ class CreateEventFragment : Fragment() {
                         val userid = auth.currentUser?.uid.toString()
 
                         override fun onDataChange(p0: DataSnapshot) {
-                            var name: String = p0.child(userid).child("fname").getValue() as String
+                            var name= p0.child(userid).child("fname").getValue().toString().split(" ")
                             var room: String = p0.child(userid).child("number").getValue() as String
-                            var created = "$name, $room"
+                            var created = "${name[0]}, $room"
                             if (eventType.equals("Book kitchen")) {
-                                title = name
+                                title = "Booked: ${name[0]} - $room"
                             }
 
                             createEvent(title, datStart, datEnd, timStart, timEnd, desc, locat, col!!, all, not, reapet, created)
