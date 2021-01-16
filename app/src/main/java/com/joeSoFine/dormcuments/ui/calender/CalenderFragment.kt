@@ -1,7 +1,6 @@
 package com.joeSoFine.dormcuments.ui.calender
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -29,7 +28,6 @@ import com.nambimobile.widgets.efab.ExpandableFab
 import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.fragment_calender.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.NonCancellable.cancel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -115,7 +113,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                     true
                 }
                 R.id.filter -> {
-                    Snackbar.make(contextView,"Comming soon! Not yet implemented.", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(contextView, "Comming soon! Not yet implemented.", Snackbar.LENGTH_SHORT)
                         .setAnchorView(fab)
                         .show()
                     filterDialog()
@@ -197,19 +195,13 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
     }
 
-    private fun buttonLoop(arr: ArrayList<String>, st:String, current: Int) {
+    private fun buttonLoop(arr: ArrayList<String>, st: String, current: Int) {
 
-        for ((cnt,element) in arr.withIndex()) {
+        for ((cnt, element) in arr.withIndex()) {
             val tab: TabLayout.Tab =  scroller.newTab()
             tab.text = element
-
             scroller.addTab(tab)
-
-
-
         }
-
-
     }
 
     private fun getTagetSize(){
@@ -227,7 +219,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun buttonPressed(arr: ArrayList<String>, arrString: String, current: Int){
         lottie.visibility = View.VISIBLE
-        buttonLoop(arr,arrString, current)
+        buttonLoop(arr, arrString, current)
         if (current == 52) {
             var tab = scroller.getTabAt(0)
             tab?.select()
@@ -240,7 +232,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             }
 
             var tab = scroller.getTabAt(current_longYear)
-            tab?.select()
+            if (tab != null) {
+                scroller.post(java.lang.Runnable { tab.select() })
+            }
         }
     }
 
@@ -275,39 +269,48 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 myContainer.removeAllViews()
-                if(tab?.position != 0 || (tab.text.toString() == "January")){
+                onBetaTabSelected(tab!!)
+                /*
+                if (tab?.position != 0 || (tab.text.toString() == "January")) {
                     uiScope.launch(Dispatchers.IO) {
-                        if (id == 0){
+                        if (id == 0) {
                             onBetaTabSelected(tab!!)
                         } else {
                             id++
                         }
-                        withContext(Dispatchers.Main){
+                        withContext(Dispatchers.Main) {
                             myContainer.removeAllViews()
                         }
                     }
                 } else {
                     onBetaTabSelected(tab)
                 }
+
+                 */
             }
 
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 myContainer.removeAllViews()
-                if(tab?.position != 0 || (tab.text.toString() == "January")){
+                onBetaTabSelected(tab!!)
+
+                /*
+                if (tab?.position != 0 || (tab.text.toString() == "January")) {
                     uiScope.launch(Dispatchers.IO) {
-                        if (id == 0){
+                        if (id == 0) {
                             onBetaTabSelected(tab!!)
                         } else {
                             id++
                         }
-                        withContext(Dispatchers.Main){
+                        withContext(Dispatchers.Main) {
                             myContainer.removeAllViews()
                         }
                     }
                 } else {
                     onBetaTabSelected(tab)
                 }
+
+                 */
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
