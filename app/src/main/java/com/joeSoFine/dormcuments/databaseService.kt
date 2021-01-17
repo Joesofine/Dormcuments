@@ -13,9 +13,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import com.joeSoFine.dormcuments.ui.calender.CalenderFragment
 import com.joeSoFine.dormcuments.ui.cleaning.Cleaning
 import com.joeSoFine.dormcuments.ui.meeting.MeetingFragment
 import com.joeSoFine.dormcuments.ui.meeting.Topic
@@ -33,6 +35,8 @@ object databaseService {
     var c = 0
     private var auth = Firebase.auth
     var bool = false
+    private val months = ArrayList<String>()
+
 
 
     fun generateID(ref: String): String? {
@@ -60,6 +64,10 @@ object databaseService {
     fun saveShopItemToDatabase(ref: String, product: Item, context: Context, layout: LinearLayout, layoutInflater: LayoutInflater) {
         val id = generateID(ref)
         database.getReference(ref).child(id!!).setValue(product)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT)
+                    .show()
+            }
             .addOnFailureListener {
                 // Write failed
                 Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
@@ -169,7 +177,7 @@ object databaseService {
         context: Context,
         refE: String,
         refU: String,
-        whoops: TextView
+        whoops: TextView, scroller: TabLayout
     ) {
         var childListener = object : ChildEventListener {
             override fun onChildAdded(i: DataSnapshot, previousChildName: String?) {
@@ -203,6 +211,8 @@ object databaseService {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == snapshot.key.toString()) {
+                        var part = scroller.getTabAt(scroller.selectedTabPosition)?.text.toString()
+                        var relePart: Int
                         var dateUn: String = snapshot.child("unformattedDate").value as String
                         var eventdate = dateUn.split("-")
 
@@ -212,17 +222,37 @@ object databaseService {
                             }
                         } else {
                             if (eventdate[0].toInt() == current_year) {
-                                if (arrString.equals("weeks")) {
+                                if (part.contains("W")) {
                                     var local = LocalDate.of(eventdate[0].toInt(), eventdate[1].toInt(), eventdate[2].toInt())
                                     val woy: TemporalField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()
-                                    if (local.get(woy) == relevantDatePart) {
+                                    relePart = part.replace("W","").toInt()
+                                    if (local.get(woy) == relePart) {
                                        onEventViewChangedUpdateView(myContainer,i, snapshot, arrString, layoutInflater, fragmentManager, context, refU, refE)
                                     } else {
                                         myContainer.removeView(myContainer.getChildAt(i))
                                     }
-                                } else {
-                                    if (eventdate[DateIndex].toInt() == relevantDatePart) {
+                                } else if(!part.contains("20")) {
+                                    makeMonthArr()
+                                    relePart = months.indexOf(part) + 1
+                                    if (eventdate[1].toInt() == relePart) {
                                         onEventViewChangedUpdateView(myContainer,i, snapshot, arrString, layoutInflater, fragmentManager, context, refU, refE)
+                                    } else {
+                                        myContainer.removeView(myContainer.getChildAt(i))
+                                    }
+                                } else {
+                                    relePart = part.toInt()
+                                    if (eventdate[0].toInt() == relePart) {
+                                        onEventViewChangedUpdateView(
+                                            myContainer,
+                                            i,
+                                            snapshot,
+                                            arrString,
+                                            layoutInflater,
+                                            fragmentManager,
+                                            context,
+                                            refU,
+                                            refE
+                                        )
                                     } else {
                                         myContainer.removeView(myContainer.getChildAt(i))
                                     }
@@ -233,6 +263,7 @@ object databaseService {
                         break
                     }
                 }
+                progressBar.visibility = View.GONE
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
@@ -256,6 +287,8 @@ object databaseService {
             }
         }
         database.getReference(refE).addChildEventListener(childListener)
+        UITools.setWhoops(myContainer, whoops)
+        progressBar.visibility = View.GONE
     }
 
         fun setFoodChildListener(
@@ -444,7 +477,9 @@ object databaseService {
                 }
                 st = parti.text.toString()
 
-                database.getReference(ref).child(eventid).child("participants").setValue(st)
+                database.getReference(ref).child(eventid).child("participants").setValue(st).addOnSuccessListener {
+                }
+                    .addOnFailureListener {}
 
             } else {
                 if (parti.text.toString().contains(", $rn")) {
@@ -454,7 +489,9 @@ object databaseService {
                 }
                 parti.text = st
 
-                database.getReference(ref).child(eventid).child("participants").setValue(st)
+                database.getReference(ref).child(eventid).child("participants").setValue(st).addOnSuccessListener {
+                }.addOnFailureListener { }
+
             }
         }
     }
@@ -549,6 +586,21 @@ object databaseService {
                 break
             }
         }
+    }
+
+    fun makeMonthArr(){
+        months.add("January")
+        months.add("Februar")
+        months.add("March")
+        months.add("April")
+        months.add("May")
+        months.add("June")
+        months.add("July")
+        months.add("August")
+        months.add("September")
+        months.add("October")
+        months.add("November")
+        months.add("December")
     }
 
 }

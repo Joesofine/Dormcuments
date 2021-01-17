@@ -159,9 +159,9 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         }
     }
 
-    private fun makeMonthArr(){
+     fun makeMonthArr(){
         months.add("January")
-        months.add("February ")
+        months.add("Februar")
         months.add("March")
         months.add("April")
         months.add("May")
@@ -256,14 +256,12 @@ class CalenderFragment : Fragment(),View.OnClickListener {
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                //scroller.removeAllTabs()
                 myContainer.removeAllViews()
             }
         })
     }
 
     fun iniBetaTablayout(){
-        var id = 0;
         scroller.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             @RequiresApi(Build.VERSION_CODES.O)
@@ -298,7 +296,6 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun onBetaTabSelected(tab: TabLayout.Tab){
-        tab
         var tabText = tab?.text.toString()
         if (weeks.contains(tabText)) {
             var weekNumber = tab?.text.toString().replace("W", "").toInt()
@@ -314,7 +311,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 requireContext(),
                 refE,
                 refU,
-                whoops
+                whoops, scroller
             )
 
         } else if (years.contains(tabText)) {
@@ -330,12 +327,11 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 requireContext(),
                 refE,
                 refU,
-                whoops
+                whoops, scroller
             )
 
 
         } else if (months.contains(tabText)) {
-
             databaseService.getSortedEvents(
                 1,
                 months.indexOf(tab?.text.toString()) + 1,
@@ -348,7 +344,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
                 requireContext(),
                 refE,
                 refU,
-                whoops
+                whoops, scroller
             )
         }
     }
