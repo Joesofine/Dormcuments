@@ -301,7 +301,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         tab
         var tabText = tab?.text.toString()
         if (weeks.contains(tabText)) {
-            var weekNumber = tab?.text.toString().replace("U", "").toInt()
+            var weekNumber = tab?.text.toString().replace("W", "").toInt()
             databaseService.getSortedEvents(
                 0,
                 weekNumber,
