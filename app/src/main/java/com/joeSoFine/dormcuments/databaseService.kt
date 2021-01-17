@@ -60,10 +60,6 @@ object databaseService {
     fun saveShopItemToDatabase(ref: String, product: Item, context: Context, layout: LinearLayout, layoutInflater: LayoutInflater) {
         val id = generateID(ref)
         database.getReference(ref).child(id!!).setValue(product)
-            .addOnSuccessListener {
-                Toast.makeText(context, "Item has been added", Toast.LENGTH_SHORT)
-                    .show()
-            }
             .addOnFailureListener {
                 // Write failed
                 Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
@@ -448,9 +444,7 @@ object databaseService {
                 }
                 st = parti.text.toString()
 
-                database.getReference(ref).child(eventid).child("participants").setValue(st).addOnSuccessListener {
-                }
-                    .addOnFailureListener {}
+                database.getReference(ref).child(eventid).child("participants").setValue(st)
 
             } else {
                 if (parti.text.toString().contains(", $rn")) {
@@ -460,9 +454,7 @@ object databaseService {
                 }
                 parti.text = st
 
-                database.getReference(ref).child(eventid).child("participants").setValue(st).addOnSuccessListener {
-                }.addOnFailureListener { }
-
+                database.getReference(ref).child(eventid).child("participants").setValue(st)
             }
         }
     }

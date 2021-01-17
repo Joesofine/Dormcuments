@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val f = supportFragmentManager.fragments.last()?.childFragmentManager?.fragments?.get(0)
 
         if (onBackPressedListener != null) {
-            if (f is ShoppingFragment || f is FoodclubFragment || f is MoreFragment) {
+            if (f is ShopViewpagerFragment || f is FoodclubFragment || f is MoreFragment) {
                 onBackPressedListener!!.doBack()
                 bottomNavigationView.selectedItemId = (R.id.calender)
             } else

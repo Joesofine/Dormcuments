@@ -161,7 +161,7 @@ class CalenderFragment : Fragment(),View.OnClickListener {
 
     private fun makeMonthArr(){
         months.add("January")
-        months.add("Februar")
+        months.add("February ")
         months.add("March")
         months.add("April")
         months.add("May")
@@ -181,11 +181,11 @@ class CalenderFragment : Fragment(),View.OnClickListener {
         val last_year_weeks = (cal[Calendar.WEEK_OF_YEAR])
 
         if (last_year_weeks == 53){
-            weeks.add("U53")
+            weeks.add("W53")
         }
 
         for (i in 1..Calendar.getInstance().getActualMaximum(Calendar.WEEK_OF_YEAR)) {
-            val st = "U$i"
+            val st = "W$i"
             weeks.add(st)
         }
     }

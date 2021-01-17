@@ -81,7 +81,6 @@ object UITools {
         builder.setPositiveButton("Continue"){ dialogInterface, which ->
             if (id != null) {
                 databaseService.delteChildFromDatabase(id, ref)
-                Toast.makeText(context, "Deleted", Toast.LENGTH_LONG).show()
                 fragmentManager.popBackStack()
                 fragmentManager.popBackStack()
             }
