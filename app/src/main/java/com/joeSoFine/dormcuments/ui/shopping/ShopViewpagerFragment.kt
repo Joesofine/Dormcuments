@@ -1,12 +1,15 @@
 package com.joeSoFine.dormcuments.ui.shopping
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.ktx.auth
@@ -18,6 +21,7 @@ import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.*
 import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_calender.*
 
 class ShopViewpagerFragment : Fragment() {
 
@@ -30,7 +34,7 @@ class ShopViewpagerFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_shop_viewpager, container, false)
 
         initViewPager2WithFragments(root)
-        return root
+                return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,16 +59,6 @@ class ShopViewpagerFragment : Fragment() {
             when (position) {
                 0 -> {
                     tab.text = "Grocery"
-                    val badge = tab.getOrCreateBadge()
-                    badge.backgroundColor = resources.getColor(R.color.meeting)
-                    var getdataU = object : ValueEventListener {
-                        override fun onDataChange(p0: DataSnapshot) {
-                            badge.number = p0.childrenCount.toInt()
-                        }
-                        override fun onCancelled(p0: DatabaseError) { println("err") }
-                    }
-
-                    FirebaseDatabase.getInstance().getReference("Shoppinglist").addValueEventListener(getdataU)
                 }
                 1 -> {
                     tab.text = "Inventory"
@@ -73,6 +67,9 @@ class ShopViewpagerFragment : Fragment() {
                     var getdataU = object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot) {
                             badge.number = p0.childrenCount.toInt()
+                            if (badge.number == 0){
+                                tab.removeBadge()
+                            }
                         }
                         override fun onCancelled(p0: DatabaseError) { println("err") }
                     }
@@ -81,6 +78,19 @@ class ShopViewpagerFragment : Fragment() {
                 }
             }
         }.attach()
+
+
+        tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.removeBadge() }
+
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+        })
 
 
 
