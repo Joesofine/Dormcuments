@@ -14,6 +14,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.SmartTools
 import com.joeSoFine.dormcuments.databaseService
 import com.joeSoFine.dormcuments.UITools
 import com.nambimobile.widgets.efab.ExpandableFabLayout
@@ -27,6 +28,8 @@ class ShoppingFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        SmartTools.setUpOnBackPressed(requireActivity())
+
         val root = inflater.inflate(R.layout.fragment_shopping, container, false)
         myContainer = root.findViewById(R.id.LinScroll)
         val lottie = root.findViewById<LottieAnimationView>(R.id.animation_view)

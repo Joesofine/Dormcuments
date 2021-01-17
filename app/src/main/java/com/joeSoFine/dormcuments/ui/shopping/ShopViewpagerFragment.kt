@@ -15,10 +15,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import com.joeSoFine.dormcuments.ExampleStateAdapter
-import com.joeSoFine.dormcuments.R
-import com.joeSoFine.dormcuments.UITools
-import com.joeSoFine.dormcuments.databaseService
+import com.joeSoFine.dormcuments.*
 import com.nambimobile.widgets.efab.ExpandableFabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,7 +25,7 @@ class ShopViewpagerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        SmartTools.setUpOnBackPressed(requireActivity())
 
         val root = inflater.inflate(R.layout.fragment_shop_viewpager, container, false)
 

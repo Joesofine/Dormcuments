@@ -15,7 +15,7 @@
         android:id="@+id/shopping"
         android:name="com.joeSoFine.dormcuments.ui.shopping.ShopViewpagerFragment"
         android:label="@string/title_shopping"
-        tools:layout="@layout/fragment_shopping" />
+        tools:layout="@layout/fragment_shop_viewpager" />
 
     <fragment
         android:id="@+id/foodclub"
