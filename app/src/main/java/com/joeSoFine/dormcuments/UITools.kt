@@ -358,10 +358,12 @@ object UITools {
                             val roomK = myContainer.getChildAt(k).findViewById<TextView>(R.id.resRn).text.toString().toInt()
                             if (rn < roomK){
                                 myContainer.addView(ExpandableCardview, k)
+                                bool = true
                                 break
 
                             }
                         }
+                        if (bool){break}
                     }
                 }
             }

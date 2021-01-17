@@ -92,30 +92,18 @@ class SignUp : AppCompatActivity() {
             } else if (!Uemail.contains("@") || !Uemail.contains(".")) {
                 email.error = "Email not valid"
             } else if (chopass.isEmpty()) {
-                cho_password.error = "Please create a password"
+                cho_password.error = "Please choose a password"
             } else if (reapass.isEmpty()) {
                 reap_password.error = "Please repeat password"
             } else if (reapass != chopass) {
                 cho_password.error = "The passwords are not the same"
                 reap_password.error = "The passwords are not the same"
-
+            } else if (chopass.length < 8) {
+                cho_password.error = "Password has to be at least 8 long"
             } else {
                 createAccount(Uemail, reapass, fname, number, bdate, from, diet, fact)
             }
         })
-    }
-
-    private fun setIconsTint(edit: EditText, noTint: Int, tint: Int){
-        edit.setOnFocusChangeListener { view, hasFocus ->
-            if (hasFocus) {
-                edit.setCompoundDrawablesWithIntrinsicBounds(tint, 0, 0, 0)
-                edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_blue_dark), PorterDuff.Mode.SRC_ATOP)
-            }
-            else {
-                edit.setCompoundDrawablesWithIntrinsicBounds(noTint, 0, 0, 0)
-                edit.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP)
-            }
-        }
     }
 
     private fun createAccount(email: String, password: String, fname: String, number: String, bdate: String, from: String, diet: String, fact: String) {

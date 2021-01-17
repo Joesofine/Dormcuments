@@ -82,6 +82,8 @@
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/lightHint"
                 app:hintTextColor="@color/Slider"
+                app:helperTextEnabled="true"
+                app:helperText="Password has to be 8 or more symbols"
                 app:layout_constraintBottom_toTopOf="@+id/signIpButton"
                 app:layout_constraintEnd_toEndOf="@+id/mail"
                 app:layout_constraintStart_toStartOf="@+id/mail"
