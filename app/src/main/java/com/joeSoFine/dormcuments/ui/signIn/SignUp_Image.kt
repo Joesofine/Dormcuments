@@ -20,6 +20,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.joeSoFine.dormcuments.MainActivity
 import com.joeSoFine.dormcuments.R
 import com.joeSoFine.dormcuments.databaseService
 import kotlinx.android.synthetic.main.activity_sign_up.save
@@ -87,7 +88,7 @@ class SignUp_Image : AppCompatActivity() {
                                 .addOnSuccessListener {
                                     Toast.makeText(applicationContext, "SUCCES", Toast.LENGTH_SHORT).show()
 
-                                    val intent = Intent(applicationContext, SignIn::class.java)
+                                    val intent = Intent(applicationContext, MainActivity::class.java)
                                     startActivity(intent)
                                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                                 }
