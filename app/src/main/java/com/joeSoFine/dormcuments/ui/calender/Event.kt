@@ -16,7 +16,6 @@ class Event {
     var participants = ""
     var unformattedDate = ""
 
-
     constructor(title: String, dateStart: String, dateEnd: String, timeStart: String, timeEnd: String, des: String, location: String,
                 color: String, allDay: String, notification: String, doesRepeat: String, createdBy: String, participants: String, unformattedDate: String){
 

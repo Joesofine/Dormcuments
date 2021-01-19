@@ -2,10 +2,12 @@ package com.joeSoFine.dormcuments.ui.signIn
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -23,6 +25,9 @@ import com.google.firebase.ktx.Firebase
 import com.joeSoFine.dormcuments.*
 import com.joeSoFine.dormcuments.R
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import java.util.Base64.getEncoder
 
 
 @Suppress("DEPRECATION")
@@ -43,7 +48,7 @@ class SignIn : AppCompatActivity() {
         auth = Firebase.auth
 
         // Code for generating hash key
-        /* try {
+         /* try {
             val info = packageManager.getPackageInfo(
                 "com.joeSoFine.dormcuments",
                 PackageManager.GET_SIGNATURES
@@ -51,18 +56,15 @@ class SignIn : AppCompatActivity() {
             for (signature in info.signatures) {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
-                println("--------------------------------------------------------------------------------------------")
                 println((Base64.getEncoder().encodeToString(md.digest())))
             }
         } catch (e: PackageManager.NameNotFoundException) {
         } catch (e: NoSuchAlgorithmException) {
         }
 
-         */
+          */
 
 
-        //setIconsTint(mail, R.drawable.email_icon_white, R.drawable.email_icon_tint)
-        //setIconsTint(password, R.drawable.password_icon_white, R.drawable.password_icon_tint)
 
         signIpButton.setOnClickListener(View.OnClickListener {
             animation_view.visibility = View.VISIBLE

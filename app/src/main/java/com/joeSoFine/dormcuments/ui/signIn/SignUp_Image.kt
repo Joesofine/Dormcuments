@@ -10,18 +10,23 @@ import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.joeSoFine.dormcuments.R
+import com.joeSoFine.dormcuments.databaseService
 import kotlinx.android.synthetic.main.activity_sign_up.save
 import kotlinx.android.synthetic.main.activity_sign_up2.*
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 
 class SignUp_Image : AppCompatActivity() {
@@ -29,6 +34,7 @@ class SignUp_Image : AppCompatActivity() {
 
     lateinit var imageUri: Uri
     var database = FirebaseDatabase.getInstance().getReference("Users")
+    var bool = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +42,11 @@ class SignUp_Image : AppCompatActivity() {
 
         choosePic.setOnClickListener() {
 
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
                     PackageManager.PERMISSION_DENIED
-                ) {
-                    //permission denied
+                ) { //permission denied
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
                     //show popup to request runtime permission
                     requestPermissions(permissions, PERMISSION_CODE);
@@ -55,6 +61,7 @@ class SignUp_Image : AppCompatActivity() {
         }
 
         save.setOnClickListener(View.OnClickListener {
+            bool = true
             var storageRef = Firebase.storage.reference
 
             val user: User? = intent.getParcelableExtra("user")
@@ -71,7 +78,6 @@ class SignUp_Image : AppCompatActivity() {
             }.addOnSuccessListener { taskSnapshot ->
                 // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                 // ...
-
                 if (user != null) {
                     imagesRef.downloadUrl.addOnSuccessListener { uri ->
                         user.url = uri.toString()
@@ -96,18 +102,41 @@ class SignUp_Image : AppCompatActivity() {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!bool) {
+            Firebase.auth.currentUser?.delete()
+        }
+    }
+
     fun getImageUriFromBitmap(context: Context, bitmap: Bitmap): Uri{
+        var tempDir: File = Environment.getExternalStorageDirectory()
+        tempDir = File(tempDir.getAbsolutePath().toString() + "/.temp/")
+        tempDir.mkdir()
+        val tempFile: File = File.createTempFile(title.toString(), ".jpg", tempDir)
         val bytes = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
-        return Uri.parse(path.toString())
+        val bitmapData = bytes.toByteArray()
+        //write the bytes in file
+
+        //write the bytes in file
+        val fos = FileOutputStream(tempFile)
+        fos.write(bitmapData)
+        fos.flush()
+        fos.close()
+        return Uri.fromFile(tempFile)
+
+        //val bytes = ByteArrayOutputStream()
+        //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        //val path = MediaStore.Images.Media.insertImage(context.contentResolver, bitmap, "Title", null)
+        //return Uri.parse(path.toString())
     }
 
     private fun pickImageFromGallery() {
         //Intent to pick image
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
+        val photoPickerIntent = Intent(Intent.ACTION_PICK)
+        photoPickerIntent.type = "image/*"
+        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE)
     }
 
     companion object {
@@ -115,6 +144,8 @@ class SignUp_Image : AppCompatActivity() {
         private val IMAGE_PICK_CODE = 1000;
         //Permission code
         private val PERMISSION_CODE = 1001;
+
+        private val RESULT_LOAD_IMAGE = 1
     }
 
     //handle requested permission result
@@ -138,8 +169,7 @@ class SignUp_Image : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            requestPermission()
+        if (resultCode == Activity.RESULT_OK){
             imageUri = data?.data!!
             var bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
 
