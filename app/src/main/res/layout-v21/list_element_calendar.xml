@@ -377,14 +377,16 @@
 
                     <TextView
                         android:id="@+id/by"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:gravity="center"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="left"
                         android:text="Created by: Josephine, 910"
                         android:textColor="@color/Black"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/joinSwitch"
+                        app:layout_constraintStart_toStartOf="@+id/textView75"
                         app:layout_constraintTop_toBottomOf="@+id/divdes3" />
 
                     <TextView
@@ -443,11 +445,10 @@
                         android:id="@+id/editEvent"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_marginTop="5dp"
                         android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="@+id/by"
-                        app:layout_constraintStart_toStartOf="@+id/by"
-                        app:layout_constraintTop_toBottomOf="@+id/by"
+                        app:layout_constraintBottom_toBottomOf="@+id/by"
+                        app:layout_constraintEnd_toEndOf="@+id/joinSwitch"
+                        app:layout_constraintTop_toTopOf="@+id/by"
                         app:srcCompat="@drawable/edit_icon" />
 
 

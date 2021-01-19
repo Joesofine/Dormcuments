@@ -472,7 +472,7 @@ object UITools {
         id.text = eventid
         eventtitle.text = title
         uf.text = unformattedDate
-        by.text = "Created by:\n$createdBy"
+        by.text = "Created by: $createdBy"
         parti.text = par
 
         if (color.equals("Social event")){
