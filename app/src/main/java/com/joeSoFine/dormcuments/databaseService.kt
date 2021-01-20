@@ -271,6 +271,7 @@ object databaseService {
                 for (i in 0..myContainer.childCount - 1) {
                     if (myContainer.getChildAt(i).findViewById<TextView>(R.id.idCon).text.toString() == p0.key.toString()) {
                         myContainer.removeView(myContainer.getChildAt(i))
+                        UITools.setWhoops(myContainer, whoops)
                         Toast.makeText(context, p0.child("title").value.toString() + " was removed", Toast.LENGTH_SHORT).show()
                         break
                     }
@@ -395,9 +396,7 @@ object databaseService {
                         } else if (ref.equals("Agenda")){
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.meetingItem).text = snapshot.child("name").value.toString()
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.sum).text = snapshot.child("summary").value.toString()
-                        }
-
-                        else {
+                        } else {
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.who1).text = snapshot.child("c1").value.toString()
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.who2).text = snapshot.child("c2").value.toString()
                             myContainer.getChildAt(i).findViewById<TextView>(R.id.date).text = snapshot.child("date").value.toString()

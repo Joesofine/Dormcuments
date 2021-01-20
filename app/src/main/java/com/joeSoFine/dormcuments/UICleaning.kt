@@ -53,6 +53,7 @@ object UICleaning {
             false
         } else if (date2.text.toString() == "") {
             date2.error = "Please choose a date"
+            date2.requestFocus()
             false
         } else {
             true

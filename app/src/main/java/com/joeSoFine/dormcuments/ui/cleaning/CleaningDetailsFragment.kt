@@ -139,7 +139,6 @@ class CleaningDetailsFragment : Fragment() {
                 val str = "$n, $rn"
                 checkText.text = "Checked by: $str"
                 database.child(cleaningid).child("checkedBy").setValue(str).addOnSuccessListener {
-                    Toast.makeText(context, "Cleaning is checked", Toast.LENGTH_SHORT).show()
                 }
                     .addOnFailureListener {
                         // Write failed
@@ -148,7 +147,6 @@ class CleaningDetailsFragment : Fragment() {
             } else {
                 checkText.text = "Unchecked"
                 database.child(cleaningid).child("checkedBy").setValue("Unchecked").addOnSuccessListener {
-                    Toast.makeText(context, "Cleaning is unchecked", Toast.LENGTH_SHORT).show()
                 }
                     .addOnFailureListener {
                         // Write failed

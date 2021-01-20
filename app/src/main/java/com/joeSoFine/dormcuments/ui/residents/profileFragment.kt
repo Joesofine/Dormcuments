@@ -460,23 +460,19 @@ class profileFragment : Fragment() {
                             database.child(userid).setValue(user)
                                 .addOnSuccessListener {
                                     UITools.playLotiieOnce(succes, requireFragmentManager(), "pop")
-                                    Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
-                                    getFragmentManager()?.popBackStack()
                                 }
                                 .addOnFailureListener {
                                     UITools.playLotiieOnceNoPop(fail)
-
                                 }
                         }
                     }
                 } else {
                     database.child(userid).setValue(user).addOnSuccessListener {
-                        Toast.makeText(context, "Changes are saved", Toast.LENGTH_SHORT).show()
-                        getFragmentManager()?.popBackStack()
+                        UITools.playLotiieOnce(succes, requireFragmentManager(), "pop")
+
                     }
                         .addOnFailureListener {
-                            // Write failed
-                            Toast.makeText(requireContext(), "Try again", Toast.LENGTH_SHORT).show()
+                            UITools.playLotiieOnceNoPop(fail)
                         }
                 }
             }

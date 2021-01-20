@@ -35,10 +35,279 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            tools:layout_editor_absoluteY="731dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteY="731dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="30dp">
+
+
+                    <EditText
+                        android:id="@+id/city_edit"
+                        android:layout_width="110dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="15dp"
+                        android:drawableRight="@drawable/edit_pen_icon_white"
+                        android:drawablePadding="10dp"
+                        android:hint="City"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/White"
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        app:backgroundTint="@color/White"
+                        app:layout_constraintBottom_toTopOf="@+id/diet"
+                        app:layout_constraintStart_toStartOf="@+id/date" />
+
+                    <EditText
+                        android:id="@+id/country_edit"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:drawableRight="@drawable/edit_pen_icon_white"
+                        android:drawablePadding="10dp"
+                        android:hint="Country"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/White"
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        app:backgroundTint="@color/White"
+                        app:layout_constraintBottom_toTopOf="@+id/diet"
+                        app:layout_constraintEnd_toEndOf="@+id/date"
+                        app:layout_constraintStart_toEndOf="@+id/city_edit" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <Button
+                            android:id="@+id/close"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/sign_in_button"
+                            android:text="Close"
+                            android:textAllCaps="false"
+                            android:textColor="#0C0000"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+                        <DatePicker
+                            android:id="@+id/datePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:animateLayoutChanges="false"
+                            android:background="@color/White"
+                            android:calendarViewShown="false"
+                            android:datePickerMode="spinner"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toTopOf="@+id/close"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="1.0" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <EditText
+                        android:id="@+id/name_signup"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="15dp"
+                        android:drawableRight="@drawable/edit_pen_icon_white"
+                        android:drawablePadding="10dp"
+                        android:hint="Firstname Lastname"
+                        android:inputType="textPersonName|textCapSentences"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/lightHint"
+                        android:textSize="14sp"
+                        app:backgroundTint="@color/White"
+                        app:layout_constraintBottom_toTopOf="@+id/room_spinner"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <EditText
+                        android:id="@+id/city_signup"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="15dp"
+                        android:drawableRight="@drawable/edit_pen_icon_white"
+                        android:drawablePadding="10dp"
+                        android:hint="City, Country"
+                        android:inputType="textCapSentences"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/lightHint"
+                        android:textSize="14sp"
+                        app:backgroundTint="@color/White"
+                        app:layout_constraintBottom_toTopOf="@+id/diet"
+                        app:layout_constraintEnd_toEndOf="@+id/date"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="@+id/date" />
+
+                    <Spinner
+                        android:id="@+id/room_spinner"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_centerHorizontal="false"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="15dp"
+                        android:gravity="left"
+                        android:padding="0dp"
+                        app:backgroundTint="@color/White"
+                        app:layout_constraintBottom_toTopOf="@+id/date"
+                        app:layout_constraintEnd_toEndOf="@+id/name_signup"
+                        app:layout_constraintStart_toStartOf="@+id/name_signup" />
+
+                    <EditText
+                        android:id="@+id/date"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="70dp"
+                        android:drawableRight="@drawable/edit_pen_icon_white"
+                        android:drawablePadding="10dp"
+                        android:editable="false"
+                        android:hint="Birthday"
+                        android:inputType="none"
+                        android:selectAllOnFocus="true"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/lightHint"
+                        android:textSize="14sp"
+                        app:backgroundTint="@color/White"
+                        app:layout_constraintBottom_toTopOf="@+id/diet"
+                        app:layout_constraintEnd_toEndOf="@+id/room_spinner"
+                        app:layout_constraintStart_toStartOf="@+id/room_spinner" />
+
+                    <EditText
+                        android:id="@+id/funfact"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp"
+                        android:drawableRight="@drawable/edit_pen_icon_white"
+                        android:drawablePadding="10dp"
+                        android:hint="Funfact"
+                        android:imeOptions="actionNext"
+                        android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                        android:selectAllOnFocus="true"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/lightHint"
+                        android:textSize="14sp"
+                        app:backgroundTint="@color/White"
+                        app:layout_constraintBottom_toTopOf="@+id/save"
+                        app:layout_constraintEnd_toEndOf="@+id/diet"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="@+id/diet" />
+
+                    <EditText
+                        android:id="@+id/diet"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:drawableRight="@drawable/edit_pen_icon_white"
+                        android:drawablePadding="10dp"
+                        android:hint="Diets and Allergies"
+                        android:imeOptions="actionNext"
+                        android:inputType="textLongMessage|textMultiLine|textCapSentences"
+                        android:selectAllOnFocus="true"
+                        android:textColor="@color/White"
+                        android:textColorHint="@color/lightHint"
+                        android:textSize="14sp"
+                        app:backgroundTint="@color/White"
+                        app:layout_constraintBottom_toTopOf="@+id/funfact"
+                        app:layout_constraintEnd_toEndOf="@+id/date"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/date" />
+
+                    <Button
+                        android:id="@+id/save"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:backgroundTint="@color/White"
+                        android:text="Save Changes"
+                        android:textAllCaps="false"
+                        android:textColor="@color/Black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/diet"
+                        app:layout_constraintStart_toStartOf="@+id/diet" />
+
+                    <ImageView
+                        android:id="@+id/editImageButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_button"
+                        android:cropToPadding="false"
+                        android:elevation="15dp"
+                        android:padding="5dp"
+                        android:src="@drawable/edit_image_white"
+                        app:layout_constraintBottom_toBottomOf="@+id/userImage"
+                        app:layout_constraintEnd_toEndOf="@+id/userImage"
+                        app:layout_constraintStart_toEndOf="@+id/userImage"
+                        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+
+                    <ImageView
+                        android:id="@+id/userImage"
+                        android:layout_width="0dp"
+                        android:layout_height="300dp"
+                        android:layout_marginStart="70dp"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="70dp"
+                        android:layout_marginRight="70dp"
+                        android:layout_marginBottom="50dp"
+                        android:cropToPadding="false"
+                        app:layout_constraintBottom_toTopOf="@+id/name_signup"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/threedots" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/succes"
@@ -67,272 +336,6 @@
                 app:lottie_rawRes="@raw/fail" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteY="731dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="30dp">
-
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/animation_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/funfact"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/threedots" />
-
-                <EditText
-                    android:id="@+id/city_edit"
-                    android:layout_width="110dp"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="15dp"
-                    android:drawableRight="@drawable/edit_pen_icon_white"
-                    android:drawablePadding="10dp"
-                    android:hint="City"
-                    android:inputType="textCapSentences"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/White"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintBottom_toTopOf="@+id/diet"
-                    app:layout_constraintStart_toStartOf="@+id/date" />
-
-                <EditText
-                    android:id="@+id/country_edit"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="15dp"
-                    android:drawableRight="@drawable/edit_pen_icon_white"
-                    android:drawablePadding="10dp"
-                    android:hint="Country"
-                    android:inputType="textCapSentences"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/White"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintBottom_toTopOf="@+id/diet"
-                    app:layout_constraintEnd_toEndOf="@+id/date"
-                    app:layout_constraintStart_toEndOf="@+id/city_edit" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:elevation="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <Button
-                        android:id="@+id/close"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/sign_in_button"
-                        android:text="Close"
-                        android:textAllCaps="false"
-                        android:textColor="#0C0000"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
-
-                    <DatePicker
-                        android:id="@+id/datePicker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:animateLayoutChanges="false"
-                        android:background="@color/White"
-                        android:calendarViewShown="false"
-                        android:datePickerMode="spinner"
-                        android:visibility="gone"
-                        app:layout_constraintBottom_toTopOf="@+id/close"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="1.0" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <EditText
-                    android:id="@+id/name_signup"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="15dp"
-                    android:drawableRight="@drawable/edit_pen_icon_white"
-                    android:drawablePadding="10dp"
-                    android:hint="Firstname Lastname"
-                    android:inputType="textPersonName|textCapSentences"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/lightHint"
-                    android:textSize="14sp"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintBottom_toTopOf="@+id/room_spinner"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <EditText
-                    android:id="@+id/city_signup"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="15dp"
-                    android:drawableRight="@drawable/edit_pen_icon_white"
-                    android:drawablePadding="10dp"
-                    android:hint="City, Country"
-                    android:inputType="textCapSentences"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/lightHint"
-                    android:textSize="14sp"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintBottom_toTopOf="@+id/diet"
-                    app:layout_constraintEnd_toEndOf="@+id/date"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/date" />
-
-                <Spinner
-                    android:id="@+id/room_spinner"
-                    style="@style/Widget.AppCompat.Spinner.Underlined"
-                    android:layout_width="0dp"
-                    android:layout_height="45dp"
-                    android:layout_centerHorizontal="false"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="15dp"
-                    android:gravity="left"
-                    android:padding="0dp"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintBottom_toTopOf="@+id/date"
-                    app:layout_constraintEnd_toEndOf="@+id/name_signup"
-                    app:layout_constraintStart_toStartOf="@+id/name_signup" />
-
-                <EditText
-                    android:id="@+id/date"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="70dp"
-                    android:drawableRight="@drawable/edit_pen_icon_white"
-                    android:drawablePadding="10dp"
-                    android:editable="false"
-                    android:hint="Birthday"
-                    android:inputType="none"
-                    android:selectAllOnFocus="true"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/lightHint"
-                    android:textSize="14sp"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintBottom_toTopOf="@+id/diet"
-                    app:layout_constraintEnd_toEndOf="@+id/room_spinner"
-                    app:layout_constraintStart_toStartOf="@+id/room_spinner" />
-
-                <EditText
-                    android:id="@+id/funfact"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
-                    android:drawableRight="@drawable/edit_pen_icon_white"
-                    android:drawablePadding="10dp"
-                    android:hint="Funfact"
-                    android:imeOptions="actionNext"
-                    android:inputType="textLongMessage|textMultiLine|textCapSentences"
-                    android:selectAllOnFocus="true"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/lightHint"
-                    android:textSize="14sp"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintBottom_toTopOf="@+id/save"
-                    app:layout_constraintEnd_toEndOf="@+id/diet"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/diet" />
-
-                <EditText
-                    android:id="@+id/diet"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:drawableRight="@drawable/edit_pen_icon_white"
-                    android:drawablePadding="10dp"
-                    android:hint="Diets and Allergies"
-                    android:imeOptions="actionNext"
-                    android:inputType="textLongMessage|textMultiLine|textCapSentences"
-                    android:selectAllOnFocus="true"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/lightHint"
-                    android:textSize="14sp"
-                    app:backgroundTint="@color/White"
-                    app:layout_constraintBottom_toTopOf="@+id/funfact"
-                    app:layout_constraintEnd_toEndOf="@+id/date"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/date" />
-
-                <Button
-                    android:id="@+id/save"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    android:backgroundTint="@color/White"
-                    android:text="Save Changes"
-                    android:textAllCaps="false"
-                    android:textColor="@color/Black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/diet"
-                    app:layout_constraintStart_toStartOf="@+id/diet" />
-
-                <ImageView
-                    android:id="@+id/editImageButton"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/edit_button"
-                    android:cropToPadding="false"
-                    android:elevation="15dp"
-                    android:padding="5dp"
-                    android:src="@drawable/edit_image_white"
-                    app:layout_constraintBottom_toBottomOf="@+id/userImage"
-                    app:layout_constraintEnd_toEndOf="@+id/userImage"
-                    app:layout_constraintStart_toEndOf="@+id/userImage"
-                    app:layout_constraintTop_toBottomOf="@+id/userImage" />
-
-                <ImageView
-                    android:id="@+id/userImage"
-                    android:layout_width="0dp"
-                    android:layout_height="300dp"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginLeft="70dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginEnd="70dp"
-                    android:layout_marginRight="70dp"
-                    android:layout_marginBottom="50dp"
-                    android:cropToPadding="false"
-                    app:layout_constraintBottom_toTopOf="@+id/name_signup"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/avatars" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </ScrollView>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

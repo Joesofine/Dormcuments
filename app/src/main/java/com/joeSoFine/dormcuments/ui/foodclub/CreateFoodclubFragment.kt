@@ -41,26 +41,30 @@ class CreateFoodclubFragment : Fragment() {
         root.findViewById<Button>(R.id.save).setOnClickListener {
             val din = dinner.editText?.text.toString()
             val not = note.editText?.text.toString()
+            unform = unf.text.toString()
 
             if ((spinner_c1.selectedItem.toString() == spinner_c2.selectedItem.toString()) && spinner_c1.selectedItem.toString() != "None" ) {
                     Toast.makeText(context, "Cannot select the same chef twice", Toast.LENGTH_SHORT).show()
-            } else if (unf.text.toString() == "") {
+            } else if (unform == "") {
                     date2.error = "Please choose a date"
             } else {
+                root.findViewById<Button>(R.id.save).isClickable = false
+
+                var dat = date2.editText?.text.toString()
 
                 val clubid = database.push().key
-                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), date2.editText?.text.toString(), din, not, "", "", unf.text.toString())
+                val club = Foodclub(spinner_c1.selectedItem.toString(), spinner_c2.selectedItem.toString(), dat, din, not, "", "", unf.text.toString())
                 if (clubid != null) {
 
                     database.child(clubid).setValue(club)
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Foodclub been created", Toast.LENGTH_SHORT).show()
-                            requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, FoodclubFragment()).addToBackStack(null)
-                                .commit()
+                            UITools.playLotiieOnce(succes, requireFragmentManager(),"pop")
+                            Toast.makeText(context, "Foodclub $dat been created", Toast.LENGTH_SHORT).show()
+                            //requireFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, FoodclubFragment()).addToBackStack(null).commit()
                         }
                         .addOnFailureListener {
                             // Write failed
-                            Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+                            UITools.playLotiieOnceNoPop(fail)
                         }
                 }
             }
