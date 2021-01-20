@@ -191,7 +191,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/White"
-                    android:text="Close"
+                    android:text="Done"
                     android:textAllCaps="false"
                     android:textColor="#0C0000"
                     android:visibility="visible"

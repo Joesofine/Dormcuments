@@ -1,22 +1,23 @@
 package com.joeSoFine.dormcuments.ui.signIn
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
-import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.joeSoFine.dormcuments.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.joeSoFine.dormcuments.R
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.util.*
 
@@ -31,11 +32,22 @@ class SignUp : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
         auth = Firebase.auth
 
+        val myAdapter = ArrayAdapter(applicationContext, R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
+        myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
+        room_spinner.adapter = myAdapter
+        if (Build.VERSION.SDK_INT>25){
+            room_spinner.isFocusable = true;
+            room_spinner.isFocusableInTouchMode = true;
+            room_spinner.requestFocus();
+        }
+
         val datePicker = findViewById<DatePicker>(R.id.datePicker)
         val today = Calendar.getInstance()
 
-        datePicker.init(2000, today.get(Calendar.MONTH),
-            today.get(Calendar.DAY_OF_MONTH))
+        datePicker.init(
+            2000, today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH)
+        )
 
         { view, year, month, day ->
             val month = month + 1
@@ -53,11 +65,24 @@ class SignUp : AppCompatActivity() {
             }
         }
 
-
-
-        val myAdapter = ArrayAdapter(applicationContext, R.layout.spinner_layout, resources.getStringArray(R.array.spinner))
-        myAdapter.setDropDownViewResource(R.layout.spinner_layout_dropdown)
-        room_spinner.adapter = myAdapter
+        name_signup.editText?.setOnFocusChangeListener { view, hasFocus ->
+            if (!hasFocus){
+                val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+            }
+        }
+        city_signup.editText?.setOnFocusChangeListener { view, hasFocus ->
+            if (!hasFocus){
+                val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+            }
+        }
+        country_signup.editText?.setOnFocusChangeListener { view, hasFocus ->
+            if (!hasFocus){
+                val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+            }
+        }
 
         close.setOnClickListener(){
             dateLayout.visibility = View.GONE
@@ -87,7 +112,7 @@ class SignUp : AppCompatActivity() {
                 city_signup.error = "Please let us know where you are from"
             } else if (country.isEmpty()) {
                 country_signup.error = "Please let us know where you are from"
-            }  else if (Uemail.isEmpty()) {
+            } else if (Uemail.isEmpty()) {
                 email.error = "Please write an email adresse"
             } else if (!Uemail.contains("@") || !Uemail.contains(".")) {
                 email.error = "Email not valid"
